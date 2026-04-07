@@ -1,3 +1,108 @@
+# TorWIC-SLAM
+
+> 交接说明截至 2026-04-07。这个仓库不是纯原始 `Grounded-SAM-2`，而是我基于它做的 `TorWIC` 数据语义前端与 `2D -> 3D` 初始化原型。下面先写当前工作状态，原始上游 README 保留在后面。
+
+## 当前定位
+
+- 基座代码来自 `Grounded-SAM-2`。
+- 当前主要目标不是复现完整论文，而是把 `Grounding DINO / OpenCLIP / SAM2` 接到 `TorWIC SLAM Dataset` 上，先验证开放词汇目标检测、分割、短时追踪，以及单帧 `2D -> 3D` 物体初始化能否跑通。
+- 目前已经做通的是“视觉语义前端原型”和“单帧几何初始化验证”。
+- 目前还没有做通的是“完整多帧语义 SLAM / 全局语义地图 / 回环 / 融合后的稳定物体级地图”。
+
+## 我已经做过的工作
+
+- 在本地把工作根目录统一整理到 `D:\TorWIC-SLAM`，并让 `grounded-sam2` 环境直接指向这个目录。
+- 新增 [`LOCAL_PROJECT.md`](./LOCAL_PROJECT.md)，记录本地目录、conda 环境、导入路径和使用方式。
+- 新增 [`run_grounded_sam2.ps1`](./run_grounded_sam2.ps1)，固定使用 `D:\miniconda3\envs\grounded-sam2\python.exe` 跑当前仓库代码，避免环境切错。
+- 新增 [`download_slam.ps1`](./download_slam.ps1)，把 `TorWIC` 的下载入口整理成可续传脚本，便于重新拉取数据集。
+- 修改 [`grounded_sam2_tracking_demo_custom_video_input_dinox.py`](./grounded_sam2_tracking_demo_custom_video_input_dinox.py)，虽然文件名还保留 `dinox`，但实际已经扩展成四种 grounding backend：
+  `auto` / `local` / `hf` / `dinox`。
+- 上面这个追踪脚本已经接到 `TorWIC` 的本地视频路径，并加入了 `OpenCLIP` 二次重排、label soft gate、可切换 backend、缓存 Hugging Face snapshot 等逻辑。
+- 新增 [`tools/openclip_reranker.py`](./tools/openclip_reranker.py)，用于对 `Grounding DINO` 候选框做 `OpenCLIP` 二次打分和标签解析。
+- 新增 [`tools/extract_mask_from_text_prompt.py`](./tools/extract_mask_from_text_prompt.py)，用于从单帧 RGB 图像按文本提示抽取 2D mask。
+- 新增 [`tools/ovo_init_mask_to_pointcloud.py`](./tools/ovo_init_mask_to_pointcloud.py)，做最小版 `OVO-style` 单帧 `2D -> 3D` 初始化：把 mask 内深度像素反投影成目标点云。
+- 新增 [`tools/extract_all_openclip_objects_to_3d.py`](./tools/extract_all_openclip_objects_to_3d.py)，把“检测 -> OpenCLIP 重排 -> SAM2 分割 -> 反投影成点云”串成完整单帧流水线。
+- 新增 [`tools/anchor_clip_memory.py`](./tools/anchor_clip_memory.py) 和 [`tools/analyze_openclip_detection_stability.py`](./tools/analyze_openclip_detection_stability.py)，用于逐帧检查 label 稳定性、丢检、跳变和 track fragmentation。
+
+## 用到的数据集
+
+- 数据集根目录是本地的 `D:\TorWIC-SLAM\TorWIC SLAM Dataset`，没有推到 GitHub。
+- `download_slam.ps1` 当前覆盖了三批 TorWIC 数据：
+  `Jun. 15, 2022`、`Jun. 23, 2022`、`Oct. 12, 2022`。
+- 已下载和整理过的内容包括：
+  bag 文件、zip 解压序列、`calibrations.txt`、`groundtruth_map.ply`、`AnnotatedSemanticSet_Finetuning.zip`。
+- 当前主实验主要集中在：
+  `TorWIC SLAM Dataset/Jun. 15, 2022/Aisle_CW_Run_1/`
+- 这条序列里我实际用到的内容主要是：
+  `image_left_first80.mp4`、对应抽帧目录、`depth_left/`，以及 TorWIC 的相机内参与深度图。
+
+## 当前已经验证过的结果
+
+- 已跑通 `TorWIC` 自定义视频追踪，并生成了本地结果视频：
+  `image_left_first80_hf_tracking_demo.mp4`
+- 已跑通加 `OpenCLIP` 重排后的版本，并生成：
+  `image_left_first80_hf_openclip_tracking_demo.mp4`
+- 已跑通带 `OpenCLIP` label 解析的版本，并生成：
+  `image_left_first80_hf_openclip_label_tracking_demo.mp4`
+- 已跑通单帧 `2D -> 3D` 初始化验证，输出在本地 `outputs/ovo_init*`。
+- 最完整的一次单帧结果在：
+  `outputs/ovo_init_openclip_all/all_instances_manifest.json`
+- 这次单帧验证使用的提示词是：
+  `wooden crate. yellow barrier.`
+- 结果上，第一帧一共提取出 4 个实例，其中 3 个成功生成点云，1 个失败。
+- 失败的那个实例是 `wooden_crate_left_00000`，失败原因是：
+  `No valid masked depth pixels remained after depth filtering.`
+- 成功的样例里，`yellow_barrier_right_00000` 生成了约 `38729` 个点，说明单帧几何初始化链路本身已经能工作。
+
+## 当前做到什么程度
+
+- 目前已经证明：在 `TorWIC` 上可以先用开放词汇提示词把目标找出来，再用 `SAM2` 出 mask，再利用深度图把目标初始化成局部点云。
+- 目前也已经证明：`OpenCLIP` 作为二阶段语义重排是能接上的，而且可以输出可分析的逐帧报告。
+- 但当前阶段依然属于“前端原型验证”，还不是“完整可用的语义 SLAM 系统”。
+- 最完整的稳定性 smoke test 在本地：
+  `outputs/openclip_stability_check_memory_smoke17/`
+- 这次 smoke test 跑的是 `8` 帧，提示词仍然是：
+  `wooden crate. yellow barrier.`
+- 从 `stability_report.json` 看，已经能生成 review video、逐帧 CSV 和 track 汇总。
+- 但结果里仍然有明显的 `extra track`、`missing frames` 和 track fragmentation，说明当前的目标级时间关联还不稳定，不能当成最终多帧语义地图前端直接使用。
+
+## 现在还没完成的部分
+
+- 还没有把这些前端结果真正并入一个完整 SLAM 后端。
+- 还没有做多视角目标融合，也没有把单帧点云初始化扩展成物体级持续融合。
+- 还没有把 `groundtruth_map.ply`、`AnnotatedSemanticSet_Finetuning.zip` 接成正式训练或量化评测流程。
+- 还没有把 `OpenCLIP` 稳定性分析变成稳定的大规模实验脚本，目前更多是 smoke test / debug 工具。
+- Windows 上跑 `OpenCLIP` 时出现过显存/内存相关问题，已有一次明确报错是：
+  `OSError: page file too small (os error 1455)`，对应本地错误记录 `outputs/openclip_stability_check_memory_smoke8.err.txt`。
+
+## 建议接手顺序
+
+1. 先看 [`LOCAL_PROJECT.md`](./LOCAL_PROJECT.md)，确认目录、环境和入口脚本。
+2. 先复现 [`grounded_sam2_tracking_demo_custom_video_input_dinox.py`](./grounded_sam2_tracking_demo_custom_video_input_dinox.py) 在 `Aisle_CW_Run_1` 上的结果，确认追踪前端还能跑。
+3. 再看 [`tools/extract_all_openclip_objects_to_3d.py`](./tools/extract_all_openclip_objects_to_3d.py) 和 [`tools/ovo_init_mask_to_pointcloud.py`](./tools/ovo_init_mask_to_pointcloud.py)，这是现在最接近“语义目标初始化”的核心链路。
+4. 最后再看 [`tools/analyze_openclip_detection_stability.py`](./tools/analyze_openclip_detection_stability.py)，因为这部分更偏分析和调参，不是最先要修的主链路。
+
+## 关键文件
+
+| Path | 用途 |
+| --- | --- |
+| [`LOCAL_PROJECT.md`](./LOCAL_PROJECT.md) | 本地项目说明和环境信息 |
+| [`run_grounded_sam2.ps1`](./run_grounded_sam2.ps1) | 固定使用当前 conda 环境运行仓库代码 |
+| [`download_slam.ps1`](./download_slam.ps1) | 下载和续传 TorWIC 数据集 |
+| [`grounded_sam2_tracking_demo_custom_video_input_dinox.py`](./grounded_sam2_tracking_demo_custom_video_input_dinox.py) | TorWIC 自定义视频追踪主入口，已支持多 backend 和 OpenCLIP 重排 |
+| [`tools/openclip_reranker.py`](./tools/openclip_reranker.py) | OpenCLIP 二阶段候选框重排和标签解析 |
+| [`tools/extract_mask_from_text_prompt.py`](./tools/extract_mask_from_text_prompt.py) | 单帧文本提示到 2D mask |
+| [`tools/ovo_init_mask_to_pointcloud.py`](./tools/ovo_init_mask_to_pointcloud.py) | 单帧 mask 反投影成点云 |
+| [`tools/extract_all_openclip_objects_to_3d.py`](./tools/extract_all_openclip_objects_to_3d.py) | 单帧多目标 `检测 -> 分割 -> 3D 初始化` |
+| [`tools/analyze_openclip_detection_stability.py`](./tools/analyze_openclip_detection_stability.py) | 逐帧稳定性分析和 review video 生成 |
+
+## 说明
+
+- `outputs/`、`TorWIC SLAM Dataset/`、模型权重都没有被提交到 GitHub，所以 README 里提到的结果文件是我本地实验产物，不在仓库里。
+- 仓库下面仍然保留了原始 `Grounded-SAM-2` 的 README，方便继续查上游用法和依赖说明。
+
+---
+
 # Grounded SAM 2: Ground and Track Anything in Videos
 
 **[IDEA-Research](https://github.com/idea-research)**
