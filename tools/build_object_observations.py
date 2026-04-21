@@ -52,6 +52,43 @@ def infer_summary(summary_path: str | None) -> dict[str, Any]:
     return load_json(path)
 
 
+def infer_mask_area_px(instance: dict[str, Any], summary: dict[str, Any]) -> int | None:
+    for candidate in (
+        instance.get("mask_area_px"),
+        summary.get("mask_area_px"),
+        summary.get("stats", {}).get("mask_area_px") if isinstance(summary.get("stats"), dict) else None,
+    ):
+        if candidate is None:
+            continue
+        return int(candidate)
+    return None
+
+
+def infer_pointcloud_path(instance: dict[str, Any], summary: dict[str, Any]) -> str | None:
+    pointcloud_path = instance.get("pointcloud_path")
+    if pointcloud_path:
+        return str(pointcloud_path)
+    outputs = summary.get("outputs", {})
+    if isinstance(outputs, dict) and outputs.get("ply"):
+        return str(outputs["ply"])
+    return None
+
+
+def has_geometry(instance: dict[str, Any], summary: dict[str, Any]) -> bool:
+    if summary.get("geometry_available") is False:
+        return False
+    pointcloud_path = infer_pointcloud_path(instance, summary)
+    if pointcloud_path:
+        return True
+    stats = summary.get("stats", {})
+    if not isinstance(stats, dict):
+        return False
+    return any(
+        stats.get(key) is not None
+        for key in ("centroid_xyz_m", "bbox_min_xyz_m", "bbox_max_xyz_m", "bbox_size_xyz_m", "num_points")
+    )
+
+
 def make_observation(
     instance: dict[str, Any],
     summary: dict[str, Any],
@@ -61,12 +98,23 @@ def make_observation(
 ) -> dict[str, Any]:
     stats = summary.get("stats", {}) if isinstance(summary, dict) else {}
     error = instance.get("error") or summary.get("error")
+    geometry_available = has_geometry(instance, summary)
     clip_best_similarity = float(instance.get("clip_best_similarity", 0.0) or 0.0)
     clip_margin = float(instance.get("clip_margin", 0.0) or 0.0)
     semantic_gate_score = float(instance.get("final_score", 0.0) or 0.0)
     grounding_score = float(instance.get("grounding_score", 0.0) or 0.0)
     object_name = str(instance["object_name"])
     observation_id = f"obs_{frame_id}_{index:03d}"
+    pointcloud_path = infer_pointcloud_path(instance, summary)
+    mask_area_px = infer_mask_area_px(instance, summary)
+    semantic_gate_passed = bool(str(instance.get("resolved_label", "")).strip() or str(instance.get("grounding_label", "")).strip())
+
+    if geometry_available:
+        association_status = "unmatched"
+    elif error:
+        association_status = "failed_geometry"
+    else:
+        association_status = "semantic_only"
 
     return {
         "observation_id": observation_id,
@@ -86,7 +134,7 @@ def make_observation(
         "bbox_xyxy": [float(v) for v in instance.get("box_xyxy", [])],
         "mask_path": instance.get("mask_path"),
         "overlay_path": instance.get("overlay_path"),
-        "mask_area_px": None,
+        "mask_area_px": mask_area_px,
         "grounding_label": instance.get("grounding_label"),
         "resolved_label": instance.get("resolved_label"),
         "clip_topk": [
@@ -98,7 +146,7 @@ def make_observation(
         "grounding_score": grounding_score,
         "clip_similarity": clip_best_similarity,
         "semantic_gate_score": semantic_gate_score,
-        "semantic_gate_passed": error is None,
+        "semantic_gate_passed": semantic_gate_passed,
         "semantic_uncertainty": {
             "entropy": None,
             "margin": clip_margin,
@@ -106,7 +154,7 @@ def make_observation(
             "ambiguity_flag": False,
         },
         "geometry": {
-            "pointcloud_path": instance.get("pointcloud_path"),
+            "pointcloud_path": pointcloud_path,
             "centroid_xyz": stats.get("centroid_xyz_m"),
             "bbox_min_xyz": stats.get("bbox_min_xyz_m"),
             "bbox_max_xyz": stats.get("bbox_max_xyz_m"),
@@ -115,17 +163,17 @@ def make_observation(
             "coordinate_frame": summary.get("coordinate_frame", args.coordinate_frame),
         },
         "quality": {
-            "depth_valid_ratio": None if error else 1.0,
+            "depth_valid_ratio": summary.get("depth_valid_ratio"),
             "mask_stability_score": None,
             "tracking_consistency_score": None,
-            "geometry_quality_score": 0.0 if error else 1.0,
+            "geometry_quality_score": 1.0 if geometry_available else 0.0,
         },
         "association": {
             "candidate_map_object_ids": [],
             "candidate_scores": [],
             "matched_map_object_id": None,
             "matched_score": None,
-            "association_status": "failed_geometry" if error else "unmatched",
+            "association_status": association_status,
         },
         "artifacts": {
             "summary_path": instance.get("summary_path"),

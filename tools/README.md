@@ -2,6 +2,24 @@
 
 This directory provides toolkits for additional SAM 2 use cases.
 
+### Local Grounded-SAM2 to ObjectObservation bridge
+
+The `demo_local_grounded_sam2_observations.py` script runs the original single-image
+`Grounding DINO + SAM2` path on a local RGB image, writes a minimal
+`all_instances_manifest.json`, and then builds `ObjectObservation` JSON files for the
+paper-v1 pipeline.
+
+It auto-resolves the local cached `grounding-dino-tiny` Hugging Face snapshot and the
+first matching SAM2 checkpoint/config pair found in this repo.
+
+```bash
+python ./tools/demo_local_grounded_sam2_observations.py \
+  --rgb ./notebooks/images/truck.jpg \
+  --prompt "car. tire." \
+  --output-dir ./outputs/local_grounded_sam2_observation_demo \
+  --session-id truck_demo
+```
+
 ### Semi-supervised VOS inference
 
 The `vos_inference.py` script can be used to generate predictions for semi-supervised video object segmentation (VOS) evaluation on datasets such as [DAVIS](https://davischallenge.org/index.html), [MOSE](https://henghuiding.github.io/MOSE/) or the SA-V dataset.
