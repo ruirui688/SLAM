@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import inspect
 
 import numpy as np
 import torch
@@ -49,6 +50,23 @@ def save_overlay(rgb: np.ndarray, mask: np.ndarray, output_path: Path) -> None:
     Image.fromarray(overlay).save(output_path)
 
 
+def post_process_grounding_results(processor, outputs, input_ids, image_size, box_threshold: float, text_threshold: float):
+    sig = inspect.signature(processor.post_process_grounded_object_detection)
+    kwargs = {
+        "outputs": outputs,
+        "input_ids": input_ids,
+        "target_sizes": [image_size[::-1]],
+    }
+    params = sig.parameters
+    if "threshold" in params:
+        kwargs["threshold"] = box_threshold
+    elif "box_threshold" in params:
+        kwargs["box_threshold"] = box_threshold
+    if "text_threshold" in params:
+        kwargs["text_threshold"] = text_threshold
+    return processor.post_process_grounded_object_detection(**kwargs)[0]
+
+
 def main() -> None:
     args = parse_args()
     device = choose_device(args.device)
@@ -64,13 +82,14 @@ def main() -> None:
     with torch.no_grad():
         outputs = grounding_model(**inputs)
 
-    results = processor.post_process_grounded_object_detection(
-        outputs,
-        inputs.input_ids,
-        threshold=args.box_threshold,
+    results = post_process_grounding_results(
+        processor=processor,
+        outputs=outputs,
+        input_ids=inputs.input_ids,
+        image_size=image.size,
+        box_threshold=args.box_threshold,
         text_threshold=args.text_threshold,
-        target_sizes=[image.size[::-1]],
-    )[0]
+    )
 
     boxes = results["boxes"].cpu().numpy()
     labels = [str(label) for label in results["labels"]]
