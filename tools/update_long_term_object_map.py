@@ -148,6 +148,7 @@ def update_state(obj: dict[str, Any], stable_min_sessions: int, dynamic_threshol
 def match_tracklet_to_object(
     tracklet: dict[str, Any],
     objects: list[dict[str, Any]],
+    session_id: str,
     max_centroid_distance: float,
     max_size_ratio_diff: float,
 ) -> tuple[int | None, float | None]:
@@ -160,6 +161,14 @@ def match_tracklet_to_object(
     for idx, obj in enumerate(objects):
         if str(obj.get("canonical_label", "unknown")) != label:
             continue
+
+        observed_sessions = set(obj.get("lifecycle", {}).get("observed_sessions", []) or [])
+        # Do not merge multiple same-session tracklets into one long-term object in v1.
+        # This preserves intra-session same-class instances and postpones stronger fusion
+        # decisions to the cross-session stage.
+        if session_id in observed_sessions:
+            continue
+
         obj_centroid = centroid_of_object(obj)
         obj_size = size_of_object(obj)
         if centroid is None or obj_centroid is None:
@@ -323,6 +332,7 @@ def main() -> None:
         match_idx, match_score = match_tracklet_to_object(
             tracklet,
             map_objects,
+            session_id=session_id,
             max_centroid_distance=args.max_centroid_distance,
             max_size_ratio_diff=args.max_size_ratio_diff,
         )
