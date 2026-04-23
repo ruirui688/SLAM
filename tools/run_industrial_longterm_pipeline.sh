@@ -17,7 +17,7 @@ SESSION_ID="$4"
 FRAME_INDEX="${5:-0}"
 OUTPUT_ROOT="${6:-$REPO_ROOT/outputs/$SESSION_ID}"
 
-MANIFEST_DIR="$OUTPUT_ROOT/frontend_output"
+MANIFEST_DIR="$OUTPUT_ROOT"
 OBS_DIR="$OUTPUT_ROOT/observation_output"
 TRK_DIR="$OUTPUT_ROOT/tracklet_output"
 MAP_DIR="$OUTPUT_ROOT/map_output"
@@ -79,7 +79,7 @@ conda run -n "$ENV_NAME" python "$REPO_ROOT/tools/update_long_term_object_map.py
 cat <<EOF
 DONE
 session: $SESSION_ID
-manifest: $MANIFEST_DIR/all_instances_manifest.json
+manifest: $OUTPUT_ROOT/frontend_output/all_instances_manifest.json
 observations: $OBS_DIR/observations_index.json
 tracklets: $TRK_DIR/tracklets_index.json
 map_objects: $MAP_DIR/map_objects.json
