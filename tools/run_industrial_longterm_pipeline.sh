@@ -61,7 +61,7 @@ conda run -n "$ENV_NAME" python "$REPO_ROOT/tools/run_repo_local_rgbd_ready_pipe
   --device cpu
 
 conda run -n "$ENV_NAME" python "$REPO_ROOT/tools/build_object_observations.py" \
-  --manifest "$MANIFEST_DIR/all_instances_manifest.json" \
+  --manifest "$OUTPUT_ROOT/frontend_output/all_instances_manifest.json" \
   --output-dir "$OBS_DIR" \
   --session-id "$SESSION_ID" \
   --frame-index "$FRAME_INDEX"
