@@ -45,17 +45,21 @@ def build_plan(resolved: dict[str, Any], prompt: str) -> dict[str, Any]:
     items = []
     for session in resolved['sessions']:
         session_slug = f"{protocol_id}__{session['date']}__{session['sequence']}".replace(' ', '_')
-        for idx, rgb_path in enumerate(session['rgb_frames']):
+        output_root = str(REPO_ROOT / 'outputs' / session_slug)
+        for idx, pair in enumerate(session['frame_pairs']):
+            rgb_path = pair['rgb_path']
+            depth_path = pair['depth_path']
             items.append(
                 {
                     'session_date': session['date'],
                     'sequence': session['sequence'],
                     'frame_index': idx,
                     'rgb_path': rgb_path,
-                    'depth_path': 'NONE',
+                    'depth_path': depth_path,
                     'prompt': prompt,
                     'session_id': session_slug,
-                    'command': f"{PIPELINE} '{rgb_path}' 'NONE' '{prompt}' '{session_slug}' '{idx}'",
+                    'output_root': output_root,
+                    'command': f"{PIPELINE} '{rgb_path}' '{depth_path}' '{prompt}' '{session_slug}' '{idx}' '{output_root}'",
                 }
             )
     return {
