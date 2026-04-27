@@ -83,6 +83,7 @@ def main() -> None:
     depth_mode = config.get('depth_mode', 'depth_left')
     output_naming = config.get('output_naming', 'protocol_id__date__sequence')
     plan = build_plan(resolved, prompt, depth_mode, output_naming)
+    plan['stable_selection_version'] = config.get('stable_selection_version', 'v5')
 
     if args.plan_json_out:
         args.plan_json_out.parent.mkdir(parents=True, exist_ok=True)

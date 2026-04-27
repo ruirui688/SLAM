@@ -6,6 +6,7 @@
   "prompt": "warehouse rack . barrier . work table . forklift .",
   "depth_mode": "depth_left",
   "output_naming": "protocol_id__date__sequence",
+  "stable_selection_version": "v5",
   "revisit_type": "same_day",
   "sessions": [
     {
