@@ -3,6 +3,7 @@
   "dataset": "TorWIC_SLAM_Dataset",
   "description": "Cross-month revisit maintenance protocol for industrial semantic SLAM.",
   "goal": "Measure whether stable objects remain supportable across long temporal gaps and whether the maintenance layer can continue separating persistent structure from dynamic or transient contamination.",
+  "prompt": "warehouse rack . barrier . work table . forklift .",
   "revisit_type": "cross_month",
   "sessions": [
     {

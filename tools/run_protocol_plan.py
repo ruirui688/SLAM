@@ -74,7 +74,9 @@ def build_plan(resolved: dict[str, Any], prompt: str) -> dict[str, Any]:
 def main() -> None:
     args = parse_args()
     resolved = run_resolver(args.config, args.limit_frames)
-    plan = build_plan(resolved, args.prompt)
+    config = json.loads(args.config.read_text(encoding='utf-8'))
+    prompt = args.prompt if args.prompt != DEFAULT_PROMPT else config.get('prompt', DEFAULT_PROMPT)
+    plan = build_plan(resolved, prompt)
 
     if args.plan_json_out:
         args.plan_json_out.parent.mkdir(parents=True, exist_ok=True)
