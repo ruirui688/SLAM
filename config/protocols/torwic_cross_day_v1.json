@@ -4,6 +4,7 @@
   "description": "Cross-day revisit stability protocol for industrial semantic SLAM.",
   "goal": "Measure whether stable objects can be re-identified after several days while transient or dynamic objects remain suppressed from the long-term map layer.",
   "prompt": "warehouse rack . barrier . work table . forklift .",
+  "depth_mode": "depth_left",
   "revisit_type": "cross_day",
   "sessions": [
     {

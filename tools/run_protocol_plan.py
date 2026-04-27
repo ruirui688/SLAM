@@ -40,7 +40,7 @@ def run_resolver(config: Path, limit_frames: int) -> dict[str, Any]:
     return json.loads(out)
 
 
-def build_plan(resolved: dict[str, Any], prompt: str) -> dict[str, Any]:
+def build_plan(resolved: dict[str, Any], prompt: str, depth_mode: str) -> dict[str, Any]:
     protocol_id = resolved['protocol_id']
     items = []
     for session in resolved['sessions']:
@@ -48,7 +48,7 @@ def build_plan(resolved: dict[str, Any], prompt: str) -> dict[str, Any]:
         output_root = str(REPO_ROOT / 'outputs' / session_slug)
         for idx, pair in enumerate(session['frame_pairs']):
             rgb_path = pair['rgb_path']
-            depth_path = pair['depth_path']
+            depth_path = pair['depth_path'] if depth_mode != 'none' else 'NONE'
             items.append(
                 {
                     'session_date': session['date'],
@@ -57,6 +57,7 @@ def build_plan(resolved: dict[str, Any], prompt: str) -> dict[str, Any]:
                     'rgb_path': rgb_path,
                     'depth_path': depth_path,
                     'prompt': prompt,
+                    'depth_mode': depth_mode,
                     'session_id': session_slug,
                     'output_root': output_root,
                     'command': f"{PIPELINE} '{rgb_path}' '{depth_path}' '{prompt}' '{session_slug}' '{idx}' '{output_root}'",
@@ -76,7 +77,8 @@ def main() -> None:
     resolved = run_resolver(args.config, args.limit_frames)
     config = json.loads(args.config.read_text(encoding='utf-8'))
     prompt = args.prompt if args.prompt != DEFAULT_PROMPT else config.get('prompt', DEFAULT_PROMPT)
-    plan = build_plan(resolved, prompt)
+    depth_mode = config.get('depth_mode', 'depth_left')
+    plan = build_plan(resolved, prompt, depth_mode)
 
     if args.plan_json_out:
         args.plan_json_out.parent.mkdir(parents=True, exist_ok=True)

@@ -4,6 +4,7 @@
   "description": "Same-day multi-run consistency protocol for industrial semantic SLAM.",
   "goal": "Measure whether object observations, cross-session summaries, and stable-object candidates remain consistent across revisits collected on the same day.",
   "prompt": "warehouse rack . barrier . work table . forklift .",
+  "depth_mode": "depth_left",
   "revisit_type": "same_day",
   "sessions": [
     {
