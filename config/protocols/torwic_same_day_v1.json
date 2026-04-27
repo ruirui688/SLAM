@@ -1,0 +1,37 @@
+{
+  "protocol_id": "torwic_same_day_v1",
+  "dataset": "TorWIC_SLAM_Dataset",
+  "description": "Same-day multi-run consistency protocol for industrial semantic SLAM.",
+  "goal": "Measure whether object observations, cross-session summaries, and stable-object candidates remain consistent across revisits collected on the same day.",
+  "revisit_type": "same_day",
+  "sessions": [
+    {
+      "date": "2022-06-15",
+      "sequence": "Aisle_CW_Run_1",
+      "path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1"
+    }
+  ],
+  "frame_window": {
+    "mode": "first_n",
+    "count": 8
+  },
+  "pipeline_outputs": [
+    "manifest",
+    "observations",
+    "tracklets",
+    "map_objects",
+    "map_revisions",
+    "cross_session_summary",
+    "stable_object_selection"
+  ],
+  "metrics": [
+    "label_flip_rate",
+    "track_fragmentation_count",
+    "stable_object_purity",
+    "dynamic_contamination_ratio"
+  ],
+  "notes": [
+    "Current implementation focuses on early-stage executable evidence rather than final benchmark numbers.",
+    "This protocol is intended to verify consistency under minimal temporal gap."
+  ]
+}
