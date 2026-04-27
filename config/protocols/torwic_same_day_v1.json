@@ -5,6 +5,7 @@
   "goal": "Measure whether object observations, cross-session summaries, and stable-object candidates remain consistent across revisits collected on the same day.",
   "prompt": "warehouse rack . barrier . work table . forklift .",
   "depth_mode": "depth_left",
+  "output_naming": "protocol_id__date__sequence",
   "revisit_type": "same_day",
   "sessions": [
     {

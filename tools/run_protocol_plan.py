@@ -40,11 +40,14 @@ def run_resolver(config: Path, limit_frames: int) -> dict[str, Any]:
     return json.loads(out)
 
 
-def build_plan(resolved: dict[str, Any], prompt: str, depth_mode: str) -> dict[str, Any]:
+def build_plan(resolved: dict[str, Any], prompt: str, depth_mode: str, output_naming: str) -> dict[str, Any]:
     protocol_id = resolved['protocol_id']
     items = []
     for session in resolved['sessions']:
-        session_slug = f"{protocol_id}__{session['date']}__{session['sequence']}".replace(' ', '_')
+        if output_naming == 'protocol_id__date__sequence':
+            session_slug = f"{protocol_id}__{session['date']}__{session['sequence']}".replace(' ', '_')
+        else:
+            session_slug = f"{protocol_id}__{session['date']}__{session['sequence']}".replace(' ', '_')
         output_root = str(REPO_ROOT / 'outputs' / session_slug)
         for idx, pair in enumerate(session['frame_pairs']):
             rgb_path = pair['rgb_path']
@@ -78,7 +81,8 @@ def main() -> None:
     config = json.loads(args.config.read_text(encoding='utf-8'))
     prompt = args.prompt if args.prompt != DEFAULT_PROMPT else config.get('prompt', DEFAULT_PROMPT)
     depth_mode = config.get('depth_mode', 'depth_left')
-    plan = build_plan(resolved, prompt, depth_mode)
+    output_naming = config.get('output_naming', 'protocol_id__date__sequence')
+    plan = build_plan(resolved, prompt, depth_mode, output_naming)
 
     if args.plan_json_out:
         args.plan_json_out.parent.mkdir(parents=True, exist_ok=True)
