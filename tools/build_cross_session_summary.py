@@ -71,17 +71,27 @@ def mergeable(a: dict[str, Any], b: dict[str, Any], max_center_distance: float, 
 
 def summarize_cluster(cluster_id: str, items: list[dict[str, Any]]) -> dict[str, Any]:
     labels = {}
+    raw_labels = {}
     sessions = set()
+    frames = set()
     states = {}
     centers = []
     sizes = []
+    frame_evidence_count = 0
     for item in items:
         label = str(item.get("canonical_label", "unknown"))
+        raw = str(item.get("canonical_label", "unknown"))
         labels[label] = labels.get(label, 0) + 1
+        raw_labels[raw] = raw_labels.get(raw, 0) + 1
         state = str(item.get("state", "unknown"))
         states[state] = states.get(state, 0) + 1
         src = item.get("source_session", "unknown")
         sessions.add(src)
+        frames.add(item.get("source_frame", src))
+        lifecycle = item.get("lifecycle", {}) if isinstance(item.get("lifecycle"), dict) else {}
+        support = item.get("support", {}) if isinstance(item.get("support"), dict) else {}
+        evidence = int(lifecycle.get("num_observations", 0) or support.get("evidence_count", 0) or 1)
+        frame_evidence_count += max(1, evidence)
         c = center_of(item)
         if c is not None:
             centers.append(c)
@@ -97,9 +107,11 @@ def summarize_cluster(cluster_id: str, items: list[dict[str, Any]]) -> dict[str,
         "canonical_label": canonical_label,
         "dominant_state": dominant_state,
         "label_histogram": labels,
+        "raw_label_histogram": raw_labels,
         "state_histogram": states,
         "sessions": sorted(sessions),
         "session_count": len(sessions),
+        "frame_count": max(len(frames), frame_evidence_count),
         "support_count": len(items),
         "mean_center_xyz": mean_center,
         "mean_size_xyz": mean_size,
@@ -112,9 +124,11 @@ def main() -> None:
     for path in args.inputs:
         objs = load_json(path)
         source_session = path.parent.parent.name if path.parent.name == 'map_output' else path.stem
+        source_frame = path.parent.parent.parent.name if path.parent.name == 'map_output' else path.stem
         for obj in objs:
             x = dict(obj)
             x["source_session"] = source_session
+            x["source_frame"] = source_frame
             items.append(x)
 
     clusters: list[list[dict[str, Any]]] = []

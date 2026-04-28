@@ -89,6 +89,7 @@ def summarize_cluster(cluster_id: str, items: list[dict[str, Any]]) -> dict[str,
     frames = set()
     centers = []
     sizes = []
+    frame_evidence_count = 0
     for item in items:
         normalized = normalize_label(item.get('canonical_label', 'unknown'))
         raw = str(item.get('canonical_label', 'unknown'))
@@ -98,6 +99,10 @@ def summarize_cluster(cluster_id: str, items: list[dict[str, Any]]) -> dict[str,
         states[state] = states.get(state, 0) + 1
         sessions.add(item.get('source_session', 'unknown'))
         frames.add(item.get('source_frame', 'unknown'))
+        lifecycle = item.get('lifecycle', {}) if isinstance(item.get('lifecycle'), dict) else {}
+        support = item.get('support', {}) if isinstance(item.get('support'), dict) else {}
+        evidence = int(lifecycle.get('num_observations', 0) or support.get('evidence_count', 0) or 1)
+        frame_evidence_count += max(1, evidence)
         c = center_of(item)
         if c is not None:
             centers.append(c)
@@ -114,7 +119,7 @@ def summarize_cluster(cluster_id: str, items: list[dict[str, Any]]) -> dict[str,
         'dominant_state': dom_state,
         'session_count': len(sessions),
         'sessions': sorted(sessions),
-        'frame_count': len(frames),
+        'frame_count': max(len(frames), frame_evidence_count),
         'support_count': len(items),
         'label_histogram': labels,
         'raw_label_histogram': raw_labels,
