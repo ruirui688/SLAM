@@ -14,8 +14,10 @@ from typing import Any
 LABEL_ALIASES = {
     'fork': 'forklift',
     'forklift': 'forklift',
+    '##lift': 'forklift',
     'table': 'work table',
     'work table': 'work table',
+    'work': 'work table',
     'barrier': 'barrier',
     'yellow barrier': 'barrier',
     'rack': 'warehouse rack',

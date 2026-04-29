@@ -113,7 +113,7 @@ def main() -> None:
     else:
         for item in rejected[:12]:
             lines.append(
-                f"- **{item['canonical_label']}** | support={item['support_count']} | sessions={item['session_count']} | frames={item['frame_count']} | dynamic_ratio={item['dynamic_ratio']:.2f} | label_purity={item['label_purity']:.2f} | raw={item.get('raw_label_histogram', {})}"
+                f"- **{item['canonical_label']}** | support={item['support_count']} | sessions={item['session_count']} | frames={item['frame_count']} | dynamic_ratio={item['dynamic_ratio']:.2f} | label_purity={item['label_purity']:.2f} | reasons={item.get('reject_reasons', [])} | raw={item.get('raw_label_histogram', {})}"
             )
 
     args.md_out.parent.mkdir(parents=True, exist_ok=True)
