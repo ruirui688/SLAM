@@ -40,7 +40,7 @@ def main() -> None:
     for cluster in clusters:
         support = int(cluster.get('support_count', 0))
         sessions = int(cluster.get('session_count', 0))
-        frames = int(cluster.get('frame_count', 0))
+        frames = int(cluster.get('frame_count', support))
         state_hist = cluster.get('state_histogram', {})
         raw_hist = cluster.get('raw_label_histogram', {})
         dynamic_ratio = float(state_hist.get('dynamic_agent', 0)) / max(support, 1)
@@ -52,9 +52,25 @@ def main() -> None:
             and dynamic_ratio <= args.max_dynamic_ratio
             and label_purity >= args.min_label_purity
         )
+        reject_reasons = []
+        if sessions < args.min_sessions:
+            reject_reasons.append('single_session_or_low_session_support')
+        if frames < args.min_frames:
+            reject_reasons.append('insufficient_frame_support')
+        if support < args.min_support:
+            reject_reasons.append('low_support')
+        if dynamic_ratio > args.max_dynamic_ratio:
+            reject_reasons.append('dynamic_contamination')
+        if label_purity < args.min_label_purity:
+            reject_reasons.append('label_fragmentation')
+        if not reject_reasons and not keep:
+            reject_reasons.append('other_threshold_gap')
+
         item = dict(cluster)
+        item['frame_count'] = frames
         item['dynamic_ratio'] = dynamic_ratio
         item['label_purity'] = label_purity
+        item['reject_reasons'] = reject_reasons
         if keep:
             selected.append(item)
         else:
