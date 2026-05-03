@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import inspect
+import os
 from pathlib import Path
 from typing import Any
 
@@ -48,7 +49,7 @@ def choose_device(name: str) -> str:
     if name == "auto":
         return "cuda" if torch.cuda.is_available() else "cpu"
     if name == "cuda" and not torch.cuda.is_available():
-        return "cpu"
+        raise RuntimeError("CUDA was requested with --device cuda, but torch.cuda.is_available() is false")
     return name
 
 
@@ -103,14 +104,34 @@ def summarize_mask_geometry(mask_bool: np.ndarray) -> dict[str, Any]:
 def main() -> None:
     args = parse_args()
     device = choose_device(args.device)
+    local_files_only = os.environ.get("SLAM_HF_LOCAL_FILES_ONLY", "1") != "0"
+    print(
+        json.dumps(
+            {
+                "stage": "startup",
+                "device": device,
+                "torch_cuda_available": torch.cuda.is_available(),
+                "hf_local_files_only": local_files_only,
+                "grounding_model": args.grounding_model,
+            },
+            ensure_ascii=False,
+        ),
+        flush=True,
+    )
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     image = Image.open(args.rgb).convert("RGB")
     image_np = np.array(image)
 
-    processor = AutoProcessor.from_pretrained(args.grounding_model)
-    grounding_model = AutoModelForZeroShotObjectDetection.from_pretrained(args.grounding_model).to(device)
+    print(json.dumps({"stage": "load_processor"}, ensure_ascii=False), flush=True)
+    processor = AutoProcessor.from_pretrained(args.grounding_model, local_files_only=local_files_only)
+    print(json.dumps({"stage": "load_grounding_model"}, ensure_ascii=False), flush=True)
+    grounding_model = AutoModelForZeroShotObjectDetection.from_pretrained(
+        args.grounding_model,
+        local_files_only=local_files_only,
+    ).to(device)
 
+    print(json.dumps({"stage": "run_grounding"}, ensure_ascii=False), flush=True)
     inputs = processor(images=image, text=args.prompt, return_tensors="pt").to(device)
     with torch.no_grad():
         outputs = grounding_model(**inputs)
@@ -131,8 +152,10 @@ def main() -> None:
     if len(boxes) == 0:
         raise ValueError(f"No detections found for prompt: {args.prompt!r}")
 
+    print(json.dumps({"stage": "load_sam2", "detections": len(boxes)}, ensure_ascii=False), flush=True)
     sam2_model = build_sam2(args.sam2_config, str(args.sam2_checkpoint), device=device)
     predictor = SAM2ImagePredictor(sam2_model)
+    print(json.dumps({"stage": "run_sam2"}, ensure_ascii=False), flush=True)
     predictor.set_image(image_np)
     masks, _, _ = predictor.predict(point_coords=None, point_labels=None, box=boxes, multimask_output=False)
     if masks.ndim == 4:

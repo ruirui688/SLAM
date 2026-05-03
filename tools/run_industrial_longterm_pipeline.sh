@@ -4,6 +4,8 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CONDA_SH="/home/rui/miniconda3/etc/profile.d/conda.sh"
 ENV_NAME="openvla"
+ENV_PREFIX="/home/rui/miniconda3/envs/${ENV_NAME}"
+NVRTC_CU13_LIB="${ENV_PREFIX}/lib/python3.10/site-packages/nvidia/cu13/lib"
 
 if [ $# -lt 4 ]; then
   echo "Usage: $0 <rgb_path> <depth_path_or_NONE> <prompt> <session_id> [frame_index] [output_root]" >&2
@@ -23,6 +25,13 @@ TRK_DIR="$OUTPUT_ROOT/tracklet_output"
 MAP_DIR="$OUTPUT_ROOT/map_output"
 SAM2_CKPT="$REPO_ROOT/checkpoints/sam2_hiera_small.pt"
 SAM2_CFG="configs/sam2/sam2_hiera_s.yaml"
+SLAM_DEVICE="${SLAM_DEVICE:-auto}"
+export HF_HUB_OFFLINE="${HF_HUB_OFFLINE:-1}"
+export TRANSFORMERS_OFFLINE="${TRANSFORMERS_OFFLINE:-1}"
+export SLAM_HF_LOCAL_FILES_ONLY="${SLAM_HF_LOCAL_FILES_ONLY:-1}"
+if [ -d "$NVRTC_CU13_LIB" ]; then
+  export LD_LIBRARY_PATH="${NVRTC_CU13_LIB}:${LD_LIBRARY_PATH:-}"
+fi
 
 if [ ! -f "$CONDA_SH" ]; then
   echo "Missing conda init script: $CONDA_SH" >&2
@@ -49,7 +58,7 @@ if [ "$DEPTH_PATH" != "NONE" ]; then
   DEPTH_ARGS+=(--depth "$DEPTH_PATH")
 fi
 
-conda run -n "$ENV_NAME" python "$REPO_ROOT/tools/run_repo_local_rgbd_ready_pipeline.py" \
+conda run -n "$ENV_NAME" python -u "$REPO_ROOT/tools/run_repo_local_rgbd_ready_pipeline.py" \
   --rgb "$RGB_PATH" \
   "${DEPTH_ARGS[@]}" \
   --output-dir "$MANIFEST_DIR" \
@@ -58,7 +67,7 @@ conda run -n "$ENV_NAME" python "$REPO_ROOT/tools/run_repo_local_rgbd_ready_pipe
   --frame-index "$FRAME_INDEX" \
   --sam2-checkpoint "$SAM2_CKPT" \
   --sam2-config "$SAM2_CFG" \
-  --device cpu
+  --device "$SLAM_DEVICE"
 
 conda run -n "$ENV_NAME" python "$REPO_ROOT/tools/build_object_observations.py" \
   --manifest "$OUTPUT_ROOT/frontend_output/all_instances_manifest.json" \

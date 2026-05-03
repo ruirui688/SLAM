@@ -15,6 +15,7 @@ TRK_DIR="$OUTPUT_ROOT/tracklet_output"
 MAP_DIR="$OUTPUT_ROOT/map_output"
 SAM2_CKPT="$REPO_ROOT/checkpoints/sam2_hiera_small.pt"
 SAM2_CFG="configs/sam2/sam2_hiera_s.yaml"
+SLAM_DEVICE="${SLAM_DEVICE:-auto}"
 
 if [ ! -f "$CONDA_SH" ]; then
   echo "Missing conda init script: $CONDA_SH" >&2
@@ -38,7 +39,7 @@ conda run -n "$ENV_NAME" python "$REPO_ROOT/tools/run_repo_local_grounded_sam2_i
   --prompt "$PROMPT" \
   --sam2-checkpoint "$SAM2_CKPT" \
   --sam2-config "$SAM2_CFG" \
-  --device cpu
+  --device "$SLAM_DEVICE"
 
 conda run -n "$ENV_NAME" python "$REPO_ROOT/tools/build_object_observations.py" \
   --manifest "$MANIFEST_DIR/all_instances_manifest.json" \
