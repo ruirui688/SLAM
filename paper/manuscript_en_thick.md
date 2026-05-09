@@ -271,7 +271,9 @@ The current evidence differs from standard dynamic-SLAM benchmarks in two import
 
 2. **We report rejection profiles, not dynamic/static pixel classification.** The admission-control framework produces a binary decision per candidate object (retain/reject) with auditable reasons. This is coarser than per-pixel dynamic segmentation but directly addresses the map-maintenance question.
 
-Post-package engineering smoke evidence now additionally verifies the raw-vs-masked backend path on an 8-frame TorWIC Aisle window: DROID-SLAM produces raw and masked trajectory estimates, and evo reports APE/RPE for both. The smoke result is a pipeline-closure check rather than a benchmark claim: raw and masked are effectively tied on the tiny window (APE RMSE 0.001242 m vs. 0.001243 m; RPE RMSE 0.002250 m vs. 0.002255 m), so it should not be interpreted as evidence of trajectory improvement from masking. A subsequent 64-frame bounded run with DROID-SLAM global bundle adjustment is also executable, but remains tied (APE RMSE 0.051135 m vs. 0.051136 m; RPE RMSE 0.032713 m vs. 0.032713 m). This reinforces the current claim boundary: the backend path is now operational, while masked-input performance gains require larger windows and richer dynamic-mask coverage.
+Post-package engineering smoke evidence now additionally verifies the raw-vs-masked backend path on an 8-frame TorWIC Aisle window: DROID-SLAM produces raw and masked trajectory estimates, and evo reports APE/RPE for both. The smoke result is a pipeline-closure check rather than a benchmark claim: raw and masked are effectively tied on the tiny window (APE RMSE 0.001242 m vs. 0.001243 m; RPE RMSE 0.002250 m vs. 0.002255 m), so it should not be interpreted as evidence of trajectory improvement from masking. A subsequent 64-frame bounded run with DROID-SLAM global bundle adjustment is also executable (Fig. 4), but remains tied (APE RMSE 0.051135 m vs. 0.051136 m; RPE RMSE 0.032713 m vs. 0.032713 m). This reinforces the current claim boundary: the backend path is now operational, while masked-input performance gains require larger windows and richer dynamic-mask coverage.
+
+![Fig. 4. Bounded DROID-SLAM 64-frame global-BA raw-vs-masked backend result.](figures/torwic_dynamic_slam_backend_p134.png)
 
 ---
 
@@ -367,6 +369,8 @@ Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferre
 **Fig. 2.** Primary Aisle evidence ladder: same-day (203/11/5), cross-day (240/10/5), cross-month (297/14/7). Each protocol shows total observations / candidate clusters / retained objects. Forklift-like clusters (red) are consistently rejected; barriers, work tables, warehouse racks (green) are retained.
 
 **Fig. 3.** Map-admission selectivity: retained vs. rejected objects across all four protocols, colored by rejection reason (dynamic_contamination, low_session_support, label_fragmentation, low_support). Optional figure — may be omitted per page budget.
+
+**Fig. 4.** Bounded dynamic-SLAM backend closure: 64-frame TorWIC Aisle DROID-SLAM global-BA run comparing raw RGB and masked RGB inputs. The left panel shows Sim(3)-aligned ground truth, raw estimate, and masked estimate trajectories; the right panel reports evo APE/RPE RMSE. Raw and masked remain effectively tied, so the figure supports backend-path closure rather than a masked-input improvement claim.
 
 ---
 

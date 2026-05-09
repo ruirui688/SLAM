@@ -446,3 +446,15 @@ summary and local paths here, then commit and push the repository.
   is now recorded as executable, while raw/masked remain tied. No masked-input
   improvement claim is made because the current mask affects only frame
   `000002`.
+
+## 2026-05-09 P134 paper figure integration
+
+- Added `tools/plot_dynamic_slam_backend_results.py` and
+  `make dynamic-slam-backend-figure`.
+- Generated `paper/figures/torwic_dynamic_slam_backend_p134.png`.
+- Integrated the figure into README and EN/ZH thick manuscripts as Fig. 4.
+- Figure content: Sim(3)-aligned 64-frame TorWIC trajectory overlay plus APE/RPE
+  RMSE bars for raw vs. masked DROID-SLAM global-BA outputs.
+- Claim boundary preserved: the figure demonstrates backend closure and a
+  publishable negative/neutral result; it does not claim masked input improves
+  trajectory accuracy under the current single-frame mask coverage.

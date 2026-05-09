@@ -271,7 +271,9 @@ DynaSLAM[2]证明在动态场景中屏蔽动态物体（人、车辆）可以改
 
 2. **我们报告拒绝画像，而非动态/静态像素分类。** 准入控制框架为每个候选物体产生一个二元决策（保留/拒绝）及可审计的原因。这比逐像素动态分割更粗糙，但直接回应了地图维护问题。
 
-后续工程 smoke 证据进一步验证了 raw-vs-masked 后端路径：在 8 帧 TorWIC 过道小窗口上，DROID-SLAM 可以分别生成 raw 与 masked 轨迹估计，evo 可以对两者报告 APE/RPE。该结果是链路闭环检查，而不是 benchmark 主张：raw 与 masked 在这个极小窗口上基本持平（APE RMSE 0.001242 m vs. 0.001243 m；RPE RMSE 0.002250 m vs. 0.002255 m），因此不能解释为动态 mask 已改善完整轨迹精度。随后 64 帧 bounded DROID-SLAM global BA 运行也已打通，但结果仍基本持平（APE RMSE 0.051135 m vs. 0.051136 m；RPE RMSE 0.032713 m vs. 0.032713 m）。这进一步强化了当前边界：后端路径已经可执行，但 masked input 的性能收益需要更大窗口和更充分的动态 mask 覆盖来验证。
+后续工程 smoke 证据进一步验证了 raw-vs-masked 后端路径：在 8 帧 TorWIC 过道小窗口上，DROID-SLAM 可以分别生成 raw 与 masked 轨迹估计，evo 可以对两者报告 APE/RPE。该结果是链路闭环检查，而不是 benchmark 主张：raw 与 masked 在这个极小窗口上基本持平（APE RMSE 0.001242 m vs. 0.001243 m；RPE RMSE 0.002250 m vs. 0.002255 m），因此不能解释为动态 mask 已改善完整轨迹精度。随后 64 帧 bounded DROID-SLAM global BA 运行也已打通（图4），但结果仍基本持平（APE RMSE 0.051135 m vs. 0.051136 m；RPE RMSE 0.032713 m vs. 0.032713 m）。这进一步强化了当前边界：后端路径已经可执行，但 masked input 的性能收益需要更大窗口和更充分的动态 mask 覆盖来验证。
+
+![图4. 有界 DROID-SLAM 64 帧 global-BA raw-vs-masked 后端结果。](figures/torwic_dynamic_slam_backend_p134.png)
 
 ---
 

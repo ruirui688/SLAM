@@ -328,6 +328,8 @@ make dynamic-slam-backend-64
 | raw RGB | 0.051135 | 0.032713 |
 | masked RGB | 0.051136 | 0.032713 |
 
+![64 帧 DROID-SLAM global BA raw-vs-masked 结果](paper/figures/torwic_dynamic_slam_backend_p134.png)
+
 当前解释：64 帧后端链路已经可执行，raw/masked 仍基本持平；由于当前动态 mask 只作用于第 `000002` 帧，不能据此主张 masked input 带来轨迹收益。
 
 ## 2. 论文稿件
