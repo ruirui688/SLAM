@@ -144,3 +144,15 @@ summary and local paths here, then commit and push the repository.
 - Evidence: P114-P118 autonomous polish loop fully integrated. Appendices A-Z (26). Bundle chain v18-v29 (12 bundles on disk). 15/15 P114-P118 manifest entries registered. 10/10 evidence files present. Phase queue exhausted.
 - Remaining deferred: 3 back-end citations (Grounding DINO/SAM2/OpenCLIP), arXiv links for [1]-[3], venue-specific formatting.
 - Next: user direction required (target venue, larger-window experiments, new paper/development branch).
+
+## 2026-05-09 P120 thick manuscript draft direction
+
+- User direction: continue paper execution, but focus on a thick first
+  manuscript draft rather than more closure-only checks.
+- Active target: create `paper/manuscript_en_thick.md` and
+  `paper/manuscript_zh_thick.md`.
+- Scope: related work, problem formulation, system overview, object-centric map
+  maintenance method, protocol narrative, results interpretation, failure-case
+  analysis, limitations, figures, and evidence tables.
+- Policy: use existing evidence only; no new dataset downloads, no new
+  experiment protocol, no unsupported downstream navigation/planning claim.

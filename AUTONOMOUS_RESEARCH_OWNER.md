@@ -46,10 +46,12 @@ host logs and should not leave the systemd timer failed or inactive.
 - After non-trivial progress, update `RESEARCH_PROGRESS.md`, commit and push
   safe GitHub-facing files, and send the Telegram progress payload.
 
-Current primary purpose: execute `P119-submission-ready-closure`, which closes
-the final submission package around the existing evidence ladder, stable subset,
-failure-case mix, baseline framing, audits, paper drafts, appendix/table closure,
-manifest, checklist, and GitHub progress log.
+Current primary purpose: execute `P120-thick-manuscript-draft`, which turns the
+closed evidence package into a substantial first paper draft. The phase should
+produce thick English and Chinese manuscripts with stronger related work,
+problem formulation, method explanation, protocol narrative, results
+interpretation, failure-case analysis, limitations, figures, and evidence
+tables.
 
 Current non-purpose: generic polishing, repeated citation checking without a new
 gap, fresh-status model calls, new data acquisition, or new experiment protocol
