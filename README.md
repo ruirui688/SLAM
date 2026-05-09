@@ -1,3 +1,28 @@
+# SLAM
+
+Research code and paper-facing metadata for **semantic-segmentation-assisted
+SLAM in dynamic industrial environments**.
+
+This repository intentionally tracks code, protocol configs, and documentation.
+It does **not** track raw datasets, generated experiment outputs, model
+checkpoints, or temporary processing directories. See
+[`DATA_SOURCES.md`](./DATA_SOURCES.md) and
+[`DATA_ORGANIZATION.md`](./DATA_ORGANIZATION.md) before running or extending
+experiments.
+
+Current paper-facing direction:
+
+- semantic segmentation / open-vocabulary perception for dynamic industrial
+  environments;
+- stable-object retention and dynamic-like rejection for long-term semantic
+  mapping;
+- TorWIC Aisle as the primary evidence ladder:
+  `203/11/5 -> 240/10/5 -> 297/14/7`;
+- TorWIC Hallway as secondary broader-validation evidence:
+  `537/16/9`.
+
+---
+
 # TorWIC-SLAM
 
 > 交接说明截至 2026-04-07。这个仓库不是纯原始 `Grounded-SAM-2`，而是我基于它做的 `TorWIC` 数据语义前端与 `2D -> 3D` 初始化原型。下面先写当前工作状态，原始上游 README 保留在后面。

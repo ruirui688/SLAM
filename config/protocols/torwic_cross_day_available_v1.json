@@ -1,0 +1,48 @@
+{
+  "protocol_id": "torwic_cross_day_available_v1",
+  "dataset": "TorWIC_SLAM_Dataset",
+  "description": "Cross-day available-data protocol using only currently verified local TorWIC runs.",
+  "goal": "Provide a runnable cross-day baseline without blocking on missing trajectory downloads.",
+  "prompt": "warehouse rack . barrier . work table . forklift .",
+  "depth_mode": "depth_left",
+  "output_naming": "protocol_id__date__sequence",
+  "stable_selection_version": "v5",
+  "revisit_type": "cross_day",
+  "sessions": [
+    {
+      "date": "2022-06-15",
+      "sequence": "Aisle_CW_Run_1",
+      "path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1"
+    },
+    {
+      "date": "2022-06-23",
+      "sequence": "Aisle_CW_Run_1",
+      "path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1"
+    }
+  ],
+  "frame_window": {
+    "mode": "first_n",
+    "count": 8
+  },
+  "pipeline_outputs": [
+    "manifest",
+    "observations",
+    "tracklets",
+    "map_objects",
+    "map_revisions",
+    "cross_session_summary",
+    "stable_object_selection",
+    "stable_object_subset"
+  ],
+  "metrics": [
+    "object_association_precision",
+    "object_association_recall",
+    "stable_object_purity",
+    "stable_object_coverage",
+    "dynamic_contamination_ratio"
+  ],
+  "notes": [
+    "This protocol intentionally uses only currently verified local data.",
+    "It exists to keep cross-day analysis moving while the broader download-chain blocker is being resolved."
+  ]
+}

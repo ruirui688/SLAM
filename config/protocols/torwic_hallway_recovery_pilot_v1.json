@@ -1,0 +1,43 @@
+{
+  "protocol_id": "torwic_hallway_recovery_pilot_v1",
+  "dataset": "TorWIC_SLAM_Dataset",
+  "description": "Single-session hallway recovery pilot after full local archive restore.",
+  "goal": "Extend protocol-driven long-term object-maintenance evaluation beyond aisle-only evidence by covering the remaining Hallway trajectories already known in the TorWIC inventory.",
+  "prompt": "warehouse rack . barrier . work table . forklift .",
+  "depth_mode": "depth_left",
+  "output_naming": "protocol_id__date__sequence",
+  "stable_selection_version": "v5",
+  "revisit_type": "broader_benchmark_expansion",
+  "sessions": [
+    {
+      "date": "2022-06-15",
+      "sequence": "Hallway_Full_CCW",
+      "path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW"
+    }
+  ],
+  "frame_window": {
+    "mode": "first_n",
+    "count": 8
+  },
+  "pipeline_outputs": [
+    "manifest",
+    "observations",
+    "tracklets",
+    "map_objects",
+    "map_revisions",
+    "cross_session_summary",
+    "stable_object_selection",
+    "stable_object_subset"
+  ],
+  "metrics": [
+    "object_association_precision",
+    "object_association_recall",
+    "stable_object_purity",
+    "stable_object_coverage",
+    "dynamic_contamination_ratio"
+  ],
+  "notes": [
+    "Derived from torwic_hallway_benchmark_batch2_v1 after user-restored full local archive.",
+    "Single extracted hallway session only, for validate/resolve dry-run before any broader hallway execution."
+  ]
+}

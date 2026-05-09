@@ -1,0 +1,58 @@
+{
+  "protocol_id": "torwic_same_day_aisle_bundle_v1",
+  "dataset": "TorWIC_SLAM_Dataset",
+  "description": "Same-day multi-run aisle bundle protocol for industrial semantic SLAM.",
+  "goal": "Measure whether object observations and stable-object candidates remain consistent across multiple same-day aisle traversals, including both CW and CCW runs.",
+  "prompt": "warehouse rack . barrier . work table . forklift .",
+  "depth_mode": "depth_left",
+  "output_naming": "protocol_id__date__sequence",
+  "stable_selection_version": "v5",
+  "revisit_type": "same_day",
+  "sessions": [
+    {
+      "date": "2022-06-15",
+      "sequence": "Aisle_CW_Run_1",
+      "path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1"
+    },
+    {
+      "date": "2022-06-15",
+      "sequence": "Aisle_CW_Run_2",
+      "path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2"
+    },
+    {
+      "date": "2022-06-15",
+      "sequence": "Aisle_CCW_Run_1",
+      "path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1"
+    },
+    {
+      "date": "2022-06-15",
+      "sequence": "Aisle_CCW_Run_2",
+      "path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2"
+    }
+  ],
+  "frame_window": {
+    "mode": "first_n",
+    "count": 8
+  },
+  "pipeline_outputs": [
+    "manifest",
+    "observations",
+    "tracklets",
+    "map_objects",
+    "map_revisions",
+    "cross_session_summary",
+    "stable_object_selection",
+    "stable_object_subset"
+  ],
+  "metrics": [
+    "label_flip_rate",
+    "track_fragmentation_count",
+    "stable_object_purity",
+    "stable_object_coverage",
+    "dynamic_contamination_ratio"
+  ],
+  "notes": [
+    "This protocol strengthens the same-day baseline by adding both directionality and repeated traversals.",
+    "It is intended to replace the weaker same-day placeholder evidence used in earlier paper snapshots."
+  ]
+}

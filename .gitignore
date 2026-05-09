@@ -1,33 +1,22 @@
-# SAM 2
+# Project-local generated state and large research assets.
+#
+# The GitHub repository tracks source code, protocol configs, paper-facing
+# metadata, and dataset/download documentation. It intentionally does not track
+# raw datasets, generated experiment outputs, model weights, caches, virtual
+# environments, or temporary scratch files.
+
+# Editors / OS
 .vscode/
+.idea/
 .DS_Store
-__pycache__/
-*-checkpoint.ipynb
-.venv
-*.egg*
-build/*
-_C.*
-outputs/*
-checkpoints/*.pt
-*test*
-.tools/
-TorWIC SLAM Dataset/
-TorWIC%20SLAM%20Dataset/
-checkpoints/
-gdino_checkpoints/
-*.bag
-*.zip
-*.mp4
-*.bin
-# Byte-compiled / optimized / DLL files
+
+# Python / build artifacts
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
-
-# Distribution / packaging
+*.egg*
+*.egg-info/
 .Python
 build/
 develop-eggs/
@@ -43,11 +32,79 @@ var/
 wheels/
 pip-wheel-metadata/
 share/python-wheels/
-*.egg-info/
 .installed.cfg
-*.egg
 MANIFEST
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache/
+.pytest_cache/
+.hypothesis/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
 
+# Local environments / secrets
+.env
+.env.*
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+__pypackages__/
+
+# Large datasets and extracted captures
+data/
+TorWIC SLAM Dataset/
+TorWIC%20SLAM%20Dataset/
+*.bag
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# Generated outputs and scratch work
+outputs/
+tmp/
+*.log
+*.err
+
+# Model weights / local checkpoints
+checkpoints/
+gdino_checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.bin
+
+# Media generated from local data
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.ply
+*.pcd
+*.npy
+*.npz
+*_overlay.png
+*_mask.png
+progress_contact_sheet.png
+
+# Local agent scratch
+.codex
+.codex/
+.agents/
+.tools/
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -59,18 +116,10 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
 nosetests.xml
 coverage.xml
 *.cover
 *.py,cover
-.hypothesis/
-.pytest_cache/
 
 # Translations
 *.mo
@@ -122,15 +171,6 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -141,16 +181,6 @@ venv.bak/
 # mkdocs documentation
 /site
 
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
 # checkpoint
-*.pth
-outputs/
-
-.idea/
+*-checkpoint.ipynb
+_C.*
