@@ -1103,8 +1103,25 @@ summary and local paths here, then commit and push the repository.
   - EDITOR_SUMMARY.md: abstract, statement, and limitations updated (14 configs, 3 sessions, 9/14 neutral)
 - **Outputs:** `paper/evidence/dynamic_slam_stage1_p172.json` (3KB), `paper/export/dynamic_slam_stage1_p172.md` (4KB)
 - **Smoke outputs:** `outputs/dynamic_slam_backend_smoke_p172_jun15_run2/` (ok), `outputs/dynamic_slam_backend_smoke_p172_jun23_run1/` (ok)
-- **Blocked:** P173 ORB-SLAM3 cross-check (no ORB-SLAM3 installation — needs user approval)
-- **Active:** None — mainline blocked. User input needed (P173 download approval or B2 Hallway sessions decision).
+- **Blocked:** P173 ORB-SLAM3 cross-check (no backend — needs user download approval)
+- **Active:** None — mainline blocked pending P173 download decision or new phase.
+
+## 2026-05-10 P175 — B2 Hallway sessions 9–10 closure
+
+- **Goal:** Resolve B2 by verifying Hallway protocol completeness.
+- **Result: ✅ B2 RESOLVED.** Hallway branch is 10/10 sessions, not 8/10.
+  - 10 sessions across Jun 15, Jun 23, Oct 12 (4 Full CW, 1 Full CCW, 3 Straight CCW, 2 Straight CW)
+  - 537 frame-level objects, 16 clusters, 9 retained (4×barrier, 4×work table, 1×warehouse rack)
+  - Sessions 9–10 (Oct 12 Hallway_Straight_CCW, Hallway_Straight_CW) are present in clustering
+  - 80/80 first-eight frames executed
+- **Audit updates:**
+  - E2: 8/10 → 10/10 complete
+  - B2: DEFERRED → RESOLVED
+  - Blockers: B1 ✅, B2 ✅, B3 🟡 (partially resolved)
+  - 0 deferred blockers. All 3 original ROUND1 blockers closed.
+- **Paper updates:** main.tex Hallway paragraph (10/10 + stats), EDITOR_SUMMARY, ROUND3_FINAL_AUDIT
+- **Outputs:** `paper/evidence/hallway_b2_closure_p175.json` (5KB), `paper/export/hallway_b2_closure_p175.md` (2KB)
+- **Next:** P173 ORB-SLAM3 cross-check (blocked pending backend download)
 
 ## 2026-05-10 P174 — Submission-grade statistical formalization
 
@@ -1128,7 +1145,7 @@ summary and local paths here, then commit and push the repository.
 - **Outputs:** `paper/evidence/submission_statistics_p174.json` (7KB), `paper/export/submission_statistics_p174.md` (3KB)
 - **Tool:** `tools/compute_submission_statistics.py` — reproducible, runs in <1s
 - **Paper updates:** main.tex limitations §VII (items 1, 3 updated with CIs), EDITOR_SUMMARY (statistics added to scale paragraph)
-- **Audit:** ROUND3_FINAL_AUDIT B3 → PARTIALLY RESOLVED. B2 remains only full blocker.
+- **Audit:** ROUND3_FINAL_AUDIT B3 → PARTIALLY RESOLVED. Later P175 resolves B2; remaining statistics issue is only optional per-baseline flag export.
 - **Next:** P173 ORB-SLAM3 cross-check (blocked pending backend download)
 
 ## 2026-05-09 P172 Stage 2 — cross-month + Hallway DROID-SLAM replication

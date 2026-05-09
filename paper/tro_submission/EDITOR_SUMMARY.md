@@ -26,7 +26,7 @@ T-RO expects thorough experimental validation with ablation, baseline comparison
 | Validation Dimension | Evidence | T-RO Expectation |
 |---|---|---|
 | Core evidence ladder | 3 Aisle protocols (same-day, cross-day, cross-month) | ✅ Multi-condition evaluation |
-| Scene transfer | Hallway protocol (different environment) | ✅ Generalization evidence |
+| Scene transfer | Hallway protocol (different environment) — 10/10 sessions, 537/16/9 | ✅ Generalization evidence |
 | Ablation | 27-combination parameter sweep | ✅ Sensitivity analysis |
 | Baseline comparison | 3-way (naive, heuristic, ours) | ✅ Competitive baselines |
 | Error analysis | Per-category rejection, 5-reason taxonomy | ✅ Failure modes |

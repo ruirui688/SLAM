@@ -1,0 +1,124 @@
+{
+  "artifact": "P175 B2 Hallway sessions 9-10 closure",
+  "project_id": "industrial-semantic-slam",
+  "phase": "P175-b2-hallway-sessions-9-10-closure",
+  "created": "2026-05-10T00:12:27.068121+08:00",
+  "policy": "existing-data-only; no downloads; no GPU",
+  "verdict": "B2 RESOLVED — Hallway protocol is 10/10 complete, not 8/10",
+  "hallway_branch_status": {
+    "total_inputs": 10,
+    "total_sessions": 10,
+    "sessions_by_date": {
+      "2022-06-15": [
+        "Hallway_Straight_CCW",
+        "Hallway_Full_CCW",
+        "Hallway_Full_CW"
+      ],
+      "2022-06-23": [
+        "Hallway_Full_CW",
+        "Hallway_Straight_CCW",
+        "Hallway_Straight_CW"
+      ],
+      "2022-10-12": [
+        "Hallway_Full_CW_Run_1",
+        "Hallway_Straight_CCW",
+        "Hallway_Full_CW_Run_2",
+        "Hallway_Straight_CW"
+      ]
+    },
+    "frame_level_objects": 537,
+    "cross_session_clusters": 16,
+    "retained_stable_objects": 9,
+    "executed_frames_note": "80/80 first-eight frames across 10 sessions (10×8=80)",
+    "coverage": "100% — all 10 Hallway sessions have frontend outputs"
+  },
+  "retained_composition": {
+    "total": 9,
+    "by_label": {
+      "barrier": 4,
+      "work table": 4,
+      "warehouse rack": 1
+    },
+    "average_sessions": 4.3,
+    "average_frames": 35.7,
+    "average_purity": null,
+    "average_purity_note": "not exported in this closure artifact; omitted from the Markdown summary to avoid false precision"
+  },
+  "sessions": [
+    {
+      "date": "2022-06-15",
+      "session": "Hallway_Full_CCW",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CCW"
+    },
+    {
+      "date": "2022-06-15",
+      "session": "Hallway_Full_CW",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CW"
+    },
+    {
+      "date": "2022-06-15",
+      "session": "Hallway_Straight_CCW",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Straight_CCW"
+    },
+    {
+      "date": "2022-06-23",
+      "session": "Hallway_Full_CW",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Full_CW"
+    },
+    {
+      "date": "2022-06-23",
+      "session": "Hallway_Straight_CCW",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CCW"
+    },
+    {
+      "date": "2022-06-23",
+      "session": "Hallway_Straight_CW",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CW"
+    },
+    {
+      "date": "2022-10-12",
+      "session": "Hallway_Full_CW_Run_1",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_1"
+    },
+    {
+      "date": "2022-10-12",
+      "session": "Hallway_Full_CW_Run_2",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_2"
+    },
+    {
+      "date": "2022-10-12",
+      "session": "Hallway_Straight_CCW",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Straight_CCW"
+    },
+    {
+      "date": "2022-10-12",
+      "session": "Hallway_Straight_CW",
+      "bundle_id": "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Straight_CW"
+    }
+  ],
+  "b2_history": {
+    "original_issue": "Deferred from ROUND1 (R5): execute 2 remaining Hallway sessions on build host",
+    "previous_claim": "8/10 complete (E2 check in ROUND3 audit)",
+    "current_status": "10/10 complete — all Hallway sessions processed",
+    "resolution": "The 10-session first-eight Hallway branch (torwic_hallway_protocol_current_selection_v5) includes all 10 TorWIC Hallway sessions across Jun 15, Jun 23, and Oct 12 dates. The original 8/10 claim in E2 reflected an intermediate state; the pipeline now has full 10-session coverage. No sessions are missing.",
+    "sessions_previously_deferred": [
+      {
+        "number": 9,
+        "candidate": "2022-10-12 Hallway_Straight_CCW",
+        "status": "present in clustering"
+      },
+      {
+        "number": 10,
+        "candidate": "2022-10-12 Hallway_Straight_CW",
+        "status": "present in clustering"
+      }
+    ]
+  },
+  "evidence_strength": "Hallway branch at 537 observations, 16 clusters, 9 retained stable objects across 10 sessions. Retained objects: 4×barrier, 4×work table, 1×warehouse rack. 0 forklifts retained (consistent with Aisle admission policy). Admission rate 9/16 = 56.2% (bootstrap 95% CI: 31.2–81.2%). Hallway vs Aisle admission does not differ (P174 Fisher exact p=0.7645). The supplementary branch serves as scene-transfer validation, not as a primary claim.",
+  "updated_audit_items": {
+    "E2": "8/10 → 10/10 complete (all 10 Hallway sessions processed)",
+    "B2": "DEFERRED → RESOLVED (10/10 Hallway sessions complete)",
+    "remaining": "No Hallway session blockers remain"
+  },
+  "claim_boundary": "Hallway is a supplementary scene-transfer validation branch, not a primary Aisle ladder component. 10/10 sessions processed at 537/16/9, with bootstrap CI 31.2–81.2%. We do not claim Hallway as independently benchmarked — it validates the admission framework transfers to a non-aisle scene within the same warehouse site."
+}
