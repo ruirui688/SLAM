@@ -534,3 +534,41 @@ The criteria are not arbitrary hyperparameters optimized for a specific metric. 
 **Complete sweep output:** `outputs/torwic_admission_ablation_results.json`
 
 ---
+
+## Appendix: Baseline Comparison Study (P155)
+
+Three map-admission strategies were compared over the combined Aisle + Hallway dataset (20 cross-session clusters). The comparison quantifies what the richer admission policy adds over simpler baselines.
+
+**Strategies:**
+
+| ID | Strategy | Description |
+|---|---|---|
+| B0 | Naive-all-admit | No filtering: every cluster admitted to the map |
+| B1 | Purity/Support proxy | Admit if label_purity ≥ 0.85 OR support ≥ 10 (proxy for per-detection confidence; no NN scores available) |
+| B2 | Richer admission (current) | Full 5-criteria policy (min_sessions≥2, min_frames≥4, min_support≥6, max_dynamic_ratio≤0.20, min_label_purity≥0.70) |
+
+**Results:**
+
+| Metric | B0: Naive | B1: Purity/Support | B2: Richer |
+|---|---|---|---|
+| Admitted clusters | 20 | 19 | **5** |
+| Rejected clusters | 0 | 1 | **15** |
+| Infrastructure selected | 12 | 11 | **5** |
+| Dynamic (forklift) selected | 4 | 4 | **0** |
+| Other selected | 4 | 4 | **0** |
+| Phantom risk | 20.0% | 21.1% | **0.0%** |
+| Stability ratio | 60.0% | 57.9% | **100.0%** |
+
+**Key Findings:**
+
+1. **B0 (Naive) → B2 (Richer):** The maintenance layer eliminates all 4 forklift clusters (phantom risk 20%→0%) and 4 unclassified single-session clusters, retaining all 5 infrastructure clusters that pass cross-session criteria. This is the value proposition of the entire admission-control approach.
+
+2. **B1 (Purity/Support proxy) barely improves over naive.** It rejects only 1 additional cluster (a low-support, single-session cluster) while still admitting all 4 forklifts. This demonstrates that simpler heuristics using only 2 of 5 available signals cannot achieve the discrimination of the richer cross-session policy — forklift clusters have high purity (≥0.83) and high support (≥6), making them indistinguishable from infrastructure under purity/support alone.
+
+3. **The gap between B1 and B2 is the contribution of cross-session evidence:** session_count and dynamic_ratio separate what purity alone cannot. Forklift clusters have dynamic_ratio ≥0.83 vs infrastructure = 0.00, but both have purity ≥0.83 and support ≥6.
+
+**Limitations of B1:** B1 is a proxy baseline — we do not have per-detection NN confidence scores (Grounding DINO confidence was not logged during observation extraction). label_purity measures labeling consistency across observations, not detection quality. A real confidence baseline would require re-running the frontend with confidence logging. The proxy is intentionally generous (purity ≥0.85 is a high bar, and support ≥10 is a medium bar) to give the heuristic baseline the best chance — it still fails to reject forklifts.
+
+**Complete comparison output:** `outputs/torwic_baseline_comparison_results.json`
+
+---

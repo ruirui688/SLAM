@@ -807,3 +807,15 @@ summary and local paths here, then commit and push the repository.
 - Added ablation appendix to both EN and ZH manuscripts (§Appendix)
 - Outputs: torwic_ablation_combined_clusters.json, torwic_admission_ablation_results.json, p154_admission_ablation_sensitivity.png, admission_ablation_report_v1.md
 - Scripts: tools/run_admission_ablation.py, tools/build_ablation_report.py, tools/plot_ablation.py
+
+## 2026-05-09 P155 baseline comparison study
+
+- Compared 3 admission strategies over 20 combined Aisle+Hallway clusters:
+  - B0 Naive-all-admit: 20 admitted, 4 forklifts, 20% phantom risk
+  - B1 Purity/Support proxy (purity≥0.85 OR support≥10): 19 admitted, 4 forklifts, 21% phantom risk
+  - B2 Richer admission (current, 5 criteria): 5 admitted, 0 forklifts, 0% phantom risk, 100% stability
+- Key finding: B1 (simpler heuristic) barely improves over B0 — forklifts cannot be distinguished from infrastructure using purity/support alone. The richer policy's cross-session signals (session_count, dynamic_ratio) provide the necessary discrimination.
+- Limitation: no per-detection NN confidence scores available — B1 uses label_purity/support proxy, documented.
+- Appended baseline comparison appendix to both EN and ZH manuscripts (§Appendix)
+- Outputs: torwic_baseline_comparison_results.json, baseline_comparison_report_v1.md
+- Script: tools/run_baseline_comparison.py
