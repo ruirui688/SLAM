@@ -307,7 +307,22 @@ The ΔAPE grows approximately linearly with coverage: 0.000 mm at 0.026% (P135),
 
 **Root cause.** Three factors converge: (1) The forklift occupies a tiny fraction of each frame at typical industrial aisle camera distances, covering <0.6% of the DROID-SLAM feature budget across the window. (2) DROID-SLAM's RAFT flow-consistency mechanism internally rejects outlier features --- dynamic objects like forklifts naturally produce flow vectors that deviate from the dominant static-scene flow, and the explicit mask adds negligible additional rejection. (3) The 5.1 cm ATE baseline is dominated by static-scene errors (lighting variation, repetitive aisle texture, global-BA drift over 64 frames); removing 0.57% of features cannot move the ATE by more than the measurement noise floor (~0.05 mm with evo Sim(3) alignment).
 
-**Implication.** This is a scientifically meaningful negative result, not a pipeline failure. The backend execution path and real frontend-mask integration are operational. The bottleneck is localized to dynamic-object scale and placement relative to the camera: at current industrial aisle distances, the forklift simply does not occupy enough of the image to perturb DROID-SLAM trajectory estimates. Future gain-oriented experiments should (i) screen for TorWIC segments where the dynamic object occupies > 5% of the frame area (§P142 concentrated high-coverage frame screening), or (ii) evaluate dynamic masking on scene-level map quality rather than trajectory ATE/RPE.
+**Implication.** This is a scientifically meaningful negative result, not a pipeline failure. The backend execution path and real frontend-mask integration are operational. The bottleneck is localized to dynamic-object scale and placement relative to the camera: at current industrial aisle distances, the forklift simply does not occupy enough of the image to perturb DROID-SLAM trajectory estimates.
+
+We further tested whether concentrated masking of only the highest-coverage frames (top-4, top-8, top-16) produces a larger trajectory effect than uniform masking across all frames. The hypothesis was that DROID-SLAM's BA might be disproportionately sensitive to outlier features in a few high-dynamic frames. Table 5 summarizes the result.
+
+**Table 5. Concentrated vs. uniform dynamic masking comparison (64-frame TorWIC Aisle_CW_Run_1).**
+
+| Configuration | Masked | Coverage | ΔAPE (mm) |
+|---|---:|---:|
+| P142 top4 concentrated | 4/64 | 0.083% | +0.000 |
+| P142 top8 concentrated | 8/64 | 0.163% | −0.003 |
+| P142 top16 concentrated | 16/64 | 0.316% | −0.013 |
+| P140 uniform-32 | 32/64 | 0.568% | +0.054 |
+
+The concentrated strategy produces a small negative ΔAPE (masked trajectory marginally better, −0.003 to −0.013 mm), while the uniform strategy produces a positive ΔAPE (masked trajectory marginally worse, +0.054 mm). The sign asymmetry suggests that boundary-feature loss from masking low-coverage frames (0.6–0.8%, where the forklift boundary-to-interior pixel ratio is unfavorable) is the dominant masking artifact, not dynamic feature removal. However, all ΔAPE values are below 0.06 mm — the measurement noise floor with evo Sim(3) alignment — so neither strategy materially improves or degrades the trajectory.
+
+**Net conclusion.** On this TorWIC segment, the forklift is too small (0.6–1.4% per frame at typical aisle camera distances) to measurably affect DROID-SLAM trajectory accuracy via any masking strategy. DROID-SLAM's internal flow-consistency filtering already handles dynamic objects at this spatial scale. Future work should (i) screen for TorWIC segments where dynamic objects occupy > 5% of the frame area, or (ii) evaluate dynamic masking on scene-level map quality rather than trajectory ATE/RPE.
 
 ---
 
@@ -339,7 +354,7 @@ The Aisle ladder (§VII.A) is the primary evidence ladder for the systems contri
 
 ## IX. Limitations
 
-1. **Not a complete lifelong SLAM backend.** The maintenance layer (§V) is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size — capabilities that full SLAM systems [1][3][5] provide. Bounded DROID-SLAM raw-vs-masked runs now verify the backend execution/evo path (§VII.E), including a 64-frame global-BA run, but full-trajectory backend evaluation remains future work. **Dynamic masking did not improve trajectory ATE/RPE on the current TorWIC segment:** the forklift occupies 0.63–1.39% per frame (0.57% of DROID-SLAM's window feature budget at 1280×720), and ΔATE across P135–P140 is consistently < 0.06 mm (§VII.F). Larger dynamic targets or segments where the dynamic object occupies a larger image fraction may be needed to observe a trajectory benefit.
+1. **Not a complete lifelong SLAM backend.** The maintenance layer (§V) is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size — capabilities that full SLAM systems [1][3][5] provide. Bounded DROID-SLAM raw-vs-masked runs now verify the backend execution/evo path (§VII.E–F), including 64-frame global-BA runs across 10 configurations. **Dynamic masking did not improve trajectory ATE/RPE on any tested configuration:** the forklift occupies 0.6–1.4% per frame (≤0.57% of DROID-SLAM's window feature budget at 1280×720), and both uniform (P135–P140) and concentrated (P142) masking strategies produce |ΔATE| < 0.06 mm (§VII.F). DROID-SLAM's internal flow-consistency filtering already handles dynamic objects at this spatial scale. Larger dynamic targets or segments where the dynamic object occupies a larger image fraction may be needed to observe a trajectory benefit.
 
 2. **Larger-window or full-trajectory Hallway evaluation remains future work.** The current Hallway branch (§VII.C) uses 8/10 sessions (80/80 frames). Full-trajectory evaluation across all 10 sessions and extended frame sequences would provide stronger scene-transfer evidence. The current 9/16 retention ratio on limited frames is indicative but not conclusive.
 

@@ -468,6 +468,27 @@ make dynamic-first32-real-mask-figure
 详见 `outputs/torwic_p141_window_selection_diagnostic_v1.md`。
 
 
+
+
+### P142 强动态片段筛选结果（2026-05-09 17:21+08）
+
+**实验：** 3 次 DROID-SLAM global BA，只 mask 覆盖率最高的 top-4 / top-8 / top-16 帧（而非 P140 的均匀 32 帧 mask）。
+
+| 配置 | Masked | 覆盖 | ΔAPE (mm) |
+|---|---:|---:|---:|
+| top4 集中 | 4/64 | 0.083% | +0.000 |
+| top8 集中 | 8/64 | 0.163% | −0.003 |
+| top16 集中 | 16/64 | 0.316% | −0.013 |
+| P140 均匀-32 | 32/64 | 0.568% | +0.054 |
+
+**发现：**
+1. 集中高覆盖率 mask 也未产生 trajectory improvement（|ΔATE| < 0.06mm）
+2. **新信号：符号不对称。** 集中 mask（只 mask 高覆盖率帧）：ΔAPE ≤ 0，略有利。均匀 mask（所有帧 mask）：ΔAPE > 0，略有损。说明均匀 mask 在低覆盖率帧（0.6-0.8%）上误删叉车边界稳定特征，而集中 mask 避免了这一积累。
+3. 两种策略的差异幅度都在测量噪声（<0.06mm）以下，但符号反转具有方法学意义。
+4. **最终结论：** 在当前 TorWIC 片段中，叉车太小（0.6-1.4% 帧面积）以至于任何 mask 策略都无法可测量地影响 DROID-SLAM 轨迹。DROID-SLAM 内部光流一致性已天然处理此尺度下的动态对象。下一步应寻找叉车占帧面积 >5% 的 TorWIC 片段。
+
+详见 `outputs/torwic_p142_strong_segment_screening_results_v1.md`。
+
 ## 2. 论文稿件
 
 | 稿件 | 路径 | 用途 |

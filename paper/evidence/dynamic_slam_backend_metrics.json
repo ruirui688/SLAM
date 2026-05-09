@@ -152,6 +152,57 @@
       "mean_mask_coverage_percent": 0.567722,
       "claim_boundary": "Diagnostic analysis only. No new backend run. Root cause: forklift occupies 0.63-1.39% per frame at 1280x720 (0.57% of DROID-SLAM feature budget across 64 frames). DROID-SLAM internal flow consistency already handles sparse dynamic features.",
       "interpretation": "Even 32/64 real forklift masks produce trajectory-neutral results because the forklift covers only 0.63-1.39% of image area per frame (0.57% window-level). DROID-SLAM's internal RAFT flow consistency already filters sparse dynamic features. Next step: P142 strong dynamic segment screening (top-N highest-coverage frames only) rather than uniform full-window masking."
+    },
+    {
+      "key": "p142_top4_concentrated",
+      "name": "P142 top4 concentrated dynamic masking",
+      "source": "outputs/dynamic_slam_backend_smoke_p142_64_top4_real_masks_global_ba/p142_top4_real_mask_metrics.json",
+      "scope": "64-frame TorWIC Aisle_CW_Run_1, DROID-SLAM global BA, real forklift masks only on 4 highest-coverage frames.",
+      "raw_ape_rmse_m": 0.051135,
+      "raw_rpe_rmse_m": 0.032713,
+      "masked_ape_rmse_m": 0.051135,
+      "masked_rpe_rmse_m": 0.032713,
+      "delta_ape_rmse_m": 0.0,
+      "delta_rpe_rmse_m": 0.0,
+      "masked_frames": 4,
+      "total_frames": 64,
+      "mean_mask_coverage_percent": 0.082921,
+      "claim_boundary": "Concentrated masking of top-4 highest-coverage frames. Trajectory-neutral.",
+      "interpretation": "Top-4 concentrated masking produces identical ATE/RPE to raw. No trajectory impact."
+    },
+    {
+      "key": "p142_top8_concentrated",
+      "name": "P142 top8 concentrated dynamic masking",
+      "source": "outputs/dynamic_slam_backend_smoke_p142_64_top8_real_masks_global_ba/p142_top8_real_mask_metrics.json",
+      "scope": "64-frame TorWIC Aisle_CW_Run_1, DROID-SLAM global BA, real forklift masks only on 8 highest-coverage frames.",
+      "raw_ape_rmse_m": 0.051135,
+      "raw_rpe_rmse_m": 0.032713,
+      "masked_ape_rmse_m": 0.051132,
+      "masked_rpe_rmse_m": 0.032713,
+      "delta_ape_rmse_m": -3e-06,
+      "delta_rpe_rmse_m": 0.0,
+      "masked_frames": 8,
+      "total_frames": 64,
+      "mean_mask_coverage_percent": 0.162823,
+      "claim_boundary": "Concentrated masking of top-8 highest-coverage frames. Slightly negative ΔAPE (−0.003mm), trajectory-neutral.",
+      "interpretation": "Top-8 concentrated masking produces a tiny negative ΔAPE (masked marginally better). Difference is below measurement noise."
+    },
+    {
+      "key": "p142_top16_concentrated",
+      "name": "P142 top16 concentrated dynamic masking",
+      "source": "outputs/dynamic_slam_backend_smoke_p142_64_top16_real_masks_global_ba/p142_top16_real_mask_metrics.json",
+      "scope": "64-frame TorWIC Aisle_CW_Run_1, DROID-SLAM global BA, real forklift masks only on 16 highest-coverage frames.",
+      "raw_ape_rmse_m": 0.051135,
+      "raw_rpe_rmse_m": 0.032713,
+      "masked_ape_rmse_m": 0.051122,
+      "masked_rpe_rmse_m": 0.032713,
+      "delta_ape_rmse_m": -1.3e-05,
+      "delta_rpe_rmse_m": 0.0,
+      "masked_frames": 16,
+      "total_frames": 64,
+      "mean_mask_coverage_percent": 0.316157,
+      "claim_boundary": "Concentrated masking of top-16 highest-coverage frames. ΔAPE=−0.013mm — trajectory-neutral but sign pattern informative.",
+      "interpretation": "Concentrated top-16 masking shows a minor beneficial effect (−0.013mm) vs uniform 32-masking's harmful effect (+0.054mm). Sign asymmetry suggests boundary-feature loss in uniform masking is the dominant artifact."
     }
   ]
 }

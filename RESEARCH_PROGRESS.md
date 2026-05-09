@@ -634,3 +634,25 @@ summary and local paths here, then commit and push the repository.
 - Coverage-power curve: ΔAPE grows ~0.1 mm per percentage point of coverage; extrapolated 64/64 masks (~1.14%) predicted ΔATE ≈ +0.11 mm — still trajectory-neutral.
 - Recommended next experiment (highest priority): P142 strong dynamic segment screening — mask only top-N highest-coverage frames (top-4 mean 1.33%, top-8 1.25%, top-16 1.18%).
 - Updated: paper/manuscript_en_thick.md (Limitation §1 and new §VII.F coverage-power diagnostic), README.md, paper/evidence/dynamic_slam_backend_metrics.json, paper/evidence/README.md.
+
+## 2026-05-09 P142 strong dynamic segment screening
+
+- Built 3 masked input packs for top-N highest-coverage frames:
+  - `outputs/dynamic_slam_backend_input_pack_64_top4_real_masks_p142` (4 frames, 0.083% window coverage)
+  - `outputs/dynamic_slam_backend_input_pack_64_top8_real_masks_p142` (8 frames, 0.163%)
+  - `outputs/dynamic_slam_backend_input_pack_64_top16_real_masks_p142` (16 frames, 0.316%)
+- Ran DROID-SLAM global BA on all 3 (~15 min GPU total).
+- Results (ΔAPE):
+  - top4 concentrated: 0.000 mm
+  - top8 concentrated: −0.003 mm
+  - top16 concentrated: −0.013 mm
+  - P140 uniform-32: +0.054 mm
+- Key finding: concentrated masking does NOT produce a larger trajectory effect than uniform.
+  Sign asymmetry (concentrated negative vs uniform positive ΔATE) suggests boundary-feature loss
+  in low-coverage frames is the dominant masking artifact, not dynamic feature removal.
+- Net conclusion: forklift at 0.6–1.4% per frame is too small to affect DROID-SLAM via any
+  masking strategy. DROID-SLAM internal flow consistency already handles objects at this scale.
+- Produced `outputs/torwic_p142_strong_segment_screening_results_v1.{json,md}`.
+- Updated: paper/manuscript_en_thick.md (§VII.F expanded + updated Limitation §1), README.md,
+  paper/evidence/dynamic_slam_backend_metrics.json (3 new entries).
+- Next: P143 cross-window dynamic content audit — find TorWIC segments where forklift >5% of frame.
