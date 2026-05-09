@@ -61,3 +61,9 @@ summary and local paths here, then commit and push the repository.
 - Produced P110 audit and closure bundle v20; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v20.md`.
 - Evidence summary: synchronized Appendix Q into both OpenClaw paper drafts. Fixed Section III.A narrative redundancy (merged near-duplicate "candidate evidence" sentences). Tightened Section II item 4, Section VI, and Fig. A1 caption to explicitly block Hallway-to-Aisle promotion or merge. Verified terminology consistency, contribution boundary, Aisle/Hallway roles, and figure captions remain bounded.
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
+
+## 2026-05-09 P111 submission package consistency
+
+- Produced P111 audit and closure bundle v21; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v21.md`.
+- Evidence summary: verified all primary evidence artifacts exist on disk and are mutually cross-referenced. Bundle v20 correctly references all primary artifacts. Manifest records 6 P108-P110 entries. Deliverables checklist covers P108-P111. Manually checked 10 key files for cross-reference integrity; no dangling artifact paths found. Anchors `203/11/5 -> 240/10/5 -> 297/14/7` and `537/16/9`, `80/80` traceable through all package layers.
+- Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
