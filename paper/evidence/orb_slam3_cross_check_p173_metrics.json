@@ -1,0 +1,287 @@
+{
+  "generated_at": "2026-05-10T02:47:00+08:00",
+  "project": "industrial-semantic-slam",
+  "phase": "P173-recovery",
+  "slam_system": "ORB-SLAM3 mono_tum",
+  "scene": "Jun15 Aisle CCW Run1 (64 frames, ~7s, 1280x720)",
+  "data_source": {
+    "groundtruth": "outputs/dynamic_slam_backend_input_pack_p173_jun15_aisle_ccw_run1/groundtruth.txt",
+    "raw_kf": "outputs/orb_slam3_p173_recovery/raw_KeyFrameTrajectory.txt",
+    "masked_kf": "outputs/orb_slam3_p173_recovery/masked_KeyFrameTrajectory.txt"
+  },
+  "caveats": {
+    "sparse_keyframes_only": "Only KeyFrameTrajectory.txt available (no CameraTrajectory.txt). APE/RPE computed on 10-12 sparse keyframes over ~1.2s.",
+    "partial_coverage": "ORB-SLAM3 tracked ~17% of the full 7s sequence before tracking loss. Ground truth has 64 full-resolution poses.",
+    "monocular_scale_ambiguity": "ORB-SLAM3 mono has inherent scale ambiguity. SE(3) alignment corrects global scale only if consistent across trajectory.",
+    "short_sequence": "64-frame sequence may be insufficient for robust mono initialization (ORB-SLAM3 requires sufficient baseline).",
+    "tracking_failure": "Raw run reports explicit tracking failure after ~10 keyframes. Masked run was killed by 120s timeout."
+  },
+  "results": {
+    "raw": {
+      "label": "raw",
+      "n_keyframes": 10,
+      "n_gt_poses_total": 64,
+      "time_range_s": [
+        5.15847420692,
+        6.35475921631
+      ],
+      "duration_s": 1.1962850093899995,
+      "pre_align_offset": {
+        "gt_center": [
+          0.011838001003289998,
+          -0.44598089396030005,
+          0.22012823140449997
+        ],
+        "est_center": [
+          0.01681501,
+          0.00019371999999999998,
+          -0.00935211
+        ],
+        "note": "ORB-SLAM3 world origin at first keyframe; GT uses VICON world frame"
+      },
+      "ape_translation_m": {
+        "max": 0.09388353830792578,
+        "mean": 0.04437113810063083,
+        "median": 0.04661296612063982,
+        "min": 0.0033461551594870472,
+        "rmse": 0.05180378075869931,
+        "sse": 0.02683631700895385,
+        "std": 0.02673637605492062
+      },
+      "rpe_translation_m": {
+        "max": 0.041618868711921345,
+        "mean": 0.022543374364908678,
+        "median": 0.01989876594200528,
+        "min": 0.008739920282935696,
+        "rmse": 0.024263756390459756,
+        "sse": 0.00529856886758019,
+        "std": 0.008973636187140362
+      },
+      "per_frame_ape": [
+        [
+          5.15847420692,
+          0.09388353830792578
+        ],
+        [
+          5.36284828186,
+          0.05968793240822641
+        ],
+        [
+          5.46094560623,
+          0.044442440469659415
+        ],
+        [
+          5.66309547424,
+          0.020127845591716476
+        ],
+        [
+          5.75689649582,
+          0.0033461551594870472
+        ],
+        [
+          5.8599653244,
+          0.01146804827299683
+        ],
+        [
+          6.0589132309,
+          0.030990953174308573
+        ],
+        [
+          6.16452169418,
+          0.04878349177162023
+        ],
+        [
+          6.25772476196,
+          0.06246566276316801
+        ],
+        [
+          6.35475921631,
+          0.0685153130871995
+        ]
+      ],
+      "per_step_rpe": [
+        [
+          0,
+          0.041618868711921345
+        ],
+        [
+          1,
+          0.01989876594200528
+        ],
+        [
+          2,
+          0.031515644368444354
+        ],
+        [
+          3,
+          0.01886075306340162
+        ],
+        [
+          4,
+          0.016791722616319282
+        ],
+        [
+          5,
+          0.026178477627499825
+        ],
+        [
+          6,
+          0.021396625740006586
+        ],
+        [
+          7,
+          0.017889590931644092
+        ],
+        [
+          8,
+          0.008739920282935696
+        ]
+      ],
+      "align_type": "SE(3) Umeyama, no scale correction"
+    },
+    "masked": {
+      "label": "masked",
+      "n_keyframes": 12,
+      "n_gt_poses_total": 64,
+      "time_range_s": [
+        5.15847420692,
+        6.35475921631
+      ],
+      "duration_s": 1.1962850093899995,
+      "pre_align_offset": {
+        "gt_center": [
+          0.012674046357362497,
+          -0.4450249651373333,
+          0.2202349943879167
+        ],
+        "est_center": [
+          0.01790489166666667,
+          0.000179225,
+          -0.009711525
+        ],
+        "note": "ORB-SLAM3 world origin at first keyframe; GT uses VICON world frame"
+      },
+      "ape_translation_m": {
+        "max": 0.09157084956016923,
+        "mean": 0.040732872848100135,
+        "median": 0.037136068571987105,
+        "min": 0.0022246113673685787,
+        "rmse": 0.047901239036153884,
+        "sse": 0.027534344414385032,
+        "std": 0.02520638353154334
+      },
+      "rpe_translation_m": {
+        "max": 0.041796803341310945,
+        "mean": 0.018479228364434143,
+        "median": 0.017166152208217687,
+        "min": 0.008735745684452201,
+        "rmse": 0.020187828410232894,
+        "sse": 0.00448303257513107,
+        "std": 0.008128132317826713
+      },
+      "per_frame_ape": [
+        [
+          5.15847420692,
+          0.09157084956016923
+        ],
+        [
+          5.36284828186,
+          0.05775250636195029
+        ],
+        [
+          5.46094560623,
+          0.0428055132985847
+        ],
+        [
+          5.55945134163,
+          0.031082250810030077
+        ],
+        [
+          5.66309547424,
+          0.01874005181827095
+        ],
+        [
+          5.75689649582,
+          0.0022246113673685787
+        ],
+        [
+          5.8599653244,
+          0.010235072904169229
+        ],
+        [
+          5.95804953575,
+          0.02234120794725042
+        ],
+        [
+          6.0589132309,
+          0.031466623845389514
+        ],
+        [
+          6.16452169418,
+          0.049275667399229915
+        ],
+        [
+          6.25772476196,
+          0.06271505505846174
+        ],
+        [
+          6.35475921631,
+          0.06858506380632702
+        ]
+      ],
+      "per_step_rpe": [
+        [
+          0,
+          0.041796803341310945
+        ],
+        [
+          1,
+          0.02001364440526118
+        ],
+        [
+          2,
+          0.01433953004530639
+        ],
+        [
+          3,
+          0.017166152208217687
+        ],
+        [
+          4,
+          0.018938493162095425
+        ],
+        [
+          5,
+          0.01659640246648944
+        ],
+        [
+          6,
+          0.014033752984668618
+        ],
+        [
+          7,
+          0.01247967074735362
+        ],
+        [
+          8,
+          0.021152526020813276
+        ],
+        [
+          9,
+          0.0180187909428068
+        ],
+        [
+          10,
+          0.008735745684452201
+        ]
+      ],
+      "align_type": "SE(3) Umeyama, no scale correction"
+    }
+  },
+  "verdict": {
+    "metrics_valid": true,
+    "defensibility": "APE/RPE are mathematically valid given matched timestamps and SE(3) alignment, but N=10-12 is below the typical robustness threshold for SLAM evaluation. Interpret with caution.",
+    "raw_vs_masked": "Masked variant gives slightly lower APE (rmse 0.048 vs 0.052 m) and RPE (rmse 0.020 vs 0.024 m), consistent with expectation that dynamic-object masking improves monocular tracking.",
+    "no_improvement_claimed": "These numbers do not constitute a claim of system-level improvement over any baseline. ORB-SLAM3 failed to track >80% of the sequence."
+  }
+}
