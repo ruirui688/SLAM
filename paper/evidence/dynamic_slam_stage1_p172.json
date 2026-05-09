@@ -1,0 +1,63 @@
+{
+  "artifact": "P172 Stage 1 dynamic SLAM backend replication \u2014 2-session cross-session evidence",
+  "project_id": "industrial-semantic-slam",
+  "phase": "P172-stage1-two-session-droid-replication",
+  "created": "2026-05-09T23:22:30.753508+08:00",
+  "claim_boundary": "Stage 1 replication: 2 additional TorWIC Aisle sessions (Jun15 Run2 same-day, Jun23 Run1 cross-day) confirm trajectory-neutrality of semantic frontend masks. This upgrades the evidence from single-session to multi-session, but is still bounded to the TorWIC warehouse environment and DROID-SLAM backend.",
+  "method": "64-frame DROID-SLAM with global BA, semantic frontend masks (fork/forklift labels only), no temporal propagation, no dilation.",
+  "sessions": [
+    {
+      "id": "p172_jun15_run2",
+      "date": "2022-06-15",
+      "session": "Aisle_CW_Run_2",
+      "category": "same-day",
+      "mask_source": "outputs/torwic_same_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2/frontend_output",
+      "label_prefix": "fork",
+      "masked_frames": 4,
+      "total_frames": 64,
+      "max_coverage_percent": 1.486328,
+      "mean_coverage_percent": 0.045422,
+      "ape_raw_mm": 9.537,
+      "ape_masked_mm": 9.536,
+      "delta_ape_mm": -0.001,
+      "rpe_raw_mm": 15.247,
+      "rpe_masked_mm": 15.247,
+      "delta_rpe_mm": 0.0,
+      "result": "trajectory-neutral"
+    },
+    {
+      "id": "p172_jun23_run1",
+      "date": "2022-06-23",
+      "session": "Aisle_CW_Run_1",
+      "category": "cross-day",
+      "mask_source": "outputs/torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1/frontend_output",
+      "label_prefix": "fork",
+      "masked_frames": 4,
+      "total_frames": 64,
+      "max_coverage_percent": 1.104275,
+      "mean_coverage_percent": 0.028473,
+      "ape_raw_mm": 51.135,
+      "ape_masked_mm": 51.135,
+      "delta_ape_mm": 0.0,
+      "rpe_raw_mm": 32.713,
+      "rpe_masked_mm": 32.713,
+      "delta_rpe_mm": 0.0,
+      "result": "trajectory-neutral"
+    }
+  ],
+  "evidence_chain_summary": {
+    "p171_single_session": "12 configs on Jun15 Run1 (64f): 7 neutral, 5 perturbed. Mask selectivity = necessary condition.",
+    "p172_stage1_replication": "2 additional sessions (Jun15 Run2, Jun23 Run1): both trajectory-neutral (\u0394APE \u2264 0.001 mm). Confirms frontend mask selectivity across sessions.",
+    "total_configs": 14,
+    "total_sessions": 3,
+    "neutral_configs": 9,
+    "perturbed_configs": 5,
+    "replication_status": "CLEAN \u2014 no degradation across sessions for selective semantic frontend masks"
+  },
+  "claim_upgrade": {
+    "before": "7/12 neutral on single session (P171)",
+    "after": "9/14 neutral across 3 sessions (P171 + P172 Stage 1)",
+    "strengthened": "Cross-session reproducibility confirmed: semantic frontend masks are trajectory-neutral across different TorWIC Aisle sessions (same-day and cross-day)",
+    "remaining": "No cross-month Aisle session tested; no Hallway scene transfer tested; ORB-SLAM3 not evaluated"
+  }
+}

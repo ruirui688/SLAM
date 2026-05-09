@@ -323,6 +323,8 @@ We evaluate 12 DROID-SLAM configurations on a single 64-frame TorWIC window (Jun
 
 These results establish two findings. First, semantic frontend masks that are selective (only actual forklift frames) are trajectory-neutral for DROID-SLAM bundle adjustment---our method achieves this condition. Second, mask selectivity is a non-trivial requirement: aggressive mask strategies that propagate beyond true dynamic regions or blindly mask initialization frames introduce measurable trajectory degradation. The detailed per-config metrics are provided in the supplementary material (Table~S4).
 
+Stage~1 replication on two additional TorWIC Aisle sessions confirms cross-session reproducibility: Jun~15 Aisle\_CW\_Run\_2 (same-day) and Jun~23 Aisle\_CW\_Run\_1 (cross-day, two weeks later) both produce $\Delta\text{APE} \leq 0.001~\text{mm}$ with selective semantic frontend masks (4/64 frames masked, max coverage $\leq 1.49\%$). This upgrades the single-session finding to a 9/14-config multi-session evidence chain (3 sessions, same-day $+$ cross-day).
+
 % Fig 4: DROID-SLAM raw-vs-masked overlay for P135 (semantic masks)
 % PLACEHOLDER: \begin{figure} \centering \includegraphics[width=\columnwidth]{figures/torwic_dynamic_slam_backend_p134.png} \caption{Trajectory comparison: raw RGB (baseline) vs semantic-masked RGB (P135). Both trajectories are visually and metrically indistinguishable.} \label{fig:dynamic_summary} \end{figure}
 

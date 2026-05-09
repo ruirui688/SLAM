@@ -1088,3 +1088,19 @@ summary and local paths here, then commit and push the repository.
   - EDITOR_SUMMARY.md: all 3 mentions updated ("10-config" → "12-config", "all trajectory-neutral" → "two-group")
 - Outputs: `paper/evidence/dynamic_slam_backend_metrics_p171.json` (30KB), `paper/export/dynamic_slam_backend_metrics_p171.md` (7KB)
 - All 12 configs share single-session input (Jun 15 Aisle_CW_Run_1, 64-frame window)
+
+## 2026-05-09 P172 Stage 1 2-session DROID-SLAM replication
+
+- **Goal:** Verify P171 trajectory-neutrality across additional TorWIC Aisle sessions.
+- **Method:** DROID-SLAM 64-frame with global BA, semantic frontend masks (fork/forklift labels, same-day and cross-day bundle frontend_output), no temporal propagation, no dilation.
+- **Sessions:**
+  - Jun 15 Aisle_CW_Run_2 (same-day): 4/64 frames masked, max coverage 1.49%, ΔAPE = −0.001 mm, ΔRPE = 0.000 mm
+  - Jun 23 Aisle_CW_Run_1 (cross-day, 2 weeks later): 4/64 frames masked, max coverage 1.10%, ΔAPE = 0.000 mm, ΔRPE = 0.000 mm
+- **Result: ✅ Both sessions trajectory-neutral.**
+- **Updated evidence chain:** 9/14 configs neutral across 3 sessions (P171 7/12 + P172 2/2). Cross-session reproducibility confirmed.
+- **Paper updates:**
+  - main.tex §VII.F: added Stage 1 replication paragraph (2 sessions, ΔAPE ≤ 0.001 mm)
+  - EDITOR_SUMMARY.md: abstract, statement, and limitations updated (14 configs, 3 sessions, 9/14 neutral)
+- **Outputs:** `paper/evidence/dynamic_slam_stage1_p172.json` (3KB), `paper/export/dynamic_slam_stage1_p172.md` (4KB)
+- **Smoke outputs:** `outputs/dynamic_slam_backend_smoke_p172_jun15_run2/` (ok), `outputs/dynamic_slam_backend_smoke_p172_jun23_run1/` (ok)
+- **Next:** P172 Stage 2 (cross-month + Hallway scene transfer), P167 ROUND3 audit update (B1 resolved), P173 ORB-SLAM3 cross-check
