@@ -291,6 +291,10 @@ DynaSLAM[2]证明在动态场景中屏蔽动态物体（人、车辆）可以改
 
 ![图8. P138 真实 first-eight 语义 mask 后端诊断。](figures/torwic_dynamic_mask_first8_real_p138.png)
 
+因此，我们继续把真实 frontend 证据扩展到前十六帧：对帧 000008--000015 运行 Grounding DINO 和 SAM2，并与已有 first-eight masks 合并（图9）。同一个 64 帧后端窗口现在包含 16/64 帧真实 frontend masks，平均 mask 覆盖率为 0.264%。轨迹结果仍为中性：first-sixteen real masked RGB 的 APE RMSE 为 0.051182 m，raw RGB 为 0.051135 m；RPE RMSE 为 0.032711 m，raw RGB 为 0.032713 m。该结果进一步强化了边界：后端路径和真实 mask 接入已经可执行，但当前 forklift mask 面积和位置仍不足以支撑轨迹精度提升主张。
+
+![图9. P139 真实 first-sixteen 语义 mask 后端诊断。](figures/torwic_dynamic_mask_first16_real_p139.png)
+
 ---
 
 ## 八、讨论

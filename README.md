@@ -409,6 +409,26 @@ make dynamic-first8-real-mask-figure
 
 当前解释：真实逐帧 masks 覆盖 `8/64` 帧、平均覆盖率 `0.118100%`，仍不足以形成轨迹收益。这个结果比 P136/P137 更接近真实 pipeline，因此下一步应把真实 frontend 推到更长窗口，而不是继续依赖传播。
 
+P139 继续实际推进真实 frontend：补跑 `000008` 到 `000015` 的
+Grounding DINO + SAM2 forklift masks，并合并 `000000` 到 `000015` 十六帧真实
+masks 进入同一个 64 帧 DROID-SLAM 后端窗口。
+
+```bash
+make dynamic-slam-backend-first16-real-masks
+make dynamic-first16-real-mask-figure
+```
+
+结果：
+
+| 输入 | APE RMSE (m) | RPE RMSE (m) |
+|---|---:|---:|
+| raw RGB | 0.051135 | 0.032713 |
+| first-sixteen real masked RGB | 0.051182 | 0.032711 |
+
+![真实 first-sixteen mask 后端诊断](paper/figures/torwic_dynamic_mask_first16_real_p139.png)
+
+当前解释：真实 masks 覆盖提高到 `16/64` 帧、平均覆盖率 `0.263896%`，但轨迹指标仍基本持平。这个结果进一步说明，当前窗口内 forklift mask 面积和位置不足以显著改变 DROID-SLAM 轨迹；后续更有价值的方向是扩展到 32/64 帧真实 frontend，并同时报告 mask 质量/面积分布，而不是只追求单次 ATE/RPE 改善。
+
 ## 2. 论文稿件
 
 | 稿件 | 路径 | 用途 |

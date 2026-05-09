@@ -159,6 +159,18 @@ make dynamic-first8-real-mask-figure
 不是传播结果。它仍不支持轨迹收益主张，但为下一步“更长窗口真实语义推理”
 提供了更干净的基线。
 
+P139 将真实 frontend 推进到 `000000` 到 `000015` 十六帧：
+
+```bash
+make dynamic-slam-backend-first16-real-masks
+make dynamic-first16-real-mask-figure
+```
+
+当前边界：该入口假定 `000008` 到 `000015` 的 frontend 输出已经由
+`demo_local_grounded_sam2_observations.py` 生成。若需要重跑 frontend，请使用
+`tram` 环境、`PYTHONPATH=/home/rui/slam`、`transformers==4.46.3`、
+`checkpoints/sam2_hiera_small.pt` 和 `configs/sam2/sam2_hiera_s.yaml`。
+
 ### 半监督 VOS 推理
 
 The `vos_inference.py` script can be used to generate predictions for semi-supervised video object segmentation (VOS) evaluation on datasets such as [DAVIS](https://davischallenge.org/index.html), [MOSE](https://henghuiding.github.io/MOSE/) or the SA-V dataset.

@@ -291,6 +291,10 @@ We then reuse already available real per-frame frontend masks for frames 000000-
 
 ![Fig. 8. P138 first-eight real semantic mask backend diagnostic.](figures/torwic_dynamic_mask_first8_real_p138.png)
 
+We therefore extend the real frontend evidence to the first sixteen frames by running Grounding DINO and SAM2 on frames 000008--000015 and merging those outputs with the existing first-eight masks (Fig. 9). The 64-frame backend window now contains true frontend masks on 16/64 frames, with 0.264% mean mask coverage. The trajectory result remains neutral: APE RMSE is 0.051182 m for first-sixteen real masked RGB versus 0.051135 m for raw RGB, and RPE RMSE is 0.032711 m versus 0.032713 m. This strengthens the claim boundary: the backend path and real-mask integration are operational, but the current forklift mask area and placement are still too limited to support a trajectory-improvement claim.
+
+![Fig. 9. P139 first-sixteen real semantic mask backend diagnostic.](figures/torwic_dynamic_mask_first16_real_p139.png)
+
 ---
 
 ## VIII. Discussion
@@ -395,6 +399,8 @@ Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferre
 **Fig. 7.** Optical-flow mask propagation stress test. Dense optical flow is used to warp the same available forklift masks to neighboring frames within the bounded window. The resulting APE/RPE remain effectively tied, so the current evidence points toward detector-quality temporal masks rather than low-cost propagation as the next requirement.
 
 **Fig. 8.** First-eight real semantic mask backend diagnostic. Existing per-frame frontend forklift masks for frames 000000--000007 are merged into the 64-frame backend input. The result remains trajectory-neutral, showing that the next step is longer-window real semantic inference rather than synthetic propagation.
+
+**Fig. 9.** First-sixteen real semantic mask backend diagnostic. Grounding DINO and SAM2 are run on frames 000008--000015 and merged with the existing first-eight masks. Coverage increases to 16/64 frames and 0.264% mean coverage, but raw and masked DROID-SLAM trajectories remain effectively tied.
 
 ---
 

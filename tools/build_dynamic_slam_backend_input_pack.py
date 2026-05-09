@@ -73,7 +73,10 @@ def load_dynamic_masks_from_summaries(summary_dirs: list[Path] | None, label_pre
                 frame_index = int(rgb_path.stem)
             except ValueError:
                 continue
-            mask_path = Path(payload["outputs"]["mask"])
+            mask_value = payload.get("mask_path") or payload.get("outputs", {}).get("mask")
+            if not mask_value:
+                continue
+            mask_path = Path(mask_value)
             if mask_path.exists() and mask_path not in seen:
                 masks_by_frame.setdefault(frame_index, []).append(mask_path)
                 seen.add(mask_path)

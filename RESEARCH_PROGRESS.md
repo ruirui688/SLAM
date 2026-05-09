@@ -562,3 +562,35 @@ summary and local paths here, then commit and push the repository.
   stress tests, but first-eight coverage still does not produce trajectory
   improvement. The next phase should run real semantic frontend inference over
   a longer backend window.
+
+## 2026-05-09 P139 first-sixteen real semantic mask backend diagnostic
+
+- Installed/fixed the local frontend runtime in the existing `tram` conda
+  environment:
+  - added `transformers==4.46.3` with Tsinghua PyPI mirror;
+  - used `PYTHONPATH=/home/rui/slam`;
+  - used `checkpoints/sam2_hiera_small.pt` with
+    `configs/sam2/sam2_hiera_s.yaml`.
+- Patched `tools/demo_local_grounded_sam2_observations.py` for
+  `transformers` 4.x GroundingDINO post-processing API compatibility.
+- Ran Grounding DINO + SAM2 on TorWIC frames `000008` through `000015` and
+  generated per-frame forklift masks under
+  `outputs/torwic_jun23_aisle_cw_run1_f000008` ... `f000015`.
+- Patched `tools/build_dynamic_slam_backend_input_pack.py` so summary loading
+  accepts both older `outputs.mask` and newer top-level `mask_path` formats.
+- Added `make dynamic-slam-backend-first16-real-masks` and
+  `make dynamic-first16-real-mask-figure`.
+- Built `outputs/dynamic_slam_backend_input_pack_64_first16_real_masks` from
+  real frontend masks on frames `000000` through `000015`.
+- Mask coverage: `16/64` frames, `0.263896%` average coverage.
+- Ran DROID-SLAM 64-frame global BA on raw vs first-sixteen real semantic
+  masked inputs:
+  - raw: APE RMSE `0.051135 m`, RPE RMSE `0.032713 m`;
+  - first-sixteen real masked: APE RMSE `0.051182 m`, RPE RMSE `0.032711 m`;
+  - delta masked-minus-raw: APE RMSE `+0.000047 m`, RPE RMSE `-0.000002 m`.
+- Generated `paper/figures/torwic_dynamic_mask_first16_real_p139.png` and
+  integrated it into README plus EN/ZH thick drafts as Fig. 9.
+- Interpretation: extending true semantic masks from 8 to 16 frames still
+  produces trajectory-neutral DROID-SLAM metrics. The next phase should either
+  extend real frontend inference to 32/64 frames or analyze mask area/placement
+  before expecting ATE/RPE improvement.

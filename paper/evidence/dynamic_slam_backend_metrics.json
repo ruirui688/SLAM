@@ -101,6 +101,23 @@
       "mean_mask_coverage_percent": 0.1181,
       "claim_boundary": "Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.",
       "interpretation": "This uses existing real frontend masks across the first eight frames rather than propagation. It tests whether denser true semantic masks change the backend trajectory metrics."
+    },
+    {
+      "key": "p139_first16_real_masks",
+      "name": "P139 first-sixteen real semantic masks",
+      "source": "outputs/dynamic_slam_backend_smoke_p139_64_first16_real_masks_global_ba/p139_first16_real_mask_metrics.json",
+      "scope": "64-frame TorWIC Aisle_CW_Run_1, DROID-SLAM global BA, masked input built from real per-frame frontend forklift masks on frames 000000-000015.",
+      "raw_ape_rmse_m": 0.051135,
+      "raw_rpe_rmse_m": 0.032713,
+      "masked_ape_rmse_m": 0.051182,
+      "masked_rpe_rmse_m": 0.032711,
+      "delta_ape_rmse_m": 4.699999999999843e-05,
+      "delta_rpe_rmse_m": -2.000000000002e-06,
+      "masked_frames": 16,
+      "total_frames": 64,
+      "mean_mask_coverage_percent": 0.263896,
+      "claim_boundary": "Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.",
+      "interpretation": "This uses real frontend masks across the first sixteen frames. It tests whether extending true semantic mask coverage beyond P138 changes backend trajectory metrics."
     }
   ]
 }

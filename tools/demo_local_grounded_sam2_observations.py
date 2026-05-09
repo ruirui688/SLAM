@@ -8,6 +8,7 @@ stack into the paper-v1 observation pipeline in this repo.
 from __future__ import annotations
 
 import argparse
+import inspect
 import json
 import re
 import subprocess
@@ -119,6 +120,30 @@ def choose_device(requested: str, torch_module) -> str:
     return requested
 
 
+def post_process_grounding_results(
+    processor,
+    outputs,
+    input_ids,
+    image_size: tuple[int, int],
+    box_threshold: float,
+    text_threshold: float,
+):
+    signature = inspect.signature(processor.post_process_grounded_object_detection)
+    kwargs = {
+        "outputs": outputs,
+        "input_ids": input_ids,
+        "target_sizes": [image_size[::-1]],
+    }
+    parameters = signature.parameters
+    if "threshold" in parameters:
+        kwargs["threshold"] = box_threshold
+    elif "box_threshold" in parameters:
+        kwargs["box_threshold"] = box_threshold
+    if "text_threshold" in parameters:
+        kwargs["text_threshold"] = text_threshold
+    return processor.post_process_grounded_object_detection(**kwargs)[0]
+
+
 def main() -> None:
     args = parse_args()
     repo_root = Path(__file__).resolve().parents[1]
@@ -161,13 +186,14 @@ def main() -> None:
     with torch.no_grad():
         outputs = grounding_model(**inputs)
 
-    results = processor.post_process_grounded_object_detection(
-        outputs,
-        inputs.input_ids,
-        threshold=args.box_threshold,
+    results = post_process_grounding_results(
+        processor=processor,
+        outputs=outputs,
+        input_ids=inputs.input_ids,
+        image_size=image.size,
+        box_threshold=args.box_threshold,
         text_threshold=args.text_threshold,
-        target_sizes=[image.size[::-1]],
-    )[0]
+    )
 
     boxes = results["boxes"].detach().cpu().numpy()
     grounding_scores = results["scores"].detach().cpu().numpy()
