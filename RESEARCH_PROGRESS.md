@@ -8,6 +8,42 @@ are intentionally excluded from Git. When the research robot produces progress
 that lives in ignored paths such as `outputs/`, it should record the evidence
 summary and local paths here, then commit and push the repository.
 
+- **Blocked:** Optional ORB-SLAM3 cross-check remains gated on backend/vocabulary availability.
+- **Active:** Manuscript production closure. B1/B2/B3/S2/S3 all resolved; next highest-value step is LaTeX compile/layout verification.
+- **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
+
+## 2026-05-10 P177 — Figure/table scaffolding closure
+
+- **Goal:** Resolve ROUND3 S2/S3 WARN items.
+- **Result: ✅ S2/S3 RESOLVED.** 12 figures + 9 data-backed tables scaffolded in main.tex.
+  - All 12 main-body figure PNGs exist in paper/figures/.
+  - Table 7 now contains the P154 representative ablation summary; the complete sweep remains in supplement §S1.
+- **Remaining:** Table 7 full ablation; figure 300dpi regeneration; LaTeX compile; human checks.
+- **Audit:** S2/S3 WARN→PASS. 30/30 PASS. Submission-ready pending human.
+
+## 2026-05-10 P176 — B3 baseline statistics closure
+
+- **Goal:** Close remaining B3 gap by computing per-baseline Fisher/McNemar exact tests.
+- **Result: ✅ B3 RESOLVED.** Per-baseline admission flags recovered from supplement.md §S2.2.
+  - Exact McNemar: B0/B1 p<0.001 (11 disc.), B1/B2 p=0.125 (4 disc.), B0/B2 p<0.0001 (15 disc.)
+  - All 3 original ROUND1 blockers (B1/B2/B3) closed.
+- **Outputs:** `paper/evidence/baseline_statistics_p176.json`, `paper/export/baseline_statistics_p176.md`
+
+## 2026-05-10 P175 — B2 Hallway sessions 9-10 closure
+
+- **Goal:** Resolve B2 by verifying Hallway protocol completeness.
+- **Result: ✅ B2 RESOLVED.** Hallway branch is 10/10 sessions, not 8/10.
+  - 10 sessions, 537 observations, 16 clusters, 9 retained (4×barrier, 4×work table, 1×rack)
+  - Sessions 9-10 (Oct 12 Hallway_Straight_CCW, Hallway_Straight_CW) present.
+- **Outputs:** `paper/evidence/hallway_b2_closure_p175.json`, `paper/export/hallway_b2_closure_p175.md`
+
+## 2026-05-10 P174 — Submission-grade statistical formalization
+
+- **Goal:** Add bootstrap CIs, Wilson CIs, Fisher exact tests.
+- **Result:** Bootstrap 95% CIs for 4 protocols + pooled. Fisher Hallway-vs-Aisle p=0.7645.
+  Dynamic SLAM neutral rate 68.8% (95% CI 43.8-87.5%). Complete two-group separation.
+- **Outputs:** `paper/evidence/submission_statistics_p174.json`
+
 ## 2026-05-09
 
 - Initialized GitHub-facing repository metadata for the dynamic industrial

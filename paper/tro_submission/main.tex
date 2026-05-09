@@ -257,9 +257,9 @@ We define four protocols spanning increasing temporal gaps and a scene-transfer 
 
 \textbf{Primary Aisle Ladder.} Three protocols using a ``richer'' bundle configuration covering a specific aisle section:
 \begin{itemize}
-  \item \textbf{Same-day:} 3 sessions (Jun~15, runs 1--3), 203 observations, 11 candidate clusters, 5 retained MapObjects. Tests same-day viewpoint variation.
+  \item \textbf{Same-day:} 4 sessions (Jun~15 Aisle CW/CCW runs), 203 observations, 11 candidate clusters, 5 retained MapObjects. Tests same-day viewpoint variation.
   \item \textbf{Cross-day:} 4 sessions (Jun~15 + Jun~23), 240 observations, 10 clusters, 5 retained. Tests 8-day revisit with lighting change.
-  \item \textbf{Cross-month:} 4 sessions (Jun~15, Jun~23, Oct~12), 297 observations, 14 clusters, 7 retained. Tests 4-month gap with seasonal variation.
+  \item \textbf{Cross-month:} 6 sessions (Jun~15, Jun~23, Oct~12), 297 observations, 14 clusters, 7 retained. Tests 4-month gap with seasonal variation.
 \end{itemize}
 
 \textbf{Hallway Scene-Transfer Branch.} 10 sessions (10/10 complete) across all 3 dates, 537 observations, 16 clusters, 9 retained. Tests whether the admission-control framework transfers to a scene without forklifts (Hallway serve as a negative-control environment). Admission rate 56.2\% (bootstrap 95\% CI: 31.2--81.2\%, n=16); does not differ from pooled Aisle (Fisher exact p=0.76).
@@ -279,33 +279,159 @@ All results are reported with invariant selection criteria: \texttt{min\_session
 \subsection{Aisle Evidence Ladder}
 \label{sec:results_aisle}
 
-% --- Figure 1: Pipeline overview ---
-% PLACEHOLDER: \begin{figure} \centering \includegraphics[width=\columnwidth]{figures/torwic_paper_result_overview.png} \caption{... Fig. 1 ...} \label{fig:pipeline} \end{figure}
+% --- Figure 1: Pipeline overview (double-col) ---
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{../figures/torwic_paper_result_overview.png}
+  \caption{Full pipeline overview: perception layer (RGB-D $\rightarrow$ Grounding DINO detection $\rightarrow$ SAM~2 segmentation), maintenance layer (observation $\rightarrow$ tracklet $\rightarrow$ map-object $\rightarrow$ revision), and semantic map composition. The admission-control criteria operate at the map-object and revision layers to filter dynamic contamination before map insertion.}
+  \label{fig:pipeline}
+\end{figure*}
 
 % --- Table 1: Evidence Ladder Summary ---
+\begin{table}[t]
+  \centering
+  \caption{Evidence Ladder Summary: Aisle Protocol Results.}
+  \label{tab:evidence_ladder}
+  \begin{tabular}{lcccc}
+    \toprule
+    Protocol & Sessions & Frame-Level Objs & Clusters & Retained \\
+    \midrule
+    Same-day Aisle & 4 & 203 & 11 & 5 \\
+    Cross-day Aisle  & 4 & 240 & 10 & 5 \\
+    Cross-month Aisle & 6 & 297 & 14 & 7 \\
+    \midrule
+    Total (Aisle, dedup.) & 14 & 740 & 20 & 5 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
-% === VII.B Selection Criteria Analysis ===
+% --- Figure 2: Four-protocol rejection overview (double-col) ---
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{../figures/torwic_real_session_overlays.png}
+  \caption{Four-protocol rejection-ratio overview: same-day, cross-day, cross-month Aisle protocols and Hallway scene-transfer. Retained infrastructure objects (barriers, work tables, warehouse racks) are shown in green; rejected clusters (forklifts, single-session, low-quality) in red.}
+  \label{fig:protocol_overview}
+\end{figure*}
 \subsection{Selection Criteria Analysis}
 \label{sec:results_selection}
 
-% --- Tables 2-3: Aisle protocol selection analysis ---
+% --- Table 2: Same-Day Aisle Selection Analysis ---
+\begin{table}[t]
+  \centering
+  \caption{Same-Day Aisle Selection Analysis (5/11 retained).}
+  \label{tab:same_day_selection}
+  \begin{tabular}{lcccccc}
+    \toprule
+    Cluster & Label & Sessions & Frames & Purity & Dyn Ratio & Decision \\
+    \midrule
+    cluster\_0001 & barrier & 4 & 32 & 1.000 & 0.000 & Retain \\
+    cluster\_0002 & barrier & 4 & 32 & 1.000 & 0.000 & Retain \\
+    cluster\_0005 & work table & 3 & 34 & 0.912 & 0.000 & Retain \\
+    cluster\_0003 & barrier & 3 & 24 & 1.000 & 0.000 & Retain \\
+    cluster\_0010 & work table & 2 & 9 & 0.889 & 0.000 & Retain \\
+    \midrule
+    cluster\_0004 & forklift & 3 & 37 & 0.946 & 0.946 & Reject (dyn.) \\
+    cluster\_0007 & forklift & 3 & 12 & 1.000 & 1.000 & Reject (dyn.) \\
+    cluster\_0009 & forklift & 2 & 12 & 0.667 & 0.667 & Reject (dyn.) \\
+    cluster\_0008 & work table & 1 & 8 & 1.000 & 0.000 & Reject (session) \\
+    cluster\_0006 & warehouse rack & 1 & 7 & 1.000 & 0.000 & Reject (session) \\
+    cluster\_0011 & barrier & 1 & 3 & 1.000 & 0.000 & Reject (session) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% --- Table 3: Cross-Day Aisle Selection Analysis ---
+\begin{table}[t]
+  \centering
+  \caption{Cross-Day Aisle Selection Analysis (5/10 retained).}
+  \label{tab:cross_day_selection}
+  \begin{tabular}{lcccccc}
+    \toprule
+    Cluster & Label & Sessions & Frames & Purity & Dyn Ratio & Decision \\
+    \midrule
+    cluster\_0001 & barrier & 4 & 36 & 1.000 & 0.000 & Retain \\
+    cluster\_0002 & work table & 4 & 29 & 0.966 & 0.000 & Retain \\
+    cluster\_0003 & barrier & 3 & 30 & 1.000 & 0.000 & Retain \\
+    cluster\_0006 & warehouse rack & 3 & 25 & 0.960 & 0.000 & Retain \\
+    cluster\_0005 & barrier & 2 & 14 & 1.000 & 0.000 & Retain \\
+    \midrule
+    cluster\_0007 & forklift & 4 & 38 & 0.921 & 0.895 & Reject (dyn.) \\
+    cluster\_0004 & work table & 1 & 11 & 1.000 & 0.000 & Reject (session) \\
+    cluster\_0008 & forklift & 1 & 8 & 0.750 & 0.875 & Reject (dyn.) \\
+    cluster\_0009 & barrier & 1 & 7 & 0.857 & 0.000 & Reject (session) \\
+    cluster\_0010 & warehouse rack & 1 & 5 & 0.800 & 0.000 & Reject (session) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 % === VII.C Hallway Scene-Transfer ===
 \subsection{Hallway Scene-Transfer Evidence}
 \label{sec:results_hallway}
 
-% --- Figure 3: Hallway composite ---
-% --- Table 4: Hallway selection analysis ---
+% --- Figure 3: Hallway composite (double-col) ---
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{../figures/torwic_hallway_composite.png}
+  \caption{Hallway scene-transfer evidence: 10 sessions across 3 dates, 537 observations, 16 clusters, 9 retained (4 $\times$ barrier, 4 $\times$ work table, 1 $\times$ warehouse rack). The Hallway environment serves as a within-site negative control---no forklifts operate in this scene, and the admission framework correctly rejects all dynamic candidates.}
+  \label{fig:hallway_composite}
+\end{figure*}
+
+% --- Table 4: Hallway Selection Analysis ---
+\begin{table}[t]
+  \centering
+  \caption{Hallway Selection Analysis (9/16 retained, 10/10 sessions).}
+  \label{tab:hallway_selection}
+  \begin{tabular}{lcccc}
+    \toprule
+    Label & Retained & Clusters & Admission Rate \\
+    \midrule
+    barrier & 4 & 6 & 66.7\% \\
+    work table & 4 & 7 & 57.1\% \\
+    warehouse rack & 1 & 3 & 33.3\% \\
+    \midrule
+    Total & 9 & 16 & 56.2\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 % === VII.D Rejection Profile ===
 \subsection{Rejection Profile Analysis}
 \label{sec:results_rejection}
 
-% --- Figures 2, X: rejection visuals ---
+% --- See Figure~\ref{fig:protocol_overview} for rejection overview; see §S2-S6 for per-cluster detail ---
 
 % === VII.E Dynamic SLAM Backend: Motivation ===
 \subsection{Dynamic SLAM Backend: Motivation and Negative-Result Study}
 \label{sec:results_dynamic_motivation}
+
+% --- Table 5: DROID-SLAM Backend Configuration Survey ---
+\begin{table}[t]
+  \centering
+  \caption{DROID-SLAM Backend Configuration Survey (16 configs across 5 sessions, 2 scene types).}
+  \label{tab:backend_survey}
+  \begin{tabular}{lclcc}
+    \toprule
+    Config & Mask Strategy & $\Delta$APE (mm) & Neutral? & Scene \\
+    \midrule
+    P132 & No mask, 8-fr & 0.006 & $\checkmark$ & Aisle \\
+    P134 & No mask, 64-fr GBA & 0.000 & $\checkmark$ & Aisle \\
+    P135 & Selective semantic & 0.000 & $\checkmark$ & Aisle \\
+    P142-T4 & 4-frame forklift conc. & 0.001 & $\checkmark$ & Aisle \\
+    P142-T8 & 8-frame forklift conc. & 0.001 & $\checkmark$ & Aisle \\
+    P142-T16 & 16-frame forklift conc. & 0.006 & $\checkmark$ & Aisle \\
+    P136 & Temporal propagation & 7.517 & $\times$ & Aisle \\
+    P137 & Flow propagation & 7.517 & $\times$ & Aisle \\
+    P138 & First-8 uniform & 0.922 & $\times$ & Aisle \\
+    P139 & First-16 uniform & 0.921 & $\times$ & Aisle \\
+    P140 & First-32 uniform & 0.920 & $\times$ & Aisle \\
+    P141 & GBA + no mask & 0.006 & $\checkmark$ & Aisle \\
+    P172-S1-R1 & Jun15 Run2 selective & 0.000 & $\checkmark$ & Aisle \\
+    P172-S1-R2 & Jun23 Run1 selective & 0.001 & $\checkmark$ & Aisle \\
+    P172-S2-A & Oct12 Aisle CW selective & 0.000 & $\checkmark$ & Aisle \\
+    P172-S2-H & Oct12 Hallway CW selective & 0.000 & $\checkmark$ & Hallway \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 % === VII.F Dynamic SLAM: Configuration Evidence Chain ===
 \subsection{Dynamic SLAM: Mask Coverage and Trajectory Analysis}
@@ -325,20 +451,153 @@ These results establish two findings. First, semantic frontend masks that are se
 
 Stage~1 replication on two additional TorWIC Aisle sessions confirms cross-session reproducibility: Jun~15 Aisle\_CW\_Run\_2 (same-day) and Jun~23 Aisle\_CW\_Run\_1 (cross-day, two weeks later) both produce $\Delta\text{APE} \leq 0.001~\text{mm}$ with selective semantic frontend masks (4/64 frames masked, max coverage $\leq 1.49\%$). Stage~2 extends this to cross-month and scene-transfer: Oct~12 Aisle\_CW (cross-month, four months later, $\Delta\text{APE}=0.000~\text{mm}$, 2/64 masked, max~$4.89\%$) and Oct~12 Hallway\_Full\_CW\_Run\_2 (first-ever Hallway dynamic mask test, $\Delta\text{APE}=0.000~\text{mm}$, 3/64 masked, max~$0.63\%$). This upgrades to an 11/16-config, 5-session evidence chain (same-day $+$ cross-day $+$ cross-month $+$ Hallway scene-transfer). A follow-up high-coverage selective-mask pressure test on Jun~15 Aisle\_CCW\_Run\_1 masks 5/64 frames with max per-frame coverage $17.32\%$ and mean coverage $0.568\%$; it remains small in absolute terms but no longer exactly neutral ($\Delta\text{APE}=+0.114~\text{mm}$, $\Delta\text{RPE}=-0.006~\text{mm}$). Thus, selectivity is necessary but not sufficient by itself: coverage magnitude also defines the boundary between trajectory-neutral and mildly perturbed behavior.
 
-% Fig 4: DROID-SLAM raw-vs-masked overlay for P135 (semantic masks)
-% PLACEHOLDER: \begin{figure} \centering \includegraphics[width=\columnwidth]{figures/torwic_dynamic_slam_backend_p134.png} \caption{Trajectory comparison: raw RGB (baseline) vs semantic-masked RGB (P135). Both trajectories are visually and metrically indistinguishable.} \label{fig:dynamic_summary} \end{figure}
+% --- Figure 4: DROID-SLAM raw-vs-masked trajectories ---
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/torwic_dynamic_slam_backend_p134.png}
+  \caption{Trajectory comparison: raw RGB (baseline) vs semantic-masked RGB (P135). Both trajectories are visually and metrically indistinguishable ($\Delta\text{APE}=0.000~\text{mm}$).}
+  \label{fig:dynamic_summary}
+\end{figure}
 
-% Table 6: Summary of key config pairs (Group 1 + representative Group 2)
+% --- Figure 5: Mask coverage distribution ---
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/torwic_dynamic_mask_coverage_p135.png}
+  \caption{Per-frame dynamic mask coverage distribution (64-frame window, Aisle\_CW\_Run\_1). Selective semantic frontend masks cover only frames containing verified dynamic agents.}
+  \label{fig:mask_coverage}
+\end{figure}
+
+% --- Figure 6: Temporal propagation stress test ---
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/torwic_dynamic_mask_temporal_stress_p136.png}
+  \caption{Temporal propagation stress test (P136). Masks propagated temporally beyond actual dynamic frames; $\Delta\text{APE}=+7.517~\text{mm}$.}
+  \label{fig:temporal_stress}
+\end{figure}
+
+% --- Figure 7: Flow propagation stress test ---
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/torwic_dynamic_mask_flow_stress_p137.png}
+  \caption{Optical-flow propagation stress test (P137). Masks propagated via flow; $\Delta\text{APE}=+7.517~\text{mm}$, identical to temporal propagation.}
+  \label{fig:flow_stress}
+\end{figure}
+
+% --- Figure 8: First-8 real mask ---
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/torwic_dynamic_mask_first8_real_p138.png}
+  \caption{First-8 uniform mask diagnostic (P138). $\Delta\text{APE}=+0.922~\text{mm}$.}
+  \label{fig:first8_mask}
+\end{figure}
+
+% --- Figure 9: First-16 real mask ---
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/torwic_dynamic_mask_first16_real_p139.png}
+  \caption{First-16 uniform mask diagnostic (P139). $\Delta\text{APE}=+0.921~\text{mm}$---plateau confirms initialization sensitivity.}
+  \label{fig:first16_mask}
+\end{figure}
+
+% --- Figure 10: First-32 real mask ---
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/torwic_dynamic_mask_first32_real_p140.png}
+  \caption{First-32 uniform mask diagnostic (P140). $\Delta\text{APE}=+0.920~\text{mm}$---further plateau.}
+  \label{fig:first32_mask}
+\end{figure}
+
+% --- Table 6: Complete Dynamic Masking Evidence Chain ---
+\begin{table}[t]
+  \centering
+  \caption{Complete Dynamic Masking Evidence Chain (16 configs, 5 sessions, 2 scenes).}
+  \label{tab:dynamic_chain}
+  \begin{tabular}{lll}
+    \toprule
+    Evidence Tier & Configs & Key Result \\
+    \midrule
+    Core boundary & 12 (P132--P142) & 7/12 neutral, 5/12 perturbed \\
+    Replication S1 & 2 (P172-S1) & 2/2 neutral (same-day, cross-day) \\
+    Replication S2 & 2 (P172-S2) & 2/2 neutral (cross-month, Hallway) \\
+    \midrule
+    Total & 16 & 11/16 neutral (68.8\%, 95\% CI 43.8--87.5\%) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 % === VII.G Admission Criteria Defense ===
 \subsection{Admission Criteria Defense: Ablation, Baseline Comparison, and Per-Category Analysis}
 \label{sec:results_defense}
 
-% --- P154: Ablation summary table ---
-% --- P155: B0/B1/B2 comparison table ---
-% --- Fig 11 (map composition) ---
-% --- Fig 13 (decision space scatter) ---
-% --- P157: per-category retention table + category×reason matrix ---
+% --- Table 7: Parameter Ablation Summary (P154) ---
+\begin{table}[t]
+  \centering
+  \caption{Parameter Ablation Summary (P154). Each row varies one criterion while holding the others at the default configuration (`min\_sessions=2`, `min\_frames=4`, `max\_dynamic\_ratio=0.20`, `min\_support=6`, `min\_label\_purity=0.70`).}
+  \label{tab:ablation}
+  \begin{tabular}{lccc}
+    \toprule
+    Criterion & Sweep & Retained & Sensitivity \\
+    \midrule
+    min\_sessions & 1 / 2 / 3 & 7 / 5 / 5 & High at 1$\rightarrow$2 \\
+    min\_frames & 2 / 4 / 6 & 8 / 5 / 5 & High at 2$\rightarrow$4 \\
+    max\_dynamic\_ratio & 0.10 / 0.20 / 0.30 & 5 / 5 / 5 & Saturated \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% --- Table 8: Baseline Comparison (P155) ---
+\begin{table}[t]
+  \centering
+  \caption{Baseline Comparison: Naive (B0), Purity/Support Heuristic (B1), Richer Admission (B2).}
+  \label{tab:baseline_comparison}
+  \begin{tabular}{lccc}
+    \toprule
+    Metric & B0 (Naive) & B1 (Purity/Support) & B2 (Richer) \\
+    \midrule
+    Total admitted & 20/20 & 13/20 & 5/20 \\
+    Forklift admitted & 4/4 & 4/4 & 0/4 \\
+    Phantom risk & 20.0\% (4/20) & 21.1\% (4/19) & 0.0\% (0/5) \\
+    Infrastructure retention & 5/9 (55.6\%) & 5/9 (55.6\%) & 5/9 (55.6\%) \\
+    Reduction over B0 & --- & $-$35.0\% & $-$75.0\% \\
+    \midrule
+    McNemar vs B2 & $p{<}0.0001$ & $p{=}0.125$ (n=4) & --- \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% --- Table 9: Per-Category Retention Matrix (P157) ---
+\begin{table}[t]
+  \centering
+  \caption{Per-Category Retention and Rejection Matrix (Aisle ladder, n=20).}
+  \label{tab:category_retention}
+  \begin{tabular}{lcccc}
+    \toprule
+    Category & Clusters & Retained & Rejected & Retention Rate \\
+    \midrule
+    barrier & 5 & 2 & 3 & 40.0\% \\
+    work table & 5 & 2 & 3 & 40.0\% \\
+    warehouse rack & 3 & 1 & 2 & 33.3\% \\
+    forklift & 4 & 0 & 4 & 0.0\% \\
+    unclassified & 3 & 0 & 3 & 0.0\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% --- Figure 11: Map composition ---
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/torwic_before_after_map_composition_p156.png}
+  \caption{B0 (naive) vs B2 (richer admission) map composition. B0 admits all 20 clusters including 4 forklifts (phantom risk 20.0\%); B2 retains 5 infrastructure-only clusters (phantom risk 0.0\%).}
+  \label{fig:map_composition}
+\end{figure}
+
+% --- Figure 13: Decision space scatter ---
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{../figures/torwic_admission_decision_space_p156.png}
+  \caption{Admission decision space: dynamic\_ratio $\times$ session\_count scatter for all 20 Aisle clusters. Infrastructure clusters (barriers, work tables, racks) cluster at dynamic ratio $=$ 0.00, session count $\geq$ 2; forklifts cluster at dynamic ratio $\geq$ 0.83. The clear separation justifies the max\_dynamic\_ratio threshold insensitivity shown in parameter ablation.}
+  \label{fig:decision_space}
+\end{figure*}
 
 % ============================================================================
 % VIII. DISCUSSION
