@@ -1103,7 +1103,14 @@ summary and local paths here, then commit and push the repository.
   - EDITOR_SUMMARY.md: abstract, statement, and limitations updated (14 configs, 3 sessions, 9/14 neutral)
 - **Outputs:** `paper/evidence/dynamic_slam_stage1_p172.json` (3KB), `paper/export/dynamic_slam_stage1_p172.md` (4KB)
 - **Smoke outputs:** `outputs/dynamic_slam_backend_smoke_p172_jun15_run2/` (ok), `outputs/dynamic_slam_backend_smoke_p172_jun23_run1/` (ok)
-- **Next:** P173 ORB-SLAM3 cross-check, update P167 ROUND3 audit with Stage 2 evidence
+- **Blocked:** P173 ORB-SLAM3 cross-check (no ORB-SLAM3 installation)
+- **Active:** None — mainline blocked. User input needed.
+
+## 2026-05-09 P167 ROUND3 R2 audit + P173 blocker
+
+- **P167 R2:** Updated D7→16 configs/5 sessions/2 scene types (P172 S2 cross-month+Hallway), D9 cross-scene universal, D13 multi-scene. Score stable at 75 (all 30 PASS, 0 FAIL).
+- **P173:** Blocked — ORB-SLAM3 source/vocabulary/wrapper do not exist. Needs user approval for `git clone` + `ORBvoc.txt` download (~100MB).
+- **Commit:** audit update pushed.
 
 ## 2026-05-09 P172 Stage 2 — cross-month + Hallway DROID-SLAM replication
 
@@ -1172,3 +1179,18 @@ summary and local paths here, then commit and push the repository.
 - Remaining 4 sessions ready for forklift-masked DROID-SLAM global BA input packs.
 - Deliverables: paper/evidence/dynamic_slam_stage2_p173_coverage_scan.json, paper/export/dynamic_slam_stage2_p173_coverage_scan.md.
 - Policy: no data download, no DROID/GPU run.
+
+## 2026-05-09 P173 expanded Stage 2 DROID-SLAM metrics
+
+- Completed raw/masked DROID-SLAM + evo metrics for the remaining P173 Stage 2 sessions:
+  - Jun23 Aisle_CW_Run_2: ΔAPE = -0.001 mm, ΔRPE = 0.000 mm, max coverage 0.889540%.
+  - Oct12 Aisle_CCW: ΔAPE = 0.000 mm, ΔRPE = +0.002 mm, max coverage 5.377713%.
+  - Jun15 Hallway_Full_CW: ΔAPE = -0.023 mm, ΔRPE = +0.004 mm, max coverage 0.895182%.
+- Reused existing P172 Oct12 Aisle_CW result for the overlapping Stage 2 session: ΔAPE = 0.000 mm, max coverage 4.885200%.
+- P173 high-coverage boundary remains Jun15 Aisle_CCW_Run_1: ΔAPE = +0.114 mm, max coverage 17.324544%.
+- Paper implication: the dynamic SLAM claim is stronger but more nuanced. Expanded sessions support selective masks as neutral/near-neutral across directions, dates, and Hallway; high coverage introduces a small sub-millimetre perturbation. Avoid universal "all selective masks are exactly neutral" wording.
+- Outputs:
+  - `paper/evidence/dynamic_slam_stage2_p173_metrics.json`
+  - `paper/export/dynamic_slam_stage2_p173_metrics.md`
+  - corrected `paper/evidence/dynamic_slam_stage2_p173_coverage_scan.json`
+  - corrected `paper/export/dynamic_slam_stage2_p173_coverage_scan.md`
