@@ -48,3 +48,10 @@ summary and local paths here, then commit and push the repository.
 - Produced ignored/generated threading artifacts: `/home/rui/slam/outputs/torwic_p109_inline_citation_threading_matrix_v1.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v19.md`.
 - Evidence summary: synchronized Appendix P into both OpenClaw paper drafts, tying Abstract/Introduction/Related Work/Method/Results/Hallway/Discussion/Conclusion claims to verified refs `[1]--[6]`, internal Table/Appendix/package anchors, or explicit future-work boundaries.
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
+
+## 2026-05-09 repository-visible manuscript drafts
+
+- Replaced the root README with the current dynamic industrial semantic-segmentation-assisted SLAM project view, including evidence tables, dataset policy, and robot commit expectations.
+- Added Git-tracked manuscript drafts under `/home/rui/slam/paper/`: English draft `paper/manuscript_en.md`, Chinese draft `paper/manuscript_zh.md`, and `paper/README.md`.
+- Evidence summary: repository readers can now inspect the current paper direction directly from GitHub without opening ignored `outputs/` artifacts.
+- Policy: no raw dataset, generated output, model weight, video, point cloud, or temporary artifact was added to Git.
