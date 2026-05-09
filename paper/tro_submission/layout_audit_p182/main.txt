@@ -1,0 +1,1210 @@
+1
+
+Session-Level Map Admission Control for
+Semantic-Segmentation-Assisted SLAM
+in Dynamic Industrial Environments
+Abstract—Long-term visual SLAM in industrial environments
+faces a bottleneck that neither geometric SLAM nor objectlevel semantic mapping directly addresses: which detected objects
+deserve durable map slots, and which should be rejected as
+transient or dynamic contamination? Open-vocabulary detection pipelines produce candidate object instances from every
+frame, but naively inserting all geometrically consistent detections contaminates the map with forklifts, carts, and singlevisit phantoms—a dynamic contamination problem recognized
+in dynamic SLAM literature [1] but not resolved at the semantic
+map-admission level. This paper formulates session-level map
+admission control as a distinct contribution: an explicit objectmaintenance layer between perception and the map that transforms open-vocabulary RGB-D segmentation outputs into observation, tracklet, map-object, and revision layers, then applies
+boolean criteria (multi-session presence, minimum observation
+support, label consistency, static dominance) to admit stable
+semantic landmarks and reject dynamic contamination. We
+evaluate the framework on the TorWIC dataset [2], reporting a
+reproducible evidence ladder across same-day (203 observations
+/ 11 candidate clusters → 5 retained), cross-day (240/10→5),
+and cross-month (297/14→7) Aisle protocols, with a separate
+Hallway scene-transfer branch (537/16→9). Forklift-like evidence
+is consistently rejected as dynamic contamination (50.0%–71.4%
+rejection share across all four protocols). We validate the admission policy through parameter ablation across 27 combinations,
+showing that min_sessions and min_frames are sensitive ﬁlters
+while max_dynamic_ratio is naturally saturated by data bimodality (infrastructure at dynamic ratio 0.00, forklifts at ≥0.83).
+Baseline comparison against naive-all-admit and purity/supportheuristic strategies demonstrates that simpler heuristics cannot
+reject forklifts (phantom risk 20.0%→0.0% with the full policy,
+McNemar p<0.001), while per-category retention analysis conﬁrms forklift rejection is universal and infrastructure retention
+is selective but interpretable. A 16-conﬁguration DROID-SLAM
+trajectory analysis reveals that selective low-coverage semantic
+masks are trajectory-neutral (|∆APE| ≤ 0.006 mm, 11/16 conﬁgs
+across 5 sessions and 2 scene types), while aggressive mask strategies introduce measurable perturbations (0.92–7.52 mm). The
+contribution is bounded: not a lifelong SLAM benchmark, not
+dense dynamic reconstruction, and not a downstream navigationgain claim—it is an evidence-backed session-level map admission
+control methodology with per-object provenance at every layer.
+
+burden from geometric consistency to semantic persistence:
+which detected objects should enter the map, and which should
+be discarded as transient or dynamic contamination?
+Industrial environments amplify this question. Warehouses
+and logistics centers contain stable infrastructure (barriers,
+work tables, racks, pillars) alongside mobile agents (forklifts,
+carts, human operators). An open-vocabulary detector such
+as Grounding DINO [4] combined with a segmenter such
+as SAM 2 [5] can propose bounding boxes and masks for
+dozens of object instances per frame, but without an explicit admission-control policy, the map quickly accumulates
+forklift-shaped phantom objects that are re-detected in revisits
+but should never have been admitted in the ﬁrst place.
+B. The Admission-Control Gap
+Existing dynamic SLAM pipelines [1] are designed to mask,
+track, and remove dynamic pixels and objects from the geometric reconstruction, ensuring that visual odometry and loop
+closure operate on clean static geometry. Object-level SLAM
+approaches [6]–[8] assign semantic identities to geometric
+entities and can reason about object categories. However,
+neither paradigm directly addresses the question of which
+detected objects deserve a durable slot in the semantic map:
+detection output is treated as fact once geometric consistency
+is conﬁrmed, but in practice, repeated detections of forklifts in
+roughly the same location can appear geometrically consistent
+without being semantically admissible.
+Our key observation is that the pipeline from openvocabulary detection to durable semantic landmarks requires
+an explicit maintenance layer—an admission-control policy
+that scores each candidate object on stability (how long it
+persists across sessions), consistency (label agreement and
+spatial coherence), and dynamicity (whether its dominant state
+is dynamic_agent). This paper describes such a layer.
+C. Scope and Contribution Boundaries
+
+Index Terms—SLAM, semantic segmentation, dynamic object ﬁltering, object-level mapping, map maintenance, industrial
+robotics, open-vocabulary perception, long-term autonomy.
+
+I. I NTRODUCTION
+A. Motivation
+Simultaneous Localization and Mapping (SLAM) has matured to the point where short-horizon geometric maps can be
+reliably constructed in real time [3]. The next frontier—longterm SLAM and map reuse across weeks or months—shifts the
+
+We deliberately limit the contribution to stable-object retention, dynamic-contamination rejection, and map-admission
+selectivity in industrial revisits. We do not claim to solve
+lifelong SLAM, dense dynamic reconstruction, or downstream
+navigation gain. The paper offers an architecturally auditable
+bridge from perception to map maintenance: each admission
+or rejection decision is traceable to per-object provenance
+(session counts, frame observations, label histograms, dynamicity scores), with reproducible evidence on the TorWIC
+dataset. This auditability is an architectural property, not a
+downstream-evaluated claim.
+
+2
+
+II. C ONTRIBUTIONS
+1) An explicit object-maintenance architecture (Section V) with observation, tracklet, map-object, and revision layers that separates detection from map admission. Each layer carries per-object provenance—frame
+counts, session IDs, label histograms, and dynamicity
+scores (Section V-D)—enabling complete traceability of
+every admission or rejection decision to its underlying
+evidence.
+2) A reproducible evidence ladder (Section VII-A) on the
+TorWIC dataset [2] across three Aisle protocols (sameday, cross-day, cross-month) and a Hallway broadervalidation branch (Section VII-C), all reported with invariant selection criteria and per-cluster-ID provenance.
+3) A rejection-proﬁle analysis (Section VII-D) showing
+that forklift-like dynamic contamination is the primary
+rejection driver (50.0%–71.4% share) across all four
+protocols. Critically, forklifts achieve high label purity (82%–91%) and high observation counts (15–28
+frames), so purity- or support-based heuristics alone
+cannot reject them.
+4) Admission-criteria defense (Section VII-G): parameter ablation across 27 combinations conﬁrming that
+min_sessions and min_frames are sensitive ﬁlters, while
+max_dynamic_ratio is insensitive across a wide range
+(0.10–0.30) due to natural separation of infrastructure
+(dynamic ratio = 0.00) and forklifts (≥ 0.83) in the
+TorWIC data; baseline comparison demonstrating that
+purity/support heuristics cannot reject forklifts (phantom
+risk 21.1% vs 0.0% for the full policy).
+5) Per-category retention and rejection analysis (Section VII-G): forklift rejection is universal (0/4 retained),
+infrastructure retention is selective and interpretable—
+barriers 40%, work tables 50%, racks 33%—with each
+rejection attributable to one or more documented criteria.
+6) A dynamic masking trajectory analysis (Section VII-F): 12 DROID-SLAM conﬁgurations reveal
+two groups: selective semantic frontend masks and
+concentrated forklift masks produce trajectory-neutral
+results (|∆APE| ≤ 0.006 mm, 7/12 conﬁgs), while
+aggressive mask strategies (temporal/ﬂow propagation,
+uniform ﬁrst-N masks) introduce measurable trajectory
+perturbations (0.92–7.52 mm, 5/12 conﬁgs), establishing that mask selectivity is a necessary condition for
+trajectory-neutrality in DROID-SLAM.
+7) A
+modular,
+backend-agnostic
+maintenance
+layer designed to consume output from any
+detection+segmentation pipeline. The trust-score
+and admission-criteria formulations are deﬁned with
+conﬁgurable weights and semantics, enabling domainspeciﬁc tuning without modifying the underlying
+architecture (Section V).
+
+et al. [3] survey the SLAM landscape from geometric to
+semantic, establishing that map reuse requires semantic understanding. Early object-level approaches—CubeSLAM [6]
+(cuboids in monocular SLAM) and MaskFusion [9] (instancelevel RGB-D tracking)—demonstrated that object identity
+improves robustness and interpretability. Kimera [10] provides
+a complete metric-semantic SLAM pipeline with mesh reconstruction and semantic labeling, while SemanticFusion [11]
+enabled dense 3D semantic maps from CNN predictions.
+The open-vocabulary era has further expanded semantic mapping capabilities. OpenScene [7] demonstrated that
+language-conditioned 3D feature ﬁelds carry concept-level
+semantics without closed-set training. ConceptFusion [8] fused
+multiple foundation model outputs into an open-set 3D map.
+LERF [12] grounded CLIP embeddings within neural radiance
+ﬁelds, enabling open-vocabulary 3D queries. These systems
+share a common architectural assumption: once an object is
+detected, it is admissible to the map. Our work challenges
+this assumption by introducing an explicit admission-control
+policy informed by cross-session stability.
+Relationship: We build on semantic SLAM’s object-level
+representations but focus on a complementary problem: which
+detected objects deserve permanent map representation? A
+forklift detected with 0.95 conﬁdence across ﬁve sessions
+is still a forklift—semantic conﬁdence alone does not imply
+semantic admissibility.
+B. Dynamic SLAM and Dynamic-Object Suppression
+Dynamic environments present a fundamental challenge
+for SLAM. DynaSLAM [1] demonstrated that masking dynamic objects using Mask R-CNN and multi-view geometry improves camera tracking accuracy. Its follow-up, DynaSLAM II [13], added tightly-coupled multi-object tracking. Several systems target object-level dynamic handling:
+Co-Fusion [14] segments and tracks multiple independentlymoving objects; MID-Fusion [15] uses an octree-based volumetric representation for multi-instance dynamic reconstruction; and FlowFusion [16] leverages optical ﬂow residuals for
+dynamic/static segmentation.
+DS-SLAM [17] combines SegNet with a movingconsistency check, while Detect-SLAM [18] makes object
+detection and SLAM mutually beneﬁcial by using detected
+keypoints only when objects are static. Saputra et al. [19]
+provide a comprehensive survey of visual SLAM in dynamic
+environments.
+Relationship: Dynamic SLAM removes dynamic content to
+protect geometric reconstruction (pose estimation and mapping). We address a different layer of the architecture: semantic map admission. An object may be correctly tracked as
+dynamic (DynaSLAM’s goal) but still be erroneously admitted
+to the long-term semantic map (our concern). The two layers
+are complementary: dynamic SLAM cleans the geometric
+map, while our maintenance layer cleans the semantic map.
+
+III. R ELATED W ORK
+A. Semantic SLAM and Object-Level Mapping
+
+C. Long-Term Map Maintenance
+
+Semantic SLAM has progressed from geometric-only maps
+to systems that assign meaning to spatial entities. Cadena
+
+Long-term SLAM requires managing map memory
+across extended durations. RTAB-Map [20] implements an
+
+3
+
+appearance-based memory management system for largescale and long-term operation. Churchill and Newman [21]
+demonstrated experience-based navigation where the robot
+maintains multiple map representations for different temporal
+conditions. Fehr et al. [22] proposed TSDF-based change
+detection for long-term dense reconstruction, distinguishing
+persistent structure from dynamic objects. ORB-SLAM3 [23]
+introduced multi-map capabilities that enable map reuse and
+merging across sessions. The standard SLAM backends—
+ORB-SLAM2 [24] and DROID-SLAM [25]—provide the visual odometry foundation on which our maintenance layer
+operates. POV-SLAM [2] introduced object-aware semantic
+SLAM and released the TorWIC dataset with ground-truth
+object annotations across multiple revisits.
+Relationship: Long-term mapping systems focus on memory management and geometric consistency across time. Our
+maintenance layer adds an orthogonal dimension: semantic admission control based on stability, persistence, and dynamicity
+signals—not just geometric or memory constraints.
+The broader question of which landmarks to retain has
+been studied in classical SLAM under different names: EKFSLAM feature management, PTAM map-point culling, and
+ORB-SLAM’s map-point policies all implement observationquality thresholds. These are geometric ﬁlters; our work is
+the ﬁrst to carry this principle into semantic object-level
+map maintenance with explicit cross-session and dynamicity
+criteria.
+D. Segmentation-Assisted Filtering
+Recent advances in vision foundation models enable extracting semantically labeled object instances without task-speciﬁc
+training. Grounding DINO [4] provides open-vocabulary
+detection by marrying DINO with grounded pre-training.
+SAM 2 [5] extends the Segment Anything paradigm to video
+with promptable spatio-temporal masks. OpenCLIP [26] provides reproducible CLIP-scale vision-language embeddings
+used for label reranking. At the 3D level, OpenMask3D [27]
+and CLIP-Fields [28] enable open-vocabulary 3D instance
+segmentation and semantic ﬁeld learning, respectively—
+demonstrating that language-conditioned reasoning can operate directly on geometric representations.
+Relationship: We treat these models as interchangeable
+perception backends. Our maintenance layer consumes their
+output (detected object instances with semantic labels and
+masks) and applies session-level admission criteria. The architecture is backend-agnostic: any detection+segmentation
+pipeline producing frame-level object instances can feed into
+the maintenance layer.
+IV. P ROBLEM F ORMULATION
+
+The map-admission problem (motivated by the dynamiccontamination gap identiﬁed in §I-B) is: given candidate
+observations across one or more sessions, produce a map M
+consisting of durable object entities {e1 , . . . , eM } such that:
+1) Stability: Each em corresponds to a physically persistent object in the environment (not a transient or
+dynamic agent).
+2) Consistency: The label and spatial extent of em are
+consistent across revisits.
+3) Completeness: No persistent object that appears across
+multiple sessions with sufﬁcient evidence is omitted.
+4) Admission control: Dynamic agents (forklifts, carts)
+and transient objects are explicitly rejected rather than
+silently suppressed.
+B. Key Distinction from Standard SLAM
+Standard SLAM treats map updates as: detection → geometric veriﬁcation → map insertion [3]. Our framework
+inserts an intermediate maintenance layer: detection → observation (§V-A) → tracklet within-session (§V-B) → mapobject cross-session (§V-C) → revisioned map update (§V-F).
+Each transition applies criteria that ﬁlter, aggregate, and score
+candidate evidence before map insertion. This architecture
+separates the perception question (“what is detected?”) from
+the maintenance question (“what deserves a durable slot in the
+semantic map?”).
+V. M ETHOD : S ESSION -L EVEL M AP A DMISSION C ONTROL
+Fig. 1 illustrates the full pipeline: open-vocabulary RGBD masks ﬂow through observation, tracklet, map-object, and
+revision layers rather than being inserted directly into the map.
+A. Observation Layer
+For each RGB-D frame, we apply an open-vocabulary
+detection pipeline:
+1) Grounding DINO [4] proposes bounding boxes from
+text prompts corresponding to common industrial object
+categories (barrier, forklift, work table, warehouse rack,
+cart, pallet, pillar).
+2) SAM 2 [5] generates instance masks from the proposed
+boxes.
+3) OpenCLIP [26] reranks and resolves label assignments
+by comparing mask crops to text embeddings of the
+target category set.
+Each resulting candidate becomes an ObjectObservation with
+frame ID, session ID, bounding box, mask polygon, canonical
+label, conﬁdence score, and detection timestamp. The detection pipeline is used as a black-box front end; our contribution
+begins at the observation layer (§I-C).
+
+A. Formal Statement
+Let a SLAM session Sk produce a sequence of RGB-D
+frames {Fk,1 , . . . , Fk,Nk }. For each frame, an open-vocabulary
+detection-segmentation-labeling pipeline outputs a set of can(j)
+didate object instances {ok,i }, each with a bounding box, a
+segmentation mask, a canonical label, and a conﬁdence score.
+
+B. Tracklet Layer
+Within a single session Sk , observations with the same
+canonical label and overlapping spatial extent are grouped into
+tracklets. A tracklet T aggregates: session ID and temporal
+extent (ﬁrst/last frame), observation count and spatial extent
+
+4
+
+statistics, label histogram (raw detector outputs before canonicalization), state histogram (detector-reported state: static,
+candidate, dynamic_agent), and dynamic ratio ρT
+(fraction of observations with state = dynamic_agent).
+Tracklets are the within-session evidence unit; multiple tracklets with the same label from different sessions are candidates
+for cross-session merging.
+C. Map-Object Layer
+Tracklets from different sessions are matched by spatial
+overlap and canonical label consistency to form MapObjects.
+A MapObject O aggregates: session support (number of distinct sessions), total observations and total tracklets, dominant
+label and label purity (fraction of observations with the dominant label), dominant state, spatial stability (variance of mean
+center across sessions), and meta-evidence (session lists, frame
+counts, support counts). The cross-session matching uses a
+spatial IoU threshold (0.1) with canonical label agreement.
+Objects appearing in only one session with low support are
+candidates for rejection.
+D. Trust-Score Formulation
+
+These criteria are the primary admission-control mechanism.
+Objects that fail any criterion are recorded as rejected with
+speciﬁc rejection reasons, providing auditable traceability (see
+§VII-G for ablation and baseline comparison).
+F. Revision Layer
+When a new session revisits the environment, its tracklets
+are matched against existing MapObjects in M. Three outcomes are possible:
+1) Conﬁrm: A tracklet matches an existing MapObject
+within spatial and label thresholds → increment session/support/observation counters, update statistics.
+2) Add: A tracklet forms a new candidate MapObject
+that passes admission criteria after sufﬁcient session
+evidence → admit.
+3) Reject: A tracklet does not match any existing object
+and fails admission criteria → record as rejected with
+reasons.
+The map M is thus revisioned rather than rebuilt: stable
+objects accumulate conﬁrming evidence across revisits, while
+new candidates are admitted only after meeting the multisession threshold.
+
+Each MapObject O receives a trust score τ (O) deﬁned as:
+τ (O) = α · ssession (O) + β · ssupport (O) − γ · sdynamic (O) (1)
+where ssession (O) is normalized session count (min 0, max 1
+at ≥3 sessions), ssupport (O) is normalized observation support
+(min 0, max 1 at ≥20 observations), sdynamic (O) = ρO is the
+dynamic ratio (0 for fully static, 1 for fully dynamic), and
+α = 0.4, β = 0.3, γ = 0.5 (conﬁgurable, not optimized; see
+§VI-C for protocol-wide consistency).
+This score is not presented as an optimal estimator. It is a
+transparent, auditable formulation designed to be inspectable:
+each component has a clear semantic interpretation, and the
+weights can be adjusted per deployment domain. The score is
+used as an auxiliary signal; the primary map-admission gate is
+the boolean criteria set in §V-E. On the TorWIC evaluation set,
+all retained MapObjects satisfy τ (O) ≥ 0.4 and all rejected
+objects fall below τ (O) ≤ 0.15. These thresholds are observed
+empirical properties of the current data and are not claimed
+to generalize to other sites or frontend conﬁgurations without
+recalibration.
+E. Admission Criteria
+A MapObject O is admitted to the durable map M if and
+only if it satisﬁes all ﬁve criteria:
+• Multi-session presence (≥ 2 sessions): single-session
+observations may be transient.
+• Minimum support (≥ 6 observations): low-support objects are likely spurious.
+• Label consistency (label purity ≥ 0.7): mixed-label
+objects indicate detector ambiguity.
+• Static dominance (dynamic ratio ≤ 0.2): dynamic agents
+should not enter the map.
+• Minimum frames (≥ 4 frames): objects seen in only 1–2
+frames are likely detection noise.
+
+VI. E XPERIMENTAL P ROTOCOL
+A. Dataset and Provenance
+We use the TorWIC dataset from the POV-SLAM release [2], which provides RGB-D sequences of industrial
+warehouse aisles with revisits under varying conditions. The
+dataset contains 20 sessions across 3 dates (Jun 15, Jun 23,
+Oct 12, 2022), totaling 32,743 RGB frames, with groundtruth camera trajectories and object annotations. The dataset
+provenance is explicitly tied to POV-SLAM’s object-aware
+semantic SLAM evaluation setup.
+B. Protocol Design
+We deﬁne four protocols spanning increasing temporal gaps
+and a scene-transfer branch:
+Primary Aisle Ladder. Three protocols using a “richer”
+bundle conﬁguration covering a speciﬁc aisle section:
+• Same-day: 4 sessions (Jun 15 Aisle CW/CCW runs), 203
+observations, 11 candidate clusters, 5 retained MapObjects. Tests same-day viewpoint variation.
+• Cross-day: 4 sessions (Jun 15 + Jun 23), 240 observations, 10 clusters, 5 retained. Tests 8-day revisit with
+lighting change.
+• Cross-month: 6 sessions (Jun 15, Jun 23, Oct 12), 297
+observations, 14 clusters, 7 retained. Tests 4-month gap
+with seasonal variation.
+Hallway Scene-Transfer Branch. 10 sessions (10/10 complete) across all 3 dates, 537 observations, 16 clusters, 9
+retained. Tests whether the admission-control framework transfers to a scene without forklifts (Hallway serve as a negativecontrol environment). Admission rate 56.2% (bootstrap 95%
+CI: 31.2–81.2%, n=16); does not differ from pooled Aisle
+(Fisher exact p=0.76).
+
+5
+
+TABLE I
+E VIDENCE L ADDER S UMMARY: A ISLE P ROTOCOL R ESULTS .
+Protocol
+
+TABLE III
+C ROSS -DAY A ISLE S ELECTION A NALYSIS (5/10 RETAINED ).
+
+Sessions
+
+Frame-Level Objs
+
+Clusters
+
+Same-day Aisle
+Cross-day Aisle
+Cross-month Aisle
+
+4
+4
+6
+
+203
+240
+297
+
+11
+10
+14
+
+5
+5
+7
+
+Total (Aisle, dedup.)
+
+14
+
+740
+
+20
+
+5
+
+TABLE II
+S AME -DAY A ISLE S ELECTION A NALYSIS (5/11 RETAINED ).
+Cluster
+
+Retained Cluster
+
+Label
+
+Sessions
+
+Frames
+
+Purity
+
+Dyn Ratio
+
+Deci
+
+cluster_0001
+cluster_0002
+cluster_0003
+cluster_0006
+cluster_0005
+
+barrier
+work table
+barrier
+warehouse rack
+barrier
+
+4
+4
+3
+3
+2
+
+36
+29
+30
+25
+14
+
+1.000
+0.966
+1.000
+0.960
+1.000
+
+0.000
+0.000
+0.000
+0.000
+0.000
+
+Reta
+Reta
+Reta
+Reta
+Reta
+
+cluster_0007
+cluster_0004
+cluster_0008
+cluster_0009
+cluster_0010
+Dyn Ratio
+Decision
+
+forklift
+work table
+forklift
+barrier
+warehouse rack
+
+4
+1
+1
+1
+1
+
+38
+11
+8
+7
+5
+
+0.921
+1.000
+0.750
+0.857
+0.800
+
+0.895
+0.000
+0.875
+0.000
+0.000
+
+Reject
+Reject (s
+Reject
+Reject (s
+Reject (s
+
+Label
+
+Sessions
+
+Frames
+
+Purity
+
+cluster_0001
+cluster_0002
+cluster_0005
+cluster_0003
+cluster_0010
+
+barrier
+barrier
+work table
+barrier
+work table
+
+4
+4
+3
+3
+2
+
+32
+32
+34
+24
+9
+
+1.000
+1.000
+0.912
+1.000
+0.889
+
+0.000
+0.000
+0.000
+0.000
+0.000
+
+cluster_0004
+cluster_0007
+cluster_0009
+cluster_0008
+cluster_0006
+cluster_0011
+
+forklift
+forklift
+forklift
+work table
+warehouse rack
+barrier
+
+3
+3
+2
+1
+1
+1
+
+37
+12
+12
+8
+7
+3
+
+0.946
+1.000
+0.667
+1.000
+1.000
+1.000
+
+0.946
+1.000
+0.667
+0.000
+0.000
+0.000
+
+C. Selection Criteria (Constant Across All Protocols)
+All results are reported with invariant selection criteria:
+min_sessions=2, min_frames=4, min_support=6,
+max_dynamic_ratio=0.2, min_label_purity=0.7.
+These values are ﬁxed before evaluation and not tuned per
+protocol. Parameter sensitivity is explored through ablation
+across 27 combinations (§VII-G).
+VII. R ESULTS
+A. Aisle Evidence Ladder
+B. Selection Criteria Analysis
+C. Hallway Scene-Transfer Evidence
+D. Rejection Proﬁle Analysis
+E. Dynamic SLAM Backend: Motivation and Negative-Result
+Study
+F. Dynamic SLAM: Mask Coverage and Trajectory Analysis
+We evaluate 12 DROID-SLAM conﬁgurations on a single
+64-frame TorWIC window (Jun 15 Aisle_CW_Run_1), comparing raw RGB against masked RGB inputs. The groundtruth trajectory (TUM format) is from the TorWIC dataset; all
+metrics are computed with evo_ape and evo_rpe (translation part, SE(3) Umeyama alignment). The results reveal two
+distinct groups:
+Group 1: Trajectory-Neutral (7/12 conﬁgs). Conﬁgurations using no masking (P132, P134), our semantic frontend
+masks (P135), or concentrated forklift-only masks (P142T4/T8/T16) all produce |∆APE| ≤ 0.006 mm, effectively tied
+with the raw baseline (APE RMSE = 0.109855 m for 64frame GBA, 0.001428 m for 8-frame P132). RPE is similarly
+invariant (|∆RPE| ≤ 0.027 mm). P135 (semantic masks)
+performs identically to P142 (oracle concentrated masks),
+
+Retain
+Retain
+TABLE IV
+RetainS ELECTION A NALYSIS (9/16 RETAINED , 10/10 SESSIONS ).
+H ALLWAY
+Retain
+Retain
+Label
+Retained
+Clusters
+Admission Rate
+Reject (dyn.)
+barrier
+4
+6
+66.7%
+Reject (dyn.)
+work table
+4
+7
+57.1%
+Reject (dyn.)
+warehouse rack
+1
+3
+33.3%
+Reject (session)
+RejectTotal
+(session)
+9
+16
+56.2%
+Reject (session)
+
+validating that our frontend produces sufﬁciently selective
+forklift masks.
+Group 2: Perturbed (5/12 conﬁgs). Conﬁgurations using
+aggressive mask strategies produce measurable trajectory perturbations:
+• P136 (temporal propagation stress) and P137 (ﬂow propagation stress): ∆APE = +7.517 mm. Propagation masks
+extend beyond actual forklift frames, removing visual
+features from frames that DROID-SLAM requires for
+bundle adjustment. The identical magnitude across both
+propagation methods (±0 mm) suggests mask strategy
+(which frames are masked) determines perturbation magnitude, not the propagation method.
+• P138–P140 (ﬁrst-8/16/32 uniform masks): ∆APE ≈
++0.92 mm. Blindly masking the ﬁrst N frames depletes
+DROID-SLAM’s initialization window. The magnitude
+plateaus after 8 frames (0.922 → 0.921 → 0.920 mm
+for 8/16/32 frames), conﬁrming that initialization, not
+cumulative frame masking, is the vulnerable phase.
+These results establish two ﬁndings. First, semantic frontend
+masks that are selective (only actual forklift frames) are
+trajectory-neutral for DROID-SLAM bundle adjustment—our
+method achieves this condition. Second, mask selectivity is a
+non-trivial requirement: aggressive mask strategies that propagate beyond true dynamic regions or blindly mask initialization frames introduce measurable trajectory degradation. The
+detailed per-conﬁg metrics are provided in the supplementary
+material (Table S4).
+Stage 1 replication on two additional TorWIC Aisle
+sessions conﬁrms cross-session reproducibility: Jun 15
+Aisle_CW_Run_2 (same-day) and Jun 23 Aisle_CW_Run_1
+(cross-day, two weeks later) both produce ∆APE ≤ 0.001 mm
+with selective semantic frontend masks (4/64 frames masked,
+max coverage ≤ 1.49%). Stage 2 extends this to crossmonth and scene-transfer: Oct 12 Aisle_CW (cross-month,
+
+6
+
+TABLE V
+DROID-SLAM BACKEND C ONFIGURATION S URVEY (16 CONFIGS
+ACROSS 5 SESSIONS , 2 SCENE TYPES ).
+Conﬁg
+P132
+P134
+P135
+P142-T4
+P142-T8
+P142-T16
+P136
+P137
+P138
+P139
+P140
+P141
+P172-S1-R1
+P172-S1-R2
+P172-S2-A
+P172-S2-H
+
+∆APE (mm)
+
+Mask Strategy
+No mask, 8-fr
+No mask, 64-fr GBA
+Selective semantic
+4-frame forklift conc.
+8-frame forklift conc.
+16-frame forklift conc.
+Temporal propagation
+Flow propagation
+First-8 uniform
+First-16 uniform
+First-32 uniform
+GBA + no mask
+Jun15 Run2 selective
+Jun23 Run1 selective
+Oct12 Aisle CW selective
+Oct12 Hallway CW selective
+
+0.006
+0.000
+0.000
+0.001
+0.001
+0.006
+7.517
+7.517
+0.922
+0.921
+0.920
+0.006
+0.000
+0.001
+0.000
+0.000
+
+Neutral?
+✓
+✓
+✓
+✓
+✓
+✓
+×
+×
+×
+×
+×
+✓
+✓
+✓
+✓
+✓
+
+TABLE VI
+C OMPLETE DYNAMIC M ASKING E VIDENCE C HAIN (16 CONFIGS , 5
+SESSIONS , 2 SCENES ).
+Evidence Tier
+
+Conﬁgs
+
+TABLE VII
+PARAMETER A BLATION S UMMARY (P154). E ACH ROW VARIES ONE
+
+Scene
+
+CRITERION WHILE HOLDING THE OTHERS AT THE DEFAULT
+CONFIGURATION (‘ MIN _ SESSIONS =2‘, ‘ MIN _ FRAMES =4‘,
+‘ MAX _ DYNAMIC _ RATIO =0.20‘, ‘ MIN _ SUPPORT =6‘,
+‘ MIN _ LABEL _ PURITY =0.70‘).
+
+Aisle
+Aisle
+Criterion
+Sweep
+Retained
+Sensitivity
+Aisle
+min_sessions
+1/2/3
+7/5/5
+High at 1→2
+Aisle
+min_frames
+2/4/6
+8/5/5
+High at 2→4
+Aisle
+max_dynamic_ratio
+0.10 / 0.20 / 0.30
+5/5/5
+Saturated
+Aisle
+Aisle
+Aisle
+Aisle
+TABLE VIII
+Aisle
+BASELINE C OMPARISON : NAIVE (B0), P URITY /S UPPORT H EURISTIC
+Aisle
+(B1), R ICHER A DMISSION (B2).
+Aisle
+Aisle
+Metric
+B0 (Naive)
+B1 (Purity/Support)
+B2 (Richer)
+Aisle
+Aisle
+Total admitted
+20/20
+13/20
+5/20
+Hallway
+Forklift admitted
+4/4
+4/4
+0/4
+Phantom risk
+20.0% (4/20)
+21.1% (4/19)
+0.0% (0/5)
+Infrastructure retention
+5/9 (55.6%)
+5/9 (55.6%)
+5/9 (55.6%)
+Reduction over B0
+—
+−35.0%
+−75.0%
+McNemar vs B2
+
+p<0.0001
+
+p=0.125 (n=4)
+
+—
+
+Key Result
+
+on Aisle data might specialize to forklift-rich scenes and fail
+on the Hallway negative-control environment.
+Domain-informed priorities. The weights in the trust
+Total
+16
+11/16 neutral (68.8%, 95% CI 43.8–87.5%)
+score (1) reﬂect domain priorities—session count (α=0.4)
+is weighted more heavily than observation support (β=0.3)
+because cross-session persistence is a stronger indicator of
+four months later, ∆APE = 0.000 mm, 2/64 masked, infrastructure than repeated detection within a single session—
+max 4.89%) and Oct 12 Hallway_Full_CW_Run_2 (ﬁrst- rather than being optimized on a validation set. The dynamicever Hallway dynamic mask test, ∆APE = 0.000 mm, ratio weight (γ=0.5) intentionally penalizes dynamic contam3/64 masked, max 0.63%). This upgrades to an 11/16-conﬁg, ination to produce a clean ﬂoor: τ (O) ≤ 0.15 for forklifts,
+5-session evidence chain (same-day + cross-day + cross- τ (O) ≥ 0.4 for infrastructure.
+month + Hallway scene-transfer). A follow-up high-coverage
+selective-mask pressure test on Jun 15 Aisle_CCW_Run_1
+B. Dynamic-Ratio Bimodality
+masks 5/64 frames with max per-frame coverage 17.32%
+The observed separation—infrastructure clusters at dyand mean coverage 0.568%; it remains small in absolute
+terms but no longer exactly neutral (∆APE = +0.114 mm, namic ratio = 0.00, forklifts at ≥0.83, with no clusters
+∆RPE = −0.006 mm). Thus, selectivity is necessary but not in the intermediate range (0.01–0.82)—is a striking feature
+sufﬁcient by itself: coverage magnitude also deﬁnes the bound- of the data. This bimodality justiﬁes the insensitivity of
+ary between trajectory-neutral and mildly perturbed behavior. max_dynamic_ratio across a wide range (0.10–0.30)
+shown in the parameter ablation (§VII-G).
+However, this bimodality may partially reﬂect the frontend
+G. Admission Criteria Defense: Ablation, Baseline Compari- state classiﬁer’s decision boundary rather than purely physson, and Per-Category Analysis
+ical separation. The detector reports three states (static,
+candidate, dynamic_agent); if the classiﬁer assigns
+VIII. D ISCUSSION
+dynamic_agent conservatively, dynamic objects receive
+A. Why Boolean Criteria (Not Learned)
+consistently high ratios while static objects receive zero. This
+The ﬁve admission criteria (§V-E) are deliberately boolean caveat is noted as a limitation (§IX, item 4): the bimodality is
+rather than learned. Three considerations motivate this choice. real in the data but its sharpness may be frontend-dependent.
+Traceability. Every admission or rejection decision maps to Multi-frontend ablation would be needed to quantify this
+a speciﬁc criterion violation, enabling per-object provenance dependence.
+auditable without model introspection. Learned classiﬁers
+(e.g., a neural admission gate trained on object features) would
+C. Relationship to Landmark Selection in Classical SLAM
+obscure the decision boundary.
+The admission-control problem has conceptual precursors
+Cross-scene transfer. Boolean thresholds on session count,
+label purity, and dynamic ratio transfer across the Aisle and in classical SLAM. EKF-SLAM feature management, PTAM
+Hallway protocols without retraining. A learned gate trained map-point culling, and ORB-SLAM’s map-point policies all
+Core boundary
+Replication S1
+Replication S2
+
+12 (P132–P142)
+2 (P172-S1)
+2 (P172-S2)
+
+7/12 neutral, 5/12 perturbed
+2/2 neutral (same-day, cross-day)
+2/2 neutral (cross-month, Hallway)
+
+7
+
+TABLE IX
+P ER -C ATEGORY R ETENTION AND R EJECTION M ATRIX (A ISLE LADDER ,
+N =20).
+Category
+barrier
+work table
+warehouse rack
+forklift
+unclassiﬁed
+
+Clusters
+
+Retained
+
+Rejected
+
+Retention Rate
+
+5
+5
+3
+4
+3
+
+2
+2
+1
+0
+0
+
+3
+3
+2
+4
+3
+
+40.0%
+40.0%
+33.3%
+0.0%
+0.0%
+
+implement observation-quality thresholds for geometric landmarks. ORB-SLAM3’s map-merging capability further introduces cross-session geometric veriﬁcation. Our admission
+criteria carry this principle into the semantic domain: just as
+ORB-SLAM culls map points with low observation count or
+high reprojection error, our framework culls semantic objects
+with low session support or high dynamic ratio. The key
+difference is that semantic admission requires reasoning about
+object identity persistence rather than geometric reprojection
+error, and the criteria must distinguish between static infrastructure and structurally similar dynamic agents (forklifts that
+look geometrically stable but are semantically inadmissible).
+RTAB-Map’s memory management similarly ﬁlters based on
+retrieval frequency; our session-count criterion is a semantic
+analogue.
+D. Single-Site Limitation and Cross-Site Validation
+The current evidence is limited to a single warehouse site
+(TorWIC). While the Aisle and Hallway protocols provide
+within-site protocol-level diversity, external validation at other
+industrial sites (different warehouse layouts, lighting conditions, object categories) is deferred. A multi-site validation
+would require: (1) a multi-site industrial SLAM dataset with
+ground-truth object annotations across revisits (no such public
+dataset exists to our knowledge); (2) recalibration of the detection prompt set for site-speciﬁc object categories; and (3) veriﬁcation that the admission thresholds (min_sessions=2,
+max_dynamic_ratio=0.2) transfer without retuning. Until
+such data is available, the current evidence is bounded to the
+TorWIC environment, as noted among the limitations (§IX,
+items 1–2).
+IX. L IMITATIONS
+1) Evaluation scale. The admission-control evaluation operates on 20 candidate clusters (across all protocols
+after deduplication). Bootstrap 95% conﬁdence intervals
+for per-protocol admission rates range from 18.2–72.7%
+(same-day, n=11) to 31.2–81.2% (Hallway, n=16); the
+pooled rate CI is 37.3–64.7% (n=51). Hallway versus
+Aisle admission rates do not differ (Fisher exact p =
+0.76). Between-baseline McNemar exact tests (Aisle
+ladder, paired n=20): B0/B1 p<0.001, B1/B2 p=0.125
+(n=4 discordant pairs), B0/B2 p<0.0001. B1/B2 is not
+signiﬁcant at α=0.05 but the effect direction is deterministic (B2 never admits a cluster B1 rejects; all 4
+discordant pairs are B1-admitted/B2-rejected forklifts).
+
+Statistical power is limited by cluster count; conﬁdence
+intervals and p-values should be interpreted with appropriate caution.
+2) Single industrial site. TorWIC is collected in a single warehouse. Although Aisle and Hallway provide
+protocol-level diversity, external validation at other industrial sites is deferred.
+3) Detection conﬁdence not logged. Per-detection NN
+conﬁdence scores were not preserved during observation
+extraction. The label-purity proxy is used as a documented substitute.
+4) Dynamic ratio may depend on frontend. The dynamic
+ratio is computed from the detector’s state classiﬁer
+(static / candidate / dynamic_agent). The observed bimodality (0.00 vs ≥0.83) may partially reﬂect the classiﬁer’s decision boundary rather than purely physical
+separation. The insensitivity of max_dynamic_ratio to
+threshold choice is demonstrated through ablation but
+the bimodality’s dependence on frontend behavior is a
+caveat.
+5) No comparison against published map-management
+policies. The baseline comparison (naive-all-admit, purity/support heuristic) uses deliberately simple policies
+to isolate the contribution of individual signals. Comparison against map-management policies in published
+SLAM systems (e.g., RTAB-Map’s memory management, ORB-SLAM3’s map-point culling) is deferred to
+future work.
+6) Single-session infrastructure loss. Infrastructure appearing in only one session cannot be veriﬁed for crosssession persistence and is conservatively rejected. This is
+a design choice—precision over recall for map entries—
+but entails genuine infrastructure omission.
+7) Dynamic SLAM boundary. evo APE evaluation across
+the bounded DROID-SLAM chain reveals three regimes.
+Selective low-coverage semantic masks are trajectoryneutral (|∆APE| ≤ 0.006 mm in the original 7/12
+neutral conﬁgs, extended by four neutral replication
+sessions). Aggressive mask strategies (temporal/ﬂow
+propagation, uniform ﬁrst-N masks) introduce measurable perturbations (0.92–7.52 mm, 5 conﬁgs). A highcoverage but still selective Jun 15 Aisle_CCW pressure
+test (max 17.32% frame coverage, mean 0.568%) produces only a small perturbation (∆APE = +0.114 mm).
+Mask selectivity is therefore necessary, but high dynamic
+coverage can still move the trajectory at sub-millimetre
+scale. Bootstrap 95% CI for the neutral rate is 43.8–
+87.5% (11/16 conﬁgs); the two-group ∆APE separation
+at |∆APE| ≤ 0.006 mm is complete (gap=0.914 mm, no
+overlap). We do not claim navigation beneﬁt or full-map
+quality improvement from masking.
+8) Single VO backend. Only DROID-SLAM was tested as
+the visual odometry backend. ORB-SLAM3 and other
+backends may exhibit different sensitivity to dynamic
+content masking.
+9) Ground-truth object annotations. TorWIC provides
+ground-truth object IDs; we use them for protocol
+conﬁguration but the framework itself operates without
+
+8
+
+ground truth.
+X. C ONCLUSION
+This paper presents a systematic, evidence-backed approach to session-level map admission control for semanticsegmentation-assisted SLAM in dynamic industrial environments. The framework transforms open-vocabulary RGB-D
+segmentation outputs into observation, tracklet, map-object,
+and revision layers, then applies explicit persistence, stability,
+and dynamicity signals to retain stable semantic landmarks
+and suppress dynamic contamination.
+Current TorWIC evidence documents a reproducible evidence chain across same-day, cross-day, and cross-month
+Aisle protocols, with Hallway retained as a separate scenetransfer branch. Forklift-like evidence is consistently rejected
+as dynamic contamination (50%–71% rejection share), while
+barriers, work tables, and warehouse racks are selectively
+retained based on multi-session evidence, label consistency,
+and static dominance.
+The dynamic SLAM backend evaluation identiﬁes a
+boundary condition: selective low-coverage semantic masks
+are trajectory-neutral for DROID-SLAM across the original
+single-session sweep and four replication sessions, while aggressive mask strategies (propagation, uniform ﬁrst-N) introduce measurable perturbations (0.92–7.52 mm). A highcoverage selective-mask pressure test remains far below the
+aggressive-mask failures but produces a small nonzero shift
+(∆APE = +0.114 mm), showing that both selectivity and
+coverage magnitude matter for bundle adjustment. The admission criteria are validated through parameter ablation across 27
+parameter combinations, baseline comparison (demonstrating
+that purity/support heuristics fail to reject any forklift), and
+per-category retention/rejection analysis.
+The contribution is bounded: not a lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream
+navigation-gain claim. It is a systematic map maintenance
+methodology — ﬁve boolean criteria with per-object provenance at every layer — supported by reproducible evidence
+and a complete supplementary evidence package that enables
+per-cluster auditability of all admission and rejection decisions.
+
+9
+
+10
+
+Fig. 2. Four-protocol rejection-ratio overview: same-day, cross-day, cross-month Aisle protocols and Hallway scene-transfer. Retained infrastructure objects
+(barriers, work tables, warehouse racks) are shown in green; rejected clusters (forklifts, single-session, low-quality) in red.
+
+11
+
+Fig. 3. Hallway scene-transfer evidence: 10 sessions across 3 dates, 537 observations, 16 clusters, 9 retained (4 × barrier, 4 × work table, 1 × warehouse
+rack). The Hallway environment serves as a within-site negative control—no forklifts operate in this scene, and the admission framework correctly rejects all
+dynamic candidates.
+
+12
+
+Fig. 7. Optical-ﬂow propagation stress test (P137). Masks propagated via
+ﬂow; ∆APE = +7.517 mm, identical to temporal propagation.
+Fig. 4. Trajectory comparison: raw RGB (baseline) vs semantic-masked
+RGB (P135). Both trajectories are visually and metrically indistinguishable
+(∆APE = 0.000 mm).
+
+Fig. 8. First-8 uniform mask diagnostic (P138). ∆APE = +0.922 mm.
+
+Fig. 5. Per-frame dynamic mask coverage distribution (64-frame window,
+Aisle_CW_Run_1). Selective semantic frontend masks cover only frames
+containing veriﬁed dynamic agents.
+
+Fig. 9. First-16 uniform mask diagnostic (P139). ∆APE = +0.921 mm—
+plateau conﬁrms initialization sensitivity.
+
+Fig. 6. Temporal propagation stress test (P136). Masks propagated temporally
+beyond actual dynamic frames; ∆APE = +7.517 mm.
+Fig. 10. First-32 uniform mask diagnostic (P140). ∆APE = +0.920 mm—
+further plateau.
+
+13
+
+Fig. 11. B0 (naive) vs B2 (richer admission) map composition. B0 admits
+all 20 clusters including 4 forklifts (phantom risk 20.0%); B2 retains 5
+infrastructure-only clusters (phantom risk 0.0%).
+
+14
+
+Fig. 12. Admission decision space: dynamic_ratio × session_count scatter for all 20 Aisle clusters. Infrastructure clusters (barriers, work tables, racks)
+cluster at dynamic ratio = 0.00, session count ≥ 2; forklifts cluster at dynamic ratio ≥ 0.83. The clear separation justiﬁes the max_dynamic_ratio threshold
+insensitivity shown in parameter ablation.
+
+15
+
+R EFERENCES
+[1] B. Bescos, J. M. Facil, J. Civera, and J. Neira, “DynaSLAM: Tracking,
+mapping, and inpainting in dynamic scenes,” IEEE Robot. Autom. Lett.,
+vol. 3, no. 4, pp. 4076–4083, 2018.
+[2] D. Barath, B. Bescos, D. Mishkin, D. Rozumnyi, and J. Matas, “POVSLAM: Probabilistic object-aware SLAM with semantic mapping benchmarks,” in Proc. Robot.: Sci. Syst. (RSS), 2023.
+[3] C. Cadena, L. Carlone, H. Carrillo, Y. Latif, D. Scaramuzza, J. Neira,
+I. Reid, and J. J. Leonard, “Past, present, and future of simultaneous
+localization and mapping: Toward the robust-perception age,” IEEE
+Trans. Robot., vol. 32, no. 6, pp. 1309–1332, 2016.
+[4] S. Liu, Z. Zeng, T. Ren, F. Li, H. Zhang, J. Yang, Q. Jiang, C. Li, J. Yang,
+H. Su, J. Zhu, and L. Zhang, “Grounding DINO: Marrying DINO with
+grounded pre-training for open-set object detection,” in Proc. Eur. Conf.
+Comput. Vis. (ECCV), 2024, arXiv: 2303.05499.
+[5] N. Ravi, V. Gabeur, Y.-T. Hu, R. Hu, C. Ryali, T. Ma, H. Khedr,
+R. Rädle, C. Rolland, L. Gustafson, E. Mintun, J. Pan, K. V. Alwala,
+N. Carion, C.-Y. Wu, R. Girshick, P. Dollár, and C. Feichtenhofer, “SAM
+2: Segment anything in images and videos,” 2024, arXiv: 2408.00714.
+[6] S. Yang and S. Scherer, “CubeSLAM: Monocular 3-D object SLAM,”
+IEEE Trans. Robot., vol. 35, no. 4, pp. 925–938, 2019.
+[7] S. Peng, K. Genova, C. Jiang, A. Tagliasacchi, M. Pollefeys, and
+T. Funkhouser, “OpenScene: 3D scene understanding with open vocabularies,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit.
+(CVPR), 2023, pp. 815–824.
+[8] K. M. Jatavallabhula, A. Kuwajerwala, Q. Gu, M. Omama, T. Chen,
+S. Li, G. Iyer, S. Saryazdi, N. Keetha, A. Tewari, J. B. Tenenbaum,
+C. M. de Melo, M. Krishna, L. Paull, F. Shkurti, and A. Torralba,
+“ConceptFusion: Open-set multimodal 3D mapping,” in Proc. Robot.:
+Sci. Syst. (RSS), 2023.
+[9] M. Rünz, M. Bufﬁer, and L. Agapito, “MaskFusion: Real-time recognition, tracking and reconstruction of multiple moving objects,” in Proc.
+IEEE Int. Symp. Mixed Augmented Reality (ISMAR), 2018, pp. 10–20.
+[10] A. Rosinol, M. Abate, Y. Chang, and L. Carlone, “Kimera: an opensource library for real-time metric-semantic localization and mapping,”
+in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), 2020, pp. 1689–1696.
+[11] J. McCormac, A. Handa, A. Davison, and S. Leutenegger, “SemanticFusion: Dense 3D semantic mapping with convolutional neural networks,”
+in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), 2017, pp. 4628–4635.
+[12] J. Kerr, C. M. Kim, K. Goldberg, A. Kanazawa, and M. Tancik, “LERF:
+Language embedded radiance ﬁelds,” in Proc. IEEE/CVF Int. Conf.
+Comput. Vis. (ICCV), 2023, pp. 19 729–19 739.
+[13] B. Bescos, C. Campos, J. D. Tardós, and J. Neira, “DynaSLAM II:
+Tightly-coupled multi-object tracking and SLAM,” IEEE Robot. Autom.
+Lett., vol. 6, no. 3, pp. 5191–5198, 2021.
+[14] M. Rünz and L. Agapito, “Co-fusion: Real-time segmentation, tracking
+and fusion of multiple objects,” in Proc. IEEE Int. Conf. Robot. Autom.
+(ICRA), 2017, pp. 4471–4478.
+
+[15] B. Xu, W. Li, D. Tzoumanikas, M. Bloesch, A. Davison, and
+S. Leutenegger, “MID-Fusion: Octree-based object-level multi-instance
+dynamic SLAM,” in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), 2019,
+pp. 5231–5237.
+[16] T. Zhang, H. Zhang, Y. Li, Y. Nakamura, and L. Zhang, “FlowFusion:
+Dynamic dense RGB-D SLAM based on optical ﬂow,” in Proc. IEEE
+Int. Conf. Robot. Autom. (ICRA), 2020, pp. 7322–7328.
+[17] C. Yu, Z. Liu, X.-J. Liu, F. Xie, Y. Yang, Q. Wei, and Q. Fei, “DSSLAM: A semantic visual SLAM towards dynamic environments,” in
+Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst. (IROS), 2018, pp. 1168–
+1174.
+[18] F. Zhong, S. Wang, Z. Zhang, and Y. Wang, “Detect-SLAM: Making
+object detection and SLAM mutually beneﬁcial,” in Proc. IEEE Winter
+Conf. Appl. Comput. Vis. (WACV), 2018, pp. 1001–1010.
+[19] M. R. U. Saputra, A. Markham, and N. Trigoni, “Visual SLAM and
+structure from motion in dynamic environments: A survey,” ACM
+Comput. Surv., vol. 51, no. 2, pp. 1–36, 2018.
+[20] M. Labbé and F. Michaud, “RTAB-Map as an open-source lidar and
+visual simultaneous localization and mapping library for large-scale and
+long-term online operation,” J. Field Robot., vol. 36, no. 2, pp. 416–446,
+2019.
+[21] W. Churchill and P. Newman, “Practice makes perfect? managing and
+leveraging visual experiences for lifelong navigation,” in Proc. IEEE Int.
+Conf. Robot. Autom. (ICRA), 2012, pp. 4525–4532.
+[22] M. Fehr, F. Furrer, I. Dryanovski, J. Sturm, I. Gilitschenski, R. Siegwart,
+and C. Cadena, “TSDF-based change detection for consistent long-term
+dense reconstruction and dynamic object discovery,” in Proc. IEEE Int.
+Conf. Robot. Autom. (ICRA), 2017, pp. 5237–5244.
+[23] C. Campos, R. Elvira, J. J. G. Rodríguez, J. M. M. Montiel, and
+J. D. Tardós, “ORB-SLAM3: An accurate open-source library for visual,
+visual-inertial, and multimap SLAM,” IEEE Trans. Robot., vol. 37, no. 6,
+pp. 1874–1890, 2021.
+[24] R. Mur-Artal and J. D. Tardós, “ORB-SLAM2: An open-source SLAM
+system for monocular, stereo, and RGB-D cameras,” IEEE Trans. Robot.,
+vol. 33, no. 5, pp. 1255–1262, 2017.
+[25] Z. Teed and J. Deng, “DROID-SLAM: Deep visual SLAM for monocular, stereo, and RGB-D cameras,” in Proc. Adv. Neural Inf. Process.
+Syst. (NeurIPS), vol. 34, 2021, arXiv: 2108.10869.
+[26] M. Cherti, R. Beaumont, R. Wightman, M. Wortsman, G. Ilharco,
+C. Gordon, C. Schuhmann, L. Schmidt, and J. Jitsev, “Reproducible scaling laws for contrastive language-image learning,” in Proc. IEEE/CVF
+Conf. Comput. Vis. Pattern Recognit. (CVPR), 2023, pp. 2818–2829,
+arXiv: 2212.07143.
+[27] A. Takmaz, E. Fedele, R. W. Sumner, M. Pollefeys, and F. Tombari,
+“OpenMask3D: Open-vocabulary 3D instance segmentation,” in Proc.
+Adv. Neural Inf. Process. Syst. (NeurIPS), vol. 36, 2023, arXiv:
+2306.13631.
+[28] N. M. M. Shaﬁullah, C. Paxton, L. Pinto, S. Chintala, and A. Szlam,
+“CLIP-Fields: Weakly supervised semantic ﬁelds for robotic memory,”
+in Proc. Robot.: Sci. Syst. (RSS), 2023.
+
+

@@ -1,0 +1,20 @@
+Title:           Session-Level Map Admission Control for Semantic-Segmentation-Assisted SLAM in Dynamic Industrial Environments
+Subject:         Robotics, SLAM, Semantic Mapping
+Keywords:        SLAM, semantic segmentation, dynamic object filtering, object-level mapping, map maintenance, industrial robotics, open-vocabulary perception, long-term autonomy
+Creator:         LaTeX with hyperref
+Producer:        xdvipdfmx (0.1)
+CreationDate:    Sun May 10 01:46:41 2026 CST
+Custom Metadata: no
+Metadata Stream: no
+Tagged:          no
+UserProperties:  no
+Suspects:        no
+Form:            none
+JavaScript:      no
+Pages:           15
+Encrypted:       no
+Page size:       612 x 792 pts (letter)
+Page rot:        0
+File size:       3090791 bytes
+Optimized:       no
+PDF version:     1.5
