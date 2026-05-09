@@ -372,6 +372,24 @@ make dynamic-temporal-mask-stress-figure
 
 当前解释：mask 覆盖从 P135 的 `3/64` 帧、均值 `0.025750%` 提高到 `16/64` 帧、均值 `0.267154%`，但 APE/RPE 仍基本持平。这说明简单最近帧传播还不足以形成可靠轨迹收益；下一步应做真正的逐帧动态 mask 生成或基于光流/视频分割的时序跟踪，而不是继续只扩大 SLAM 后端窗口。
 
+P137 进一步把传播策略从“最近帧复制”换成稠密光流 warp：
+
+```bash
+make dynamic-slam-backend-flow-mask-stress
+make dynamic-flow-mask-stress-figure
+```
+
+结果：
+
+| 输入 | APE RMSE (m) | RPE RMSE (m) |
+|---|---:|---:|
+| raw RGB | 0.051135 | 0.032713 |
+| flow propagated masked RGB | 0.051222 | 0.032710 |
+
+![光流传播 mask 压力测试](paper/figures/torwic_dynamic_mask_flow_stress_p137.png)
+
+当前解释：低成本稠密光流传播没有优于最近帧传播，说明瓶颈不只是“mask 不够多”，也包括 mask 质量、动态目标真实时序一致性和当前 DROID-SLAM 对小面积遮罩的敏感性。下一步应优先跑逐帧 Grounding DINO/SAM2 或 SAM2 video predictor，生成更接近真实动态目标的连续 masks。
+
 ## 2. 论文稿件
 
 | 稿件 | 路径 | 用途 |

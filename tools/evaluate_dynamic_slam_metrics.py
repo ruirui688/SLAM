@@ -62,6 +62,7 @@ def mask_coverage(manifest_path: Path) -> dict:
         ),
         "policy": manifest.get("dynamic_mask_policy"),
         "temporal_propagation_radius": manifest.get("temporal_propagation_radius"),
+        "temporal_propagation_mode": manifest.get("temporal_propagation_mode"),
         "dynamic_mask_dilation_px": manifest.get("dynamic_mask_dilation_px"),
     }
 
@@ -97,6 +98,7 @@ def write_markdown(path: Path, payload: dict) -> None:
             f"- Masked frames: `{coverage['masked_frame_count']}/{coverage['total_frames']}`.",
             f"- Mean coverage: `{coverage['mean_coverage_percent']:.6f}%`.",
             f"- Temporal propagation radius: `{coverage.get('temporal_propagation_radius')}`.",
+            f"- Temporal propagation mode: `{coverage.get('temporal_propagation_mode')}`.",
             f"- Mask dilation: `{coverage.get('dynamic_mask_dilation_px')}` px.",
         ]
     lines += ["", f"Interpretation: {payload['interpretation']}", ""]

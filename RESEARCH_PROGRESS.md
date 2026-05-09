@@ -510,3 +510,25 @@ summary and local paths here, then commit and push the repository.
   Simple nearest-frame propagation increases coverage but does not produce a
   reliable trajectory gain. The next research step is real per-frame dynamic
   mask generation or flow/video-segmentation-based temporal tracking.
+
+## 2026-05-09 P137 optical-flow mask propagation stress test
+
+- Extended `tools/build_dynamic_slam_backend_input_pack.py` with
+  `--temporal-propagation-mode flow`, using dense Farneback optical flow to
+  warp masks from available forklift semantic frames to neighboring frames.
+- Added `make dynamic-slam-backend-flow-mask-stress` and
+  `make dynamic-flow-mask-stress-figure`.
+- Built `outputs/dynamic_slam_backend_input_pack_64_flow_mask_stress` with
+  `±8` frame propagation radius and `4 px` dilation.
+- Mask coverage remained `16/64` frames and `0.267154%` average coverage.
+- Ran DROID-SLAM 64-frame global BA on raw vs optical-flow-propagated masked
+  inputs:
+  - raw: APE RMSE `0.051135 m`, RPE RMSE `0.032713 m`;
+  - flow-propagated masked: APE RMSE `0.051222 m`, RPE RMSE `0.032710 m`;
+  - delta masked-minus-raw: APE RMSE `+0.000087 m`, RPE RMSE `-0.000003 m`.
+- Generated `paper/figures/torwic_dynamic_mask_flow_stress_p137.png` and
+  integrated it into README plus EN/ZH thick drafts as Fig. 7.
+- Interpretation: low-cost dense-flow mask propagation does not improve over
+  nearest-frame propagation at this bounded window. The next phase should
+  generate detector-quality per-frame dynamic masks using full semantic
+  frontend inference or a video segmentation predictor.

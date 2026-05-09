@@ -137,6 +137,17 @@ make dynamic-temporal-mask-stress-figure
 当前边界：P136 传播实验把覆盖提高到 16/64 帧，但 APE/RPE 仍基本持平；
 下一步应接入逐帧动态 mask 生成、光流传播或视频分割跟踪。
 
+光流传播压力测试入口：
+
+```bash
+make dynamic-slam-backend-flow-mask-stress
+make dynamic-flow-mask-stress-figure
+```
+
+当前边界：P137 使用稠密光流 warp 同一批已有 masks，结果仍与最近帧传播基本一致。
+这说明低成本传播不足以支撑 masked-input gain claim，后续应优先生成真实逐帧
+动态 masks。
+
 ### 半监督 VOS 推理
 
 The `vos_inference.py` script can be used to generate predictions for semi-supervised video object segmentation (VOS) evaluation on datasets such as [DAVIS](https://davischallenge.org/index.html), [MOSE](https://henghuiding.github.io/MOSE/) or the SA-V dataset.

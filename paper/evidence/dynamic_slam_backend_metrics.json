@@ -67,6 +67,23 @@
       "mean_mask_coverage_percent": 0.267154,
       "claim_boundary": "Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.",
       "interpretation": "This is a diagnostic stress test, not a true detector output. It tests whether increasing temporal mask coverage makes the backend sensitive to dynamic masking."
+    },
+    {
+      "key": "p137_flow_mask_stress",
+      "name": "P137 optical-flow mask stress test",
+      "source": "outputs/dynamic_slam_backend_smoke_p137_64_flow_mask_stress_global_ba/p137_flow_mask_stress_metrics.json",
+      "scope": "64-frame TorWIC Aisle_CW_Run_1, DROID-SLAM global BA, masked input built by dense optical-flow propagation of existing semantic forklift masks within +/-8 frames plus 4 px dilation.",
+      "raw_ape_rmse_m": 0.051135,
+      "raw_rpe_rmse_m": 0.032713,
+      "masked_ape_rmse_m": 0.051222,
+      "masked_rpe_rmse_m": 0.03271,
+      "delta_ape_rmse_m": 8.69999999999968e-05,
+      "delta_rpe_rmse_m": -2.9999999999960614e-06,
+      "masked_frames": 16,
+      "total_frames": 64,
+      "mean_mask_coverage_percent": 0.267154,
+      "claim_boundary": "Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.",
+      "interpretation": "This is a diagnostic stress test, not a true detector output. It tests whether optical-flow mask propagation improves over nearest-frame copying for backend sensitivity."
     }
   ]
 }

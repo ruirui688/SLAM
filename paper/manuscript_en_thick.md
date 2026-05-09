@@ -283,6 +283,10 @@ We also run a bounded temporal-propagation stress test (Fig. 6). Existing forkli
 
 ![Fig. 6. P136 temporal-mask propagation stress test.](figures/torwic_dynamic_mask_temporal_stress_p136.png)
 
+Finally, we replace nearest-frame copying with dense optical-flow warping of the same available masks (Fig. 7). This keeps the same bounded window, propagation radius, and dilation, but uses image motion to move the mask across frames. The result is still neutral: APE/RPE remain 0.051222 m and 0.032710 m for the masked run, matching the nearest-frame stress test at the reported precision. This rules out a low-cost propagation shortcut as sufficient evidence. The next experiment should therefore generate detector-quality per-frame masks, for example by running the semantic frontend across the whole window or by using a video segmentation predictor initialized from reliable forklift detections.
+
+![Fig. 7. P137 optical-flow mask propagation stress test.](figures/torwic_dynamic_mask_flow_stress_p137.png)
+
 ---
 
 ## VIII. Discussion
@@ -383,6 +387,8 @@ Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferre
 **Fig. 5.** Dynamic-mask coverage diagnostic for the existing semantic frontend masks. Forklift masks are present on frames 000004, 000005, and 000007, but the average coverage across the 64-frame backend window is only 0.026%. The paired evo metrics remain tied, identifying temporal mask coverage as the next bottleneck.
 
 **Fig. 6.** Temporal-mask propagation stress test. Existing forklift masks are propagated to the nearest frames within an eight-frame radius and dilated by four pixels, increasing coverage to 16/64 frames and 0.267% average coverage. Raw and temporally propagated masked trajectories remain effectively tied, indicating that stronger per-frame dynamic-mask generation or tracking is needed before claiming trajectory improvement.
+
+**Fig. 7.** Optical-flow mask propagation stress test. Dense optical flow is used to warp the same available forklift masks to neighboring frames within the bounded window. The resulting APE/RPE remain effectively tied, so the current evidence points toward detector-quality temporal masks rather than low-cost propagation as the next requirement.
 
 ---
 

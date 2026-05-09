@@ -283,6 +283,10 @@ DynaSLAM[2]证明在动态场景中屏蔽动态物体（人、车辆）可以改
 
 ![图6. P136 时序传播 mask 压力测试。](figures/torwic_dynamic_mask_temporal_stress_p136.png)
 
+最后，我们把最近帧复制替换为稠密光流 warp（图7）。该实验保持相同的 64 帧窗口、八帧传播半径和 4 像素膨胀，但用图像运动将 mask 传播到邻近帧。结果仍为中性：masked run 的 APE/RPE 分别为 0.051222 m 和 0.032710 m，与最近帧传播压力测试在报告精度下相同。这排除了低成本传播捷径足以支撑增益主张的可能性。下一步应生成 detector-quality 的逐帧 masks，例如在完整窗口上运行语义 frontend，或用可靠 forklift detections 初始化视频分割 predictor。
+
+![图7. P137 光流传播 mask 压力测试。](figures/torwic_dynamic_mask_flow_stress_p137.png)
+
 ---
 
 ## 八、讨论

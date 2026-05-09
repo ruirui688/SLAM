@@ -38,6 +38,7 @@ make evidence-pack
 | P134 64-frame DROID-SLAM global BA | 0.051135 | 0.051136 | 0.032713 | 0.032713 |  |
 | P135 existing semantic masks | 0.051135 | 0.051135 | 0.032713 | 0.032713 | 3/64 (0.025750%) |
 | P136 temporal mask stress test | 0.051135 | 0.051222 | 0.032713 | 0.03271 | 16/64 (0.267154%) |
+| P137 optical-flow mask stress test | 0.051135 | 0.051222 | 0.032713 | 0.03271 | 16/64 (0.267154%) |
 
 ## Tracked Files
 

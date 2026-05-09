@@ -14,6 +14,8 @@ import json
 import shutil
 from pathlib import Path
 
+import cv2
+import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 
@@ -107,6 +109,56 @@ def dilate_mask(mask: Image.Image, pixels: int) -> Image.Image:
     return mask.filter(ImageFilter.MaxFilter(kernel))
 
 
+def load_gray_frame(sequence_dir: Path, frame_index: int) -> np.ndarray:
+    path = sequence_dir / "image_left" / f"{frame_index:06d}.png"
+    image = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
+    if image is None:
+        raise FileNotFoundError(f"Missing RGB frame for flow propagation: {path}")
+    return image
+
+
+def warp_mask_between_frames(mask: Image.Image, sequence_dir: Path, src_index: int, dst_index: int) -> Image.Image:
+    """Warp a mask from src_index to dst_index using backward dense optical flow."""
+    if src_index == dst_index:
+        return mask
+    current = np.asarray(mask.convert("L"), dtype=np.uint8)
+    step = 1 if dst_index > src_index else -1
+    src = src_index
+    while src != dst_index:
+        dst = src + step
+        gray_src = load_gray_frame(sequence_dir, src)
+        gray_dst = load_gray_frame(sequence_dir, dst)
+        if current.shape != gray_src.shape:
+            current = cv2.resize(current, (gray_src.shape[1], gray_src.shape[0]), interpolation=cv2.INTER_NEAREST)
+        flow_dst_to_src = cv2.calcOpticalFlowFarneback(
+            gray_dst,
+            gray_src,
+            None,
+            pyr_scale=0.5,
+            levels=3,
+            winsize=21,
+            iterations=3,
+            poly_n=5,
+            poly_sigma=1.2,
+            flags=0,
+        )
+        h, w = gray_dst.shape
+        grid_x, grid_y = np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32))
+        map_x = grid_x + flow_dst_to_src[..., 0]
+        map_y = grid_y + flow_dst_to_src[..., 1]
+        current = cv2.remap(
+            current,
+            map_x,
+            map_y,
+            interpolation=cv2.INTER_NEAREST,
+            borderMode=cv2.BORDER_CONSTANT,
+            borderValue=0,
+        )
+        _, current = cv2.threshold(current, 1, 255, cv2.THRESH_BINARY)
+        src = dst
+    return Image.fromarray(current, mode="L")
+
+
 def mask_dynamic_pixels(rgb: Image.Image, mask: Image.Image) -> Image.Image:
     mask_l = mask.convert("L")
     masked = rgb.copy()
@@ -141,6 +193,7 @@ def build_pack(
     dynamic_label_prefix: str = "forklift",
     temporal_propagation_radius: int = 0,
     dynamic_mask_dilation_px: int = 0,
+    temporal_propagation_mode: str = "nearest",
 ) -> dict:
     image_dir = sequence_dir / "image_left"
     raw_dir = output_dir / "raw" / "image_left"
@@ -178,7 +231,13 @@ def build_pack(
             propagated_from = nearest_mask_frame(frame_index, dynamic_masks_by_frame, temporal_propagation_radius)
             if propagated_from is not None:
                 mask = combine_masks(dynamic_masks_by_frame[propagated_from], rgb.size)
-                dynamic_source = f"temporal propagation from frame {propagated_from:06d}"
+                if temporal_propagation_mode == "flow":
+                    mask = warp_mask_between_frames(mask, sequence_dir, propagated_from, frame_index)
+                    if mask.size != rgb.size:
+                        mask = mask.resize(rgb.size, Image.Resampling.NEAREST)
+                    dynamic_source = f"optical-flow propagation from frame {propagated_from:06d}"
+                else:
+                    dynamic_source = f"nearest-frame propagation from frame {propagated_from:06d}"
             else:
                 mask = Image.new("L", rgb.size, 0)
                 masked = rgb
@@ -244,6 +303,7 @@ def build_pack(
         ),
         "dynamic_mask_summary_dir": rel(dynamic_mask_summary_dir) if dynamic_mask_summary_dir else None,
         "temporal_propagation_radius": temporal_propagation_radius,
+        "temporal_propagation_mode": temporal_propagation_mode,
         "dynamic_mask_dilation_px": dynamic_mask_dilation_px,
         "raw_rgb_list": rel(raw_rgb_list),
         "masked_rgb_list": rel(masked_rgb_list),
@@ -275,6 +335,12 @@ def parse_args() -> argparse.Namespace:
         help="Copy the nearest available semantic mask to neighboring frames within this radius. Use as a diagnostic stress test, not as a true detector output.",
     )
     parser.add_argument("--dynamic-mask-dilation-px", type=int, default=0)
+    parser.add_argument(
+        "--temporal-propagation-mode",
+        choices=("nearest", "flow"),
+        default="nearest",
+        help="Use nearest-frame mask copy or dense optical-flow warping for propagated diagnostic masks.",
+    )
     return parser.parse_args()
 
 
@@ -288,6 +354,7 @@ def main() -> None:
         args.dynamic_label_prefix,
         args.temporal_propagation_radius,
         args.dynamic_mask_dilation_px,
+        args.temporal_propagation_mode,
     )
     print(json.dumps(manifest, indent=2, ensure_ascii=False))
 
