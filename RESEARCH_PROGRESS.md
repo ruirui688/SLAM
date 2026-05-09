@@ -125,3 +125,8 @@ summary and local paths here, then commit and push the repository.
 - Produced P116 coherence polish pass and closure bundle v26; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_p116_manuscript_coherence_polish_v1.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v26.md`.
 - Evidence summary: 8 concept families terminologically consistent across all sections. Contribution boundary verified across Abstract/Introduction/Conclusion. Conclusion updated from "P108 reference layer" to "P108-P114 reference audit chain." Synchronized Appendix W into both positioned and clean drafts.
 - Policy: existing-data-only; no new dataset download.
+
+## 2026-05-09 P117 submission package consistency
+
+- Produced P117 package consistency pass and closure bundle v27; ignored/generated artifacts.
+- Evidence summary: all cross-refs verified (P114-P117 artifacts in draft/manifest/bundle). Bundle chain v18-v27 intact (10 bundles). Appendices A-W present. Evidence anchors consistent. 0 citation placeholders.
