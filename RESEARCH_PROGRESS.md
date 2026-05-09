@@ -74,3 +74,9 @@ summary and local paths here, then commit and push the repository.
 - Produced P111 audit and closure bundle v21; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v21.md`.
 - Evidence summary: verified all primary evidence artifacts exist on disk and are mutually cross-referenced. Bundle v20 correctly references all primary artifacts. Manifest records 6 P108-P110 entries. Deliverables checklist covers P108-P111. Manually checked 10 key files for cross-reference integrity; no dangling artifact paths found. Anchors `203/11/5 -> 240/10/5 -> 297/14/7` and `537/16/9`, `80/80` traceable through all package layers.
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
+
+## 2026-05-09 P112 evaluation tightening
+
+- Produced P112 stable-subset composition table and closure bundle v22; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_p112_evaluation_tightening_stable_subset_composition_v1.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v22.md`.
+- Evidence summary: derived category-level stable-subset composition from actual aisle/hallway subset JSON data. Barriers (42.9%), work tables (28.6%), and warehouse racks (28.6%) consistently dominate the cross-month Aisle retained set. Forklift-like clusters are never retained. Dynamic-like rejection share increases from 50.0% same-day to 71.4% cross-month and Hallway. Synchronized Appendix S into both positioned and clean drafts.
+- Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
