@@ -48,6 +48,8 @@ We deliberately limit the contribution to stable-object retention, dynamic-conta
 
 5. **An open-source release** of the object-maintenance layer with TorWIC protocol configuration (§VI) and selection criteria (§V.E), supporting auditable reproduction of the reported evidence ladder.
 
+6. **Admission-criteria validation** (§Appendix, P154–P156) through parameter ablation (confirming min_sessions/min_frames are sensitive filters and max_dynamic_ratio is naturally saturated by data bimodality), baseline comparison against naive-all-admit and purity/support-heuristic strategies (demonstrating that simpler heuristics cannot reject forklifts), and map-composition visualization (quantifying the 20%→0% phantom-risk reduction).
+
 ---
 
 ## III. Related Work
@@ -399,7 +401,7 @@ Current TorWIC evidence [6] demonstrates a reproducible submission-ready ladder 
 
 The dynamic SLAM backend evaluation (§VII.E–F) contributes a complete negative-result study: 10 DROID-SLAM configurations across mask generation strategies (existing semantic, temporal propagation, optical-flow propagation, first-N real uniform, top-N concentrated) all produce trajectory-neutral results (|ΔATE| < 0.1 mm, Table 6). The root cause is a quantified data constraint: forklifts in TorWIC warehouse aisles occupy at most 1.39% of the image frame, well below the ~5% threshold needed to measurably affect DROID-SLAM's bundle adjustment. This negative result is scientifically valuable because it provides reproducible boundary conditions for when dynamic masking matters in industrial SLAM and when it does not, rather than leaving the question as a speculative future-work item.
 
-The current P108-P119 + P125 audit chain (see closure bundle v30) is metadata-verified for the six venue-neutral citations [1]–[6] and includes a field-level DOI completeness check. The resulting package supports a bounded IEEE-style systems contribution: not a final lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim, but an auditable bridge from segmentation-assisted open-vocabulary perception [3][4][5] to revisioned long-term object-map maintenance on real industrial revisits [6].
+The current P108-P119 + P125-P156 audit chain (see closure bundle v36) is metadata-verified for all ten formal citations [1]–[10] plus the evo software reference [S], and includes a field-level DOI completeness check. Appendix-level ablation (P154) and baseline comparison (P155) studies provide additional evidence that the admission criteria are not hyperparameter-tuned artifacts, and that simpler heuristics cannot achieve the same discrimination as the full cross-session policy (§Appendix). The resulting package supports a bounded IEEE-style systems contribution: not a final lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim, but an auditable bridge from segmentation-assisted open-vocabulary perception [3][4][5][7][8][9] to revisioned long-term object-map maintenance on real industrial revisits [6].
 
 ---
 

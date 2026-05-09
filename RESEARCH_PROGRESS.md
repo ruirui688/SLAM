@@ -831,3 +831,14 @@ summary and local paths here, then commit and push the repository.
 - Added figures and descriptions to both EN and ZH baseline comparison appendix
 - Figures saved to paper/figures/
 - Script: tools/plot_p156_visualizations.py
+
+## 2026-05-09 P157 final polish and citation verification
+
+- **Citation metadata verified**: All 10 formal references [1]-[10] plus evo software reference [S] cross-checked between in-text mentions and reference list. No broken or missing entries.
+  - In-text counts: [1]=16, [2]=7, [3]=9, [4]=6, [5]=8, [6]=14, [7]=5, [8]=4, [9]=4, [10]=2, [S]=2
+  - All DOIs and arXiv IDs present and verified
+- **Conclusion tightened**: Updated closure bundle reference from v30→v36, added P154-P156 strengthening evidence
+- **Contributions section**: Added item 6 (admission-criteria validation through ablation, baseline comparison, map visualization)
+- **ZH manuscript synced**: Same conclusion and closure bundle updates applied
+- **Related work**: All four buckets present and populated — semantic SLAM/object-level mapping (§III.A), dynamic SLAM/dynamic-object suppression (§III.B), long-term map maintenance (§III.C), segmentation-assisted filtering/open-vocabulary 3D mapping (§III.D). Grounding DINO [7], SAM2 [8], OpenCLIP [9] formally cited.
+- No TODOs/FIXMEs/placeholders in either manuscript
