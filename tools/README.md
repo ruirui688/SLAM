@@ -62,6 +62,35 @@ make dynamic-slam-frontend
 
 当前边界：该脚本生成后端输入，不报告 ATE/RPE。
 
+### 动态 SLAM 后端输入包
+
+`build_dynamic_slam_backend_input_pack.py` 在不运行大规模轨迹实验的前提下，
+为后端评估准备最小输入包：raw RGB 序列、masked RGB 序列、TUM-style
+ground truth 片段和 manifest。
+
+```bash
+python ./tools/build_dynamic_slam_backend_input_pack.py
+```
+
+等价入口：
+
+```bash
+make dynamic-slam-backend-pack
+```
+
+输出写入 `outputs/dynamic_slam_backend_input_pack/`：
+
+- `raw/rgb.txt`
+- `masked/rgb.txt`
+- `groundtruth.txt`
+- `backend_input_manifest.json`
+- `raw/image_left/*.png`
+- `masked/image_left/*.png`
+- `masked/dynamic_masks/*.png`
+
+当前边界：该脚本只准备 raw-vs-masked 后端输入和 GT 片段，不调用
+DROID-SLAM / ORB-SLAM，也不报告 ATE/RPE。
+
 ### 半监督 VOS 推理
 
 The `vos_inference.py` script can be used to generate predictions for semi-supervised video object segmentation (VOS) evaluation on datasets such as [DAVIS](https://davischallenge.org/index.html), [MOSE](https://henghuiding.github.io/MOSE/) or the SA-V dataset.

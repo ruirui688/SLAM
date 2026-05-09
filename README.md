@@ -9,6 +9,7 @@
 - 已打通：语义分割实例输出 -> `ObjectObservation` -> 跨会话对象聚类 -> 稳定对象保留 / 动态污染拒绝；
 - 已有可视化：工业场景 overlay、mask、bbox、中心点、summary JSON 和地图准入决策；
 - 新增前端桥接：动态 mask -> masked RGB SLAM 输入 -> `slam_frontend_manifest.json`；
+- 新增后端输入包：raw RGB / masked RGB / TUM-style GT 片段 -> `backend_input_manifest.json`；
 - 尚未完成：把 masked RGB 序列送入完整视觉 SLAM 后端，并报告 ATE/RPE、建图质量或导航收益；
 - 因此本文当前主张是“语义分割辅助的动态对象过滤与长期对象地图维护”，不是“完整动态 SLAM benchmark 已经闭环优于现有后端”。
 
@@ -205,6 +206,29 @@ examples/dynamic_slam_frontend_example/dynamic_slam_frontend_result.png
 
 这还不是完整 ATE/RPE 实验，但已经把“语义分割动态物体”转换成了 SLAM 前端可消费的输入形式。
 
+### 动态 SLAM 后端输入包
+
+继续往后端评估推进一步，可以生成一个 bounded raw-vs-masked 输入包：连续
+TorWIC 左目 RGB 小窗口、对应 TUM-style ground truth 片段、raw/masked 两套
+`rgb.txt` 和 manifest。
+
+运行：
+
+```bash
+make dynamic-slam-backend-pack
+```
+
+已验证输出写入 ignored `outputs/`：
+
+```text
+outputs/dynamic_slam_backend_input_pack/raw/rgb.txt
+outputs/dynamic_slam_backend_input_pack/masked/rgb.txt
+outputs/dynamic_slam_backend_input_pack/groundtruth.txt
+outputs/dynamic_slam_backend_input_pack/backend_input_manifest.json
+```
+
+当前边界：该输入包只准备后端评估接口，不运行 DROID-SLAM / ORB-SLAM，也不报告 ATE/RPE。
+
 ## 2. 论文稿件
 
 | 稿件 | 路径 | 用途 |
@@ -246,6 +270,7 @@ examples/dynamic_slam_frontend_example/dynamic_slam_frontend_result.png
 | [`examples/minimal_slam_demo/`](./examples/minimal_slam_demo/) | Git 跟踪的最小可运行样例数据 |
 | [`examples/dynamic_slam_frontend_example/`](./examples/dynamic_slam_frontend_example/) | 动态 mask 到 SLAM 前端 masked RGB 的最小桥接示例 |
 | [`tools/run_minimal_demo.py`](./tools/run_minimal_demo.py) | 最小 demo 入口 |
+| [`tools/build_dynamic_slam_backend_input_pack.py`](./tools/build_dynamic_slam_backend_input_pack.py) | raw-vs-masked 后端输入包生成入口 |
 | [`paper/`](./paper/) | 中英文论文稿 |
 | [`paper/evidence/`](./paper/evidence/) | Git 可见的实验结果证据包，由 `make evidence-pack` 从 ignored `outputs/` 生成 |
 | [`RESEARCH_PROGRESS.md`](./RESEARCH_PROGRESS.md) | 研究机器人和论文进度日志 |

@@ -257,6 +257,22 @@ summary and local paths here, then commit and push the repository.
   to SLAM frontend inputs. It is not yet a backend trajectory evaluation with
   ATE/RPE.
 
+## 2026-05-09 raw-vs-masked SLAM backend input pack
+
+- Added `tools/build_dynamic_slam_backend_input_pack.py` and
+  `make dynamic-slam-backend-pack`.
+- The new pack prepares:
+  - raw RGB `rgb.txt`;
+  - masked RGB `rgb.txt`;
+  - TUM-style `groundtruth.txt`;
+  - `backend_input_manifest.json` with `evo_ape` / `evo_rpe` command templates.
+- Verified scope: default run uses an 8-frame TorWIC Aisle CW window and applies
+  the tracked forklift dynamic mask only to frame `000002`; other frames use
+  empty dynamic masks.
+- Claim boundary: this still does not run DROID-SLAM / ORB-SLAM and does not
+  report ATE/RPE. It standardizes the backend evaluation interface so the next
+  step is a controlled backend run on raw vs. masked inputs.
+
 ## 2026-05-09 P125 citation metadata verification (thick draft pass)
 
 - Verified [1]-[6] citations in EN+ZH thick drafts: 6/6 present, 0 orphans, 0 unresolved placeholders.
