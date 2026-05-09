@@ -36,3 +36,10 @@ summary and local paths here, then commit and push the repository.
 - Produced ignored/generated closure artifacts: `/home/rui/slam/outputs/torwic_submission_ready_appendix_table_closure_v13.md`, `/home/rui/slam/outputs/torwic_submission_ready_package_index_v8.md`, and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v17.md`.
 - Evidence summary: final closure links main table v7, P106 delta matrix, current172 fallback chronology, Hallway current branch `537/16/9` over `80/80`, synced paper drafts with Appendix N, and the P107 final audit.
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; generated `outputs/` artifacts remain ignored and are not committed.
+
+## 2026-05-09 P107 submission-ready closure
+
+- Produced ignored/generated closure artifacts: `/home/rui/slam/outputs/torwic_submission_ready_appendix_table_closure_v13.md`, `/home/rui/slam/outputs/torwic_submission_ready_package_index_v8.md`, and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v17.md`.
+- Evidence summary: final package closure now links the primary Aisle ladder `203/11/5 -> 240/10/5 -> 297/14/7`, historical `current172` fallback `172/15/5`, P106 delta matrix, and current Hallway secondary branch `537/16/9` over `80/80`.
+- Paper-facing sync: synchronized Appendix N into both OpenClaw paper drafts and confirmed the package retrieval chain points to the P107 audit and bundle v17.
+- Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
