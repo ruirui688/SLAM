@@ -782,3 +782,14 @@ summary and local paths here, then commit and push the repository.
   4. Final remaining decisions list (12 items: venue, page budget, §VII.E-F disposition, author ordering, hardware validation, arXiv, code release, acknowledgments, etc.)
   5. Gap status summary (all 6 operational gaps resolved or deferred)
   6. Project closure summary (achievements and non-claims)
+
+## 2026-05-09 P153 high-venue strengthening plan
+
+- Produced comprehensive high-venue strengthening analysis: `paper/export/high_venue_strengthening_plan_v1.md`
+- Contents:
+  1. **Reviewer-perspective SWOT**: 6 strengths, 10 weaknesses with severity ratings and mitigation paths
+  2. **Venue deep dive**: T-RO (top recommendation, 40-55% after strengthening), IJRR (30-45%), RSS (35-50%), ICRA/IROS (lower fit)
+  3. **Baseline/ablation gaps**: 10 items prioritized into must-have (A1-A4), high-impact (A5-A7), nice-to-have (A8-A10)
+  4. **Figure/table plan**: 5 new figures (F-N1 sensitivity heatmap, F-N2 before/after map, F-N3 lifecycle, F-N4 rejection reasons, F-N5 per-category) + 3 new tables (T-N1 baseline comparison, T-N2 ablation sweep, T-N3 rejection statistics)
+  5. **Executable phase backlog**: P154 (ablation) → P155 (baselines) → P156 (maps) → P157 (categories) → P158 (rewrite). P154-P157 parallelizable.
+  6. **Contribution reframing**: From "pipeline paper" to "principled methodology with evidence ladder"
