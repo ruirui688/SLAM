@@ -793,3 +793,17 @@ summary and local paths here, then commit and push the repository.
   4. **Figure/table plan**: 5 new figures (F-N1 sensitivity heatmap, F-N2 before/after map, F-N3 lifecycle, F-N4 rejection reasons, F-N5 per-category) + 3 new tables (T-N1 baseline comparison, T-N2 ablation sweep, T-N3 rejection statistics)
   5. **Executable phase backlog**: P154 (ablation) → P155 (baselines) → P156 (maps) → P157 (categories) → P158 (rewrite). P154-P157 parallelizable.
   6. **Contribution reframing**: From "pipeline paper" to "principled methodology with evidence ladder"
+
+## 2026-05-09 P154 admission criteria ablation
+
+- Built combined Aisle + Hallway cluster file: 35 map_objects.json → 762 objects → 20 clusters
+- Ran parameter sweep: min_sessions (1/2/3), min_frames (2/4/6), max_dynamic_ratio (0.10/0.20/0.30)
+- Key findings:
+  1. min_sessions=2: SENSITIVE — reduces from 7→5 selected. Eliminates 7 single-session noise clusters.
+  2. min_frames=4: SENSITIVE — reduces from 8→5 selected. Adds spatial diversity constraint.
+  3. max_dynamic_ratio: INSENSITIVE — data is naturally bimodal (infrastructure=0.00, forklifts≥0.83). Any [0.01,0.82] threshold identical.
+  4. min_support=6, min_label_purity=0.70: conservative defaults, not constraining on current data.
+- Default result: 5 stable objects selected (all yellow barrier/work table), 15 rejected
+- Added ablation appendix to both EN and ZH manuscripts (§Appendix)
+- Outputs: torwic_ablation_combined_clusters.json, torwic_admission_ablation_results.json, p154_admission_ablation_sensitivity.png, admission_ablation_report_v1.md
+- Scripts: tools/run_admission_ablation.py, tools/build_ablation_report.py, tools/plot_ablation.py

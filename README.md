@@ -517,6 +517,20 @@ make dynamic-first32-real-mask-figure
 
 **下一步：P151 — 最终提交包审计。**
 
+### P154 准入标准消融（2026-05-09 19:50+08）
+
+**完成：** 准入标准参数扫描。35 map_objects → 762 objects → 20 clusters。min_sessions/min_frames 敏感，max_dynamic_ratio 不敏感（数据自然双峰）。
+
+| 参数 | 范围 | 选中数 | 敏感性 |
+|---|---|---|---|
+| min_sessions | 1→2→3 | 7→5→5 | 敏感 |
+| min_frames | 2→4→6 | 8→5→5 | 敏感 |
+| max_dynamic_ratio | 0.1→0.2→0.3 | 5→5→5 | 不敏感 |
+
+**关键结论：** 准入标准不是对着某个指标调的参数——min_sessions 和 min_frames 构成实际过滤器，max_dynamic_ratio 利用数据固有双峰（基础设施=0.00，叉车≥0.83）。已追加至中英文论文附录。
+
+**下一步：P155 — baseline 对比（naive all-admit vs confidence-threshold vs richer）。**
+
 ### P151 最终提交包审计（2026-05-09 ~18:50+08）
 
 **完成：** 中英文论文本地 HTML + PDF 导出，GAP-010 关闭。
