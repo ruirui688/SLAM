@@ -10,8 +10,21 @@ summary and local paths here, then commit and push the repository.
 
 - **Blocked:** Optional ORB-SLAM3 cross-check remains gated on backend/vocabulary availability.
   - **P178 LaTeX build:** CONDITIONALLY BUILD-READY — TeX distribution absent (no pdflatex/latexmk/tectonic). All source checks pass. Needs user TeX install.
-- **Active:** Manuscript production closure. B1/B2/B3/S2/S3 all resolved; next highest-value step is LaTeX compile/layout verification.
+  - **P179 quality gate:** PASS — 3 text fixes applied, 0 overclaims, T-RO-submission recommended.
+- **Active:** Manuscript production closure. All blockers and WARN items resolved.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
+
+## 2026-05-10 P179 — Strong-journal manuscript quality gate
+
+- **Goal:** Run strict T-RO/IJRR reviewer quality gate on main.tex, abstract, EDITOR_SUMMARY.
+- **Result: PASS.** 10-item reject-risk check (0 HIGH risks remain). 3 fixes applied:
+  1. Contribution 7: "open-source release" → "modular, backend-agnostic maintenance layer" (architectural property, not a promise)
+  2. Created `abstract.tex` (2,814 bytes) — `\input{abstract}` was referencing nonexistent file
+  3. Trust score thresholds qualified as dataset-specific ("not claimed to generalize without recalibration")
+- **No overclaims found:** 0 "robust"/"novel"/"SOTA"/"principled" hits; 0 "improves ATE/RPE" language.
+- **Reject risks documented:** Dynamic SLAM section length (LOW, defensible), limitations item 1 density (LOW, accurate).
+- **Recommendation:** SUBMIT to T-RO. Pre-submission checklist: install TeX, compile, 300dpi figures, EXIF strip, ORCID.
+- **Outputs:** `paper/tro_submission/FINAL_QUALITY_GATE_P179.md`, `paper/tro_submission/abstract.tex`
 
 ## 2026-05-10 P178 — LaTeX build readiness audit
 

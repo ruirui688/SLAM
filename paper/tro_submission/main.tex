@@ -101,7 +101,7 @@ We deliberately limit the contribution to stable-object retention, dynamic-conta
   
   \item \textbf{A dynamic masking trajectory analysis} (Section~\ref{sec:results_dynamic_chain}): 12 DROID-SLAM configurations reveal two groups: selective semantic frontend masks and concentrated forklift masks produce trajectory-neutral results ($|\Delta\text{APE}| \leq 0.006~\text{mm}$, 7/12 configs), while aggressive mask strategies (temporal/flow propagation, uniform first-N masks) introduce measurable trajectory perturbations ($0.92$--$7.52~\text{mm}$, 5/12 configs), establishing that mask selectivity is a necessary condition for trajectory-neutrality in DROID-SLAM.
   
-  \item \textbf{An open-source release} of the maintenance layer with TorWIC protocol configuration and invariant selection criteria, to be released upon acceptance.
+  \item \textbf{A modular, backend-agnostic maintenance layer} designed to consume output from any detection+segmentation pipeline. The trust-score and admission-criteria formulations are defined with configurable weights and semantics, enabling domain-specific tuning without modifying the underlying architecture (Section~\ref{sec:method}).
 \end{enumerate}
 
 % ============================================================================
@@ -211,7 +211,7 @@ Each MapObject $O$ receives a \textbf{trust score} $\tau(O)$ defined as:
 \end{equation}
 where $s_{\text{session}}(O)$ is normalized session count (min~0, max~1 at $\geq$3 sessions), $s_{\text{support}}(O)$ is normalized observation support (min~0, max~1 at $\geq$20 observations), $s_{\text{dynamic}}(O) = \rho_O$ is the dynamic ratio (0 for fully static, 1 for fully dynamic), and $\alpha = 0.4$, $\beta = 0.3$, $\gamma = 0.5$ (configurable, not optimized; see \S\ref{sec:protocol_criteria} for protocol-wide consistency).
 
-This score is \textbf{not} presented as an optimal estimator. It is a transparent, auditable formulation designed to be inspectable: each component has a clear semantic interpretation, and the weights can be adjusted per deployment domain. The score is used as an auxiliary signal; the primary map-admission gate is the boolean criteria set in \S\ref{sec:admission_criteria}. In practice, across the TorWIC protocols reported in \S\ref{sec:results}, all retained MapObjects satisfy $\tau(O) \geq 0.4$ and all rejected objects fall below $\tau(O) \leq 0.15$.
+This score is \textbf{not} presented as an optimal estimator. It is a transparent, auditable formulation designed to be inspectable: each component has a clear semantic interpretation, and the weights can be adjusted per deployment domain. The score is used as an auxiliary signal; the primary map-admission gate is the boolean criteria set in \S\ref{sec:admission_criteria}. On the TorWIC evaluation set, all retained MapObjects satisfy $\tau(O) \geq 0.4$ and all rejected objects fall below $\tau(O) \leq 0.15$. These thresholds are observed empirical properties of the current data and are not claimed to generalize to other sites or frontend configurations without recalibration.
 
 % === V.E Admission Criteria ===
 \subsection{Admission Criteria}
