@@ -382,3 +382,28 @@ summary and local paths here, then commit and push the repository.
 - This rule applies to the dynamic SLAM backend queue P132-P135: once raw vs.
   masked trajectory results, ATE/RPE, map-quality evidence, or navigation
   evidence exist, the paper must be updated in the same completion cycle.
+
+## 2026-05-09 P131 environment correction — conda tram runtime verified
+
+- Rechecked P131 outside the sandboxed probe context and confirmed the machine
+  does have a usable dynamic SLAM runtime.
+- Verified runtime command shape:
+  `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram ...`.
+- Verified components:
+  - PyTorch `2.4.0+cu118`, CUDA available on RTX 3060, device count 1;
+  - cuDNN available, version `90100`;
+  - `torchvision`, `torchaudio`, `droid_backends`, `lietorch`, and `evo` import;
+  - DROID-SLAM source exists at `/home/rui/tram/thirdparty/DROID-SLAM`;
+  - DROID weights exist at `/home/rui/tram/data/pretrain/droid.pth`;
+  - backend input pack exists at
+    `outputs/dynamic_slam_backend_input_pack/backend_input_manifest.json`.
+- Added `tools/check_dynamic_slam_backend_env.py` and
+  `make dynamic-slam-backend-env-check`.
+- Corrected claim boundary: P131 is no longer blocked by PyTorch/cuDNN/evo.
+  P132 can proceed to a bounded raw-vs-masked DROID-SLAM smoke run. Larger
+  dataset expansion and new model-weight downloads remain separate approval
+  items.
+- Environment policy clarified in `README.md`: the minimal demo remains
+  dependency-free and can run in any Python 3.10+ environment, while sustained
+  local research and GPU backend work should use only the verified `tram` conda
+  runtime to avoid `.venv`/`base`/sandbox probe confusion.

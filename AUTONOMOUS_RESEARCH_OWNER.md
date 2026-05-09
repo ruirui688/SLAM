@@ -49,6 +49,10 @@ host logs and should not leave the systemd timer failed or inactive.
   downstream navigation/planning claims are allowed without explicit approval.
 - After non-trivial progress, update `RESEARCH_PROGRESS.md`, commit and push
   safe GitHub-facing files, and send the Telegram progress payload.
+- Dynamic SLAM backend phases must use the verified `tram` runtime:
+  `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram ...`.
+  A sandboxed probe may not see `/dev/nvidia*`; use
+  `make dynamic-slam-backend-env-check` as the readiness check before P132.
 
 Current primary purpose: execute `P120-thick-manuscript-draft`, which turns the
 closed evidence package into a substantial first paper draft. The phase should

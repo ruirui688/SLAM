@@ -13,6 +13,29 @@
 - 尚未完成：把 masked RGB 序列送入完整视觉 SLAM 后端，并报告 ATE/RPE、建图质量或导航收益；
 - 因此本文当前主张是“语义分割辅助的动态对象过滤与长期对象地图维护”，不是“完整动态 SLAM benchmark 已经闭环优于现有后端”。
 
+## 0. 环境口径
+
+环境的作用只是隔离依赖和固定运行口径，不是项目能力本身。
+
+本仓库保留两个入口层级：
+
+- **最小 demo 入口**：只使用 Python 标准库，不需要 GPU、CUDA、PyTorch、模型权重或 TorWIC 原始数据；任意 Python 3.10+ 环境都能运行。
+- **本机研究/GPU 入口**：统一使用现有 conda 环境 `tram`，用于 DROID-SLAM、PyTorch CUDA、cuDNN、evo 和后续 raw-vs-masked 后端实验。
+
+因此，持续推进研究时不要再混用 `.venv`、`base` 和临时 pip 环境；统一使用：
+
+```bash
+LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram <command>
+```
+
+后端环境复查入口：
+
+```bash
+make dynamic-slam-backend-env-check
+```
+
+已验证：`tram` 环境中 PyTorch `2.4.0+cu118`、CUDA、cuDNN、`droid_backends`、`lietorch`、`evo`、DROID-SLAM 权重和后端输入包均可用。沙箱化探测可能看不到 `/dev/nvidia*`，不应据此判断整机 GPU 不可用。
+
 ## 1. 最小可运行 Demo
 
 这是给外部读者的第一入口。它不需要下载 TorWIC，不加载 Grounding DINO/SAM2/OpenCLIP，不需要 GPU，不访问网络，只使用 Python 标准库和仓库内置的小样例数据。
@@ -42,7 +65,7 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-这个最小 demo 没有第三方依赖，所以不需要 `pip install`。
+这个最小 demo 没有第三方依赖，所以不需要 `pip install`。在本机持续研究时，优先使用上面的 `tram` conda 环境；`.venv` 只适合外部读者隔离最小 demo。
 
 ### 运行入口
 
