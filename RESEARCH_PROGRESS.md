@@ -169,6 +169,18 @@ summary and local paths here, then commit and push the repository.
   objects and 2 rejected dynamic/transient clusters.
 - Policy: the fixture is tiny and Git-tracked; generated outputs remain ignored.
 
+## 2026-05-09 semantic segmentation output example
+
+- Added actual semantic segmentation output examples under
+  `examples/semantic_segmentation_example/`.
+- Included overlay, binary mask, and summary JSON for:
+  - `yellow_barrier`: stable infrastructure candidate;
+  - `forklift`: dynamic-contamination candidate.
+- Added `semantic-segmentation-result.png` to show the visual output and JSON
+  fields in one reader-facing panel.
+- Purpose: make the repository show concrete segmentation outputs, not only
+  abstract smoke-demo logic.
+
 ## 2026-05-09 Chinese quickstart and demo result image
 
 - Converted the root project README into a Chinese-first project entrypoint.
@@ -196,3 +208,19 @@ summary and local paths here, then commit and push the repository.
 - Both thick drafts contain: expanded Related Work (4 subsections with relationship to each bucket), detailed Method with formal trust score, full Experimental Protocol with 4 protocols, Results with per-protocol discussion and rejection taxonomy, Discussion of design choices, Limitations (7 items), Conclusion.
 - Evidence embedded: Aisle ladder (203/11/5→240/10/5→297/14/7), Hallway branch (537/16/9 over 80/80), rejection profile tables, cluster-ID-level traceability notes.
 - Policy: existing-data-only; no new experiments; all figures referenced from existing evidence.
+
+## 2026-05-09 concrete semantic segmentation example polish
+
+- Rebuilt the repository-visible semantic segmentation result panel so it is no
+  longer an abstract or raw-data-only image.
+- Added `tools/build_semantic_example_panel.py` and `make semantic-example` to
+  regenerate the panel from local example overlay/mask/summary files.
+- Output figures now show bbox, centroid, instance label, binary/color mask,
+  summary JSON fields, and map-admission decision:
+  - `yellow_barrier`: stable infrastructure candidate for cross-session
+    admission;
+  - `forklift`: dynamic contamination candidate rejected from the long-term
+    static map.
+- Verification: ran `python tools/build_semantic_example_panel.py`; regenerated
+  `examples/semantic_segmentation_example/semantic-segmentation-result.png`,
+  `yellow-barrier-annotated.png`, and `forklift-annotated.png`.

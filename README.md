@@ -110,6 +110,47 @@ outputs/minimal_demo/result.svg
 
 ![最小语义 SLAM Demo 结果](examples/minimal_slam_demo/expected_result.svg)
 
+### 语义分割输出示例
+
+上面的最小 demo 证明仓库可以无依赖跑通地图准入闭环。下面这张图展示更接近论文 pipeline 的实际语义分割输出：同一 TorWIC 工业场景中的实例 overlay、二值 mask、summary JSON，以及进入对象地图前的“保留候选 / 动态拒绝”判断。图中的 bbox 和中心点来自实例 summary JSON，不是后期随意贴上去的装饰。
+
+![语义分割实际输出示例](examples/semantic_segmentation_example/semantic-segmentation-result.png)
+
+可以重新生成这张标注图：
+
+```bash
+make semantic-example
+```
+
+验证输出：
+
+```text
+examples/semantic_segmentation_example/semantic-segmentation-result.png
+examples/semantic_segmentation_example/yellow-barrier-annotated.png
+examples/semantic_segmentation_example/forklift-annotated.png
+```
+
+示例文件：
+
+```text
+examples/semantic_segmentation_example/semantic-segmentation-result.png
+examples/semantic_segmentation_example/yellow-barrier-annotated.png
+examples/semantic_segmentation_example/yellow-barrier-overlay.png
+examples/semantic_segmentation_example/yellow-barrier-mask.png
+examples/semantic_segmentation_example/yellow-barrier-summary.json
+examples/semantic_segmentation_example/forklift-annotated.png
+examples/semantic_segmentation_example/forklift-overlay.png
+examples/semantic_segmentation_example/forklift-mask.png
+examples/semantic_segmentation_example/forklift-summary.json
+```
+
+解释：
+
+- `yellow_barrier` 是稳定基础设施候选，后续可进入跨会话稳定对象准入判断；
+- `forklift` 是动态污染候选，后续地图维护中应被拒绝为动态证据；
+- 这组图是实际语义分割输出样例，不是抽象流程图；
+- 它展示的是“语义分割实例输出 -> ObjectObservation -> 跨会话聚类 -> 稳定对象保留 / 动态证据拒绝”的论文链路。
+
 ### 真实工业场景示例
 
 上面的 SVG 是运行 `make demo` 后的结构化结果图，展示仓库可以实际跑出“保留稳定对象 / 拒绝动态证据”的结果。下面两张图只用于说明项目面向的真实工业场景，不在图上强行标注对象位置，避免误导读者。

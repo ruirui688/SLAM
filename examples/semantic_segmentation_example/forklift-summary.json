@@ -1,0 +1,35 @@
+{
+  "method": "repo_local_rgbd_ready_demo",
+  "rgb_path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/image_left/000002.png",
+  "depth_path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/depth_left/000002.png",
+  "object_name": "forklift_005",
+  "coordinate_frame": "image",
+  "stats": {
+    "centroid_xyz_m": [
+      438.7211055276382,
+      348.4001256281407,
+      0.0
+    ],
+    "bbox_min_xyz_m": [
+      417.0,
+      321.0,
+      0.0
+    ],
+    "bbox_max_xyz_m": [
+      458.0,
+      374.0,
+      0.0
+    ],
+    "bbox_size_xyz_m": [
+      41.0,
+      53.0,
+      0.0
+    ],
+    "num_points": 1592,
+    "mask_area_px": 1592
+  },
+  "outputs": {
+    "mask": "/home/rui/slam/outputs/torwic_jun23_aisle_cw_run1_f000002/frontend_output/forklift_005_mask.png",
+    "overlay": "/home/rui/slam/outputs/torwic_jun23_aisle_cw_run1_f000002/frontend_output/forklift_005_overlay.png"
+  }
+}

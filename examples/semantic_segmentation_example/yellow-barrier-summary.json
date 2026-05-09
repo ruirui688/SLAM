@@ -1,0 +1,35 @@
+{
+  "method": "repo_local_rgbd_ready_demo",
+  "rgb_path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/image_left/000002.png",
+  "depth_path": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/depth_left/000002.png",
+  "object_name": "yellow_barrier_001",
+  "coordinate_frame": "image",
+  "stats": {
+    "centroid_xyz_m": [
+      1166.4610231972667,
+      543.7255664448841,
+      0.0
+    ],
+    "bbox_min_xyz_m": [
+      1049.0,
+      441.0,
+      0.0
+    ],
+    "bbox_max_xyz_m": [
+      1279.0,
+      655.0,
+      0.0
+    ],
+    "bbox_size_xyz_m": [
+      230.0,
+      214.0,
+      0.0
+    ],
+    "num_points": 44488,
+    "mask_area_px": 44488
+  },
+  "outputs": {
+    "mask": "/home/rui/slam/outputs/torwic_jun23_aisle_cw_run1_f000002/frontend_output/yellow_barrier_001_mask.png",
+    "overlay": "/home/rui/slam/outputs/torwic_jun23_aisle_cw_run1_f000002/frontend_output/yellow_barrier_001_overlay.png"
+  }
+}

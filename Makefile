@@ -1,4 +1,4 @@
-.PHONY: build-image run demo
+.PHONY: build-image run demo semantic-example
 
 # Get version of CUDA and enable it for compilation if CUDA > 11.0
 # This solves https://github.com/IDEA-Research/Grounded-Segment-Anything/issues/53
@@ -40,3 +40,6 @@ run:
 
 demo:
 	python tools/run_minimal_demo.py
+
+semantic-example:
+	python tools/build_semantic_example_panel.py
