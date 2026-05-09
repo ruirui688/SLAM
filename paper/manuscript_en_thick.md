@@ -22,7 +22,7 @@ SLAM, semantic segmentation, dynamic object filtering, object-level mapping, map
 
 Simultaneous Localization and Mapping (SLAM) has matured to the point where short-horizon geometric maps can be reliably constructed in real time [1]. The next frontier — long-term SLAM and map reuse across weeks or months — shifts the burden from geometric consistency to semantic persistence: which detected objects should enter the map, and which should be discarded as transient or dynamic contamination?
 
-Industrial environments amplify this question. Warehouses and logistics centers contain stable infrastructure (barriers, work tables, racks, pillars) alongside mobile agents (forklifts, carts, human operators). An open-vocabulary detector such as Grounding DINO combined with a segmenter such as SAM2 can propose bounding boxes and masks for dozens of object instances per frame, but without an explicit admission-control policy, the map quickly accumulates forklift-shaped phantom objects that are re-detected in revisits but should never have been admitted in the first place.
+Industrial environments amplify this question. Warehouses and logistics centers contain stable infrastructure (barriers, work tables, racks, pillars) alongside mobile agents (forklifts, carts, human operators). An open-vocabulary detector such as Grounding DINO [7] combined with a segmenter such as SAM2 [8] can propose bounding boxes and masks for dozens of object instances per frame, but without an explicit admission-control policy, the map quickly accumulates forklift-shaped phantom objects that are re-detected in revisits but should never have been admitted in the first place.
 
 ### I.B. The Admission-Control Gap
 
@@ -72,7 +72,7 @@ Long-term SLAM has been studied primarily in the context of lifelong mapping and
 
 ### III.D. Segmentation-Assisted Filtering and Open-Vocabulary 3D Mapping
 
-Recent advances in foundation models — Grounding DINO for open-vocabulary detection, SAM2 for mask generation, and OpenCLIP for label reranking — have made it practical to extract semantically labeled object instances from RGB-D frames without task-specific training. These models are used as back-end components in our framework but are not the subject of our contribution. The maintenance layer is agnostic to the specific detection/segmentation pipeline.
+Recent advances in foundation models — Grounding DINO [7] for open-vocabulary detection, SAM2 [8] for mask generation, and OpenCLIP [9] for label reranking — have made it practical to extract semantically labeled object instances from RGB-D frames without task-specific training. These models are used as back-end components in our framework but are not the subject of our contribution. The maintenance layer is agnostic to the specific detection/segmentation pipeline.
 
 ---
 
@@ -103,9 +103,9 @@ Fig. 1 illustrates the full pipeline: open-vocabulary RGB-D masks flow through o
 
 For each RGB-D frame, we apply an open-vocabulary detection pipeline (inspired by the open-vocabulary 3D mapping paradigm [4][5] but used here purely as a front-end observation generator):
 
-1. **Grounding DINO** proposes bounding boxes from text prompts corresponding to common industrial object categories (barrier, forklift, work table, warehouse rack, cart, pallet, pillar).
-2. **SAM2** generates instance masks from the proposed boxes.
-3. **OpenCLIP** reranks and resolves label assignments by comparing mask crops to text embeddings of the target category set.
+1. **Grounding DINO [7]** proposes bounding boxes from text prompts corresponding to common industrial object categories (barrier, forklift, work table, warehouse rack, cart, pallet, pillar).
+2. **SAM2 [8]** generates instance masks from the proposed boxes.
+3. **OpenCLIP [9]** reranks and resolves label assignments by comparing mask crops to text embeddings of the target category set.
 4. Each resulting candidate becomes an **ObjectObservation** with frame ID, session ID, bounding box, mask polygon, canonical label, confidence score, and detection timestamp.
 
 The detection pipeline is used as a black-box front end; our contribution begins at the observation layer (§I.C).
@@ -273,7 +273,7 @@ The current evidence differs from standard dynamic-SLAM benchmarks in two import
 
 2. **We report rejection profiles, not dynamic/static pixel classification.** The admission-control framework produces a binary decision per candidate object (retain/reject) with auditable reasons. This is coarser than per-pixel dynamic segmentation but directly addresses the map-maintenance question.
 
-Post-package engineering smoke evidence now additionally verifies the raw-vs-masked backend path on an 8-frame TorWIC Aisle window: DROID-SLAM produces raw and masked trajectory estimates, and evo reports APE/RPE for both. The smoke result is a pipeline-closure check rather than a benchmark claim: raw and masked are effectively tied on the tiny window (APE RMSE 0.001242 m vs. 0.001243 m; RPE RMSE 0.002250 m vs. 0.002255 m), so it should not be interpreted as evidence of trajectory improvement from masking. A subsequent 64-frame bounded run with DROID-SLAM global bundle adjustment is also executable (Fig. 4), but remains tied (APE RMSE 0.051135 m vs. 0.051136 m; RPE RMSE 0.032713 m vs. 0.032713 m). This reinforces the current claim boundary: the backend path is now operational, while masked-input performance gains require larger windows and richer dynamic-mask coverage.
+Post-package engineering smoke evidence now additionally verifies the raw-vs-masked backend path on an 8-frame TorWIC Aisle window: DROID-SLAM [10] produces raw and masked trajectory estimates, and evo [S] reports APE/RPE for both. The smoke result is a pipeline-closure check rather than a benchmark claim: raw and masked are effectively tied on the tiny window (APE RMSE 0.001242 m vs. 0.001243 m; RPE RMSE 0.002250 m vs. 0.002255 m), so it should not be interpreted as evidence of trajectory improvement from masking. A subsequent 64-frame bounded run with DROID-SLAM global bundle adjustment is also executable (Fig. 4), but remains tied (APE RMSE 0.051135 m vs. 0.051136 m; RPE RMSE 0.032713 m vs. 0.032713 m). This reinforces the current claim boundary: the backend path is now operational, while masked-input performance gains require larger windows and richer dynamic-mask coverage.
 
 ![Fig. 4. Bounded DROID-SLAM 64-frame global-BA raw-vs-masked backend result.](figures/torwic_dynamic_slam_backend_p134.png)
 
@@ -375,7 +375,7 @@ The Aisle ladder (§VII.A) is the primary evidence ladder for the systems contri
 
 ## IX. Limitations
 
-1. **Not a complete lifelong SLAM backend.** The maintenance layer (§V) is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size — capabilities that full SLAM systems [1][3][5] provide. Bounded DROID-SLAM raw-vs-masked runs now verify the backend execution/evo path (§VII.E–F, Table 6), including 64-frame global-BA runs across 10 configurations. **Dynamic masking did not improve trajectory ATE/RPE on any tested configuration** (P135–P142): the forklift occupies at most 1.39% per frame (≤0.57% of DROID-SLAM's window feature budget at 1280×720), and screening across locally-available TorWIC sequences confirms no segment with >1.39% frame coverage exists (§VII.F). DROID-SLAM's internal flow-consistency filtering already handles dynamic objects at this spatial scale. Data where dynamic targets occupy > 5% of the frame is needed to observe a trajectory benefit from masking.
+1. **Not a complete lifelong SLAM backend.** The maintenance layer (§V) is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size — capabilities that full SLAM systems [1][3][5] provide. Bounded DROID-SLAM [10] raw-vs-masked runs now verify the backend execution/evo [S] path (§VII.E–F, Table 6), including 64-frame global-BA runs across 10 configurations. **Dynamic masking did not improve trajectory ATE/RPE on any tested configuration** (P135–P142): the forklift occupies at most 1.39% per frame (≤0.57% of DROID-SLAM's window feature budget at 1280×720), and screening across locally-available TorWIC sequences confirms no segment with >1.39% frame coverage exists (§VII.F). DROID-SLAM's internal flow-consistency filtering already handles dynamic objects at this spatial scale. Data where dynamic targets occupy > 5% of the frame is needed to observe a trajectory benefit from masking.
 
 2. **Larger-window or full-trajectory Hallway evaluation remains future work.** The current Hallway branch (§VII.C) uses 8/10 sessions (80/80 frames). Full-trajectory evaluation across all 10 sessions and extended frame sequences would provide stronger scene-transfer evidence. The current 9/16 retention ratio on limited frames is indicative but not conclusive.
 
@@ -385,7 +385,7 @@ The Aisle ladder (§VII.A) is the primary evidence ladder for the systems contri
 
 5. **Venue-specific reference formatting is intentionally deferred.** Target-journal punctuation, author truncation, access-date policy, and repository-placement policy remain deferred until the target venue is fixed (see P125 citation audit).
 
-6. **Back-end model citations are deferred.** Grounding DINO, SAM2, and OpenCLIP are used as black-box components in the observation extraction pipeline (§V.A). Adding formal citations for these models requires user preference — they expand the bibliography beyond the current [1]–[6]. Their roles are explicitly documented in §V.A and the P125 audit for reader reproducibility.
+6. **Back-end model citations are provided.** Grounding DINO [7], SAM2 [8], and OpenCLIP [9] are used as black-box components in the observation extraction pipeline (§V.A). Formal citations are included in the bibliography [7]–[9]; reproduction requires downloading the respective pretrained models from their official repositories.
 
 7. **arXiv links for [1]–[3] are optional.** IEEE-published articles [1]–[3] do not require supplementary arXiv links. Adding them is a non-blocking user preference, documented in the P125 citation audit.
 
@@ -416,6 +416,16 @@ The current P108-P119 + P125 audit chain (see closure bundle v30) is metadata-ve
 [5] K. M. Jatavallabhula, A. Kuwajerwala, Q. Gu, M. Omama, T. Chen, S. Li, G. Iyer, S. Saryazdi, N. Keetha, A. Tewari, J. B. Tenenbaum, C. M. de Melo, M. Krishna, L. Paull, F. Shkurti, and A. Torralba, "ConceptFusion: Open-set multimodal 3D mapping," in *Proc. Robot.: Sci. Syst. (RSS)*, 2023. DOI: 10.15607/RSS.2023.XIX.066.
 
 [6] D. Barath, B. Bescos, D. Mishkin, D. Rozumnyi, and J. Matas, "POV-SLAM: Probabilistic object-aware SLAM with semantic mapping benchmarks," in *Proc. Robot.: Sci. Syst. (RSS)*, 2023. DOI: 10.15607/RSS.2023.XIX.069. TorWICDataset repository: github.com/dbarath/POV-SLAM.
+
+[7] S. Liu, Z. Zeng, T. Ren, F. Li, H. Zhang, J. Yang, Q. Jiang, C. Li, J. Yang, H. Su, J. Zhu, and L. Zhang, "Grounding DINO: Marrying DINO with grounded pre-training for open-set object detection," in *Proc. Eur. Conf. Comput. Vis. (ECCV)*, 2024. arXiv: 2303.05499.
+
+[8] N. Ravi, V. Gabeur, Y.-T. Hu, R. Hu, C. Ryali, T. Ma, H. Khedr, R. Rädle, C. Rolland, L. Gustafson, E. Mintun, J. Pan, K. V. Alwala, N. Carion, C.-Y. Wu, R. Girshick, P. Dollár, and C. Feichtenhofer, "SAM 2: Segment anything in images and videos," arXiv:2408.00714, 2024.
+
+[9] M. Cherti, R. Beaumont, R. Wightman, M. Wortsman, G. Ilharco, C. Gordon, C. Schuhmann, L. Schmidt, and J. Jitsev, "Reproducible scaling laws for contrastive language-image learning," in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, 2023, pp. 2818–2829. arXiv: 2212.07143.
+
+[10] Z. Teed and J. Deng, "DROID-SLAM: Deep visual SLAM for monocular, stereo, and RGB-D cameras," in *Proc. Adv. Neural Inf. Process. Syst. (NeurIPS)*, vol. 34, 2021. arXiv: 2108.10869.
+
+**Software.** M. Grupp, "evo: Python package for the evaluation of odometry and SLAM," 2017. [Online]. Available: https://github.com/MichaelGrupp/evo
 
 ---
 

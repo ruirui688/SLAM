@@ -746,3 +746,17 @@ summary and local paths here, then commit and push the repository.
 - Figure files automatically resolved from `paper/figures/` via build_paper.py mappings
 - Math (inline \(...\) / display $$...$$) rendered as-is in PDF (LaTeX notation readable, KaTeX CDN used in HTML)
 - GAP-010 resolved: PDF export now possible locally
+
+## 2026-05-09 P150 reference and venue-style closure
+
+- Added formal citations [7]–[10] for all implementation components used in the paper:
+  - [7] Grounding DINO: Liu et al., ECCV 2024 (arXiv:2303.05499)
+  - [8] SAM2: Ravi et al., arXiv:2408.00714, 2024 (preprint)
+  - [9] OpenCLIP: Cherti et al., CVPR 2023 (arXiv:2212.07143)
+  - [10] DROID-SLAM: Teed & Deng, NeurIPS 2021 (arXiv:2108.10869)
+- Added software citation for evo (Grupp, 2017, github.com/MichaelGrupp/evo)
+- Updated §I, §II, §V.A, §VII.E, §VII.F, §IX Limitation 6 in EN manuscript with citation markers
+- Synced Chinese manuscript: References section, §IX Limitation 6, citation status note
+- GAP-001–003 resolved (Grounding DINO, SAM2, OpenCLIP citations now formally provided)
+- GAP-004–006 (arXiv links for [1]–[3]) still deferred
+- Total bibliography: 10 formal references + 1 software citation
