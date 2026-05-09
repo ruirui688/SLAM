@@ -982,3 +982,15 @@ summary and local paths here, then commit and push the repository.
 - Limitation framing: dynamic SLAM as quantified boundary condition (|ΔATE| < 0.1 mm, <1.4% coverage), explicitly not claimed as ATE/RPE improvement
 - Suggested reviewers: 5 expertise areas (semantic SLAM, dynamic SLAM, open-vocabulary perception, SLAM evaluation, map maintenance) — specific names pending advisor review and COI check
 - ORCID/PaperCept: both flagged as mandatory pre-submission items
+
+## 2026-05-09 P165 Round 1 T-RO reviewer-style critique
+
+- Created `paper/tro_submission/review_rounds/ROUND1_REVIEW.md` (319 lines):
+  - **10 rejection risks** ordered by severity: #1 CRITICAL (LaTeX content not integrated — placeholder stubs), #2 HIGH (method is boolean criteria — novelty debate), #3 HIGH (only 20 clusters), #4 HIGH (dynamic SLAM over-padded — 15 figures for a negative result), #5 MED-HIGH (Hallway 8/10 incomplete), #6-#10 MEDIUM (bimodality as artifact, auditability untested, missing baselines, claim drift, related work gap)
+  - **Results adequacy assessment:** evidence base above ICRA/IROS but below T-RO submission-readiness — 2 gaps threaten T-RO acceptance (no published-system comparison, missing statistical rigor on 20 clusters)
+  - **Figure/table reallocation:** recommend moving 6 dynamic SLAM figures to supplementary, promoting lifecycle + heatmap to main body, reclaiming 5 main-body figure slots
+  - **Claims calibration:** 2 overstated (bimodality exploit, principled methodology), 2 understated (cluster-ID traceability, forklift purity/support insight), 3 missing claims identified
+  - **3 reviewer archetypes:** Systems Architect, Dynamic SLAM Expert, Evaluation Methodologist — each with 4 critiques + rebuttal directions
+  - **18 Round 2 actions:** 4 blocking (content integration, Hallway completion, statistics, bimodality audit), 6 high priority (figure reorganization, published-system comparison, claim harmonization), 5 medium, 3 low
+  - **Pre-submission readiness:** 4/10 — DO NOT SUBMIT as-is; 3 blocking items (R2.1-R2.4); estimated 2-3 weeks to submission-ready
+- Bottom line: strong evidence base, honest framing, but LaTeX content integration (R2.1) is the single most critical action item — paper cannot be submitted until main.tex has real content in §IV, §V.A-V.F, §VI
