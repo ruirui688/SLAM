@@ -55,3 +55,9 @@ summary and local paths here, then commit and push the repository.
 - Added Git-tracked manuscript drafts under `/home/rui/slam/paper/`: English draft `paper/manuscript_en.md`, Chinese draft `paper/manuscript_zh.md`, and `paper/README.md`.
 - Evidence summary: repository readers can now inspect the current paper direction directly from GitHub without opening ignored `outputs/` artifacts.
 - Policy: no raw dataset, generated output, model weight, video, point cloud, or temporary artifact was added to Git.
+
+## 2026-05-09 P110 manuscript coherence polish
+
+- Produced P110 audit and closure bundle v20; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v20.md`.
+- Evidence summary: synchronized Appendix Q into both OpenClaw paper drafts. Fixed Section III.A narrative redundancy (merged near-duplicate "candidate evidence" sentences). Tightened Section II item 4, Section VI, and Fig. A1 caption to explicitly block Hallway-to-Aisle promotion or merge. Verified terminology consistency, contribution boundary, Aisle/Hallway roles, and figure captions remain bounded.
+- Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
