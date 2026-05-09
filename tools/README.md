@@ -148,6 +148,17 @@ make dynamic-flow-mask-stress-figure
 这说明低成本传播不足以支撑 masked-input gain claim，后续应优先生成真实逐帧
 动态 masks。
 
+已有真实逐帧 frontend mask 的后端诊断入口：
+
+```bash
+make dynamic-slam-backend-first8-real-masks
+make dynamic-first8-real-mask-figure
+```
+
+当前边界：P138 使用 `000000` 到 `000007` 八帧已有真实 forklift masks，
+不是传播结果。它仍不支持轨迹收益主张，但为下一步“更长窗口真实语义推理”
+提供了更干净的基线。
+
 ### 半监督 VOS 推理
 
 The `vos_inference.py` script can be used to generate predictions for semi-supervised video object segmentation (VOS) evaluation on datasets such as [DAVIS](https://davischallenge.org/index.html), [MOSE](https://henghuiding.github.io/MOSE/) or the SA-V dataset.

@@ -287,6 +287,10 @@ Finally, we replace nearest-frame copying with dense optical-flow warping of the
 
 ![Fig. 7. P137 optical-flow mask propagation stress test.](figures/torwic_dynamic_mask_flow_stress_p137.png)
 
+We then reuse already available real per-frame frontend masks for frames 000000--000007, rather than propagating masks synthetically (Fig. 8). This gives eight masked frames in the same 64-frame backend window, with 0.118% mean mask coverage. The result remains effectively neutral: APE RMSE is 0.051177 m for the first-eight real masked run versus 0.051135 m for raw RGB, and RPE RMSE is 0.032712 m versus 0.032713 m. This is a stronger diagnostic than the propagation stress tests because it uses true frontend outputs, and it indicates that the next evidence-producing step is to extend real semantic inference beyond the first eight frames.
+
+![Fig. 8. P138 first-eight real semantic mask backend diagnostic.](figures/torwic_dynamic_mask_first8_real_p138.png)
+
 ---
 
 ## VIII. Discussion
@@ -389,6 +393,8 @@ Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferre
 **Fig. 6.** Temporal-mask propagation stress test. Existing forklift masks are propagated to the nearest frames within an eight-frame radius and dilated by four pixels, increasing coverage to 16/64 frames and 0.267% average coverage. Raw and temporally propagated masked trajectories remain effectively tied, indicating that stronger per-frame dynamic-mask generation or tracking is needed before claiming trajectory improvement.
 
 **Fig. 7.** Optical-flow mask propagation stress test. Dense optical flow is used to warp the same available forklift masks to neighboring frames within the bounded window. The resulting APE/RPE remain effectively tied, so the current evidence points toward detector-quality temporal masks rather than low-cost propagation as the next requirement.
+
+**Fig. 8.** First-eight real semantic mask backend diagnostic. Existing per-frame frontend forklift masks for frames 000000--000007 are merged into the 64-frame backend input. The result remains trajectory-neutral, showing that the next step is longer-window real semantic inference rather than synthetic propagation.
 
 ---
 

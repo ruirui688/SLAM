@@ -4,3 +4,4 @@ P134 64-frame DROID-SLAM global BA,0.051135,0.051136,1e-06,0.032713,0.032713,0.0
 P135 existing semantic masks,0.051135,0.051135,0.0,0.032713,0.032713,0.0,3,64,0.02575,outputs/dynamic_slam_backend_smoke_p135_64_semantic_masks_global_ba/p135_semantic_mask_metrics.json
 P136 temporal mask stress test,0.051135,0.051222,8.69999999999968e-05,0.032713,0.03271,-2.9999999999960614e-06,16,64,0.267154,outputs/dynamic_slam_backend_smoke_p136_64_temporal_mask_stress_global_ba/p136_temporal_mask_stress_metrics.json
 P137 optical-flow mask stress test,0.051135,0.051222,8.69999999999968e-05,0.032713,0.03271,-2.9999999999960614e-06,16,64,0.267154,outputs/dynamic_slam_backend_smoke_p137_64_flow_mask_stress_global_ba/p137_flow_mask_stress_metrics.json
+P138 first-eight real semantic masks,0.051135,0.051177,4.200000000000037e-05,0.032713,0.032712,-1.000000000001e-06,8,64,0.1181,outputs/dynamic_slam_backend_smoke_p138_64_first8_real_masks_global_ba/p138_first8_real_mask_metrics.json

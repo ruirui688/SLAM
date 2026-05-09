@@ -532,3 +532,33 @@ summary and local paths here, then commit and push the repository.
   nearest-frame propagation at this bounded window. The next phase should
   generate detector-quality per-frame dynamic masks using full semantic
   frontend inference or a video segmentation predictor.
+
+## 2026-05-09 P138 first-eight real semantic mask backend diagnostic
+
+- Extended `tools/build_dynamic_slam_backend_input_pack.py` so
+  `--dynamic-mask-summary-dir` can be repeated. This allows existing per-frame
+  frontend outputs to be merged into one backend input pack.
+- Added `make dynamic-slam-backend-first8-real-masks` and
+  `make dynamic-first8-real-mask-figure`.
+- Built `outputs/dynamic_slam_backend_input_pack_64_first8_real_masks` by
+  combining existing forklift masks from:
+  - `outputs/torwic_jun23_aisle_cw_run1_f000000/frontend_output`;
+  - `outputs/torwic_jun23_aisle_cw_run1_f000001/frontend_output`;
+  - `outputs/torwic_jun23_aisle_cw_run1_f000002/frontend_output`;
+  - `outputs/torwic_jun23_aisle_cw_run1_f000003/frontend_output`;
+  - `outputs/torwic_jun23_aisle_cw_run1_f000004/frontend_output`;
+  - `outputs/torwic_jun23_aisle_cw_run1_f000005/frontend_output`;
+  - `outputs/torwic_jun23_aisle_cw_run1_f000006/frontend_output`;
+  - `outputs/torwic_jun23_aisle_cw_run1_f000007/frontend_output`.
+- Mask coverage: `8/64` frames, `0.118100%` average coverage.
+- Ran DROID-SLAM 64-frame global BA on raw vs first-eight real semantic masked
+  inputs:
+  - raw: APE RMSE `0.051135 m`, RPE RMSE `0.032713 m`;
+  - first-eight real masked: APE RMSE `0.051177 m`, RPE RMSE `0.032712 m`;
+  - delta masked-minus-raw: APE RMSE `+0.000042 m`, RPE RMSE `-0.000001 m`.
+- Generated `paper/figures/torwic_dynamic_mask_first8_real_p138.png` and
+  integrated it into README plus EN/ZH thick drafts as Fig. 8.
+- Interpretation: real per-frame masks are more meaningful than propagation
+  stress tests, but first-eight coverage still does not produce trajectory
+  improvement. The next phase should run real semantic frontend inference over
+  a longer backend window.

@@ -60,20 +60,23 @@ def load_trajectory(sequence_dir: Path, count: int) -> list[list[float]]:
     return rows
 
 
-def load_dynamic_masks_from_summaries(summary_dir: Path | None, label_prefix: str) -> dict[int, list[Path]]:
-    if summary_dir is None:
+def load_dynamic_masks_from_summaries(summary_dirs: list[Path] | None, label_prefix: str) -> dict[int, list[Path]]:
+    if not summary_dirs:
         return {}
     masks_by_frame: dict[int, list[Path]] = {}
-    for summary_path in sorted(summary_dir.glob(f"{label_prefix}*_summary.json")):
-        payload = json.loads(summary_path.read_text(encoding="utf-8"))
-        rgb_path = Path(payload["rgb_path"])
-        try:
-            frame_index = int(rgb_path.stem)
-        except ValueError:
-            continue
-        mask_path = Path(payload["outputs"]["mask"])
-        if mask_path.exists():
-            masks_by_frame.setdefault(frame_index, []).append(mask_path)
+    seen: set[Path] = set()
+    for summary_dir in summary_dirs:
+        for summary_path in sorted(summary_dir.glob(f"{label_prefix}*_summary.json")):
+            payload = json.loads(summary_path.read_text(encoding="utf-8"))
+            rgb_path = Path(payload["rgb_path"])
+            try:
+                frame_index = int(rgb_path.stem)
+            except ValueError:
+                continue
+            mask_path = Path(payload["outputs"]["mask"])
+            if mask_path.exists() and mask_path not in seen:
+                masks_by_frame.setdefault(frame_index, []).append(mask_path)
+                seen.add(mask_path)
     return masks_by_frame
 
 
@@ -189,7 +192,7 @@ def build_pack(
     sequence_dir: Path,
     output_dir: Path,
     frame_count: int,
-    dynamic_mask_summary_dir: Path | None = None,
+    dynamic_mask_summary_dirs: list[Path] | None = None,
     dynamic_label_prefix: str = "forklift",
     temporal_propagation_radius: int = 0,
     dynamic_mask_dilation_px: int = 0,
@@ -205,7 +208,7 @@ def build_pack(
     timestamps = load_times(sequence_dir, frame_count)
     trajectory_rows = load_trajectory(sequence_dir, frame_count)
     source_mask = Image.open(SEGMENTATION_DIR / "forklift-mask.png").convert("L")
-    dynamic_masks_by_frame = load_dynamic_masks_from_summaries(dynamic_mask_summary_dir, dynamic_label_prefix)
+    dynamic_masks_by_frame = load_dynamic_masks_from_summaries(dynamic_mask_summary_dirs, dynamic_label_prefix)
 
     raw_paths: list[Path] = []
     masked_paths: list[Path] = []
@@ -227,7 +230,7 @@ def build_pack(
         if frame_index in dynamic_masks_by_frame:
             mask = combine_masks(dynamic_masks_by_frame[frame_index], rgb.size)
             dynamic_source = "existing semantic frontend masks"
-        elif dynamic_mask_summary_dir is not None:
+        elif dynamic_mask_summary_dirs is not None:
             propagated_from = nearest_mask_frame(frame_index, dynamic_masks_by_frame, temporal_propagation_radius)
             if propagated_from is not None:
                 mask = combine_masks(dynamic_masks_by_frame[propagated_from], rgb.size)
@@ -243,7 +246,7 @@ def build_pack(
                 masked = rgb
                 mask_pixels = 0
                 dynamic_source = "empty"
-        elif dynamic_mask_summary_dir is None and frame_index == DYNAMIC_FRAME:
+        elif dynamic_mask_summary_dirs is None and frame_index == DYNAMIC_FRAME:
             mask = source_mask
             if mask.size != rgb.size:
                 mask = mask.resize(rgb.size, Image.Resampling.NEAREST)
@@ -301,7 +304,8 @@ def build_pack(
             f"Use existing {dynamic_label_prefix} semantic frontend masks when --dynamic-mask-summary-dir is provided; "
             "otherwise only frame 000002 uses the repository forklift semantic example mask."
         ),
-        "dynamic_mask_summary_dir": rel(dynamic_mask_summary_dir) if dynamic_mask_summary_dir else None,
+        "dynamic_mask_summary_dirs": [rel(path) for path in dynamic_mask_summary_dirs] if dynamic_mask_summary_dirs else None,
+        "dynamic_mask_summary_dir": rel(dynamic_mask_summary_dirs[0]) if dynamic_mask_summary_dirs else None,
         "temporal_propagation_radius": temporal_propagation_radius,
         "temporal_propagation_mode": temporal_propagation_mode,
         "dynamic_mask_dilation_px": dynamic_mask_dilation_px,
@@ -326,7 +330,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sequence-dir", type=Path, default=DEFAULT_SEQUENCE)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--frame-count", type=int, default=8)
-    parser.add_argument("--dynamic-mask-summary-dir", type=Path, default=None)
+    parser.add_argument("--dynamic-mask-summary-dir", type=Path, action="append", default=None)
     parser.add_argument("--dynamic-label-prefix", default="forklift")
     parser.add_argument(
         "--temporal-propagation-radius",

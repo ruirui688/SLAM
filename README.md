@@ -390,6 +390,25 @@ make dynamic-flow-mask-stress-figure
 
 当前解释：低成本稠密光流传播没有优于最近帧传播，说明瓶颈不只是“mask 不够多”，也包括 mask 质量、动态目标真实时序一致性和当前 DROID-SLAM 对小面积遮罩的敏感性。下一步应优先跑逐帧 Grounding DINO/SAM2 或 SAM2 video predictor，生成更接近真实动态目标的连续 masks。
 
+P138 使用磁盘上已有的真实逐帧 frontend 结果，而不是传播结果：合并
+`000000` 到 `000007` 八帧的 forklift masks，生成 64 帧后端输入。
+
+```bash
+make dynamic-slam-backend-first8-real-masks
+make dynamic-first8-real-mask-figure
+```
+
+结果：
+
+| 输入 | APE RMSE (m) | RPE RMSE (m) |
+|---|---:|---:|
+| raw RGB | 0.051135 | 0.032713 |
+| first-eight real masked RGB | 0.051177 | 0.032712 |
+
+![真实 first-eight mask 后端诊断](paper/figures/torwic_dynamic_mask_first8_real_p138.png)
+
+当前解释：真实逐帧 masks 覆盖 `8/64` 帧、平均覆盖率 `0.118100%`，仍不足以形成轨迹收益。这个结果比 P136/P137 更接近真实 pipeline，因此下一步应把真实 frontend 推到更长窗口，而不是继续依赖传播。
+
 ## 2. 论文稿件
 
 | 稿件 | 路径 | 用途 |

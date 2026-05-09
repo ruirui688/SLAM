@@ -287,6 +287,10 @@ DynaSLAM[2]证明在动态场景中屏蔽动态物体（人、车辆）可以改
 
 ![图7. P137 光流传播 mask 压力测试。](figures/torwic_dynamic_mask_flow_stress_p137.png)
 
+随后，我们复用磁盘上已有的真实逐帧 frontend masks，而不是继续使用合成传播结果（图8）。这些 masks 覆盖帧 000000--000007，并被合并到同一个 64 帧后端输入窗口中，平均 mask 覆盖率为 0.118%。结果仍基本中性：first-eight real masked run 的 APE RMSE 为 0.051177 m，raw RGB 为 0.051135 m；RPE RMSE 为 0.032712 m，raw RGB 为 0.032713 m。该结果比传播压力测试更有诊断价值，因为它使用真实 frontend 输出；它表明下一步应把真实语义推理扩展到更长窗口，而不是继续依赖合成传播。
+
+![图8. P138 真实 first-eight 语义 mask 后端诊断。](figures/torwic_dynamic_mask_first8_real_p138.png)
+
 ---
 
 ## 八、讨论

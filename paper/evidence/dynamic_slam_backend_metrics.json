@@ -84,6 +84,23 @@
       "mean_mask_coverage_percent": 0.267154,
       "claim_boundary": "Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.",
       "interpretation": "This is a diagnostic stress test, not a true detector output. It tests whether optical-flow mask propagation improves over nearest-frame copying for backend sensitivity."
+    },
+    {
+      "key": "p138_first8_real_masks",
+      "name": "P138 first-eight real semantic masks",
+      "source": "outputs/dynamic_slam_backend_smoke_p138_64_first8_real_masks_global_ba/p138_first8_real_mask_metrics.json",
+      "scope": "64-frame TorWIC Aisle_CW_Run_1, DROID-SLAM global BA, masked input built from existing per-frame frontend forklift masks on frames 000000-000007.",
+      "raw_ape_rmse_m": 0.051135,
+      "raw_rpe_rmse_m": 0.032713,
+      "masked_ape_rmse_m": 0.051177,
+      "masked_rpe_rmse_m": 0.032712,
+      "delta_ape_rmse_m": 4.200000000000037e-05,
+      "delta_rpe_rmse_m": -1.000000000001e-06,
+      "masked_frames": 8,
+      "total_frames": 64,
+      "mean_mask_coverage_percent": 0.1181,
+      "claim_boundary": "Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.",
+      "interpretation": "This uses existing real frontend masks across the first eight frames rather than propagation. It tests whether denser true semantic masks change the backend trajectory metrics."
     }
   ]
 }
