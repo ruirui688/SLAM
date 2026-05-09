@@ -137,3 +137,10 @@ summary and local paths here, then commit and push the repository.
 - Evidence: per-protocol rejection breakdown (same-day/cross-day/cross-month/Hallway), dynamic-like rejection share 50.0%-71.4%, rejection reason taxonomy (16 forklift dynamic-like, 13 low-session, 3 label fragmentation, 2 low support), cluster-ID-level detail for all four protocols. Data sourced from selection_v5.json rejected arrays.
 - GitHub: `7098771 docs: record P118 failure-case mix quantitative breakdown`, pushed to `origin/main`.
 - Policy: existing-data-only; no new experiments.
+
+## 2026-05-09 P119 submission-ready closure (P114-P118 wave complete)
+
+- Produced P119 final closure: appendix/table closure v15, bundle v29.
+- Evidence: P114-P118 autonomous polish loop fully integrated. Appendices A-Z (26). Bundle chain v18-v29 (12 bundles on disk). 15/15 P114-P118 manifest entries registered. 10/10 evidence files present. Phase queue exhausted.
+- Remaining deferred: 3 back-end citations (Grounding DINO/SAM2/OpenCLIP), arXiv links for [1]-[3], venue-specific formatting.
+- Next: user direction required (target venue, larger-window experiments, new paper/development branch).
