@@ -42,3 +42,9 @@ summary and local paths here, then commit and push the repository.
 - Produced ignored/generated citation and package artifacts: `/home/rui/slam/outputs/torwic_citation_verified_batch3_v1.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v18.md`.
 - Evidence summary: synchronized Appendix O into both OpenClaw paper drafts, confirmed references used equal bibliography entries `[1]--[6]`, placeholder count remains zero, and mapped related-work buckets to long-term SLAM [1], dynamic SLAM [2], semantic/object-level SLAM [3], open-vocabulary mapping [4]/[5], and TorWIC/POV-SLAM provenance [6].
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
+
+## 2026-05-09 P109 inline citation evidence threading
+
+- Produced ignored/generated threading artifacts: `/home/rui/slam/outputs/torwic_p109_inline_citation_threading_matrix_v1.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v19.md`.
+- Evidence summary: synchronized Appendix P into both OpenClaw paper drafts, tying Abstract/Introduction/Related Work/Method/Results/Hallway/Discussion/Conclusion claims to verified refs `[1]--[6]`, internal Table/Appendix/package anchors, or explicit future-work boundaries.
+- Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
