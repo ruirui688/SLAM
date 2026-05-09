@@ -8,7 +8,8 @@ are intentionally excluded from Git. When the research robot produces progress
 that lives in ignored paths such as `outputs/`, it should record the evidence
 summary and local paths here, then commit and push the repository.
 
-- **Blocked:** Optional ORB-SLAM3 cross-check remains gated on backend/vocabulary availability.
+- **ORB-SLAM3:** No longer blocked at install. Mono trajectories produced (raw: 10 KFs, masked: 12 KFs) on P173 Jun15 Run1 with TorWIC intrinsics. Tracking fragile — fails after ~1.2s of 7s sequence. evo metrics blocked (not installed). Full report: `paper/export/orb_slam3_cross_check_p173_recovery.md`.
+- **Blocked:** ORB-SLAM3 cross-check partially complete — needs evo install and/or longer sequence for robust tracking.
   - **P178 LaTeX build:** CONDITIONALLY BUILD-READY → verified by P180 real compilation.
   - **P180 compile:** ✅ PDF generated (14 pages, 3.09 MB) via Tectonic 0.16.9 (conda, user-level, no sudo). 0 errors, 26 warnings (all hbox, 2×80pt overfull in Related Work — cosmetic).
   - **P181 packaging:** ✅ Complete — 18 figures at 300 DPI + metadata stripped; III.B/III.C paragraph fixes; PDF metadata verified double-anonymous. Submission-ready PDF.
