@@ -279,23 +279,23 @@ The current evidence differs from standard dynamic-SLAM benchmarks in two import
 
 A natural baseline — consistent with standard object-level SLAM practice [3][4] — would be: retain objects with high average detection confidence, reject the rest. This fails for two reasons demonstrated by our evidence:
 
-1. **Forklifts are detected with high confidence.** The detector is working correctly — it identifies forklifts. In our Aisle protocols (§VII.A), forklift-like clusters have average detection confidence comparable to retained infrastructure objects, yet all 16 are correctly rejected as dynamic contamination by the admission criteria (§V.E). High detection confidence does not distinguish between "this is a real forklift" and "this is a map-worthy static landmark."
+1. **Forklifts are detected with high confidence.** The detector is working correctly — it identifies forklifts. In our Aisle protocols (§VII.A), forklift-like clusters have average detection confidence comparable to retained infrastructure objects, yet all 16 are correctly rejected as dynamic contamination by the admission criteria (§V.E, §VII.D). High detection confidence does not distinguish between "this is a real forklift" and "this is a map-worthy static landmark."
 
-2. **Low-confidence stable objects may be the most valuable.** A barrier detected at moderate confidence across five sessions is more valuable for map reuse than a forklift detected at high confidence. Confidence thresholds optimize for detection [1], not for map admission. Our evidence ladder (§VII.B) shows that retained objects (work tables, warehouse racks, barriers) consistently pass the multi-session and label-consistency criteria even when per-frame confidence varies.
+2. **Low-confidence stable objects may be the most valuable.** A barrier detected at moderate confidence across five sessions is more valuable for map reuse than a forklift detected at high confidence. Confidence thresholds optimize for detection [1], not for map admission. Our evidence ladder (§VII.A, §VII.B) shows that retained objects (work tables, warehouse racks, barriers) consistently pass the multi-session and label-consistency criteria even when per-frame confidence varies.
 
 ### VIII.B. The Role of Session Count
 
-Multi-session evidence is the strongest admission signal. Objects that appear in ≥2 sessions are significantly more likely to be stable infrastructure. Single-session objects are inherently ambiguous: they could be transient visitors (correctly rejected), stable objects seen from an unusual angle (false negative), or genuine novelties (correctly admitted after more sessions).
+Multi-session evidence is the strongest admission signal. Objects that appear in ≥2 sessions are significantly more likely to be stable infrastructure (see stable-subset composition, §VII.B). Single-session objects are inherently ambiguous: they could be transient visitors (correctly rejected, §VII.D), stable objects seen from an unusual angle (false negative), or genuine novelties (correctly admitted after more sessions).
 
-The current threshold (min_sessions=2) represents a conservative choice. In deployment, a longer observation window would allow single-session stable objects to accumulate evidence before admission.
+The current threshold (min_sessions=2) represents a conservative choice. In deployment, a longer observation window would allow single-session stable objects to accumulate evidence before admission — a trade-off visible in the cross-month protocol (§VII.A) where two additional objects were admitted after the October session.
 
 ### VIII.C. Lightweight vs. Heavyweight
 
-We describe the maintenance layer as "lightweight" because it operates on top of existing detection/segmentation pipelines without modifying them. The trust score uses simple linear combination with interpretable components. The admission criteria are boolean thresholds, not learned classifiers. This makes the layer auditable, debuggable, and transferable across scenes — but it also means we forgo potential gains from learned admission policies.
+We describe the maintenance layer as "lightweight" because it operates on top of existing detection/segmentation pipelines without modifying them (§V.A). The trust score uses simple linear combination with interpretable components (§V.D). The admission criteria are boolean thresholds, not learned classifiers (§V.E). This makes the layer auditable, debuggable, and transferable across scenes — evidenced by the Hallway scene transfer result (§VII.C). However, it also means we forgo potential gains from learned admission policies.
 
 ### VIII.D. Aisle vs. Hallway — Separate Roles
 
-The Aisle ladder is the primary evidence ladder for the systems contribution. The Hallway branch is a secondary broader-validation branch demonstrating scene transfer. These two roles are intentionally kept separate: **we do not merge Aisle and Hallway results** into a single aggregate number. Merging would conflate the controlled aisle protocol with the scene-transfer experiment and dilute the interpretability of both.
+The Aisle ladder (§VII.A) is the primary evidence ladder for the systems contribution. The Hallway branch (§VII.C) is a secondary broader-validation branch demonstrating scene transfer. These two roles are intentionally kept separate: **we do not merge Aisle and Hallway results** into a single aggregate number. Merging would conflate the controlled aisle protocol with the scene-transfer experiment and dilute the interpretability of both. The Hallway rejection profile (§VII.D) qualitatively matches the Aisle protocols, but the absolute retention ratios differ (9/16 vs 5/11, 5/10, 7/14), reinforcing the need for separate reporting.
 
 ---
 

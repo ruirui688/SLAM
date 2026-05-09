@@ -291,3 +291,14 @@ summary and local paths here, then commit and push the repository.
 - Gaps recorded: 3 deferred (Grounding DINO/SAM2/OpenCLIP back-end citations), 3 optional (arXiv links for [1]–[3]).
 - Audit: projects/industrial-semantic-slam/artifacts/p126-inline-citation-threading-audit-2026-05-09.md.
 - Bundle v31: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v31.md.
+
+## 2026-05-09 P127 manuscript coherence polish (thick draft pass)
+
+- Terminology audit: "maintenance layer" (12×) consistent; no drift between "semantic-segmentation-assisted SLAM" (4× in framing) and Related Work terms.
+- Claim strength audit: 0 over-strong claims; all assertions evidence-backed.
+- Hallway/Aisle consistency: 16/16 Hallway mentions correctly framed as secondary/broader-validation.
+- Added Discussion cross-refs: +6 to §VII.C, §VII.D, §V.A, §V.D, §V.E.
+- Contribution boundary: "not a final lifelong SLAM benchmark" (3×), "auditable bridge" (3×) consistent.
+- ZH draft synced.
+- Audit: projects/industrial-semantic-slam/artifacts/p127-manuscript-coherence-polish-audit-2026-05-09.md.
+- Bundle v32: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v32.md.
