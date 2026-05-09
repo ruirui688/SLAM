@@ -952,3 +952,23 @@ summary and local paths here, then commit and push the repository.
 - BibTeX verification: 35 entries, 0 duplicate keys, 0 placeholder entries, all DOIs verified where available
 - Venue quality: 6 T-RO/TPAMI, 10 top conferences (CVPR/ICCV/RSS/NeurIPS), 12 major conferences (ICRA/IROS/ECCV), 3 field journals
 - Output: paper/tro_submission/references.bib (35 entries), paper/tro_submission/main.tex (Related Work expanded), paper/export/references_expansion_p164.md
+
+## 2026-05-09 P163 T-RO supplementary material package
+
+- Created `paper/tro_submission/supplementary/` with complete reviewer-facing supplementary package:
+  - `supplement.md`: 442-line self-contained supplementary document with 8 sections:
+    - S1: Full 27-combination parameter ablation sweep with sensitivity labels
+    - S2: Per-cluster baseline comparison (B0/B1/B2) with infrastructure/forklift/single-session/low-frame breakdown
+    - S3: Object lifecycle visualization (barrier admission vs forklift rejection)
+    - S4: Complete 10-configuration DROID-SLAM dynamic masking evidence chain
+    - S5: Dynamic mask coverage analysis (window selection, top-N screening, cross-window audit)
+    - S6: Per-cluster rejection profiles with reason taxonomy and co-occurrence matrix
+    - S7: Per-category retention/rejection figures (3 supplementary-only figures)
+    - S8: Complete evidence file index and figure inventory
+  - `SUPPLEMENT_FIGURE_PLAN.md`: 11 supplementary figures + 11 tables placement plan with build instructions
+- Claim boundaries explicitly maintained:
+  - Dynamic SLAM results as quantitative boundary condition, not performance gain
+  - No claim that masked input improves ATE/RPE
+  - Negative results framed as scientific contribution (knowing when dynamic masking does NOT matter)
+- 206 rows of data tables preserved for reviewer scrutiny
+- Supplementary figures: 8 from P134-P143 (dynamic SLAM) + 3 from P156-P157 (retention/rejection) + 1 lifecycle (P156)
