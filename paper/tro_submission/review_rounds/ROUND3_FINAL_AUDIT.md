@@ -10,10 +10,11 @@
 
 **Method:** 18-dimension automated grep + manual cross-reading
 
-****P167 R2 (2026-05-09 23:50):** P172 S2 (Oct12 Aisle_CW cross-month + Oct12 Hallway scene-transfer, ΔAPE=0.000mm both) upgraded D7→16 configs/5 sessions/2 scene types; D9 cross-scene universal; D13 multi-scene evidence. Score stable: 30 PASS, 0 FAIL.
-**P174 (2026-05-10):** Statistical formalization added: bootstrap 95% CIs for admission rates (all 4 protocols + pooled), Wilson CIs, Fisher exact Hallway-vs-Aisle (p=0.7645), dynamic SLAM neutral-rate bootstrap CI (43.8–87.5%), dynamic SLAM two-group complete separation (gap=0.914mm). B3 partially resolved: bootstrap CIs + Hallway-Aisle Fisher done; B0/B1/B2 Fisher exact not computed (per-baseline admission flags not exported).
+****P167 R2 (2026-05-09 23:50):** P172 S2 (Oct12 Aisle_CW cross-month + Oct12 Hallway scene-transfer, ΔAPE=0.000mm both) upgraded D7→16 configs/5 sessions/2 scene types; D9 cross-scene universal; D13 multi-scene evidence.
+**P174 (2026-05-10):** Statistical formalization added bootstrap 95% CIs for admission rates (all 4 protocols + pooled), Wilson CIs, Fisher exact Hallway-vs-Aisle (p=0.7645), dynamic SLAM neutral-rate bootstrap CI (43.8–87.5%), and dynamic SLAM two-group complete separation (gap=0.914mm).
+**P176 (2026-05-10):** Remaining B3 baseline statistics closed: B0/B1/B2 exact McNemar tests computed from 20 paired Aisle clusters.
 
-Verdict: **CONDITIONAL PASS — 30/30 checks pass (30 PASS, 0 WARN, 0 FAIL). All 3 original ROUND1 blockers (B1/B2/B3) RESOLVED. Package is internally consistent, statistically formalized, and submission-ready (subject to human double-check of anonymization and figure rendering).**
+Verdict: **CONDITIONAL PASS — 28/30 checks pass (28 PASS, 2 WARN, 0 FAIL). All 3 original ROUND1 blockers (B1/B2/B3) RESOLVED. Package is evidence-complete and internally consistent, but final submission still requires figure/table placement and rendering checks.**
 
 ---
 
@@ -43,11 +44,11 @@ Verdict: **CONDITIONAL PASS — 30/30 checks pass (30 PASS, 0 WARN, 0 FAIL). All
 
 | # | Dimension | Check | Result | Detail |
 |---|---|---|---|---|
-| S1 | main.tex sections | All required sections present | **WARN** | 11/12 sections have content; Discussion (8) has structured outline but requires full prose from manuscript_en_thick.md |
+| S1 | main.tex sections | All required sections present | **PASS (UPDATED)** | All required sections are present and populated after P170/P176 updates |
 | S2 | Figures allocated | Figure placement plan exists | **WARN** | FIGURE_PLAN.md covers 16 main + 11 suppl figures; main.tex has only 2 PLACEHOLDER blocks (Fig 1, Fig 4) — remaining 14 main-body figures need scaffolding |
 | S3 | Tables allocated | Table placement plan exists | **WARN** | 0 table PLACEHOLDER blocks in main.tex; 6 tables described in FIGURE_PLAN.md but not scaffolded |
-| S4 | Content ported from thick manuscript | §IV/§V/§VI real prose | **FAIL** | §IV (Problem Formulation), §V.A–§V.F (Method layers), §VI (Experimental Protocol) are empty/placeholder stubs |
-| S5 | Discussion content | Real prose, not just outline | **WARN** | §VIII (Discussion) has structured outline but no prose from manuscript_en_thick.md |
+| S4 | Content ported from thick manuscript | §IV/§V/§VI real prose | **PASS (UPDATED)** | §IV, §V.A–§V.F, and §VI now contain real prose; stale P167 failure closed by P170 |
+| S5 | Discussion content | Real prose, not just outline | **PASS (UPDATED)** | §VIII now contains prose on boolean criteria, dynamic-ratio bimodality, classical SLAM landmark selection, and cross-site validation |
 | S6 | Cover letter | All 5 reviewer slots filled | **PASS** | 5 reviewer archetypes |
 | S7 | Editor summary | All 6 sections complete | **PASS** | Venue fit, honest limitations, blockers, timeline |
 | S8 | Anonymization checklist | All 40+ points filled | **PASS** | 5 sections, 7 pre-submission actions |
@@ -88,26 +89,24 @@ Verdict: **CONDITIONAL PASS — 30/30 checks pass (30 PASS, 0 WARN, 0 FAIL). All
 
 ## 4. Submission Readiness Verdict
 
-### Overall: CONDITIONAL PASS — submission-ready (all blockers resolved)
+### Overall: CONDITIONAL PASS — evidence-complete, layout polish remaining
 
-**Blocking score: 75/75. All 30 checks PASS, 0 FAIL. All 3 original ROUND1 blockers (B1/B2/B3) RESOLVED.** Residual tasks: figure rendering/placement, anonymization double-check, ORCID registration — human actions only.
+**Blocking score: 75/75. All 3 original ROUND1 blockers (B1/B2/B3) RESOLVED.** Audit status: 28 PASS, 2 WARN, 0 FAIL. Remaining WARN items are production/layout work, not evidence blockers.
 
-**Score history:** 62 (original P167) → 75 (P167 R1: B1 resolved) → 75 (P167 R2: P172 S2) → 75 (P174: bootstrap CIs + Fisher) → 75 (P175: B2 resolved, Hallway 10/10) → **75 (P176: B3 resolved, baseline McNemar complete).** All 30 PASS. 0 FAIL. 0 deferred blockers. All blockers resolved.
-
-**Blocking score: 75/75.** All 3 original blockers resolved or partially resolved.
+**Score history:** 62 (original P167) → 75 (P167 R1: B1 resolved) → 75 (P167 R2: P172 S2) → 75 (P174: bootstrap CIs + Fisher) → 75 (P175: B2 resolved, Hallway 10/10) → **75 (P176: B3 resolved, baseline McNemar complete).** 0 FAIL. 0 deferred evidence blockers.
 
 | Category | Pass | Warn | Fail |
 |---|---|---|---|
 | Core consistency (15) | 15 | 0 | 0 |
-| Structural completeness (9) | 6 | 3 | 0 |
+| Structural completeness (9) | 7 | 2 | 0 |
 | Evidence chain (6) | 6 | 0 | 0 |
-| **Total** | **27** | **3** | **0** |
+| **Total** | **28** | **2** | **0** |
 
 ### Gating Items for Submission
 
-1. ~~**B1 (HIGH):** Method sections (§IV, §V.A–§V.F) and Experimental Protocol (§VI) must contain real prose.~~ — **RESOLVED by P170.** Content ported from manuscript_en_thick.md.
-2. Figure scaffolding: only 2 of 16 main-body figures have PLACEHOLDER blocks in main.tex.
-3. Discussion (§VIII) needs full prose from manuscript_en_thick.md, not just an outline.
+1. Figure scaffolding: only 2 of 16 main-body figures have PLACEHOLDER blocks in main.tex.
+2. Table scaffolding: 0 table PLACEHOLDER blocks in main.tex; 6 tables described in FIGURE_PLAN.md.
+3. Human production checks: figure rendering/placement, anonymization double-check, ORCID registration.
 
 **Dynamic SLAM evidence gap (now resolved):** P171 added evo APE/RPE on all 12 existing configs; P172 confirmed 2-session cross-session reproducibility. The previous "visual overlay only" limitation no longer applies.
 
@@ -191,4 +190,4 @@ paper/tro_submission/
 
 ---
 
-*Audit completed 2026-05-09 22:12 GMT+8. R1: B1 resolved by P170 (score 62→75). R2: P172 S2 cross-month+Hallway. P174: statistical formalization (bootstrap CIs, Fisher). P175: B2 resolved — Hallway 10/10 confirmed (537/16/9, 80/80). P176: B3 resolved — per-baseline McNemar tests: B0/B1 p<0.001, B1/B2 p=0.125, B0/B2 p<0.0001 (n=20 Aisle clusters). All 3 ROUND1 blockers fully resolved. 30 PASS, 0 WARN, 0 FAIL. Package is internally consistent, statistically formalized, blocker-free, and submission-ready pending human double-check of anonymization and figure rendering.*
+*Audit completed 2026-05-09 22:12 GMT+8. R1: B1 resolved by P170 (score 62→75). R2: P172 S2 cross-month+Hallway. P174: statistical formalization (bootstrap CIs, Fisher). P175: B2 resolved — Hallway 10/10 confirmed (537/16/9, 80/80). P176: B3 resolved — per-baseline McNemar tests: B0/B1 p<0.001, B1/B2 p=0.125, B0/B2 p<0.0001 (n=20 Aisle clusters). All 3 ROUND1 evidence blockers fully resolved. Current audit: 28 PASS, 2 WARN, 0 FAIL. Package is internally consistent, statistically formalized, and evidence-complete; final submission still requires figure/table placement and rendering checks.*

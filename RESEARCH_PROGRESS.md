@@ -1119,7 +1119,7 @@ summary and local paths here, then commit and push the repository.
   - All 4 Discordant pairs in B1/B2 comparison are forklifts (FL-01, FL-02) + single-session infra (SS-04, SS-05) — B2's dynamicity criterion is the critical differentiator
 - **Hallway:** No B0/B1/B2 baseline comparison (Hallway supplementary only; B0/B1 designed for Aisle ladder)
 - **Paper updates:** main.tex limitations §VII item 1 (McNemar p-values added), EDITOR_SUMMARY baseline row
-- **Audit:** ROUND3_FINAL_AUDIT B3 → RESOLVED. All 3 blockers resolved. Verdict: submission-ready (human actions only).
+- **Audit:** ROUND3_FINAL_AUDIT B3 → RESOLVED. All 3 evidence blockers resolved. Supervisor correction after commit: package is evidence-complete with 28 PASS / 2 WARN / 0 FAIL; remaining work is figure/table placement and rendering checks.
 - **Outputs:** `paper/evidence/baseline_statistics_p176.json` (5KB), `paper/export/baseline_statistics_p176.md` (3KB)
 - **Next:** P173 ORB-SLAM3 cross-check (blocked pending backend download)
 
@@ -1142,7 +1142,7 @@ summary and local paths here, then commit and push the repository.
 
 ## 2026-05-10 P174 — Submission-grade statistical formalization
 
-- **P167 R2:** Updated D7→16 configs/5 sessions/2 scene types (P172 S2 cross-month+Hallway), D9 cross-scene universal, D13 multi-scene. Score stable at 75 (all 30 PASS, 0 FAIL).
+- **P167 R2:** Updated D7→16 configs/5 sessions/2 scene types (P172 S2 cross-month+Hallway), D9 cross-scene universal, D13 multi-scene. Later supervisor audit records 28 PASS / 2 WARN / 0 FAIL after separating evidence blockers from figure/table production work.
 - **P173:** Blocked — ORB-SLAM3 source/vocabulary/wrapper do not exist. Needs user approval for `git clone` + `ORBvoc.txt` download (~100MB).
 - **Commit:** audit update pushed.
 
@@ -1158,11 +1158,11 @@ summary and local paths here, then commit and push the repository.
 - **Hallway vs Aisle:** Fisher exact p=0.7645 — no evidence of difference.
 - **Dynamic SLAM:** Neutral rate 11/16=68.8%, bootstrap 95% CI: 43.8–87.5%.
   Complete two-group separation at |ΔAPE|≤0.006mm (gap=0.914mm, no overlap).
-- **Residual:** B0/B1/B2 Fisher exact NOT computed — per-baseline per-cluster admission flags not exported. Documented as limitation.
+- **Residual at P174 time:** B0/B1/B2 exact tests were not computed yet; later P176 recovered per-baseline flags and resolved this gap.
 - **Outputs:** `paper/evidence/submission_statistics_p174.json` (7KB), `paper/export/submission_statistics_p174.md` (3KB)
 - **Tool:** `tools/compute_submission_statistics.py` — reproducible, runs in <1s
 - **Paper updates:** main.tex limitations §VII (items 1, 3 updated with CIs), EDITOR_SUMMARY (statistics added to scale paragraph)
-- **Audit:** ROUND3_FINAL_AUDIT B3 → PARTIALLY RESOLVED. Later P175 resolves B2; remaining statistics issue is only optional per-baseline flag export.
+- **Audit:** ROUND3_FINAL_AUDIT B3 → PARTIALLY RESOLVED at P174 time. Later P176 resolves B3 fully; P175 resolves B2.
 - **Next:** P173 ORB-SLAM3 cross-check (blocked pending backend download)
 
 ## 2026-05-09 P172 Stage 2 — cross-month + Hallway DROID-SLAM replication
