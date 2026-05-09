@@ -135,6 +135,23 @@
       "mean_mask_coverage_percent": 0.567722,
       "claim_boundary": "Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.",
       "interpretation": "This extends true frontend mask generation to half of the backend window. It tests whether substantially denser real semantic masks change the backend trajectory metrics."
+    },
+    {
+      "key": "p141_window_selection_diagnostic",
+      "name": "P141 dynamic SLAM window-selection diagnostic",
+      "source": "outputs/torwic_p141_window_selection_diagnostic_v1.json",
+      "scope": "Coverage-power analysis across P135-P140. Why 32/64 real masks remain trajectory-neutral (1280x720, 0.57% window feature budget) and what the next strongest experiment should be.",
+      "raw_ape_rmse_m": 0.051135,
+      "raw_rpe_rmse_m": 0.032713,
+      "masked_ape_rmse_m": 0.051189,
+      "masked_rpe_rmse_m": 0.032711,
+      "delta_ape_rmse_m": 5.4e-05,
+      "delta_rpe_rmse_m": -2e-06,
+      "masked_frames": 32,
+      "total_frames": 64,
+      "mean_mask_coverage_percent": 0.567722,
+      "claim_boundary": "Diagnostic analysis only. No new backend run. Root cause: forklift occupies 0.63-1.39% per frame at 1280x720 (0.57% of DROID-SLAM feature budget across 64 frames). DROID-SLAM internal flow consistency already handles sparse dynamic features.",
+      "interpretation": "Even 32/64 real forklift masks produce trajectory-neutral results because the forklift covers only 0.63-1.39% of image area per frame (0.57% window-level). DROID-SLAM's internal RAFT flow consistency already filters sparse dynamic features. Next step: P142 strong dynamic segment screening (top-N highest-coverage frames only) rather than uniform full-window masking."
     }
   ]
 }

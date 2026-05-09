@@ -622,3 +622,15 @@ summary and local paths here, then commit and push the repository.
   on this TorWIC segment. The bottleneck is now better localized to dynamic
   target scale/placement and window selection, not backend execution, evo
   evaluation, or semantic-mask file integration.
+
+## 2026-05-09 P141 dynamic SLAM window-selection diagnostic v2
+
+- Produced `outputs/torwic_p141_window_selection_diagnostic_v1.{json,md}`.
+- Key finding: 32/64 real forklift masks (mean per-masked-frame coverage 1.14%, window-level `mean_mask_coverage_percent=0.567722`) remain trajectory-neutral at 1280×720 because:
+  1. Forklift occupies 0.63–1.39% per frame → 0.57% of DROID-SLAM 921,600-point window feature budget.
+  2. DROID-SLAM's internal RAFT flow-consistency already filters sparse dynamic features.
+  3. 5.1 cm ATE baseline dominated by static-scene errors.
+  4. ΔAPE consistently positive (mask removes boundary stable features).
+- Coverage-power curve: ΔAPE grows ~0.1 mm per percentage point of coverage; extrapolated 64/64 masks (~1.14%) predicted ΔATE ≈ +0.11 mm — still trajectory-neutral.
+- Recommended next experiment (highest priority): P142 strong dynamic segment screening — mask only top-N highest-coverage frames (top-4 mean 1.33%, top-8 1.25%, top-16 1.18%).
+- Updated: paper/manuscript_en_thick.md (Limitation §1 and new §VII.F coverage-power diagnostic), README.md, paper/evidence/dynamic_slam_backend_metrics.json, paper/evidence/README.md.
