@@ -113,3 +113,9 @@ summary and local paths here, then commit and push the repository.
 - Produced P114 field-level citation metadata verification matrix and closure bundle v24; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_p114_citation_metadata_field_level_verification_v1.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v24.md`.
 - Evidence summary: 6/6 references verified across 8 standard fields (authors, title, venue, vol, no, pages, date, DOI). All DOIs resolve to claimed venues. Related-work claim-to-evidence threading verified (6/6 claims in Introduction/Related Work). Abstract/Introduction/Conclusion framing reviewed — no material changes needed. Fixed stale Appendix A references (v11→v14, v7→v24). Synchronized Appendix U into both positioned and clean drafts. Non-blocking gap: arXiv links missing for [1]–[3] (IEEE published, arXiv optional).
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol.
+
+## 2026-05-09 P115 inline citation threading deeper pass
+
+- Produced P115 threading deeper pass audit and closure bundle v25; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_p115_inline_citation_threading_deeper_v1.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v25.md`.
+- Evidence summary: 9/9 manuscript sections audited for inline citation anchoring. 1 closing gap fixed (Fig.1 caption tightened — removed meta reference to internal draft). 3 deferred citation gaps recorded (Grounding DINO/SAM2/OpenCLIP implementation back-end citations need user preference). Synchronized Appendix V into both positioned and clean drafts.
+- Policy: existing-data-only; no new references added without user approval; no new dataset download.
