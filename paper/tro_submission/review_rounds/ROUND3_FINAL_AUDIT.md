@@ -16,6 +16,7 @@
 **P177 (2026-05-10):** Production scaffolding: all 12 main-body figures + 9 tables scaffolded in main.tex with real PNGs from paper/figures/ and data-backed table bodies. S2/S3 WARN→PASS. 30/30 PASS, 0 WARN, 0 FAIL. Submission-ready pending LaTeX compile and human final checks.
 **P178 (2026-05-10):** LaTeX build readiness audit: all pre-compilation checks pass (environment balance, figure files, citations, cross-refs, stale claims). TeX distribution absent (no pdflatex/latexmk/tectonic). Verdict: CONDITIONALLY BUILD-READY — needs user TeX install.
 **P179 (2026-05-10):** Strong-journal manuscript quality gate: 10-item reject-risk review against T-RO/IJRR standards. 3 text fixes applied (C7 weak item removed, abstract.tex created, trust score thresholds qualified). 0 overclaims, 0 weak-venue language. Verdict: PASS — recommend SUBMIT to T-RO.
+**P180 (2026-05-10):** User-level TeX compile via Tectonic 0.16.9 (conda, no sudo). Real compilation succeeded: 0 errors, PDF generated (14 pages, 3.09 MB). 26 hbox warnings (2×80pt overfull in Related Work — cosmetic). Build readiness confirmed.
 
 Verdict: **CONDITIONAL PASS — 30/30 checks pass (30 PASS, 0 WARN, 0 FAIL). All 3 original ROUND1 blockers (B1/B2/B3) RESOLVED. All WARN items (S2/S3) resolved by P177 scaffolding. Package is internally consistent, statistically formalized, figure/table complete, and submission-ready (pending human: LaTeX compile/overflow fix, figure 300dpi regeneration, anonymization double-check, ORCID).**
 

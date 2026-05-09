@@ -12,13 +12,13 @@
 |------|--------|-------|
 | `pdflatex` | ❌ NOT FOUND | No TeX Live installed |
 | `latexmk` | ❌ NOT FOUND | Build automation not available |
-| `tectonic` | ❌ NOT FOUND | Zero-dependency LaTeX engine not available |
+| `tectonic` | ✅ 0.16.9 | Installed via conda-forge (P180) |
 | `lualatex` | ❌ NOT FOUND | |
 | `IEEEtran.cls` | ❌ NOT FOUND | Not in system TeX tree; no TeX tree exists |
 
-**Verdict:** **BLOCKED** — no TeX distribution on this machine. Cannot compile `main.tex` locally.
+**Verdict:** **RESOLVED (P180)** — Tectonic 0.16.9 compiled `main.tex` successfully. 0 errors, 14-page PDF.
 
-### Minimal fix (user action required)
+### Resolved via P180
 
 ```bash
 # Option A: TeX Live (full, ~4GB)
@@ -124,7 +124,7 @@ These are not verified (no TeX) but predictable from IEEEtran experience:
 
 | Check | Result |
 |-------|--------|
-| TeX environment | ❌ BLOCKED |
+| TeX environment | ✅ RESOLVED (P180) | Tectonic 0.16.9 compiles successfully |
 | Environment balance | ✅ PASS |
 | Figure file existence | ✅ PASS (12/12) |
 | Citation integrity | ✅ PASS (28/28) |
@@ -133,7 +133,7 @@ These are not verified (no TeX) but predictable from IEEEtran experience:
 | Packages declared | ✅ PASS (8/8) |
 | Label uniqueness | ✅ PASS (62/62) |
 
-**Overall verdict:** **CONDITIONALLY BUILD-READY** — all source/document checks pass. The only blocker is the missing TeX distribution, which must be resolved by the user before compilation. Once TeX is installed, `latexmk -pdf paper/tro_submission/main.tex` is expected to compile with routine IEEEtran float/overflow warnings.
+**Overall verdict:** **BUILD-READY (VERIFIED)** — all source/document checks pass. P180 real compilation via Tectonic 0.16.9 (conda, user-level, no sudo) confirmed: 0 errors, 14-page PDF, all citations/cross-refs resolved. 26 minor hbox warnings (2×80pt overfull in Related Work — cosmetic).
 
 ---
 

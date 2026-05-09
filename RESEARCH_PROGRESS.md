@@ -9,10 +9,21 @@ that lives in ignored paths such as `outputs/`, it should record the evidence
 summary and local paths here, then commit and push the repository.
 
 - **Blocked:** Optional ORB-SLAM3 cross-check remains gated on backend/vocabulary availability.
-  - **P178 LaTeX build:** CONDITIONALLY BUILD-READY — TeX distribution absent (no pdflatex/latexmk/tectonic). All source checks pass. Needs user TeX install.
+  - **P178 LaTeX build:** CONDITIONALLY BUILD-READY → verified by P180 real compilation.
+  - **P180 compile:** ✅ PDF generated (14 pages, 3.09 MB) via Tectonic 0.16.9 (conda, user-level, no sudo). 0 errors, 26 warnings (all hbox, 2×80pt overfull in Related Work — cosmetic).
   - **P179 quality gate:** PASS — 3 text fixes applied, 0 overclaims, T-RO-submission recommended.
-- **Active:** Manuscript production closure. All blockers and WARN items resolved.
+- **Active:** Manuscript production closure. Remaining: copyediting, 300dpi figures, EXIF strip, final PDF anonymization.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
+
+## 2026-05-10 P180 — User-level TeX compile attempt
+
+- **Goal:** User-level TeX install (no sudo) + real T-RO LaTeX compile.
+- **Result: SUCCESS.** Tectonic 0.16.9 installed via `conda install -c conda-forge tectonic` (user-level).
+- **Compilation:** `tectonic --reruns 2 main.tex --outdir build_p180` — 0 errors, BibTeX resolved, 12/12 figures, 28/28 citations.
+- **Output:** `build_p180/main.pdf` (3.09 MB, 14 pages, US letter).
+- **Warnings:** 26 hbox warnings (all underfull/overfull). 2×80pt overfull in III.B/III.C (citation-heavy Related Work paragraphs) — cosmetic, not a submission blocker.
+- **First run note:** Initial tectonic run OOM-killed during format generation + font downloads; second run with cached bundles succeeded.
+- **Outputs:** `paper/tro_submission/COMPILE_ATTEMPT_P180.md`, `paper/tro_submission/build_p180/main.pdf`
 
 ## 2026-05-10 P179 — Strong-journal manuscript quality gate
 
