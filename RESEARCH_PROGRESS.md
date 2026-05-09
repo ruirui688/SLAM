@@ -972,3 +972,13 @@ summary and local paths here, then commit and push the repository.
   - Negative results framed as scientific contribution (knowing when dynamic masking does NOT matter)
 - 206 rows of data tables preserved for reviewer scrutiny
 - Supplementary figures: 8 from P134-P143 (dynamic SLAM) + 3 from P156-P157 (retention/rejection) + 1 lifecycle (P156)
+
+## 2026-05-09 P162 T-RO cover letter and editor-facing submission package
+
+- Created 3 editor-facing documents for T-RO submission:
+  - `COVER_LETTER_DRAFT.md` (66 lines): formal cover letter with contribution summary, T-RO fit rationale, key evidence overview, honest limitations (dynamic SLAM negative result, single dataset, single VO backend), 5 suggested reviewer expertise areas, double-anonymous confirmation
+  - `EDITOR_SUMMARY.md` (121 lines, 6 sections): one-paragraph contribution summary, venue fit analysis (T-RO systems contribution taxonomy + precedent papers), honest limitations with explicit "no ATE/RPE improvement" disclosure, submission package integrity checklist, pre-submission blocker inventory (6 blockers with resolution paths), recommended 4-week submission timeline
+  - `ANONYMIZATION_CHECKLIST.md` (138 lines, 5 sections): 40-point double-anonymous compliance checklist covering title page, self-citations, figures/tables, text content, code references, PDF metadata, and supplementary material; risk assessment with low/medium/no-risk triage; 7 pre-submission action items (EXIF stripping, figure audit, GitHub URL anonymization, JSON path audit)
+- Limitation framing: dynamic SLAM as quantified boundary condition (|ΔATE| < 0.1 mm, <1.4% coverage), explicitly not claimed as ATE/RPE improvement
+- Suggested reviewers: 5 expertise areas (semantic SLAM, dynamic SLAM, open-vocabulary perception, SLAM evaluation, map maintenance) — specific names pending advisor review and COI check
+- ORCID/PaperCept: both flagged as mandatory pre-submission items
