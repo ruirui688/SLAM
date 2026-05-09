@@ -1,0 +1,124 @@
+{
+  "dataset": {
+    "name": "minimal-industrial-semantic-slam-demo",
+    "description": "Tiny synthetic object-observation fixture for a no-GPU repository smoke demo.",
+    "provenance": "Hand-authored example derived from the paper data model, not raw TorWIC data.",
+    "sessions": [
+      "demo_2022_06_15_aisle_cw",
+      "demo_2022_06_23_aisle_cw",
+      "demo_2022_10_12_aisle_cw"
+    ]
+  },
+  "observations": [
+    {
+      "observation_id": "obs_0001",
+      "session_id": "demo_2022_06_15_aisle_cw",
+      "frame_id": "frame_000000",
+      "cluster_hint": "barrier_a",
+      "label": "safety barrier",
+      "state_hint": "static_infrastructure",
+      "confidence": 0.91,
+      "centroid_xyz": [1.2, 0.5, 0.6]
+    },
+    {
+      "observation_id": "obs_0002",
+      "session_id": "demo_2022_06_23_aisle_cw",
+      "frame_id": "frame_000002",
+      "cluster_hint": "barrier_a",
+      "label": "safety barrier",
+      "state_hint": "static_infrastructure",
+      "confidence": 0.88,
+      "centroid_xyz": [1.25, 0.52, 0.6]
+    },
+    {
+      "observation_id": "obs_0003",
+      "session_id": "demo_2022_10_12_aisle_cw",
+      "frame_id": "frame_000004",
+      "cluster_hint": "barrier_a",
+      "label": "barrier",
+      "state_hint": "static_infrastructure",
+      "confidence": 0.86,
+      "centroid_xyz": [1.22, 0.48, 0.61]
+    },
+    {
+      "observation_id": "obs_0004",
+      "session_id": "demo_2022_06_15_aisle_cw",
+      "frame_id": "frame_000001",
+      "cluster_hint": "rack_b",
+      "label": "warehouse rack",
+      "state_hint": "static_infrastructure",
+      "confidence": 0.87,
+      "centroid_xyz": [3.6, -0.4, 1.3]
+    },
+    {
+      "observation_id": "obs_0005",
+      "session_id": "demo_2022_06_23_aisle_cw",
+      "frame_id": "frame_000003",
+      "cluster_hint": "rack_b",
+      "label": "warehouse rack",
+      "state_hint": "static_infrastructure",
+      "confidence": 0.84,
+      "centroid_xyz": [3.58, -0.43, 1.28]
+    },
+    {
+      "observation_id": "obs_0006",
+      "session_id": "demo_2022_10_12_aisle_cw",
+      "frame_id": "frame_000005",
+      "cluster_hint": "rack_b",
+      "label": "storage rack",
+      "state_hint": "static_infrastructure",
+      "confidence": 0.83,
+      "centroid_xyz": [3.64, -0.39, 1.32]
+    },
+    {
+      "observation_id": "obs_0007",
+      "session_id": "demo_2022_06_15_aisle_cw",
+      "frame_id": "frame_000006",
+      "cluster_hint": "forklift_c",
+      "label": "forklift",
+      "state_hint": "dynamic_agent",
+      "confidence": 0.93,
+      "centroid_xyz": [5.1, 1.9, 1.1]
+    },
+    {
+      "observation_id": "obs_0008",
+      "session_id": "demo_2022_06_23_aisle_cw",
+      "frame_id": "frame_000006",
+      "cluster_hint": "forklift_c",
+      "label": "forklift",
+      "state_hint": "dynamic_agent",
+      "confidence": 0.9,
+      "centroid_xyz": [2.0, 2.5, 1.0]
+    },
+    {
+      "observation_id": "obs_0009",
+      "session_id": "demo_2022_10_12_aisle_cw",
+      "frame_id": "frame_000007",
+      "cluster_hint": "forklift_c",
+      "label": "forklift",
+      "state_hint": "dynamic_agent",
+      "confidence": 0.89,
+      "centroid_xyz": [6.3, -1.2, 1.2]
+    },
+    {
+      "observation_id": "obs_0010",
+      "session_id": "demo_2022_10_12_aisle_cw",
+      "frame_id": "frame_000001",
+      "cluster_hint": "pallet_d",
+      "label": "pallet stack",
+      "state_hint": "transient_object",
+      "confidence": 0.78,
+      "centroid_xyz": [4.1, 1.0, 0.5]
+    },
+    {
+      "observation_id": "obs_0011",
+      "session_id": "demo_2022_10_12_aisle_cw",
+      "frame_id": "frame_000002",
+      "cluster_hint": "pallet_d",
+      "label": "pallet",
+      "state_hint": "transient_object",
+      "confidence": 0.75,
+      "centroid_xyz": [4.15, 1.03, 0.52]
+    }
+  ]
+}

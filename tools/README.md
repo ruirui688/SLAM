@@ -2,6 +2,24 @@
 
 This directory provides toolkits for additional SAM 2 use cases.
 
+### Minimal semantic-SLAM smoke demo
+
+The `run_minimal_demo.py` script is the fastest repository sanity check. It uses
+the tiny Git-tracked fixture under `examples/minimal_slam_demo/` and exercises
+the paper's core map-admission loop without GPU, model weights, TorWIC downloads,
+or network access.
+
+```bash
+python ./tools/run_minimal_demo.py
+```
+
+Outputs are written to `outputs/minimal_demo/`:
+
+- `summary.json`
+- `map_objects.json`
+- `rejected_clusters.json`
+- `report.md`
+
 ### Local Grounded-SAM2 to ObjectObservation bridge
 
 The `demo_local_grounded_sam2_observations.py` script runs the original single-image

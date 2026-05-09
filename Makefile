@@ -1,3 +1,5 @@
+.PHONY: build-image run demo
+
 # Get version of CUDA and enable it for compilation if CUDA > 11.0
 # This solves https://github.com/IDEA-Research/Grounded-Segment-Anything/issues/53
 # and https://github.com/IDEA-Research/Grounded-Segment-Anything/issues/84
@@ -35,3 +37,6 @@ run:
 	-e DISPLAY=$DISPLAY \
 	--name=gsa \
 	--ipc=host -it grounded_sam2:1.0
+
+demo:
+	python tools/run_minimal_demo.py

@@ -157,6 +157,18 @@ summary and local paths here, then commit and push the repository.
 - Policy: use existing evidence only; no new dataset downloads, no new
   experiment protocol, no unsupported downstream navigation/planning claim.
 
+## 2026-05-09 minimal runnable demo
+
+- Added a no-GPU, no-download smoke demo so external readers can run a complete
+  object-map admission loop immediately after clone.
+- Input fixture: `examples/minimal_slam_demo/observations.json`.
+- Command: `python tools/run_minimal_demo.py` or `make demo`.
+- Output: `outputs/minimal_demo/summary.json`, `map_objects.json`,
+  `rejected_clusters.json`, and `report.md`.
+- Verified result: 11 observations -> 4 clusters -> 2 retained stable map
+  objects and 2 rejected dynamic/transient clusters.
+- Policy: the fixture is tiny and Git-tracked; generated outputs remain ignored.
+
 ## 2026-05-09 P120 thick manuscript draft v1 (EN + ZH)
 
 - Created paper/manuscript_en_thick.md (372 lines, 31K chars) and paper/manuscript_zh_thick.md (366 lines, 12K chars).

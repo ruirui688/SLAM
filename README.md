@@ -19,6 +19,42 @@ and temporary files are intentionally excluded from Git. Dataset provenance and
 download entrypoints are documented in [`DATA_SOURCES.md`](./DATA_SOURCES.md)
 and [`DATA_ORGANIZATION.md`](./DATA_ORGANIZATION.md).
 
+## Quick Start: Minimal Runnable Demo
+
+This is the fastest way to verify the repository after clone. It does not
+download TorWIC, load Grounding DINO/SAM2/OpenCLIP, require GPU, or access the
+network. It runs a tiny Git-tracked object-observation fixture through the
+paper's core map-admission loop:
+
+```text
+ObjectObservation -> cross-session cluster -> retained MapObject or rejection
+```
+
+Run:
+
+```bash
+python tools/run_minimal_demo.py
+```
+
+or:
+
+```bash
+make demo
+```
+
+Expected output:
+
+```text
+outputs/minimal_demo/summary.json
+outputs/minimal_demo/map_objects.json
+outputs/minimal_demo/rejected_clusters.json
+outputs/minimal_demo/report.md
+```
+
+The demo should retain stable infrastructure-like objects and reject
+forklift-like or single-session transient evidence. The sample input lives in
+[`examples/minimal_slam_demo/observations.json`](./examples/minimal_slam_demo/observations.json).
+
 ## Paper Drafts
 
 The repository now contains visible manuscript drafts:
@@ -27,6 +63,8 @@ The repository now contains visible manuscript drafts:
 |---|---|---|
 | English manuscript | [`paper/manuscript_en.md`](./paper/manuscript_en.md) | Current English paper draft for direct GitHub review |
 | Chinese manuscript | [`paper/manuscript_zh.md`](./paper/manuscript_zh.md) | Chinese companion draft for project tracking and discussion |
+| Thick English manuscript | [`paper/manuscript_en_thick.md`](./paper/manuscript_en_thick.md) | Substantial first draft with expanded method, protocol, results, and discussion |
+| Thick Chinese manuscript | [`paper/manuscript_zh_thick.md`](./paper/manuscript_zh_thick.md) | Chinese companion for the thick first draft |
 
 These Markdown drafts are Git-tracked progress artifacts. They summarize the
 current submission-ready argument and point back to ignored local evidence under
@@ -120,16 +158,16 @@ metadata.
 
 ## Current Submission Status
 
-As of 2026-05-09, the current manuscript state is P109:
+As of 2026-05-09, the repository has:
 
-- inline citation and evidence threading is complete for the bounded systems
-  claim;
-- the six venue-neutral citation buckets are mapped to long-term SLAM, dynamic
-  SLAM, object-level SLAM, open-vocabulary 3D mapping, and TorWIC/POV-SLAM
-  provenance;
-- no new dataset download or new experiment protocol is active;
-- remaining work is venue-specific polish, final figure/table packaging, and
-  any explicitly approved larger-window experiments.
+- a thick English and Chinese first manuscript draft under `paper/`;
+- a P114-P119 evidence/package closure chain;
+- a minimal runnable smoke demo under `examples/minimal_slam_demo/`;
+- no active new dataset download or new experiment protocol.
+
+The next research step should be explicit: venue-shaped manuscript polish,
+approved larger-window experiments, citation back-end preference, or another
+named paper/development branch.
 
 ## Upstream Base
 
