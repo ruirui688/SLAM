@@ -346,3 +346,13 @@ summary and local paths here, then commit and push the repository.
 - Audit: projects/industrial-semantic-slam/artifacts/p129-evaluation-tightening-audit-2026-05-09.md
 - Artifacts: torwic_p129_consolidated_comparison_table_v1.{json,md}, torwic_p129_baseline_framing_table_v1.{json,md}, torwic_p129_appendix_closure_v1.{json,md}
 - Bundle v34: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v34.md
+
+## 2026-05-09 P130 submission-ready closure — definitive tables
+
+- 3 definitive closure artifacts:
+  - Main Table v8 (definitive): 5 evidence rows + aggregate rejection + aggregate composition. Supersedes v7.
+  - Appendix Closure Final v1: rejection taxonomy, stable-subset per protocol, 7 deferred gaps, Aisle vs Hallway branch comparison.
+  - Package Index v9 (final): full navigator — 4 manuscripts, 5 evidence tables, 49 audits, 35 bundles, 223 manifest entries, 374 evidence files.
+- EN thick draft: Table Captions updated with definitive v8 references.
+- Audit: projects/industrial-semantic-slam/artifacts/p130-submission-ready-closure-audit-2026-05-09.md
+- Bundle v35: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v35.md

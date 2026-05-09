@@ -347,14 +347,16 @@ The current P108-P119 + P125 audit chain (see closure bundle v30) is metadata-ve
 
 ## Table Captions
 
-**Table 1 — Consolidated Quantitative Comparison**
-All four protocols (Same-Day Aisle, Cross-Day Aisle, Cross-Month Aisle, Hallway) with observations/candidate-clusters/retained/rejected/retention-rate/dynamic-rejection-pct/stable-subset-composition. See `/home/rui/slam/outputs/torwic_p129_consolidated_comparison_table_v1.md`.
+**Table 1 — Submission-Ready Main Table v8 (Definitive)**
+All five evidence rows: Same-Day Aisle (203/11/5), Cross-Day Aisle (240/10/5), Cross-Month Aisle (297/14/7), Hallway (537/16/9), Historical Fallback (172/15/5). Includes aggregate rejection profile (25 total: 16 forklift-dynamic / 9 nonpersistent) and aggregate stable-subset composition (26 retained: 12 barrier + 8 work_table + 6 warehouse_rack, 0 forklifts). See `/home/rui/slam/outputs/torwic_submission_ready_main_table_v8.md`.
 
 **Table 2 — Baseline Framing**
-Comparison matrix: Richer Aisle Ladder vs Historical Fallback (172/15/5) vs Naive Retention Baseline vs Confidence-Only Baseline. See `/home/rui/slam/outputs/torwic_p129_baseline_framing_table_v1.md`.
+Comparison matrix: Richer Aisle Ladder vs Historical Fallback (172/15/5) vs Naive Retention Baseline vs Confidence-Only Baseline. Delta: retention +16.7pp, dynamic rejection +31.4pp from historical to richer. See `/home/rui/slam/outputs/torwic_p129_baseline_framing_table_v1.md`.
 
-**Table 3 — Appendix Closure: Rejection Taxonomy + Stable-Subset Composition**
-Rejection breakdown by protocol: 25 total rejections across 4 protocols (16 forklift-dynamic / 9 nonpersistent). Stable-subset composition: 26 retained objects (12 barrier + 8 work_table + 6 warehouse_rack). 0 forklifts retained. See `/home/rui/slam/outputs/torwic_p129_appendix_closure_v1.md`.
+**Table 3 — Appendix Closure (Final): Rejection Taxonomy + Branch Comparison**
+Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferred gap inventory (7 gaps recorded), Aisle vs Hallway branch comparison. See `/home/rui/slam/outputs/torwic_submission_ready_appendix_table_closure_final_v1.md`.
+
+**Package Index v9** — Full navigator for the submission package: 4 manuscripts, 5 evidence tables, 49 phase audits, 35 closure bundles, 223 manifest entries, 374 evidence files. See `/home/rui/slam/outputs/torwic_submission_ready_package_index_v9.md`.
 
 ## Figure Captions
 
