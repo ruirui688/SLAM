@@ -88,6 +88,12 @@ summary and local paths here, then commit and push the repository.
 - Evidence summary: GitHub readers can now inspect the visual story directly from `paper/manuscript_en.md` and `paper/manuscript_zh.md` without opening ignored `outputs/` paths.
 - Policy: selected lightweight paper figures are tracked; raw datasets, videos, point clouds, model weights, and full generated output directories remain excluded.
 
+## 2026-05-09 DeepSeek model routing
+
+- Operational configuration: default OpenClaw agent model is set to `deepseek-v4-flash`.
+- Exception: `research-orchestrator` keeps explicit `deepseek-v4-pro` routing for planning, owner-loop execution, and long-horizon autonomous research pushing.
+- Policy: do not use deprecated `deepseek-chat` or `deepseek-reasoner` aliases for this project.
+
 ## 2026-05-09 P113 submission-ready closure
 
 - Produced appendix/table closure v14, P113 audit, and closure bundle v23; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_submission_ready_appendix_table_closure_v14.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v23.md`.

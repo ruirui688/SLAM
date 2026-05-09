@@ -1,7 +1,7 @@
 # Dynamic Industrial Semantic-Segmentation-Assisted SLAM in Industrial Environments
 
 Status: repository-visible draft, 2026-05-09. This draft reflects the current
-P109 evidence state. It is a paper-progress manuscript, not final venue
+P112 evidence state. It is a paper-progress manuscript, not final venue
 typesetting.
 
 ## Abstract
@@ -69,6 +69,8 @@ semantic landmark evidence. The goal is not to claim a final lifelong SLAM
 backend, but to make the admission process explicit, executable, and auditable
 on real industrial RGB-D data.
 
+![Figure 1. Representative TorWIC industrial RGB-D revisits with segmentation overlays. The panels show why the paper treats semantic detections as candidate evidence rather than immediate persistent map structure: stable barriers, work tables, warehouse racks, and forklift-like dynamic contamination can appear in the same revisit family.](figures/torwic_real_session_overlays.png)
+
 ## 2. Contributions
 
 1. We formulate semantic-segmentation-assisted SLAM in dynamic industrial
@@ -95,6 +97,8 @@ masks, OpenCLIP reranks and resolves labels, and depth is used to form compact
 geometric summaries. Each retained candidate becomes an ObjectObservation with
 frame identifiers, label information, confidence scores, mask references,
 centroid estimates, size summaries, and quality metadata.
+
+![Figure 2. Paper-facing overview of the current first-eight-frame evidence stack. The figure summarizes per-session observations, cross-session clusters, selected stable objects, and rejected dynamic-like clusters used by the current manuscript.](figures/torwic_paper_result_overview.png)
 
 Frame-level detections are noisy and may fragment across nearby frames. The
 system therefore aggregates compatible observations inside each session into
@@ -149,9 +153,13 @@ clusters. The rejected set is interpretable: repeated forklift-like evidence is
 treated as dynamic-contamination-like evidence rather than admitted into the
 stable map.
 
+![Figure 3. Stable-object admission example. Green rows are retained as stable object evidence; red rows are rejected clusters, including forklift-like dynamic contamination and insufficiently supported candidates.](figures/torwic_stable_object_selection_v5.png)
+
 The Hallway branch is complete over 80/80 planned first-eight-frame commands
 across ten Hallway sessions. It produces 537 frame-level objects, 16
 cross-session clusters, and 9 selected stable objects.
+
+![Figure 4. Hallway broader-validation composite. This branch validates the same object-maintenance output structure on a recovered 10-session Hallway family, but remains secondary and must not be merged into the primary Aisle ladder.](figures/torwic_hallway_composite.png)
 
 | Validation Branch | Sessions | Frame-Level Objects | Cross-Session Clusters | Retained Stable Objects |
 |---|---:|---:|---:|---:|
@@ -232,3 +240,4 @@ long-term object-map maintenance on real industrial revisits.
 - Current closure bundle: `outputs/torwic_submission_ready_closure_bundle_v19.md`
 - Inline citation/evidence threading matrix:
   `outputs/torwic_p109_inline_citation_threading_matrix_v1.md`
+- Tracked paper figures: `paper/figures/`

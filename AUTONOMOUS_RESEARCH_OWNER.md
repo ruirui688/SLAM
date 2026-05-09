@@ -16,6 +16,11 @@ The owner is configured for hosted autonomy:
 - update `RESEARCH_PROGRESS.md` after non-trivial progress;
 - commit and push GitHub-facing progress to `origin/main`.
 
+The OpenClaw default model is `deepseek-v4-flash` for ordinary agent work.
+Planning, owner-loop execution, and long-horizon autonomous project pushing
+remain on `deepseek-v4-pro` through the explicit `research-orchestrator`
+configuration.
+
 ## Approval Gates
 
 The owner must not proceed without explicit approval for:

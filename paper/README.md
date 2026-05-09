@@ -7,6 +7,7 @@ review.
 |---|---|---|
 | [`manuscript_en.md`](./manuscript_en.md) | English | Current paper-facing manuscript draft |
 | [`manuscript_zh.md`](./manuscript_zh.md) | Chinese | Chinese companion draft for project progress review |
+| [`figures/`](./figures/) | Images | Tracked paper figures copied from curated local outputs |
 
 The source evidence artifacts referenced by these drafts are mostly generated
 under `/home/rui/slam/outputs/` and intentionally ignored by Git. The tracked
