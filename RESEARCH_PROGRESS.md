@@ -94,9 +94,22 @@ summary and local paths here, then commit and push the repository.
 - Exception: `research-orchestrator` keeps explicit `deepseek-v4-pro` routing for planning, owner-loop execution, and long-horizon autonomous research pushing.
 - Policy: do not use deprecated `deepseek-chat` or `deepseek-reasoner` aliases for this project.
 
+## 2026-05-09 wake mechanism consolidation
+
+- Consolidated autonomous research wakeups to one active driver: host-side `research-owner-host-watchdog.timer`.
+- New host policy: 15-minute interval, 45-minute stale threshold, 30-minute owner-loop timeout, 3 bounded steps per wake, and at most one phase completed per wake.
+- Disabled the duplicate OpenClaw `research-owner-watchdog-industrial-semantic-slam` cron job; it should not independently start research-owner work.
+- Policy: Telegram remains enabled for real progress reports, while duplicate/skip heartbeats stay local.
+
 ## 2026-05-09 P113 submission-ready closure
 
 - Produced appendix/table closure v14, P113 audit, and closure bundle v23; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_submission_ready_appendix_table_closure_v14.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v23.md`.
 - Evidence summary: closure v14 consolidates the full P108-P113 audit chain with category-level stable-subset composition, cluster rejection profile, consolidated evidence ladder, and Appendix A-T mapping. Synchronized Appendix T into both positioned and clean drafts. Phase queue exhausted after P113.
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol.
 - GitHub push blocked by SSH for commits a48e320 (P112) and subsequent; local commits preserved.
+
+## 2026-05-09 P114 citation metadata field-level verification
+
+- Produced P114 field-level citation metadata verification matrix and closure bundle v24; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_p114_citation_metadata_field_level_verification_v1.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v24.md`.
+- Evidence summary: 6/6 references verified across 8 standard fields (authors, title, venue, vol, no, pages, date, DOI). All DOIs resolve to claimed venues. Related-work claim-to-evidence threading verified (6/6 claims in Introduction/Related Work). Abstract/Introduction/Conclusion framing reviewed — no material changes needed. Fixed stale Appendix A references (v11→v14, v7→v24). Synchronized Appendix U into both positioned and clean drafts. Non-blocking gap: arXiv links missing for [1]–[3] (IEEE published, arXiv optional).
+- Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol.
