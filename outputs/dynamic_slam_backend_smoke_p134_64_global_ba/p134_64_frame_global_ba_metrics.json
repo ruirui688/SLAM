@@ -1,0 +1,38 @@
+{
+  "artifact": "P134 64-frame raw-vs-masked DROID-SLAM global BA metrics",
+  "created": "2026-05-09T15:32:48+08:00",
+  "scope": "64-frame bounded TorWIC Aisle_CW_Run_1 window, DROID-SLAM with global BA enabled, Sim(3) alignment and scale correction in evo.",
+  "claim_boundary": "This proves a larger bounded DROID-SLAM raw-vs-masked backend run with global BA is executable. It does not prove masked input improves full-trajectory SLAM, map quality, or navigation.",
+  "runtime": {
+    "environment": "conda tram",
+    "torch": "2.4.0+cu118",
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "droid_weights": "/home/rui/tram/data/pretrain/droid.pth"
+  },
+  "inputs": {
+    "groundtruth": "outputs/dynamic_slam_backend_input_pack_64/groundtruth.txt",
+    "raw_estimate": "outputs/dynamic_slam_backend_smoke_p134_64_global_ba/raw_estimate_tum.txt",
+    "masked_estimate": "outputs/dynamic_slam_backend_smoke_p134_64_global_ba/masked_estimate_tum.txt",
+    "frame_count": 64,
+    "masked_policy": "Only frame 000002 has the forklift semantic mask; other frames have empty masks."
+  },
+  "metrics": {
+    "raw": {
+      "ape_rmse_m": 0.051135,
+      "ape_mean_m": 0.043453,
+      "rpe_rmse_m": 0.032713,
+      "rpe_mean_m": 0.019346
+    },
+    "masked": {
+      "ape_rmse_m": 0.051136,
+      "ape_mean_m": 0.043453,
+      "rpe_rmse_m": 0.032713,
+      "rpe_mean_m": 0.019345
+    },
+    "delta_masked_minus_raw": {
+      "ape_rmse_m": 0.000001,
+      "rpe_rmse_m": 0.0
+    }
+  },
+  "interpretation": "Raw and masked trajectories are effectively tied on this 64-frame bounded global-BA run. The single-frame dynamic mask has negligible effect at this window scale."
+}

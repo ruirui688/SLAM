@@ -428,3 +428,21 @@ summary and local paths here, then commit and push the repository.
   - masked: APE RMSE `0.001243 m`, RPE RMSE `0.002255 m`.
 - Paper update completed in EN/ZH thick drafts: this is now framed as backend
   path closure, not as evidence that masking improves full-trajectory SLAM.
+
+## 2026-05-09 P134 bounded 64-frame DROID-SLAM global-BA expansion
+
+- Documentation update: README now separates minimal test environment, generic
+  full research/GPU environment, and this machine's verified `tram` runtime.
+- Added `make dynamic-slam-backend-64`.
+- Generated a 64-frame raw/masked backend input pack from local TorWIC
+  `Aisle_CW_Run_1` data at `outputs/dynamic_slam_backend_input_pack_64`.
+- Ran DROID-SLAM on raw and masked RGB with `--global-ba` enabled:
+  - raw estimate: `outputs/dynamic_slam_backend_smoke_p134_64_global_ba/raw_estimate_tum.txt`;
+  - masked estimate: `outputs/dynamic_slam_backend_smoke_p134_64_global_ba/masked_estimate_tum.txt`.
+- evo metrics with Sim(3) alignment and scale correction:
+  - raw: APE RMSE `0.051135 m`, RPE RMSE `0.032713 m`;
+  - masked: APE RMSE `0.051136 m`, RPE RMSE `0.032713 m`.
+- Paper update completed in EN/ZH thick drafts: 64-frame global-BA backend path
+  is now recorded as executable, while raw/masked remain tied. No masked-input
+  improvement claim is made because the current mask affects only frame
+  `000002`.

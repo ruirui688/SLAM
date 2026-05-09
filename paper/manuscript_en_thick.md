@@ -271,7 +271,7 @@ The current evidence differs from standard dynamic-SLAM benchmarks in two import
 
 2. **We report rejection profiles, not dynamic/static pixel classification.** The admission-control framework produces a binary decision per candidate object (retain/reject) with auditable reasons. This is coarser than per-pixel dynamic segmentation but directly addresses the map-maintenance question.
 
-Post-package engineering smoke evidence now additionally verifies the raw-vs-masked backend path on an 8-frame TorWIC Aisle window: DROID-SLAM produces raw and masked trajectory estimates, and evo reports APE/RPE for both. The smoke result is a pipeline-closure check rather than a benchmark claim: raw and masked are effectively tied on the tiny window (APE RMSE 0.001242 m vs. 0.001243 m; RPE RMSE 0.002250 m vs. 0.002255 m), so it should not be interpreted as evidence of trajectory improvement from masking.
+Post-package engineering smoke evidence now additionally verifies the raw-vs-masked backend path on an 8-frame TorWIC Aisle window: DROID-SLAM produces raw and masked trajectory estimates, and evo reports APE/RPE for both. The smoke result is a pipeline-closure check rather than a benchmark claim: raw and masked are effectively tied on the tiny window (APE RMSE 0.001242 m vs. 0.001243 m; RPE RMSE 0.002250 m vs. 0.002255 m), so it should not be interpreted as evidence of trajectory improvement from masking. A subsequent 64-frame bounded run with DROID-SLAM global bundle adjustment is also executable, but remains tied (APE RMSE 0.051135 m vs. 0.051136 m; RPE RMSE 0.032713 m vs. 0.032713 m). This reinforces the current claim boundary: the backend path is now operational, while masked-input performance gains require larger windows and richer dynamic-mask coverage.
 
 ---
 
@@ -303,7 +303,7 @@ The Aisle ladder (§VII.A) is the primary evidence ladder for the systems contri
 
 ## IX. Limitations
 
-1. **Not a complete lifelong SLAM backend.** The maintenance layer (§V) is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size — capabilities that full SLAM systems [1][3][5] provide. A bounded DROID-SLAM raw-vs-masked smoke run now verifies the backend execution/evo path (§VII.E), but full-trajectory backend evaluation remains future work.
+1. **Not a complete lifelong SLAM backend.** The maintenance layer (§V) is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size — capabilities that full SLAM systems [1][3][5] provide. Bounded DROID-SLAM raw-vs-masked runs now verify the backend execution/evo path (§VII.E), including a 64-frame global-BA run, but full-trajectory backend evaluation remains future work.
 
 2. **Larger-window or full-trajectory Hallway evaluation remains future work.** The current Hallway branch (§VII.C) uses 8/10 sessions (80/80 frames). Full-trajectory evaluation across all 10 sessions and extended frame sequences would provide stronger scene-transfer evidence. The current 9/16 retention ratio on limited frames is indicative but not conclusive.
 

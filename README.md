@@ -14,16 +14,79 @@
 - 尚未完成：扩大到完整视觉 SLAM 后端轨迹实验，并报告有统计意义的 ATE/RPE、建图质量或导航收益；
 - 因此本文当前主张是“语义分割辅助的动态对象过滤与长期对象地图维护”，不是“完整动态 SLAM benchmark 已经闭环优于现有后端”。
 
-## 0. 环境口径
+## 0. 环境与安装
 
 环境的作用只是隔离依赖和固定运行口径，不是项目能力本身。
 
 本仓库保留两个入口层级：
 
 - **最小 demo 入口**：只使用 Python 标准库，不需要 GPU、CUDA、PyTorch、模型权重或 TorWIC 原始数据；任意 Python 3.10+ 环境都能运行。
-- **本机研究/GPU 入口**：统一使用现有 conda 环境 `tram`，用于 DROID-SLAM、PyTorch CUDA、cuDNN、evo 和后续 raw-vs-masked 后端实验。
+- **完整研究/GPU 入口**：用于语义分割、DROID-SLAM、PyTorch CUDA、cuDNN、evo 和 raw-vs-masked 后端实验，需要 GPU 环境、SLAM 后端、模型权重和数据路径。
 
-因此，持续推进研究时不要再混用 `.venv`、`base` 和临时 pip 环境；统一使用：
+### 0.1 最小测试环境
+
+适合外部读者快速验证仓库核心对象地图准入闭环。
+
+```bash
+git clone git@github.com:ruirui688/SLAM.git
+cd SLAM
+python --version
+
+# 可选：隔离最小 demo 环境
+python -m venv .venv
+source .venv/bin/activate
+
+python tools/run_minimal_demo.py
+# 或
+make demo
+```
+
+最低要求：
+
+- Python 3.10 或更高版本；
+- Linux/macOS/Windows 均可；
+- 不需要 `pip install`；
+- 不需要 CUDA、PyTorch、模型权重、TorWIC 原始数据或网络。
+
+### 0.2 完整研究/GPU 环境
+
+适合复现语义分割、动态 mask、DROID-SLAM 后端和 ATE/RPE 评估。推荐使用
+conda/mamba 管理，避免系统 Python、`.venv` 和研究依赖混用。
+
+通用安装轮廓：
+
+```bash
+# 1. 创建研究环境
+conda create -n slam-research python=3.10 -y
+conda activate slam-research
+
+# 2. 安装 CUDA 版 PyTorch；版本需按本机驱动/CUDA 调整
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# 3. 安装评估和常用工具
+pip install evo opencv-python pillow numpy scipy matplotlib tqdm pyyaml
+
+# 4. 安装或接入 DROID-SLAM
+git clone https://github.com/princeton-vl/DROID-SLAM.git thirdparty/DROID-SLAM
+pip install -e thirdparty/DROID-SLAM
+
+# 5. 可选：安装语义前端依赖
+# Grounding DINO / SAM2 / OpenCLIP 的权重和版本按实验需要单独固定。
+```
+
+完整研究环境还需要：
+
+- NVIDIA GPU 和可用驱动；
+- CUDA/cuDNN 与 PyTorch wheel 匹配；
+- DROID-SLAM 权重，例如 `droid.pth`；
+- TorWIC 或等价 RGB/GT 数据；
+- 如需自动语义分割，另需 Grounding DINO、SAM2、OpenCLIP 及对应权重。
+
+网络较慢时可以设置代理或使用镜像，但 PyTorch CUDA wheel、DROID-SLAM、模型权重和数据集应固定版本并记录来源，避免论文结果不可复现。
+
+### 0.3 本机已验证环境
+
+在这台机器上，持续推进研究时统一使用现有 conda 环境 `tram`：
 
 ```bash
 LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram <command>
@@ -41,32 +104,7 @@ make dynamic-slam-backend-env-check
 
 这是给外部读者的第一入口。它不需要下载 TorWIC，不加载 Grounding DINO/SAM2/OpenCLIP，不需要 GPU，不访问网络，只使用 Python 标准库和仓库内置的小样例数据。
 
-### 测试环境安装
-
-最低环境：
-
-- Python 3.10 或更高版本；
-- Linux/macOS/Windows 均可；
-- 不需要 CUDA；
-- 不需要模型权重；
-- 不需要完整数据集。
-
-建议命令：
-
-```bash
-git clone git@github.com:ruirui688/SLAM.git
-cd SLAM
-python --version
-```
-
-可选虚拟环境：
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-这个最小 demo 没有第三方依赖，所以不需要 `pip install`。在本机持续研究时，优先使用上面的 `tram` conda 环境；`.venv` 只适合外部读者隔离最小 demo。
+测试环境和完整研究环境的安装方法见 §0。这个最小 demo 没有第三方依赖，所以不需要 `pip install`。
 
 ### 运行入口
 
@@ -276,6 +314,21 @@ outputs/dynamic_slam_backend_smoke_p132/p132_p133_raw_vs_masked_metrics.md
 | masked RGB | 0.001243 | 0.002255 |
 
 当前边界：这证明 raw-vs-masked 后端运行和 evo ATE/RPE 路径已经打通；但短窗口 raw/masked 基本持平，不能声称 masked input 已改善完整轨迹、建图质量或导航收益。
+
+P134 进一步扩大到 64 帧，并启用 DROID-SLAM global BA：
+
+```bash
+make dynamic-slam-backend-64
+```
+
+64 帧 global BA 结果：
+
+| 输入 | APE RMSE (m) | RPE RMSE (m) |
+|---|---:|---:|
+| raw RGB | 0.051135 | 0.032713 |
+| masked RGB | 0.051136 | 0.032713 |
+
+当前解释：64 帧后端链路已经可执行，raw/masked 仍基本持平；由于当前动态 mask 只作用于第 `000002` 帧，不能据此主张 masked input 带来轨迹收益。
 
 ## 2. 论文稿件
 

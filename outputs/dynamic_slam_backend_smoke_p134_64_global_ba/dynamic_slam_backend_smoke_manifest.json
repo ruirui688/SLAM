@@ -1,0 +1,39 @@
+{
+  "artifact": "P132 dynamic SLAM backend smoke run",
+  "created": "2026-05-09T15:32:48+08:00",
+  "status": "ok",
+  "claim_boundary": "Bounded DROID-SLAM smoke run only; not yet a full ATE/RPE benchmark or navigation claim.",
+  "runtime": {
+    "python": "/home/rui/miniconda3/envs/tram/bin/python",
+    "torch": "2.4.0+cu118",
+    "cuda_available": true,
+    "device": "NVIDIA GeForce RTX 3060",
+    "droid_root": "/home/rui/tram/thirdparty/DROID-SLAM",
+    "weights": "/home/rui/tram/data/pretrain/droid.pth"
+  },
+  "input_dir": "outputs/dynamic_slam_backend_input_pack_64",
+  "output_dir": "outputs/dynamic_slam_backend_smoke_p134_64_global_ba",
+  "frame_limit": 64,
+  "global_ba": true,
+  "runs": [
+    {
+      "label": "raw",
+      "status": "ok",
+      "rgb_list": "outputs/dynamic_slam_backend_input_pack_64/raw/rgb.txt",
+      "estimate_tum": "outputs/dynamic_slam_backend_smoke_p134_64_global_ba/raw_estimate_tum.txt",
+      "frame_count": 64,
+      "trajectory_rows": 64,
+      "error": null
+    },
+    {
+      "label": "masked",
+      "status": "ok",
+      "rgb_list": "outputs/dynamic_slam_backend_input_pack_64/masked/rgb.txt",
+      "estimate_tum": "outputs/dynamic_slam_backend_smoke_p134_64_global_ba/masked_estimate_tum.txt",
+      "frame_count": 64,
+      "trajectory_rows": 64,
+      "error": null
+    }
+  ],
+  "next_step": "If both runs are ok, evaluate raw/masked estimates against groundtruth.txt with evo APE/RPE."
+}

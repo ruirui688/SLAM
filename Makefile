@@ -1,4 +1,4 @@
-.PHONY: build-image run demo semantic-example dynamic-slam-frontend dynamic-slam-backend-pack dynamic-slam-backend-env-check dynamic-slam-backend-smoke evidence-pack
+.PHONY: build-image run demo semantic-example dynamic-slam-frontend dynamic-slam-backend-pack dynamic-slam-backend-env-check dynamic-slam-backend-smoke dynamic-slam-backend-64 evidence-pack
 
 # Get version of CUDA and enable it for compilation if CUDA > 11.0
 # This solves https://github.com/IDEA-Research/Grounded-Segment-Anything/issues/53
@@ -55,6 +55,10 @@ dynamic-slam-backend-env-check:
 
 dynamic-slam-backend-smoke:
 	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/run_dynamic_slam_backend_smoke.py
+
+dynamic-slam-backend-64:
+	python tools/build_dynamic_slam_backend_input_pack.py --frame-count 64 --output-dir outputs/dynamic_slam_backend_input_pack_64
+	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/dynamic_slam_backend_input_pack_64 --output-dir outputs/dynamic_slam_backend_smoke_p134_64_global_ba --frame-limit 64 --buffer 256 --global-ba
 
 evidence-pack:
 	python tools/build_paper_evidence_pack.py
