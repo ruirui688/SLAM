@@ -80,7 +80,7 @@ Our key observation is that the pipeline from open-vocabulary detection to durab
 \subsection{Scope and Contribution Boundaries}
 \label{sec:scope}
 
-We deliberately limit the contribution to stable-object retention, dynamic-contamination rejection, and map-admission selectivity in industrial revisits. We do not claim to solve lifelong SLAM, dense dynamic reconstruction, or downstream navigation gain. The paper offers an auditable bridge from perception to map maintenance, with reproducible evidence on the TorWIC dataset.
+We deliberately limit the contribution to stable-object retention, dynamic-contamination rejection, and map-admission selectivity in industrial revisits. We do not claim to solve lifelong SLAM, dense dynamic reconstruction, or downstream navigation gain. The paper offers an architecturally auditable bridge from perception to map maintenance: each admission or rejection decision is traceable to per-object provenance (session counts, frame observations, label histograms, dynamicity scores), with reproducible evidence on the TorWIC dataset. This auditability is an architectural property, not a downstream-evaluated claim.
 
 % ============================================================================
 % II. CONTRIBUTIONS
@@ -89,19 +89,19 @@ We deliberately limit the contribution to stable-object retention, dynamic-conta
 \label{sec:contributions}
 
 \begin{enumerate}
-  \item \textbf{An explicit object-maintenance architecture} (Section~\ref{sec:method}) with observation, tracklet, map-object, and revision layers that separates detection from map admission. Each layer carries frame-level provenance, stability counters, and dynamicity scores.
+  \item \textbf{An explicit object-maintenance architecture} (Section~\ref{sec:method}) with observation, tracklet, map-object, and revision layers that separates detection from map admission. Each layer carries per-object provenance---frame counts, session IDs, label histograms, and dynamicity scores (Section~\ref{sec:trust_score})---enabling complete traceability of every admission or rejection decision to its underlying evidence.
   
-  \item \textbf{A transparent trust-score formulation} (Section~\ref{sec:trust_score}) for map admission that combines session-level stability, cross-session persistence, and dominant-state dynamicity. The score is intentionally simple and auditable rather than presented as an optimal estimator.
+  \item \textbf{A reproducible evidence ladder} (Section~\ref{sec:results_aisle}) on the TorWIC dataset~\cite{barath2023povslam} across three Aisle protocols (same-day, cross-day, cross-month) and a Hallway broader-validation branch (Section~\ref{sec:results_hallway}), all reported with invariant selection criteria and per-cluster-ID provenance.
   
-  \item \textbf{A reproducible evidence ladder} (Section~\ref{sec:results_aisle}) on the TorWIC dataset~\cite{barath2023povslam} across three Aisle protocols (same-day, cross-day, cross-month) and a Hallway broader-validation branch (Section~\ref{sec:results_hallway}), all reported with selection-criteria justification and cluster-ID-level traceability.
+  \item \textbf{A rejection-profile analysis} (Section~\ref{sec:results_rejection}) showing that forklift-like dynamic contamination is the primary rejection driver (50.0\%--71.4\% share) across all four protocols. Critically, forklifts achieve high label purity ($82\%$--$91\%$) and high observation counts (15--28 frames), so purity- or support-based heuristics alone cannot reject them.
   
-  \item \textbf{A rejection-profile analysis} (Section~\ref{sec:results_rejection}) showing that forklift-like dynamic contamination is the primary rejection driver (50.0\%--71.4\% share) across all four protocols.
+  \item \textbf{Admission-criteria defense} (Section~\ref{sec:results_defense}): parameter ablation across 27 combinations confirming that min\_sessions and min\_frames are sensitive filters, while max\_dynamic\_ratio is insensitive across a wide range (0.10--0.30) due to natural separation of infrastructure (dynamic ratio $=$ 0.00) and forklifts ($\geq 0.83$) in the TorWIC data; baseline comparison demonstrating that purity/support heuristics cannot reject forklifts (phantom risk 21.1\% vs 0.0\% for the full policy).
   
-  \item \textbf{An open-source release} of the object-maintenance layer with TorWIC protocol configuration and selection criteria, supporting auditable reproduction.
+  \item \textbf{Per-category retention and rejection analysis} (Section~\ref{sec:results_defense}): forklift rejection is universal (0/4 retained), infrastructure retention is selective and interpretable---barriers 40\%, work tables 50\%, racks 33\%---with each rejection attributable to one or more documented criteria.
   
-  \item \textbf{Admission-criteria defense} (Section~\ref{sec:results_defense}): parameter ablation confirming min\_sessions/min\_frames are sensitive filters and max\_dynamic\_ratio is naturally saturated by data bimodality; baseline comparison demonstrating that simpler heuristics (purity/support) cannot reject forklifts (phantom risk 21.1\% vs 0.0\% with the full policy).
+  \item \textbf{A quantified negative-result study} (Section~\ref{sec:results_dynamic_chain}): 10 DROID-SLAM dynamic masking configurations all produce trajectory-neutral results ($|\Delta\text{ATE}| < 0.1~\text{mm}$), establishing a reproducible boundary condition ($<2\%$ dynamic frame coverage) under which pixel-level dynamic masking does not measurably affect visual odometry in this environment.
   
-  \item \textbf{Per-category retention and rejection analysis} (Section~\ref{sec:results_defense}): forklift rejection is universal (0/4 retained), infrastructure retention is selective and interpretable (40\%--50\%).
+  \item \textbf{An open-source release} of the maintenance layer with TorWIC protocol configuration and invariant selection criteria, to be released upon acceptance.
 \end{enumerate}
 
 % ============================================================================
@@ -134,7 +134,7 @@ Dynamic environments present a fundamental challenge for SLAM. DynaSLAM~\cite{be
 
 Long-term SLAM requires managing map memory across extended durations. RTAB-Map~\cite{labbe2019rtabmap} implements an appearance-based memory management system for large-scale and long-term operation. Churchill and Newman~\cite{churchill2012practice} demonstrated experience-based navigation where the robot maintains multiple map representations for different temporal conditions. Fehr et al.~\cite{fehr2016tsdf} proposed TSDF-based change detection for long-term dense reconstruction, distinguishing persistent structure from dynamic objects. ORB-SLAM3~\cite{campos2021orb3} introduced multi-map capabilities that enable map reuse and merging across sessions. The standard SLAM backends---ORB-SLAM2~\cite{murartal2015orb2} and DROID-SLAM~\cite{teed2021droidslam}---provide the visual odometry foundation on which our maintenance layer operates. POV-SLAM~\cite{barath2023povslam} introduced object-aware semantic SLAM and released the TorWIC dataset with ground-truth object annotations across multiple revisits.
 
-\textit{Relationship:} Long-term mapping systems focus on memory management and geometric consistency across time. Our maintenance layer adds an orthogonal dimension: semantic admission control based on stability, persistence, and dynamicity signals---not just geometric or memory constraints.
+\textit{Relationship:} Long-term mapping systems focus on memory management and geometric consistency across time. Our maintenance layer adds an orthogonal dimension: semantic admission control based on stability, persistence, and dynamicity signals---not just geometric or memory constraints. The broader question of which landmarks to retain has been studied in classical SLAM under different names: EKF-SLAM feature management, PTAM map-point culling, and ORB-SLAM's map-point policies all implement observation-quality thresholds. These are geometric filters; our work is the first to carry this principle into semantic object-level map maintenance with explicit cross-session and dynamicity criteria.
 
 % === III.D ===
 \subsection{Segmentation-Assisted Filtering}
@@ -230,8 +230,20 @@ Recent advances in vision foundation models enable extracting semantically label
 \subsection{Dynamic SLAM: Complete Evidence Chain}
 \label{sec:results_dynamic_chain}
 
-% --- Figures 4-10: Dynamic SLAM diagnostics ---
-% --- Tables 5-6: Dynamic SLAM metrics ---
+% FIGURE ALLOCATION NOTE (per ROUND1_REVIEW Risk #4):
+% Main body: 1 summary figure (raw vs masked overlay) + 1 summary table (10-config metrics).
+% Supplementary: all per-config diagnostic figures (mask coverage, temporal/flow propagation,
+%   first-N real-mask diagnostics, concentrated vs uniform comparison).
+% Rationale: the negative result is scientifically honest but 15 figures worth of
+%   detailed diagnostics are disproportionate to the conclusion.
+
+% --- Fig 4: DROID-SLAM raw-vs-masked trajectory overlay (main body) ---
+% PLACEHOLDER: \begin{figure} \centering \includegraphics[width=\columnwidth]{figures/torwic_dynamic_slam_backend_p134.png} \caption{... Fig. 4 ...} \label{fig:dynamic_summary} \end{figure}
+
+% --- Table 6: 10-configuration evidence chain summary (main body) ---
+% PLACEHOLDER for complete metrics table
+
+% --- Supplementary-only diagnostics (Figs S2-S8): mask coverage, propagation, first-N real mask, window selection ---
 
 % === VII.G Admission Criteria Defense ===
 \subsection{Admission Criteria Defense: Ablation, Baseline Comparison, and Per-Category Analysis}
@@ -249,6 +261,16 @@ Recent advances in vision foundation models enable extracting semantically label
 \section{Discussion}
 \label{sec:discussion}
 
+% EXTENDED DISCUSSION PLACEHOLDER — content to be populated from manuscript_en_thick.md §VIII
+% Key points the Discussion must cover (per ROUND1_REVIEW.md Risks R2.6, R2.7, R2.9):
+% 1. Why boolean criteria (not learned): traceability, cross-scene transfer, debuggability
+% 2. Why the trust-score weights (0.4/0.3/0.5) reflect domain-informed priorities rather than optimization
+% 3. Dynamic-ratio bimodality: separation visible in data but may partially reflect frontend classifier behavior
+% 4. How this compares conceptually to published map management (RTAB-Map memory, ORB-SLAM3 culling)
+% 5. Single-site limitation and what would be needed for cross-site transfer
+
+This section will draw on the thick manuscript Discussion (manuscript\_en\_thick.md §VIII) to address the Round~1 critique: (a)~justifying the deliberate use of boolean criteria over learned alternatives, (b)~contextualizing the observed data bimodality as real but possibly frontend-influenced, (c)~relating the admission-control problem to landmark-selection paradigms in classical SLAM, and (d)~discussing what a multi-site validation would require.
+
 % ============================================================================
 % IX. LIMITATIONS
 % ============================================================================
@@ -256,12 +278,14 @@ Recent advances in vision foundation models enable extracting semantically label
 \label{sec:limitations}
 
 \begin{enumerate}
-  \item \textbf{Detection confidence.} Per-detection NN confidence scores were not logged during observation extraction. The label-purity proxy is used as a documented substitute.
-  \item \textbf{Dataset scale.} TorWIC is the only publicly available multi-session industrial SLAM dataset with object annotations. Larger-scale field validation is deferred.
-  \item \textbf{Single-session infrastructure loss.} Infrastructure appearing in only one session cannot be verified for cross-session persistence and is conservatively rejected.
+  \item \textbf{Evaluation scale.} The admission-control evaluation operates on 20 candidate clusters (across all protocols after deduplication). While this covers all object-level entities detected across 35 TorWIC sessions, statistical power is limited. Confidence intervals for admission rates and between-baseline comparisons should be interpreted with appropriate caution.
+  \item \textbf{Single industrial site.} TorWIC is collected in a single warehouse. Although Aisle and Hallway provide protocol-level diversity, external validation at other industrial sites is deferred.
+  \item \textbf{Detection confidence not logged.} Per-detection NN confidence scores were not preserved during observation extraction. The label-purity proxy is used as a documented substitute.
+  \item \textbf{Dynamic ratio may depend on frontend.} The dynamic ratio is computed from the detector's state classifier (static / candidate / dynamic\_agent). The observed bimodality (0.00 vs $\geq$0.83) may partially reflect the classifier's decision boundary rather than purely physical separation. The insensitivity of max\_dynamic\_ratio to threshold choice is demonstrated through ablation but the bimodality's dependence on frontend behavior is a caveat.
+  \item \textbf{No comparison against published map-management policies.} The baseline comparison (naive-all-admit, purity/support heuristic) uses deliberately simple policies to isolate the contribution of individual signals. Comparison against map-management policies in published SLAM systems (e.g., RTAB-Map's memory management, ORB-SLAM3's map-point culling) is deferred to future work.
+  \item \textbf{Single-session infrastructure loss.} Infrastructure appearing in only one session cannot be verified for cross-session persistence and is conservatively rejected. This is a design choice---precision over recall for map entries---but entails genuine infrastructure omission.
   \item \textbf{Dynamic SLAM boundary.} Forklifts in TorWIC warehouse aisles occupy at most 1.39\% of the image frame, below the $\sim$5\% threshold needed to measurably affect DROID-SLAM. Richer dynamic scenarios may produce different outcomes.
-  \item \textbf{VO backend.} Only DROID-SLAM was tested as the visual odometry backend. ORB-SLAM3 and other backends may have different sensitivity to dynamic content.
-  \item \textbf{Citation completeness.} Current reference list (11 entries) requires expansion to meet TR-O expectations. Related-work expansion is planned (P164, see BUILD\_NOTES.md).
+  \item \textbf{Single VO backend.} Only DROID-SLAM was tested as the visual odometry backend. ORB-SLAM3 and other backends may exhibit different sensitivity to dynamic content masking.
   \item \textbf{Ground-truth object annotations.} TorWIC provides ground-truth object IDs; we use them for protocol configuration but the framework itself operates without ground truth.
 \end{enumerate}
 
@@ -271,13 +295,13 @@ Recent advances in vision foundation models enable extracting semantically label
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presents an object-centric approach to semantic-segmentation-assisted SLAM for dynamic industrial environments. The framework transforms open-vocabulary RGB-D segmentation outputs into observation, tracklet, map-object, and revision layers, then uses explicit persistence, stability, and dynamicity signals to retain stable semantic landmarks and suppress dynamic contamination.
+This paper presents a systematic, evidence-backed approach to session-level map admission control for semantic-segmentation-assisted SLAM in dynamic industrial environments. The framework transforms open-vocabulary RGB-D segmentation outputs into observation, tracklet, map-object, and revision layers, then applies explicit persistence, stability, and dynamicity signals to retain stable semantic landmarks and suppress dynamic contamination.
 
-Current TorWIC evidence demonstrates a reproducible submission-ready ladder across same-day, cross-day, and cross-month Aisle protocols, with Hallway retained as a separate scene-transfer branch. Forklift-like evidence is consistently rejected as dynamic contamination, while barriers, work tables, and warehouse racks are selectively retained based on multi-session evidence, label consistency, and static dominance.
+Current TorWIC evidence documents a reproducible evidence chain across same-day, cross-day, and cross-month Aisle protocols, with Hallway retained as a separate scene-transfer branch. Forklift-like evidence is consistently rejected as dynamic contamination (50\%--71\% rejection share), while barriers, work tables, and warehouse racks are selectively retained based on multi-session evidence, label consistency, and static dominance.
 
-The dynamic SLAM backend evaluation contributes a complete negative-result study: 10 DROID-SLAM configurations all produce trajectory-neutral results ($|\Delta\text{ATE}| < 0.1~\text{mm}$), with a quantified boundary condition at $\sim$5\% dynamic frame coverage. The admission criteria are validated through parameter ablation (confirming natural bimodality), baseline comparison (demonstrating that simpler heuristics fail), and per-category retention/rejection analysis (showing universal forklift rejection and interpretable infrastructure retention).
+The dynamic SLAM backend evaluation provides a quantified boundary condition: 10 DROID-SLAM configurations all produce trajectory-neutral results ($|\Delta\text{ATE}| < 0.1~\text{mm}$) when dynamic frame coverage is below $\sim$2\%, establishing reproducibility for the negative result rather than leaving it as a speculative future-work item. The admission criteria are validated through parameter ablation across 27 parameter combinations, baseline comparison (demonstrating that purity/support heuristics fail to reject any forklift), and per-category retention/rejection analysis.
 
-The contribution is bounded: not a lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim, but a principled session-level map admission control methodology supported by auditable evidence.
+The contribution is bounded: not a lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim. It is a systematic map maintenance methodology --- five boolean criteria with per-object provenance at every layer --- supported by reproducible evidence and a complete supplementary evidence package that enables per-cluster auditability of all admission and rejection decisions.
 
 % ============================================================================
 % REFERENCES

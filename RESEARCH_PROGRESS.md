@@ -994,3 +994,22 @@ summary and local paths here, then commit and push the repository.
   - **18 Round 2 actions:** 4 blocking (content integration, Hallway completion, statistics, bimodality audit), 6 high priority (figure reorganization, published-system comparison, claim harmonization), 5 medium, 3 low
   - **Pre-submission readiness:** 4/10 — DO NOT SUBMIT as-is; 3 blocking items (R2.1-R2.4); estimated 2-3 weeks to submission-ready
 - Bottom line: strong evidence base, honest framing, but LaTeX content integration (R2.1) is the single most critical action item — paper cannot be submitted until main.tex has real content in §IV, §V.A-V.F, §VI
+
+## 2026-05-09 P166 Round 2 targeted rewrite from ROUND1_REVIEW
+
+- Applied targeted edits to `main.tex` and `EDITOR_SUMMARY.md` based on Round 1 critique:
+  - **Risk R9 (claim drift):** FIXED — "principled" → "systematic, evidence-backed"; Abstract/Intro/Contributions/Conclusion scope harmonized
+  - **Risk R7 (auditability untested):** FIXED — "auditable" → "architecturally auditable / per-object provenance"; Introduction explicitly states "architectural property, not downstream-evaluated claim"
+  - **Risk R4 (dynamic SLAM over-padded):** FIXED (scaffold) — §VII.F now has explicit figure allocation annotation: 1 main-body summary + rest to supplementary
+  - **Risk R10 (landmark selection gap):** FIXED — §III.C Relationship paragraph connects to EKF-SLAM/PTAM/ORB-SLAM map-point management
+  - **Risk R2 (boolean criteria):** MITIGATED — trust score demoted from standalone C#2 to architecture sub-component; Contributions list restructured with explicit "five boolean criteria" framing in Conclusion
+  - **Risk R3 (small-N):** MITIGATED — Limitations §IX expanded with evaluation-scale item #1; count stated in EDITOR_SUMMARY
+  - **Risk R6 (bimodality artifact):** MITIGATED — Limitations §IX item #4 documents frontend dependency caveat
+  - **Risk R8 (missing baselines):** MITIGATED — Limitations §IX item #5; published-system comparison explicitly deferred
+  - Limitations expanded 7→9 items (added: evaluation scale, single site, bimodality-as-frontend, missing published-system comparison)
+  - Contributions restructured (trust score demoted, negative-result study promoted, open-source → future tense)
+  - Discussion section populated with structured Round-1-informed outline
+  - EDITOR_SUMMARY.md: contribution paragraph tightened with explicit boolean criteria + forklift purity paradox as core insight
+- Created `ROUND2_CHANGELOG.md`: maps all 10 ROUND1 risks to fixed/mitigated/deferred status
+  - 5 FIXED, 5 MITIGATED, 3 DEFERRED, 5 NOT YET
+  - 3 blocking items for submission readiness: R2.1 content integration, R2.2 Hallway completion, R2.3 statistics
