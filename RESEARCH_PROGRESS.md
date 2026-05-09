@@ -12,17 +12,20 @@ summary and local paths here, then commit and push the repository.
   - **P178 LaTeX build:** CONDITIONALLY BUILD-READY → verified by P180 real compilation.
   - **P180 compile:** ✅ PDF generated (14 pages, 3.09 MB) via Tectonic 0.16.9 (conda, user-level, no sudo). 0 errors, 26 warnings (all hbox, 2×80pt overfull in Related Work — cosmetic).
   - **P181 packaging:** ✅ Complete — 18 figures at 300 DPI + metadata stripped; III.B/III.C paragraph fixes; PDF metadata verified double-anonymous. Submission-ready PDF.
+  - **P182 layout audit:** ✅ PASS — 14 pages, page-by-page verdict, orphan reference page fixed (`\newpage` + `\balance`), 6 overfull hboxes (all cosmetic).
   - **P179 quality gate:** PASS — 3 text fixes applied, 0 overclaims, T-RO-submission recommended.
-- **Active:** Manuscript production closure. Remaining: optional human copyediting, ORCID, ORB-SLAM3 cross-check.
+- **Active:** Manuscript production closure. Remaining: optional human visual spot-check (5 items in P182).
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
 
-## 2026-05-10 P181 — Final packaging: 300dpi figures, EXIF, anonymization
+## 2026-05-10 P182 — PDF visual/layout audit
 
-- **Goal:** Copyediting III.B/III.C overfull paragraphs; figure 300 DPI regeneration; EXIF strip; PDF anonymization.
-- **Result: COMPLETE.** All 18 figures at 300 DPI with metadata stripped (Pillow). III.B split into 2 paragraphs (tracking + segmentation). III.C Relationship split into 2 paragraphs. PDF metadata verified: 0 authors, double-anonymous.
-- **Compile:** 0 errors, 15 pages, 3.09 MB. Hbox warnings from 6-column tables (IEEEtran known limitation).
-- **PDF:** `build_p180/main.pdf` — submission-ready.
-- **Outputs:** `paper/tro_submission/FINAL_PACKAGING_P181.md`, cleaned figures in `paper/figures/`, backups in `paper/figures/_backup_pre_p181/`.
+- **Goal:** Page-level visual/layout audit of compiled T-RO PDF; fix or document actual submission risks.
+- **Result: PASS.** 14-page PDF audited page-by-page (pdfinfo, pdftotext, pdftoppm, pymupdf/fitz).
+- **Fix applied:** `\newpage` before bibliography + `\balance` — orphan reference page reduced from 30 words (1 ref) to 199 words (6 refs) on page 9.
+- **Warnings:** 6 overfull hboxes confirmed cosmetic (4 from narrow IEEEtran tables, 2 from dense paragraphs). No text cutoff.
+- **Double-anonymous:** Verified — Author empty, no custom metadata, no ORCID.
+- **Figures:** All 12/12 rendered; figure* pages 10-12, inline figures page 13, Fig 12 on page 14.
+- **Outputs:** `PDF_LAYOUT_AUDIT_P182.md`, 14 page renders in `layout_audit_p182/`.
 
 ## 2026-05-10 P180 — User-level TeX compile attempt
 
