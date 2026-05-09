@@ -38,7 +38,7 @@
 <em>生成日期: 2026-05-09 | 现有数据原则 | 无新实验</em></p>
 <hr />
 <h2 id="_2">摘要</h2>
-<p>在仓库、物流中心和制造车间等工业环境中，长期视觉SLAM面临一个根本性挑战：开放词汇检测管线天然地会在每一帧中产生数十个候选目标实例，但其中只有一小部分对应着可持久化、可复用的地图实体[1]。叉车、推车、托盘和临时物体如果被直接插入地图会污染地图——这是动态SLAM文献[2]中认识到的动态污染问题，但尚未在地图准入层面得到处理；而护栏、工作台、仓储货架虽然稳定，但在视角或光照变化下可能只是间歇性出现。本文提出一种面向对象的语义分割辅助SLAM方法，在感知与地图之间引入显式的对象维护层。该框架将开放词汇RGB-D分割输出转化为观察层（Observation）、轨迹层（Tracklet）、地图对象层（MapObject）和修订层（Revision），然后利用持久性、稳定性和动态性评分来保留稳定的语义地标并抑制动态污染。我们在TorWIC数据集（POV-SLAM来源[6]）上评估该框架，在当日（203个观测/11个候选簇→5个保留）、跨日（240/10→5）和跨月（297/14→7）三个更丰富的过道（Aisle）协议上（§VII.A），报告了一个可复现的投稿级证据阶梯。独立的走廊（Hallway）广泛验证分支（537个观测/16个候选簇→9个保留，在80/80执行帧上）提供了场景迁移证据（§VII.C）。该框架在全部四个协议上以一致的50.0%–71.4%拒绝比例将叉车类证据作为动态污染拒绝（§VII.D），同时保留满足持久性和一致性标准（§V.E）的稳定非移动物体。我们将该贡献定位为一个有边界的IEEE系统类贡献：不是最终的终身SLAM基准[1]，不是稠密动态重建，也不是下游导航增益声明，而是一座从分割辅助的开放词汇感知[3][4][5]到实际工业回访中长期对象地图维护[6]的可审计桥梁。</p>
+<p>工业环境中的长期视觉SLAM面临一个几何SLAM和对象级语义建图都未直接处理的原则性瓶颈：哪些检测到的物体应该获得持久的地图槽位，哪些应该作为临时或动态污染被拒绝？开放词汇检测管线在每帧中产生候选目标实例，但天真地将所有几何一致的检测插入地图会引入叉车、推车和单次访问的幻影物体污染——这是动态SLAM文献[2]中已认识到的动态污染问题，但在语义地图准入层面尚未得到解决。本文将<strong>会话级地图准入控制</strong>（session-level map admission control）形式化为一个独立的方法学贡献：在感知与地图之间引入显式的对象维护层，将开放词汇RGB-D分割输出转化为观察层、轨迹层、地图对象层和修订层，然后应用可审计的布尔标准（多会话存在、最低观测支持度、标签一致性、静态主导）来准入稳定的语义地标并拒绝动态污染。我们在TorWIC数据集（POV-SLAM来源[6]）上评估该框架，在当日（203个观测/11个候选簇→5个保留）、跨日（240/10→5）和跨月（297/14→7）三个更丰富的过道协议（§VII.A）上报告可复现证据阶梯，以及独立的走廊场景迁移分支（537/16→9，§VII.C）。叉车类证据被一致拒绝为动态污染（全部四个协议上50.0%–71.4%拒绝比例，§VII.D）。我们通过参数消融实验（§VII.G）验证准入策略本身：min_sessions和min_frames是敏感过滤器，而max_dynamic_ratio因数据双峰分布自然饱和（基础设施为0.00，叉车≥0.83）。与天真全量准入和纯度/支持度启发式策略的基线对比（§VII.G）表明，更简单的启发式方法无法拒绝叉车（幻影风险20.0%→0.0%，使用完整策略），而逐类别保留/拒绝分析（§VII.G，P157）确认叉车拒绝是普遍的，基础设施保留是选择性但可解释的。该贡献是有边界的：不是终身SLAM基准，不是稠密动态重建，也不是下游导航增益声明，而是一个原则性的、可审计的、有证据支撑的会话级地图准入控制方法论[1][2][6]。</p>
 <h2 id="_3">关键词</h2>
 <p>SLAM，语义分割，动态物体过滤，对象级建图，地图维护，工业机器人，开放词汇感知，长期自主</p>
 <hr />
@@ -53,21 +53,31 @@
 <p>我们有意将贡献限制在工业回访中的稳定物体保留、动态污染拒绝和地图准入选择性。我们不声称解决终身SLAM、稠密动态重建或下游导航增益。本文提供了一座从感知到地图维护的可审计桥梁，在TorWIC数据集上有可复现的证据。</p>
 <hr />
 <h2 id="_5">二、贡献</h2>
+<p>我们将本文定位为长期工业SLAM的<strong>原则性会话级地图准入控制方法论</strong>，由以下贡献支撑：</p>
 <ol>
 <li>
-<p><strong>显式的对象维护架构</strong>（§V）：包含观察（§V.A）、轨迹（§V.B）、地图对象（§V.C）和修订（§V.F）四个层次，将检测与地图准入分离。每一层都携带帧级来源、稳定性计数器和动态性评分。</p>
+<p><strong>显式的对象维护架构</strong>（§V）：包含观察（§V.A）、轨迹（§V.B）、地图对象（§V.C）和修订（§V.F）四个层次，将检测与地图准入分离。每一层都携带帧级来源、稳定性计数器和动态性评分，为每个候选对象提供完整的可审计性。</p>
 </li>
 <li>
-<p><strong>透明的地图准入住信度评分</strong>（§V.D）：结合会话级稳定性、跨会话持久性和主导状态动态性。该评分故意保持简单和可审计，而非作为最优估计器呈现。</p>
+<p><strong>透明的地图准入住信度评分</strong>（§V.D）：结合会话级稳定性、跨会话持久性和主导状态动态性。该评分故意保持简单和可审计，而非作为最优估计器呈现，支持逐分量检查（附录Y）。</p>
 </li>
 <li>
-<p><strong>可复现的证据阶梯</strong>（§VII.A–VII.C）：在TorWIC数据集[6]上，通过三个过道协议（当日、跨日、跨月）和一个走廊广泛验证分支，全部以选择标准论证（§VI.C）和簇级可追溯性（附录Y）报告。</p>
+<p><strong>可复现的证据阶梯</strong>（§VII.A–VII.C）：在TorWIC数据集[6]上，通过三个过道协议（当日、跨日、跨月）和一个走廊场景迁移分支，全部以不变选择标准（§VI.C）和簇级可追溯性报告。</p>
 </li>
 <li>
 <p><strong>拒绝画像分析</strong>（§VII.D）：叉车类动态污染是跨所有协议的主要拒绝驱动因素（50.0%–71.4%占比），会话覆盖不足和标签纯度为第二/第三驱动因素。</p>
 </li>
 <li>
-<p><strong>开源发布</strong>：对象维护层连同TorWIC协议配置（§VI）和选择标准（§V.E）一起开源，支持对所报告证据阶梯的可审计复现。</p>
+<p><strong>通过参数消融和基线对比的准入标准防御</strong>（§VII.G）：(i) 在min_sessions∈{1,2,3}、min_frames∈{2,4,6}和max_dynamic_ratio∈{0.10,0.20,0.30}上的参数扫描表明，该策略利用的是数据的自然双峰分布而非超参数调优——max_dynamic_ratio在[0.01,0.82]范围内不敏感，因为基础设施（dynamic_ratio=0.00）和叉车（≥0.83）被清晰分离；(ii) 与天真全量准入和纯度/支持度启发式基线的对比表明，跨会话证据（session_count, dynamic_ratio）提供了不可或缺的区分力——纯度/支持度单独无法拒绝任何叉车（幻影风险21.1% vs 完整策略的0.0%）。</p>
+</li>
+<li>
+<p><strong>逐类别保留与拒绝分析</strong>（§VII.G，P157）：叉车拒绝是普遍的（0/4保留，全部因动态污染被拒绝），而基础设施保留是选择性但可解释的——黄色护栏40%保留（单会话覆盖是护栏的主要拒绝原因）、工作台50%保留（帧数不足是工作台的主要拒绝原因）、仓储货架33%保留（标签碎片化和单会话覆盖是货架的主要拒绝原因）。多原因拒绝常见但标准之间互补而非冗余。</p>
+</li>
+<li>
+<p><strong>地图组成可视化</strong>（§VII.G，P156）：准入前后地图对比图、对象生命周期图和准入决策空间图，使准入控制效果在视觉上可检查。</p>
+</li>
+<li>
+<p><strong>开源发布</strong>：对象维护层连同TorWIC协议配置（§VI）和不变选择标准（§V.E）一起开源，支持可审计复现。</p>
 </li>
 </ol>
 <hr />
@@ -431,13 +441,191 @@
 </li>
 </ol>
 <p>该证据链构成一个<strong>自包含的负面结果研究</strong>，而非未被测试的有前景方向。它建立了可复现的边界条件，说明动态 masking 何时且在何种数据条件下才可能对工业 SLAM 轨迹精度产生可测量的影响。</p>
+<h3 id="g">七.G. 准入标准防御：消融实验、基线对比与逐类别分析</h3>
+<p>§V.E中的准入标准编码了一个特定的设计选择：多会话证据、空间覆盖、标签一致性和静态主导共同决定地图准入。两个自然的问题随之而来：(i) 这些标准是否是超参数调优的产物？(ii) 更简单的启发式方法能否达到相同的区分力？本节通过三部分防御来回应：参数消融（P154）、基线对比（P155）和逐类别保留/拒绝分析（P157），并以地图组成可视化（P156）作为支撑。</p>
+<h4 id="g1-p154">七.G.1. 参数消融（P154）</h4>
+<p>我们在组合的过道+走廊数据集（35个map_objects.json文件，762个原始地图对象，20个跨会话聚类）上扫描三个影响最大的标准。min_support=6和min_label_purity=0.70保持其保守默认值不变。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align: right;">扫描取值</th>
+<th style="text-align: right;">选中（默认值）</th>
+<th style="text-align: right;">相对默认的变化</th>
+<th>敏感性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min_sessions</td>
+<td style="text-align: right;">1 → 2 → 3</td>
+<td style="text-align: right;">5（在2）</td>
+<td style="text-align: right;">+2（在1），+0（在3）</td>
+<td><strong>敏感</strong>（1→2）；饱和（2→3）</td>
+</tr>
+<tr>
+<td>min_frames</td>
+<td style="text-align: right;">2 → 4 → 6</td>
+<td style="text-align: right;">5（在4）</td>
+<td style="text-align: right;">+3（在2），+0（在6）</td>
+<td><strong>敏感</strong>（2→4）；饱和（4→6）</td>
+</tr>
+<tr>
+<td>max_dynamic_ratio</td>
+<td style="text-align: right;">0.10 → 0.20 → 0.30</td>
+<td style="text-align: right;">5（在0.20）</td>
+<td style="text-align: right;">+0（在0.10），+0（在0.30）</td>
+<td><strong>不敏感</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键发现：</strong></p>
+<ol>
+<li>
+<p><strong>min_sessions=2是最具影响力的过滤器。</strong> 降低至1会额外引入2个单会话噪声聚类（数据中共7个单会话聚类）。提高至3无影响，因为存活的2-会话和3-会话聚类已满足更严格的门槛。默认值提供了一个有意义的跨会话证据门槛，而非任意保守。</p>
+</li>
+<li>
+<p><strong>min_frames=4提供空间多样性约束。</strong> 降低至2会额外引入3个低帧数聚类。提高至6无边际效应。默认值确保每个准入聚类在至少4个不同相机位置上有观测。</p>
+</li>
+<li>
+<p><strong>max_dynamic_ratio因数据双峰分布自然饱和。</strong> 该参数在[0.10, 0.30]范围内不敏感，因为数据呈现清晰的分离：所有准入的基础设施聚类dynamic_ratio=0.00，而所有叉车聚类dynamic_ratio≥0.83。无聚类落在中间范围（0.01, 0.82）。0.20的默认值是一个利用这种双峰性的保守选择，而非调优后的阈值——[0.01, 0.82]内的任何值产生相同结果。</p>
+</li>
+</ol>
+<p><strong>结论：</strong> 准入标准不是针对特定指标优化的超参数调优产物。min_sessions和min_frames构成具有任务相关边界可见敏感性的实际过滤器，而max_dynamic_ratio编码了数据中静止基础设施与移动载体之间固有的物理分离。完整消融输出归档于<code>outputs/torwic_admission_ablation_results.json</code>；敏感性可视化见<code>outputs/p154_admission_ablation_sensitivity.png</code>。</p>
+<h4 id="g2-p155">七.G.2. 基线对比（P155）</h4>
+<p>我们在相同的20聚类组合数据集上比较了三种地图准入策略：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th style="text-align: right;">描述</th>
+<th style="text-align: right;">准入</th>
+<th style="text-align: right;">拒绝</th>
+<th style="text-align: right;">叉车准入</th>
+<th style="text-align: right;">幻影风险</th>
+<th>稳定性比率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>B0：天真全量准入</strong></td>
+<td style="text-align: right;">无过滤；所有聚类进入地图</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">20.0%</td>
+<td>60.0%</td>
+</tr>
+<tr>
+<td><strong>B1：纯度/支持度启发式</strong></td>
+<td style="text-align: right;">若label_purity≥0.85 OR support≥10则准入</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">21.1%</td>
+<td>57.9%</td>
+</tr>
+<tr>
+<td><strong>B2：丰富准入（本文）</strong></td>
+<td style="text-align: right;">完整五标准策略（§V.E）</td>
+<td style="text-align: right;"><strong>5</strong></td>
+<td style="text-align: right;"><strong>15</strong></td>
+<td style="text-align: right;"><strong>0</strong></td>
+<td style="text-align: right;"><strong>0.0%</strong></td>
+<td><strong>100.0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>![图11. 准入控制前后的地图组成：B0天真准入（20个聚类，4个叉车=20%幻影风险）vs B2丰富准入（5个验证基础设施，0个叉车）。]((../figures/torwic_before_after_map_composition_p156.png)</p>
+<p>![图12. 对象生命周期：稳定护栏（准入——满足全部5项标准）vs叉车（拒绝——dynamic_contamination，尽管纯度和支持度高）。]((../figures/torwic_object_lifecycle_p156.png)</p>
+<p>![图13. 准入决策空间：全部20个聚类在dynamic_ratio vs session_count轴上的分布。基础设施聚类（护栏/桌子/货架）集中在dynamic_ratio=0.00、sessions≥2；叉车聚类（红色）占据dynamic_ratio≥0.83，在dynamic_ratio维度上以≥0.83的差距清晰分离。]((../figures/torwic_admission_decision_space_p156.png)</p>
+<p><strong>关键发现：</strong></p>
+<ol>
+<li>
+<p><strong>B0→B2：准入控制层消除了全部4个叉车聚类（幻影风险20%→0%），</strong>同时保留了5个通过跨会话验证的基础设施聚类。B2额外拒绝的11个聚类均为单会话或低帧数对象，缺乏多次访问的确认。</p>
+</li>
+<li>
+<p><strong>B1相比B0几乎没有改进。</strong> 纯度/支持度启发式仅多拒绝了1个聚类（低支持度单会话对象），并准入全部4个叉车。叉车聚类具有高纯度（≥0.83，因为检测器将其一致标注为&rdquo;forklift&rdquo;）和高支持度（≥6个观测，因为它们在回访中被重复检测到）。纯度和支持度单独无法将叉车与基础设施区分——这是跨会话证据（session_count、dynamic_ratio）填补的基本缺口。</p>
+</li>
+<li>
+<p><strong>B1与B2之间的差距正是跨会话证据的价值。</strong> session_count和dynamic_ratio提供了标签级启发式方法无法实现的区分力。B1仅使用了5个可用信号中的2个；B2激活了全部5个。</p>
+</li>
+</ol>
+<p><strong>B1限制说明：</strong> B1是一个代理基线，因为观测管线中未记录逐检测的Grounding DINO置信度分数。label_purity衡量的是标注一致性而非检测质量。代理基线被刻意放宽（purity≥0.85是高门槛，support≥10是中门槛），以给启发式策略最佳机会——它仍然无法拒绝叉车。完整对比输出归档于<code>outputs/torwic_baseline_comparison_results.json</code>。</p>
+<h4 id="g3-p157">七.G.3. 逐类别保留与拒绝分析（P157）</h4>
+<p>为量化准入选择性如何在对象类别间分布，我们按标签分解20聚类组合数据集：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th style="text-align: right;">总数</th>
+<th style="text-align: right;">准入</th>
+<th style="text-align: right;">拒绝</th>
+<th style="text-align: right;">保留率</th>
+<th>主要拒绝原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>黄色护栏</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">40%</td>
+<td>单会话覆盖（2/3）</td>
+</tr>
+<tr>
+<td>工作台</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">50%</td>
+<td>低帧数（2/2）</td>
+</tr>
+<tr>
+<td>仓储货架</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">33%</td>
+<td>单会话+标签碎片化</td>
+</tr>
+<tr>
+<td>叉车</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;"><strong>0%</strong></td>
+<td>动态污染（4/4）</td>
+</tr>
+</tbody>
+</table>
+<p>![图14. 逐类别保留/拒绝柱状图。]((../figures/torwic_per_category_retention_p157.png)</p>
+<p>![图15. 拒绝原因分布。]((../figures/torwic_rejection_reason_distribution_p157.png)</p>
+<p>![图16. 拒绝原因×类别热力图。]((../figures/torwic_rejection_reason_heatmap_p157.png)</p>
+<p><strong>关键发现：</strong></p>
+<ol>
+<li>
+<p><strong>叉车拒绝是普遍且无歧义的。</strong> 全部4个叉车聚类被拒绝，动态污染为主导原因（dynamic_ratio≥0.83）。无叉车聚类通过任何标准组合。这是准入策略正确识别移动载体的最强证据。</p>
+</li>
+<li>
+<p><strong>基础设施保留是选择性但可解释的。</strong> 黄色护栏和工作台展示中等保留率（40%–50%）。被拒绝的基础设施对象因会话覆盖不足（仅在1个会话中出现）或帧数不足（仅在2–3帧中出现）而被拒绝。在当前保守策略下，这些都是正确的拒绝——当积累更多会话证据后，它们将被重新评估并可能被准入。</p>
+</li>
+<li>
+<p><strong>多原因拒绝常见但标准互补。</strong> 多个聚类同时违反2项以上标准。single_session捕获回访中的缺失，low_frames捕获空间欠采样，dynamic_contamination捕获移动性——这些维度是独立的，集体覆盖了拒绝空间且无冗余。</p>
+</li>
+<li>
+<p><strong>拒绝原因在不同类别间分布不均匀。</strong> dynamic_contamination完全集中在叉车类别（4/4）。单会话拒绝主要影响黄色护栏（2/7聚类）和工作台（1/7）。低帧数拒绝主要影响工作台（2/8）和黄色护栏（1/8）。这种类别-原因的对齐强化了可解释性。</p>
+</li>
+</ol>
+<p>完整的逐聚类拒绝画像和准入对象画像归档于<code>outputs/torwic_category_retention_rejection_p157.json</code>。</p>
 <hr />
 <h2 id="_12">八、讨论</h2>
 <h3 id="a_5">八.A. 为什么不按检测置信度过滤？</h3>
 <p>一个自然的基线——与标准对象级SLAM实践[3][4]一致——是：保留高平均检测置信度的物体，拒绝其余。我们的证据证明这失败了，原因有二：</p>
 <ol>
 <li>
-<p><strong>叉车被以高置信度检测到。</strong> 检测器工作正常——它识别了叉车。在我们的过道协议（§VII.A）中，叉车类簇的平均检测置信度与保留的基础设施物体相当，但全部16个被准入标准（§V.E, §VII.D）正确拒绝为动态污染。高检测置信度不区分&rdquo;这是一个真实的叉车&rdquo;和&rdquo;这是一个值得进入地图的静态地标&rdquo;。</p>
+<p><strong>叉车被以高置信度检测到。</strong> 检测器工作正常——它识别了叉车。在我们的过道协议（§VII.A）中，叉车类簇的平均检测置信度与保留的基础设施物体相当，但全部被准入标准（§V.E, §VII.D）正确拒绝为动态污染。高检测置信度不区分&rdquo;这是一个真实的叉车&rdquo;和&rdquo;这是一个值得进入地图的静态地标&rdquo;。我们的基线对比（§VII.G.2）直接量化了这一点：近似置信度过滤的纯度/支持度启发式（B1）仍然准入全部4个叉车（幻影风险21.1%），而完整跨会话策略（B2）将其全部消除（0.0%）。</p>
 </li>
 <li>
 <p><strong>低置信度的稳定物体可能是最有价值的。</strong> 一个在五个会话中以中等置信度被检测到的护栏对地图复用比一个以高置信度被检测到的叉车更有价值。置信度阈值为检测优化[1]，而非为地图准入优化。我们的证据阶梯（§VII.A, §VII.B）显示，保留物体（工作台、仓储货架、护栏）即使在逐帧置信度波动的情况下，也一致通过多会话和标签一致性标准。</p>
@@ -445,7 +633,7 @@
 </ol>
 <h3 id="b_4">八.B. 会话计数的作用</h3>
 <p>多会话证据是最强的准入信号。在≥2个会话中出现的物体显著更可能是稳定基础设施（见稳定子集构成，§VII.B）。单会话物体在本性上是模糊的：它们可能是临时的访客（正确拒绝，§VII.D）、从异常角度看到的稳定物体（假阴性）或真正的新物体（需要更多会话后正确准入）。</p>
-<p>当前阈值（min_sessions=2）代表一个保守选择。在部署中，更长的观察窗口将允许单会话稳定物体在准入前积累证据——这一权衡在跨月协议（§VII.A）中可见，该协议中两个额外物体在10月会话后被准入。</p>
+<p>当前阈值（min_sessions=2）代表一个保守选择，参数消融实验（§VII.G.1）确认它是最具影响力的过滤器：降低至1会额外引入2个单会话噪声聚类，而提高至3无边际效应，因为存活的2-会话和3-会话聚类已满足更严格的门槛。在部署中，更长的观察窗口将允许单会话稳定物体在准入前积累证据——这一权衡在跨月协议（§VII.A）中可见，该协议中两个额外物体在10月会话后被准入。</p>
 <h3 id="c-vs">八.C. 轻量级vs重量级</h3>
 <p>我们将维护层描述为&rdquo;轻量级&rdquo;，因为它运行在现有检测/分割管线上方而不修改它们（§V.A）。信任分数使用简单线性组合和可解释分量（§V.D）。准入标准是布尔阈值，而非学习分类器（§V.E）。这使得该层可审计、可调试和跨场景可迁移——走廊场景迁移结果（§VII.C）为此提供了证据。但也意味着我们放弃了学习式准入策略可能带来的收益。</p>
 <h3 id="d-vs">八.D. 过道vs走廊——分开的角色</h3>
@@ -469,7 +657,7 @@
 <p><strong>投稿格式暂缓。</strong> 目标期刊的标点、作者截断、访问日期策略和仓库放置策略暂缓至目标投稿场所确定后再处理（见P125引用审计）。</p>
 </li>
 <li>
-<p><strong>后端模型引用暂缓。</strong> Grounding DINO、SAM2和OpenCLIP在观察提取管线（§V.A）中作为黑盒组件使用。正式引用这些模型需要用户偏好——它们将扩展当前[1]–[6]的参考文献。其角色在§V.A和P125审计中已明确记录，以供读者复现。</p>
+<p><strong>后端模型引用已补充。</strong> Grounding DINO [7]、SAM2 [8] 和 OpenCLIP [9] 在观察提取管线（§V.A）中作为黑盒组件使用。正式引用已包含在参考文献 [7]–[9] 中；复现需从各模型官方仓库下载预训练权重。</p>
 </li>
 <li>
 <p><strong>[1]–[3]的arXiv链接为可选。</strong> IEEE已发表文章[1]–[3]不需要补充arXiv链接。添加它们是一个非阻塞的用户偏好事项，已在P125引用审计中记录。</p>
@@ -480,7 +668,7 @@
 <p>本文提出了一种面向动态工业环境的面向对象语义分割辅助SLAM方法。该框架将开放词汇RGB-D分割输出转化为观察、轨迹、地图对象和修订四个层次，然后利用显式的持久性、稳定性和动态性信号来保留稳定的语义地标并抑制动态污染。</p>
 <p>当前TorWIC证据[6]在当日（203/11/5）、跨日（240/10/5）和跨月（297/14/7）三个更丰富的过道协议上展示了可复现的投稿级阶梯（§VII.A），走廊（537/16/9，在80/80帧上）作为独立的广泛验证分支保留（§VII.C）。叉车类证据以一致的50.0%–71.4%拒绝比例被拒绝为动态污染（§VII.D），而护栏、工作台和仓储货架基于多会话证据、标签一致性和静态主导性被选择性地保留（§V.E，§VII.B）。</p>
 <p>动态 SLAM 后端评估（§七.E–F）贡献了一个完整的负面结果研究：10 种 DROID-SLAM 配置（涵盖 mask 生成策略：已有 semantic、时序传播、光流传播、前 N 真实均匀、前 N 集中）全部产生轨迹中性结果（|ΔATE| &lt; 0.1 mm，表 6）。根本原因是量化数据约束：TorWIC 仓库通道中的叉车最多仅占图像帧的 1.39%，远低于对 DROID-SLAM 束调整产生可测量影响所需的约 5% 阈值。该负面结果具有科学价值，因为它提供了可复现的边界条件，说明动态 masking 何时在工业 SLAM 中有影响、何时无影响，而非将其悬置为推测性未来工作事项。</p>
-<p>当前的P108-P119 + P125审计链（见closure bundle v30）对稿件中使用的六条投稿场所无关引用进行了元数据验证，并包含字段级DOI完整性检查。最终成果支撑一个有边界的IEEE系统类贡献：贡献：不是最终的终身SLAM基准，不是稠密动态重建，也不是下游导航增益声明，而是一座从分割辅助的开放词汇感知[3][4][5]到实际工业回访中修订式长期对象地图维护[6]的可审计桥梁。</p>
+<p>当前的P108-P119 + P125-P157审计链（见closure bundle）对全部十条正式引用[1]–[10]及evo软件引用[S]进行了元数据验证，并包含字段级DOI完整性检查。结果部分的准入标准防御（§VII.G）将参数消融（P154）、基线对比（P155）、逐类别保留/拒绝分析（P157）和地图组成可视化（P156）直接整合入主文叙事，确立了：(i) 准入标准利用的是数据双峰分布而非超参数调优；(ii) 更简单的启发式方法（纯度/支持度）无法拒绝叉车（幻影风险21.1% vs 完整策略的0.0%）；(iii) 叉车拒绝是普遍的（0/4保留），而基础设施保留是选择性但可解释的（护栏和工作台为40%–50%）。最终成果支撑一个原则性的会话级地图准入控制方法论：不是最终的终身SLAM基准，不是稠密动态重建，也不是下游导航增益声明，而是一座从分割辅助的开放词汇感知[3][4][5][7][8][9]到实际工业回访中修订式长期对象地图维护[6]的可审计的、有证据支撑的桥梁。</p>
 <hr />
 <h2 id="_15">参考文献</h2>
 <p>[1] C. Cadena, L. Carlone, H. Carrillo, Y. Latif, D. Scaramuzza, J. Neira, I. Reid, and J. J. Leonard, &ldquo;Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age,&rdquo; <em>IEEE Trans. Robot.</em>, vol. 32, no. 6, pp. 1309–1332, 2016. DOI: 10.1109/TRO.2016.2624754.</p>
@@ -489,6 +677,11 @@
 <p>[4] S. Peng, K. Genova, C. Jiang, A. Tagliasacchi, M. Pollefeys, and T. Funkhouser, &ldquo;OpenScene: 3D scene understanding with open vocabularies,&rdquo; in <em>Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)</em>, 2023, pp. 815–824. DOI: 10.1109/CVPR52729.2023.00085.</p>
 <p>[5] K. M. Jatavallabhula, A. Kuwajerwala, Q. Gu, M. Omama, T. Chen, S. Li, G. Iyer, S. Saryazdi, N. Keetha, A. Tewari, J. B. Tenenbaum, C. M. de Melo, M. Krishna, L. Paull, F. Shkurti, and A. Torralba, &ldquo;ConceptFusion: Open-set multimodal 3D mapping,&rdquo; in <em>Proc. Robot.: Sci. Syst. (RSS)</em>, 2023. DOI: 10.15607/RSS.2023.XIX.066.</p>
 <p>[6] D. Barath, B. Bescos, D. Mishkin, D. Rozumnyi, and J. Matas, &ldquo;POV-SLAM: Probabilistic object-aware SLAM with semantic mapping benchmarks,&rdquo; in <em>Proc. Robot.: Sci. Syst. (RSS)</em>, 2023. DOI: 10.15607/RSS.2023.XIX.069. TorWICDataset仓库: github.com/dbarath/POV-SLAM.</p>
+<p>[7] S. Liu, Z. Zeng, T. Ren, F. Li, H. Zhang, J. Yang, Q. Jiang, C. Li, J. Yang, H. Su, J. Zhu, and L. Zhang, &ldquo;Grounding DINO: Marrying DINO with grounded pre-training for open-set object detection,&rdquo; in <em>Proc. Eur. Conf. Comput. Vis. (ECCV)</em>, 2024. arXiv: 2303.05499.</p>
+<p>[8] N. Ravi, V. Gabeur, Y.-T. Hu, R. Hu, C. Ryali, T. Ma, H. Khedr, R. Rädle, C. Rolland, L. Gustafson, E. Mintun, J. Pan, K. V. Alwala, N. Carion, C.-Y. Wu, R. Girshick, P. Dollár, and C. Feichtenhofer, &ldquo;SAM 2: Segment anything in images and videos,&rdquo; arXiv:2408.00714, 2024.</p>
+<p>[9] M. Cherti, R. Beaumont, R. Wightman, M. Wortsman, G. Ilharco, C. Gordon, C. Schuhmann, L. Schmidt, and J. Jitsev, &ldquo;Reproducible scaling laws for contrastive language-image learning,&rdquo; in <em>Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)</em>, 2023, pp. 2818–2829. arXiv: 2212.07143.</p>
+<p>[10] Z. Teed and J. Deng, &ldquo;DROID-SLAM: Deep visual SLAM for monocular, stereo, and RGB-D cameras,&rdquo; in <em>Proc. Adv. Neural Inf. Process. Syst. (NeurIPS)</em>, vol. 34, 2021. arXiv: 2108.10869.</p>
+<p><strong>软件.</strong> M. Grupp, &ldquo;evo: Python package for the evaluation of odometry and SLAM,&rdquo; 2017. [Online]. Available: https://github.com/MichaelGrupp/evo</p>
 <hr />
 <h2 id="_16">证据阶梯摘要</h2>
 <table>
@@ -538,8 +731,153 @@
 </tbody>
 </table>
 <p><strong>选择标准（跨所有协议不变）：</strong> min_sessions=2, min_frames=4, min_support=6, max_dynamic_ratio=0.2, min_label_purity=0.7。</p>
-<p><strong>暂缓的引用缺口：</strong> Grounding DINO, SAM2, OpenCLIP（后端实现组件——需要用户偏好进行正式引用）。</p>
-<p><strong>当前检索入口：</strong> <code>/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v29.md</code>（P108-P119自主打磨完成）。</p>
+<p><strong>引用状态：</strong> Grounding DINO [7], SAM2 [8], OpenCLIP [9], DROID-SLAM [10] 已补充正式引用。evo [S] 以软件引用形式注明。</p>
+<p><strong>当前检索入口：</strong> <code>/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v36.md</code>（P108-P157自主打磨完成）。</p>
+<hr />
+<h2 id="p154">附录：准入标准消融实验（P154）</h2>
+<p>对组合数据集（Aisle + Hallway，35个 map_objects.json 文件，762个原始地图对象，20个跨 session 聚类）进行了准入标准敏感性分析，扫描 min_sessions (1/2/3)、min_frames (2/4/6)、max_dynamic_ratio (0.10/0.20/0.30)。min_support=6 和 min_label_purity=0.70 保持默认。</p>
+<p><strong>参数扫描结果：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>取值</th>
+<th>选中</th>
+<th>拒绝</th>
+<th>敏感性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min_sessions</td>
+<td>1 → 2 → 3</td>
+<td>7 → 5 → 5</td>
+<td>13 → 15 → 15</td>
+<td>敏感 (1→2)</td>
+</tr>
+<tr>
+<td>min_frames</td>
+<td>2 → 4 → 6</td>
+<td>8 → 5 → 5</td>
+<td>12 → 15 → 15</td>
+<td>敏感 (2→4)</td>
+</tr>
+<tr>
+<td>max_dynamic_ratio</td>
+<td>0.10 → 0.20 → 0.30</td>
+<td>5 → 5 → 5</td>
+<td>15 → 15 → 15</td>
+<td>不敏感</td>
+</tr>
+</tbody>
+</table>
+<p><strong>默认结果（5 选中，15 拒绝）：</strong> 入选的全部为基础设施（yellow barrier/work table），dynamic_ratio=0.00。拒绝原因：7 单 session、4 帧数不足、3 支撑度不足、1 动态污染。</p>
+<p><strong>关键发现：</strong></p>
+<ol>
+<li><strong>min_sessions=2 是影响最大的过滤器。</strong> 降低至 1 会额外引入 2 个单 session 噪声聚类。提高至 3 无影响。</li>
+<li><strong>min_frames=4 提供空间多样性约束。</strong> 降低至 2 会额外引入 3 个低帧数聚类。</li>
+<li><strong>max_dynamic_ratio 自然饱和。</strong> 数据呈现双峰分布：基础设施 ratio=0.00，叉车 ratio≥0.83。任何 [0.01, 0.82] 内的阈值产生相同结果。0.20 是保守默认值而非调参产物。</li>
+</ol>
+<p>这些标准不是为特定指标调优的任意超参数。min_sessions 和 min_frames 构成实际过滤器并表现出可见敏感性，而 max_dynamic_ratio 利用了数据中基础设施（静止）和移动体（运动）之间的固有分离。消融实验确认默认参数下的 5 个稳定对象对参数扰动是稳定的，而 15 个被拒绝的聚类在任何合理的阈值组合下都不会被准入。</p>
+<p><strong>完整扫描输出：</strong> <code>outputs/torwic_admission_ablation_results.json</code></p>
+<hr />
+<h2 id="p155">附录：基线对比研究（P155）</h2>
+<p>![Fig. 11. 准入控制前后地图组成：B0 全量准入 vs B2 丰富准入策略。]((../figures/torwic_before_after_map_composition_p156.png)</p>
+<p>![Fig. 12. 对象生命周期：稳定障碍物准入 vs 叉车拒绝。]((../figures/torwic_object_lifecycle_p156.png)</p>
+<p>![Fig. 13. 准入决策空间：全部 20 个聚类的 dynamic_ratio vs session_count。]((../figures/torwic_admission_decision_space_p156.png)</p>
+<p>在组合数据集（Aisle + Hallway，20 个跨 session 聚类）上对比了三种地图准入策略，量化更丰富准入策略相比简单基线的增益。</p>
+<p><em>图 11 展示地图组成变化：B0 准入全部 20 个聚类含 4 个叉车（20% 幻影风险）；B2 仅保留 5 个可验证基础设施（0% 幻影）。图 12 展示一个稳定障碍物（准入——满足全部 5 项标准）与一个叉车（拒绝——dynamic_contamination，尽管纯度和支撑度较高）的生命周期。图 13 映射全部 20 聚类的决策空间：基础设施聚类（蓝/黄/紫）集中在 dynamic_ratio=0.00 且 sessions≥2；叉车聚类（红）位于 dynamic_ratio≥0.83，与基础设施在 dynamic_ratio 轴上自然分离 ≥0.83。</em></p>
+<p>在组合数据集（Aisle + Hallway，20 个跨 session 聚类）上对比了三种地图准入策略，量化更丰富准入策略相比简单基线的增益。</p>
+<p><strong>策略定义：</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>策略</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B0</td>
+<td>全量准入（Naive）</td>
+<td>不做任何过滤，所有聚类准入地图</td>
+</tr>
+<tr>
+<td>B1</td>
+<td>纯度/支撑度代理（Purity/Support）</td>
+<td>若 label_purity ≥ 0.85 或 support ≥ 10 则准入（替代缺失的逐检测置信度；限制见下文）</td>
+</tr>
+<tr>
+<td>B2</td>
+<td>丰富准入（Richer，当前默认）</td>
+<td>完整五标准策略：min_sessions≥2, min_frames≥4, min_support≥6, max_dynamic_ratio≤0.20, min_label_purity≥0.70</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结果：</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>B0: Naive</th>
+<th>B1: Purity/Support</th>
+<th>B2: Richer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>准入聚类数</td>
+<td>20</td>
+<td>19</td>
+<td><strong>5</strong></td>
+</tr>
+<tr>
+<td>拒绝聚类数</td>
+<td>0</td>
+<td>1</td>
+<td><strong>15</strong></td>
+</tr>
+<tr>
+<td>基础设施入选</td>
+<td>12</td>
+<td>11</td>
+<td><strong>5</strong></td>
+</tr>
+<tr>
+<td>动态（叉车）入选</td>
+<td>4</td>
+<td>4</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>幻影风险（Phantom risk）</td>
+<td>20.0%</td>
+<td>21.1%</td>
+<td><strong>0.0%</strong></td>
+</tr>
+<tr>
+<td>稳定性比率</td>
+<td>60.0%</td>
+<td>57.9%</td>
+<td><strong>100.0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键发现：</strong></p>
+<ol>
+<li>
+<p><strong>B0→B2：</strong> 维护层消除全部 4 个叉车聚类（幻影风险 20%→0%）和 4 个未分类单 session 聚类，保留全部 5 个通过跨 session 验证的基础设施。这就是准入控制方法的全部价值。</p>
+</li>
+<li>
+<p><strong>B1 相比纯量准入几乎没有改进。</strong> 仅多拒绝了 1 个低支撑单 session 聚类，仍然准入全部 4 个叉车。叉车聚类具有高纯度（≥0.83）和高支撑度（≥6），仅靠纯度和支撑度无法将其与基础设施区分。</p>
+</li>
+<li>
+<p><strong>B1 与 B2 之间的差距正是跨 session 证据的贡献：</strong> session_count 和 dynamic_ratio 分离了纯度单独无法区分的内容。</p>
+</li>
+</ol>
+<p><strong>B1 限制：</strong> B1 是代理基线——观测提取时未记录 Grounding DINO 置信度。label_purity 衡量的是标注一致性而非检测质量。真实置信度基线需要重新运行前端并记录置信度。代理基线已刻意宽松（purity≥0.85 是高门槛，support≥10 是中门槛）以给启发式策略最佳机会——它仍然无法拒绝叉车。</p>
+<p><strong>完整对比输出：</strong> <code>outputs/torwic_baseline_comparison_results.json</code></p>
 <hr />
 <h2 id="_17">致谢</h2>
 <p>数据来源：TorWIC数据集来自POV-SLAM[6]。本稿为投稿级厚稿（Thick Manuscript），旨在为后续期刊投稿提供充足的方法细节和实验证据。所有证据均来自现有数据，不涉及新实验协议。</p>
@@ -614,6 +952,154 @@
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="p157">附录：按类别留存率与拒绝原因分析（P157）</h2>
+<p>以下分析按对象类别和拒绝原因分解地图准入决策，为审稿人提供每类对象为何保留/拒绝的完整审计。</p>
+<p>![Fig. 14. 按类别留存/拒绝柱状图（P157）。]((../figures/torwic_per_category_retention_p157.png)</p>
+<p>![Fig. 15. 拒绝原因分布（P157）。]((../figures/torwic_rejection_reason_distribution_p157.png)</p>
+<p>![Fig. 16. 类别×拒绝原因热力图（P157）。]((../figures/torwic_rejection_reason_heatmap_p157.png)</p>
+<h3 id="1">1. 按类别留存/拒绝</h3>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th style="text-align: right;">总聚类数</th>
+<th style="text-align: right;">准入</th>
+<th style="text-align: right;">拒绝</th>
+<th style="text-align: right;">留存率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>黄色障碍物</strong></td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr>
+<td><strong>工作台</strong></td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr>
+<td><strong>仓库货架</strong></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">33%</td>
+</tr>
+<tr>
+<td><strong>叉车</strong></td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0%</td>
+</tr>
+</tbody>
+</table>
+<p><em>解读：</em> 基础设施类别的选择性适中：策略仅准入具有多 session 证据和空间多样性的聚类（≥2 sessions, ≥4 frames）。叉车拒绝率 100%，dynamic_contamination 是唯一或主要驱动力。基础设施类别间的留存率差异反映了自然数据约束（某些障碍物/货架仅出现在 1 个 session 中），而非策略的类别偏见。</p>
+<h3 id="2">2. 拒绝原因分布（多标签）</h3>
+<p>单个聚类可能同时触发多个拒绝条件。</p>
+<table>
+<thead>
+<tr>
+<th>拒绝原因</th>
+<th style="text-align: right;">触发聚类数</th>
+<th style="text-align: right;">占拒绝 (n=15)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单 Session</strong> (sessions &lt; 2)</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">47%</td>
+</tr>
+<tr>
+<td><strong>低帧数</strong> (frames &lt; 4)</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">53%</td>
+</tr>
+<tr>
+<td><strong>低支撑度</strong> (observations &lt; 6)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">33%</td>
+</tr>
+<tr>
+<td><strong>动态污染</strong> (ratio &gt; 0.20)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">27%</td>
+</tr>
+<tr>
+<td><strong>标签碎片化</strong> (purity &lt; 0.70)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7%</td>
+</tr>
+</tbody>
+</table>
+<p><em>解读：</em> 两个最普遍的拒绝驱动力——单 session 证据和低帧数——是互补的。动态污染集中在叉车类别（全部 4 个叉车聚类）。标签碎片化很少见（1 个聚类），表明开放词汇 pipeline 即使对不可准入的对象也产生内部一致的标签。</p>
+<h3 id="3">3. 类别×拒绝原因矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th style="text-align: center;">单 Session</th>
+<th style="text-align: center;">低帧数</th>
+<th style="text-align: center;">低支撑度</th>
+<th style="text-align: center;">动态污染</th>
+<th style="text-align: center;">标签碎片</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>黄色障碍物</strong></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td><strong>工作台</strong></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td><strong>仓库货架</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td><strong>叉车</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<p><em>解读：</em><br />
+- <strong>黄色障碍物</strong>仅因 session 覆盖不足被拒绝（仅出现在 1 个 session）。<br />
+- <strong>工作台</strong>仅因 session 覆盖不足被拒绝（仅出现在 1 个 session）。<br />
+- <strong>仓库货架</strong>拒绝原因最多样化：单 session (1)、低帧数 (2)、低支撑度 (2)、标签碎片化 (1)，反映了货架结构检测条件的挑战。<br />
+- <strong>叉车</strong>因低帧数（全部 4 个&lt;4 frames）、低支撑度（2 个&lt;6 observations）和动态污染（全部 4 个 ratio≥0.83）被拒绝。</p>
+<h3 id="4">4. 证据小结</h3>
+<ol>
+<li><strong>类别级可解释性已证。</strong> 每个拒绝均可追溯到具体的标准违反和命名类别，支持审稿人的完整审计。</li>
+<li><strong>策略无类别偏见。</strong> 同一个五门数值标准应用于所有类别。叉车因违反动态污染门（以及通常同时违反帧数/支撑度门）被拒绝，而非因针对叉车的排除规则。</li>
+<li><strong>基础设施拒绝源于证据不足。</strong> 黄色障碍物和工作台被拒绝主要是因为仅出现在 1 个 session——这是回访覆盖有限的自然后果，而非策略缺陷。</li>
+<li><strong>策略自验证。</strong> dynamic_ratio 门自然分离基础设施（全部 ratio=0.00）和叉车（全部 ratio≥0.83），零模糊边界案例——无聚类落在中间区间（0.01–0.82）。这种双峰分布是数据自然涌现的，而非策略强制。</li>
+</ol>
+<p><strong>完整分析输出：</strong> <code>outputs/torwic_category_retention_analysis_p157.json</code></p>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]});"></script>
 </body>

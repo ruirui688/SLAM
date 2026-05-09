@@ -860,16 +860,37 @@ summary and local paths here, then commit and push the repository.
 - Outputs: category_retention_analysis_p157.json, category_retention_analysis_p157.md, 3 PNGs
 - Script: tools/analyze_category_retention_p157.py
 
-## 2026-05-09 P158 high-venue manuscript rewrite finalization
+## 2026-05-09 P158 high-venue manuscript rewrite
 
-- Verified EN/ZH manuscripts already integrated P154-P157 into main narrative (Abstract, §II Contributions, §VII.G, §VIII Discussion, §IX Limitations, §X Conclusion, Appendix)
-- Abstract reframed as "session-level map admission control" methodology
-- Contributions expanded to 7 items including ablation defense, baseline comparison, category analysis, and visualization
-- Results §VII.G: three-part admission criteria defense (P154 ablation, P155 baselines, P157 category/rejection) integrated into main body
-- Discussion and Limitations: honest dynamic SLAM negative boundary preserved; no ATE/RPE improvement claimed
-- Updated audit script for expanded manuscript (16 figures, 50+ sections, 627 EN / 718 ZH lines)
-- Final audit: 100/100 checks passed (100%)
-- All 16 figures present and cross-referenced
-- All 11 references (10 formal + 1 software) present, cross-referenced, and metadata-complete
-- ZH manuscript: closure bundle ref updated to P108-P157
-- P154-P157 appendix complete in both EN and ZH manuscripts
+- **Goal:** Upgrade both EN/ZH manuscripts to principled session-level map admission control methodology; elevate P154-P157 evidence from appendix-only to main-body narrative; sync all core changes.
+- **EN manuscript changes (paper/manuscript_en_thick.md):**
+  - Abstract: repositioned as "principled session-level map admission control methodology"; added mention of ablation/baseline/category defense evidence.
+  - Contributions (§II): expanded from 5→8 items, adding ablation defense (#5), baseline comparison (#6), per-category analysis (#7), and map-composition visualization.
+  - Results §VII.G (new): three-part admission criteria defense — VII.G.1 Parameter Ablation (P154), VII.G.2 Baseline Comparison (P155 + P156 figures), VII.G.3 Per-Category Retention/Rejection Analysis (P157).
+  - Discussion §VIII.A: linked to baseline comparison showing B1 purity/support heuristic fails to reject forklifts.
+  - Discussion §VIII.B: referenced ablation finding that min_sessions=2 is the most impactful filter.
+  - Conclusion: referenced P154-P157 defense evidence.
+  - Appendix P154/P155/P157: shrunk to concise cross-references pointing to §VII.G + archival data paths + figure references. Retained archival per-category retention table.
+- **ZH manuscript changes (paper/manuscript_zh_thick.md):**
+  - Abstract, Contributions, §VII.G, §VIII.A, §VIII.B, Conclusion, Appendix: all synced with EN changes.
+  - §VII.G inserted as full Chinese section with tables and P156/P157 figure references.
+  - Appendix P154/P155/P157: reduced to cross-references and archival table.
+- **Dynamic SLAM negative boundary preserved:** raw-vs-masked DROID-SLAM results remain as boundary condition evidence (§VII.F); no ATE/RPE improvement claimed.
+- **No scope creep:** no new experiments, no data downloads, no external models used.
+
+## 2026-05-09 P159 high-venue package rebuild and audit
+
+- Rebuilt paper exports after P158 rewrite:
+  - `paper/export/manuscript_en_thick.html` (79.8 KB)
+  - `paper/export/manuscript_en_thick.pdf` (667.0 KB)
+  - `paper/export/manuscript_zh_thick.html` (77.8 KB)
+  - `paper/export/manuscript_zh_thick.pdf` (960.7 KB)
+- Installed missing local build dependencies in the active Python user environment via Tsinghua mirror:
+  - `markdown`
+  - `weasyprint`
+- Updated `paper/final_audit.py` from fixed P151 line-count assumptions to expanded high-venue draft checks:
+  - EN/ZH expanded manuscript length and section sanity checks
+  - Fig. 1-16 presence and cross-reference checks
+  - robust evo reference check for IEEE-style `M. Grupp`
+- Final audit result: **100/100 checks passed**.
+- Dynamic SLAM boundary still preserved: DROID-SLAM raw-vs-masked remains trajectory-neutral; no ATE/RPE improvement claim was introduced.

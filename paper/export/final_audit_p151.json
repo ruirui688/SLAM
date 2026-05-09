@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-09T20:42:31.506768",
+  "timestamp": "2026-05-09T20:43:57.587996",
   "checks": [
     {
       "check": "EN thick manuscript exists",
@@ -9,7 +9,7 @@
     {
       "check": "ZH thick manuscript exists",
       "pass": true,
-      "detail": "65092 bytes"
+      "detail": "58281 bytes"
     },
     {
       "check": "EN manuscript lines (~630)",
@@ -17,9 +17,9 @@
       "detail": "627 lines"
     },
     {
-      "check": "ZH manuscript lines (~730)",
+      "check": "ZH manuscript lines (expanded high-venue draft)",
       "pass": true,
-      "detail": "718 lines"
+      "detail": "622 lines"
     },
     {
       "check": "EN sections (~50)",
@@ -29,32 +29,32 @@
     {
       "check": "ZH sections (~56)",
       "pass": true,
-      "detail": "55 sections"
+      "detail": "52 sections"
     },
     {
       "check": "EN/ZH line parity",
       "pass": true,
-      "detail": "Δ=91"
+      "detail": "Δ=5"
     },
     {
       "check": "Export: manuscript_en_thick.html",
       "pass": true,
-      "detail": "61 KB"
+      "detail": "80 KB"
     },
     {
       "check": "Export: manuscript_en_thick.pdf",
       "pass": true,
-      "detail": "643 KB"
+      "detail": "667 KB"
     },
     {
       "check": "Export: manuscript_zh_thick.html",
       "pass": true,
-      "detail": "51 KB"
+      "detail": "78 KB"
     },
     {
       "check": "Export: manuscript_zh_thick.pdf",
       "pass": true,
-      "detail": "820 KB"
+      "detail": "961 KB"
     },
     {
       "check": "Export: build_log.json",
