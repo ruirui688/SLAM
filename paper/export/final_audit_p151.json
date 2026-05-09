@@ -1,0 +1,448 @@
+{
+  "timestamp": "2026-05-09T18:44:29.165706",
+  "checks": [
+    {
+      "check": "EN thick manuscript exists",
+      "pass": true,
+      "detail": "54893 bytes"
+    },
+    {
+      "check": "ZH thick manuscript exists",
+      "pass": true,
+      "detail": "45826 bytes"
+    },
+    {
+      "check": "EN manuscript lines (~495)",
+      "pass": true,
+      "detail": "499 lines"
+    },
+    {
+      "check": "ZH manuscript lines (~490)",
+      "pass": true,
+      "detail": "497 lines"
+    },
+    {
+      "check": "EN sections (~47)",
+      "pass": true,
+      "detail": "47 sections"
+    },
+    {
+      "check": "ZH sections (~47)",
+      "pass": true,
+      "detail": "47 sections"
+    },
+    {
+      "check": "EN/ZH line parity",
+      "pass": true,
+      "detail": "Δ=2"
+    },
+    {
+      "check": "Export: manuscript_en_thick.html",
+      "pass": true,
+      "detail": "61 KB"
+    },
+    {
+      "check": "Export: manuscript_en_thick.pdf",
+      "pass": true,
+      "detail": "643 KB"
+    },
+    {
+      "check": "Export: manuscript_zh_thick.html",
+      "pass": true,
+      "detail": "51 KB"
+    },
+    {
+      "check": "Export: manuscript_zh_thick.pdf",
+      "pass": true,
+      "detail": "820 KB"
+    },
+    {
+      "check": "Export: build_log.json",
+      "pass": true,
+      "detail": "1 KB"
+    },
+    {
+      "check": "  Fig.1 = torwic_paper_result_overview.png",
+      "pass": true,
+      "detail": "173 KB"
+    },
+    {
+      "check": "  Fig.2 = torwic_real_session_overlays.png",
+      "pass": true,
+      "detail": "314 KB"
+    },
+    {
+      "check": "  Fig.3 = torwic_hallway_composite.png",
+      "pass": true,
+      "detail": "1586 KB"
+    },
+    {
+      "check": "  Fig.4 = torwic_dynamic_slam_backend_p134.png",
+      "pass": true,
+      "detail": "125 KB"
+    },
+    {
+      "check": "  Fig.5 = torwic_dynamic_mask_coverage_p135.png",
+      "pass": true,
+      "detail": "100 KB"
+    },
+    {
+      "check": "  Fig.6 = torwic_dynamic_mask_temporal_stress_p136.png",
+      "pass": true,
+      "detail": "116 KB"
+    },
+    {
+      "check": "  Fig.7 = torwic_dynamic_mask_flow_stress_p137.png",
+      "pass": true,
+      "detail": "111 KB"
+    },
+    {
+      "check": "  Fig.8 = torwic_dynamic_mask_first8_real_p138.png",
+      "pass": true,
+      "detail": "108 KB"
+    },
+    {
+      "check": "  Fig.9 = torwic_dynamic_mask_first16_real_p139.png",
+      "pass": true,
+      "detail": "121 KB"
+    },
+    {
+      "check": "  Fig.10 = torwic_dynamic_mask_first32_real_p140.png",
+      "pass": true,
+      "detail": "139 KB"
+    },
+    {
+      "check": "All 10 figures present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  Fig.1 in EN body",
+      "pass": true,
+      "detail": "Fig. 1 illustrates the full pipeline: open-vocabulary RGB-D "
+    },
+    {
+      "check": "  Fig.2 in EN body",
+      "pass": true,
+      "detail": "Fig. 2 for the three-protocol overview)."
+    },
+    {
+      "check": "  Fig.3 in EN body",
+      "pass": true,
+      "detail": "Fig. 3 visualizes the map-admission selectivity across all f"
+    },
+    {
+      "check": "  Fig.4 in EN body",
+      "pass": true,
+      "detail": "Fig. 4), but remains tied (APE RMSE 0."
+    },
+    {
+      "check": "  Fig.5 in EN body",
+      "pass": true,
+      "detail": "Fig. 5)."
+    },
+    {
+      "check": "  Fig.6 in EN body",
+      "pass": true,
+      "detail": "Fig. 6)."
+    },
+    {
+      "check": "  Fig.7 in EN body",
+      "pass": true,
+      "detail": "Fig. 7)."
+    },
+    {
+      "check": "  Fig.8 in EN body",
+      "pass": true,
+      "detail": "Fig. 8)."
+    },
+    {
+      "check": "  Fig.9 in EN body",
+      "pass": true,
+      "detail": "Fig. 9)."
+    },
+    {
+      "check": "  Fig.10 in EN body",
+      "pass": true,
+      "detail": "Fig. 10)."
+    },
+    {
+      "check": "All 10 figures referenced in EN body",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  Table 1 in EN body",
+      "pass": true,
+      "detail": "Table 1"
+    },
+    {
+      "check": "  Table 2 in EN body",
+      "pass": true,
+      "detail": "Table 2"
+    },
+    {
+      "check": "  Table 3 in EN body",
+      "pass": true,
+      "detail": "Table 3"
+    },
+    {
+      "check": "  Table 4 in EN body",
+      "pass": true,
+      "detail": "Table 4"
+    },
+    {
+      "check": "  Table 5 in EN body",
+      "pass": true,
+      "detail": "Table 5"
+    },
+    {
+      "check": "  Table 6 in EN body",
+      "pass": true,
+      "detail": "Table 6"
+    },
+    {
+      "check": "All 6 tables referenced",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [1] in EN body",
+      "pass": true,
+      "detail": "[1]"
+    },
+    {
+      "check": "  [2] in EN body",
+      "pass": true,
+      "detail": "[2]"
+    },
+    {
+      "check": "  [3] in EN body",
+      "pass": true,
+      "detail": "[3]"
+    },
+    {
+      "check": "  [4] in EN body",
+      "pass": true,
+      "detail": "[4]"
+    },
+    {
+      "check": "  [5] in EN body",
+      "pass": true,
+      "detail": "[5]"
+    },
+    {
+      "check": "  [6] in EN body",
+      "pass": true,
+      "detail": "[6]"
+    },
+    {
+      "check": "  [7] in EN body",
+      "pass": true,
+      "detail": "[7]"
+    },
+    {
+      "check": "  [8] in EN body",
+      "pass": true,
+      "detail": "[8]"
+    },
+    {
+      "check": "  [9] in EN body",
+      "pass": true,
+      "detail": "[9]"
+    },
+    {
+      "check": "  [10] in EN body",
+      "pass": true,
+      "detail": "[10]"
+    },
+    {
+      "check": "All [1]-[10] cited in body",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "evo software ref [S] in body",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [1] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [2] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [3] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [4] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [5] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [6] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [7] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [8] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [9] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  [10] entry in References",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "evo entry in References",
+      "pass": false,
+      "detail": ""
+    },
+    {
+      "check": "Limitations section exists",
+      "pass": true,
+      "detail": "7 items"
+    },
+    {
+      "check": "Limitation 6 (citations resolved)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Evidence chain (Table 6 + 10 configs)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Boundary conditions (>5%)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Negative-result framing",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Cross-window audit (P143)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "dynamic_slam_backend_metrics.json",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Dynamic SLAM backend dirs",
+      "pass": true,
+      "detail": "12 directories"
+    },
+    {
+      "check": "Package index v10",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Submission checklist v1",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "build_paper.py exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "build_paper.py has 'weasyprint'",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  Grounding DINO cited in ZH",
+      "pass": true,
+      "detail": "Grounding DINO [7]"
+    },
+    {
+      "check": "  SAM2 cited in ZH",
+      "pass": true,
+      "detail": "SAM2 [8]"
+    },
+    {
+      "check": "  OpenCLIP cited in ZH",
+      "pass": true,
+      "detail": "OpenCLIP [9]"
+    },
+    {
+      "check": "  DROID-SLAM cited in ZH",
+      "pass": true,
+      "detail": "DROID-SLAM [10]"
+    },
+    {
+      "check": "  evo cited in ZH",
+      "pass": true,
+      "detail": "[S]"
+    },
+    {
+      "check": "  §VII.F in ZH",
+      "pass": true,
+      "detail": "七.E"
+    },
+    {
+      "check": "  §X Conclusion in ZH",
+      "pass": true,
+      "detail": "## 十"
+    },
+    {
+      "check": "  Appendix in ZH",
+      "pass": true,
+      "detail": "## 附录"
+    },
+    {
+      "check": "  P148 in README",
+      "pass": false,
+      "detail": ""
+    },
+    {
+      "check": "  P149 in README",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "  P150 in README",
+      "pass": false,
+      "detail": ""
+    },
+    {
+      "check": "No TODOs/FIXMEs in EN manuscript",
+      "pass": true,
+      "detail": "none"
+    }
+  ],
+  "total": 88,
+  "passed": 85,
+  "failed": 3
+}

@@ -760,3 +760,14 @@ summary and local paths here, then commit and push the repository.
 - GAP-001–003 resolved (Grounding DINO, SAM2, OpenCLIP citations now formally provided)
 - GAP-004–006 (arXiv links for [1]–[3]) still deferred
 - Total bibliography: 10 formal references + 1 software citation
+
+## 2026-05-09 P151 final submission package audit
+
+- Ran comprehensive 88-dimension audit script (`paper/final_audit.py`) across 15 categories.
+- Results: 85/88 checks passed (97%).
+- 3 minor findings (all non-blocking):
+  1. evo entry naming check: cited as "M. Grupp" in References (conforms to IEEE author initial style) — checker regex expected "Michael Grupp". Confirmed entry present.
+  2. P148 README entry was overwritten during P149 edit — restored.
+  3. P150 README entry was missing — added.
+- Key stats: EN 499 lines / ZH 497 lines (Δ=2), 47 sections each, 10 figures all mapped, 6 tables cross-referenced, [1]-[10]+[S] all present and cited, no TODOs/FIXMEs, §VII.E-F complete with evidence chain, limitations 7 items, exports (HTML+PDF) verified, 12 dynamic SLAM backend directories.
+- Package is submission-ready for any venue requiring only template application and cover letter.

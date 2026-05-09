@@ -472,7 +472,52 @@ make dynamic-first32-real-mask-figure
 
 
 
+### P148 相机就绪论文包（2026-05-09 18:18+08）
+
+**完成：** 最终投稿包：图→文件映射、package index v10、GAP-008/009 关闭。
+
+| 产出 | 内容 |
+|---|---|
+| 10 图文件映射 | 每个 Fig. 标有 `[File: paper/figures/...]` |
+| Package index v10 | 44 bundles, 394 files, 232 manifest entries, 11 PNGs |
+| Submission checklist | 所有 36 项检查通过 |
+
+**下一步：P149 — 本地论文构建导出。**
+
 ### P149 本地论文导出（2026-05-09 18:29+08）
+
+**完成：** 中英文论文本地 HTML + PDF 导出，GAP-010 关闭。
+
+| 产出 | 大小 |
+|---|---|
+| `paper/export/manuscript_en_thick.html` | 61 KB |
+| `paper/export/manuscript_en_thick.pdf` | 643 KB |
+| `paper/export/manuscript_zh_thick.html` | 51 KB |
+| `paper/export/manuscript_zh_thick.pdf` | 820 KB |
+
+**工具链：** Python 3.10 + markdown 3.10.2 + weasyprint 68.1。无 sudo，无 pandoc，无 texlive。
+**中文 PDF：** 使用 Noto Serif CJK SC 字体，12,317 个 CJK 字符正确渲染。
+**可复现命令：** `pip3 install --user markdown weasyprint && python3 paper/build_paper.py`
+
+**下一步：P150 — 引用与格式闭合。**
+
+### P150 引用闭合（2026-05-09 18:43+08）
+
+**完成：** 添加正式引用 [7]–[10] + evo 软件引用，GAP-001–003 关闭。
+
+| 引用 | 论文 | 场合 |
+|---|---|---|
+| [7] | Grounding DINO | Liu et al., ECCV 2024 |
+| [8] | SAM2 | Ravi et al., arXiv 2024 |
+| [9] | OpenCLIP | Cherti et al., CVPR 2023 |
+| [10] | DROID-SLAM | Teed & Deng, NeurIPS 2021 |
+| [S] | evo | Grupp, 2017 (软件) |
+
+**参考文献总数：** 10 篇正式引用 + 1 篇软件引用。
+
+**下一步：P151 — 最终提交包审计。**
+
+### P151 最终提交包审计（2026-05-09 ~18:50+08）
 
 **完成：** 中英文论文本地 HTML + PDF 导出，GAP-010 关闭。
 
