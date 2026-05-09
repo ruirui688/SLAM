@@ -169,6 +169,15 @@ summary and local paths here, then commit and push the repository.
   objects and 2 rejected dynamic/transient clusters.
 - Policy: the fixture is tiny and Git-tracked; generated outputs remain ignored.
 
+## 2026-05-09 Chinese quickstart and demo result image
+
+- Converted the root project README into a Chinese-first project entrypoint.
+- Added test environment instructions, runnable commands, pasted verified JSON
+  output, and an embedded result image.
+- Updated the minimal demo to generate `outputs/minimal_demo/result.svg`.
+- Added tracked expected image:
+  `examples/minimal_slam_demo/expected_result.svg`.
+
 ## 2026-05-09 P120 thick manuscript draft v1 (EN + ZH)
 
 - Created paper/manuscript_en_thick.md (372 lines, 31K chars) and paper/manuscript_zh_thick.md (366 lines, 12K chars).

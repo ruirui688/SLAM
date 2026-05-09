@@ -1,115 +1,172 @@
-# Dynamic Industrial Semantic-Segmentation-Assisted SLAM
+# 动态工业环境语义分割辅助 SLAM
 
-This repository tracks the paper-facing code, protocol configuration, and
-documentation for a research project on **semantic-segmentation-assisted SLAM
-in dynamic industrial environments**.
+本仓库用于推进一篇关于 **动态工业环境中语义分割辅助 SLAM** 的论文和最小可运行系统。
 
-The current paper direction is clear:
+核心思想很简单：开放词汇语义分割产生的对象不能直接写入长期 SLAM 地图。它们应先成为可审计的对象观测，再经过跨会话稳定性、持久性和动态性过滤，最后才决定是进入稳定语义地图，还是作为动态/瞬时证据被拒绝。
 
-- use open-vocabulary semantic segmentation as an RGB-D object evidence source;
-- convert detections into auditable object-map maintenance records;
-- retain stable semantic landmarks across industrial revisits;
-- reject dynamic or transient object evidence before it pollutes the persistent
-  SLAM map;
-- present the contribution as a bounded systems paper, not as a final lifelong
-  SLAM benchmark or downstream navigation-gain claim.
+## 1. 最小可运行 Demo
 
-Raw datasets, generated experiment outputs, videos, point clouds, model weights,
-and temporary files are intentionally excluded from Git. Dataset provenance and
-download entrypoints are documented in [`DATA_SOURCES.md`](./DATA_SOURCES.md)
-and [`DATA_ORGANIZATION.md`](./DATA_ORGANIZATION.md).
+这是给外部读者的第一入口。它不需要下载 TorWIC，不加载 Grounding DINO/SAM2/OpenCLIP，不需要 GPU，不访问网络，只使用 Python 标准库和仓库内置的小样例数据。
 
-## Quick Start: Minimal Runnable Demo
+### 测试环境安装
 
-This is the fastest way to verify the repository after clone. It does not
-download TorWIC, load Grounding DINO/SAM2/OpenCLIP, require GPU, or access the
-network. It runs a tiny Git-tracked object-observation fixture through the
-paper's core map-admission loop:
+最低环境：
 
-```text
-ObjectObservation -> cross-session cluster -> retained MapObject or rejection
+- Python 3.10 或更高版本；
+- Linux/macOS/Windows 均可；
+- 不需要 CUDA；
+- 不需要模型权重；
+- 不需要完整数据集。
+
+建议命令：
+
+```bash
+git clone git@github.com:ruirui688/SLAM.git
+cd SLAM
+python --version
 ```
 
-Run:
+可选虚拟环境：
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+这个最小 demo 没有第三方依赖，所以不需要 `pip install`。
+
+### 运行入口
+
+方式一：
 
 ```bash
 python tools/run_minimal_demo.py
 ```
 
-or:
+方式二：
 
 ```bash
 make demo
 ```
 
-Expected output:
+它运行的最小闭环是：
+
+```text
+ObjectObservation -> cross-session cluster -> retained MapObject or rejection
+```
+
+输入样例：
+
+```text
+examples/minimal_slam_demo/observations.json
+```
+
+输出目录：
+
+```text
+outputs/minimal_demo/
+```
+
+### 已验证的测试结果
+
+我在本仓库当前环境中运行：
+
+```bash
+make demo
+```
+
+得到输出：
+
+```json
+{
+  "input": "/home/rui/slam/examples/minimal_slam_demo/observations.json",
+  "output_dir": "/home/rui/slam/outputs/minimal_demo",
+  "observations": 11,
+  "clusters": 4,
+  "retained_stable_map_objects": 2,
+  "rejected_clusters": 2,
+  "criteria": {
+    "min_sessions": 2,
+    "min_observations": 3,
+    "max_dynamic_ratio": 0.34,
+    "min_label_purity": 0.6
+  }
+}
+```
+
+生成文件：
 
 ```text
 outputs/minimal_demo/summary.json
 outputs/minimal_demo/map_objects.json
 outputs/minimal_demo/rejected_clusters.json
 outputs/minimal_demo/report.md
+outputs/minimal_demo/result.svg
 ```
 
-The demo should retain stable infrastructure-like objects and reject
-forklift-like or single-session transient evidence. The sample input lives in
-[`examples/minimal_slam_demo/observations.json`](./examples/minimal_slam_demo/observations.json).
+结果图如下：
 
-## Paper Drafts
+![最小语义 SLAM Demo 结果](examples/minimal_slam_demo/expected_result.svg)
 
-The repository now contains visible manuscript drafts:
+结果解释：
 
-| Draft | Path | Purpose |
+- `safety barrier` 和 `warehouse rack` 跨 3 个 session 重复出现，被保留为稳定地图对象；
+- `forklift` 虽然跨 session 出现，但动态比例为 1.0，被拒绝为动态污染；
+- `pallet stack` 只在单 session 出现，且是瞬时对象，被拒绝；
+- 这正对应论文主张：语义分割输出是候选证据，不是可直接写入持久地图的真值。
+
+## 2. 论文稿件
+
+| 稿件 | 路径 | 用途 |
 |---|---|---|
-| English manuscript | [`paper/manuscript_en.md`](./paper/manuscript_en.md) | Current English paper draft for direct GitHub review |
-| Chinese manuscript | [`paper/manuscript_zh.md`](./paper/manuscript_zh.md) | Chinese companion draft for project tracking and discussion |
-| Thick English manuscript | [`paper/manuscript_en_thick.md`](./paper/manuscript_en_thick.md) | Substantial first draft with expanded method, protocol, results, and discussion |
-| Thick Chinese manuscript | [`paper/manuscript_zh_thick.md`](./paper/manuscript_zh_thick.md) | Chinese companion for the thick first draft |
+| 英文进度稿 | [`paper/manuscript_en.md`](./paper/manuscript_en.md) | 轻量英文稿 |
+| 中文进度稿 | [`paper/manuscript_zh.md`](./paper/manuscript_zh.md) | 轻量中文稿 |
+| 英文厚稿 | [`paper/manuscript_en_thick.md`](./paper/manuscript_en_thick.md) | 厚实英文初稿 |
+| 中文厚稿 | [`paper/manuscript_zh_thick.md`](./paper/manuscript_zh_thick.md) | 厚实中文初稿 |
 
-These Markdown drafts are Git-tracked progress artifacts. They summarize the
-current submission-ready argument and point back to ignored local evidence under
-`outputs/` when needed.
+当前厚稿已经包含 Related Work、Problem Formulation、Method、Experimental Protocol、Results、Failure-case Analysis、Discussion、Limitations、References、Figure Captions 和 Evidence Ladder Summary。
 
-## Current Evidence Stack
+## 3. 当前证据栈
 
-The primary evidence family is the TorWIC Aisle revisit ladder:
+主线证据是 TorWIC Aisle 重访阶梯：
 
-| Setting | Sessions | Frame-Level Objects | Cross-Session Clusters | Retained Stable Objects |
+| 设置 | 会话数 | 帧级对象 | 跨会话聚类 | 保留稳定对象 |
 |---|---:|---:|---:|---:|
 | Same-day Aisle | 4 | 203 | 11 | 5 |
 | Cross-day Aisle | 4 | 240 | 10 | 5 |
 | Cross-month Aisle | 6 | 297 | 14 | 7 |
 
-The secondary broader-validation branch is TorWIC Hallway:
+次级广泛验证分支是 TorWIC Hallway：
 
-| Branch | Sessions | Executed Frames | Frame-Level Objects | Cross-Session Clusters | Retained Stable Objects |
+| 分支 | 会话数 | 执行帧 | 帧级对象 | 跨会话聚类 | 保留稳定对象 |
 |---|---:|---:|---:|---:|---:|
 | Hallway broader validation | 10 | 80/80 first-eight-frame commands | 537 | 16 | 9 |
 
-Important interpretation rules:
+解释规则：
 
-- Aisle is the primary controlled ladder.
-- Hallway is current broader validation, not missing or deferred.
-- Hallway must not be merged into the primary Aisle ladder.
-- The historical `172/15/5` cross-month family is fallback chronology only.
-- Larger-window or full-trajectory experiments require explicit approval.
+- Aisle 是主控证据阶梯；
+- Hallway 是次级广泛验证，不并入主 Aisle 阶梯；
+- 历史 `172/15/5` cross-month family 只作为 fallback chronology；
+- larger-window 或 full-trajectory 实验需要单独批准。
 
-## Repository Layout
+## 4. 仓库结构
 
-| Path | Role |
+| 路径 | 作用 |
 |---|---|
-| [`paper/`](./paper/) | Git-tracked Chinese and English manuscript drafts |
-| [`RESEARCH_PROGRESS.md`](./RESEARCH_PROGRESS.md) | Lightweight progress log for commits and robot updates |
-| [`DATA_SOURCES.md`](./DATA_SOURCES.md) | Dataset source, local root, and Git exclusion policy |
-| [`DATA_ORGANIZATION.md`](./DATA_ORGANIZATION.md) | Data organization notes and recovery guidance |
-| [`config/protocols/`](./config/protocols/) | TorWIC protocol configs used by the paper-facing evidence stack |
-| [`tools/`](./tools/) | Dataset, protocol, object-observation, and reporting utilities |
-| [`sam2/`](./sam2/) | SAM2 model code inherited from the Grounded-SAM-2 base |
-| [`grounding_dino/`](./grounding_dino/) | Grounding DINO code inherited from the Grounded-SAM-2 base |
+| [`examples/minimal_slam_demo/`](./examples/minimal_slam_demo/) | Git 跟踪的最小可运行样例数据 |
+| [`tools/run_minimal_demo.py`](./tools/run_minimal_demo.py) | 最小 demo 入口 |
+| [`paper/`](./paper/) | 中英文论文稿 |
+| [`RESEARCH_PROGRESS.md`](./RESEARCH_PROGRESS.md) | 研究机器人和论文进度日志 |
+| [`DATA_SOURCES.md`](./DATA_SOURCES.md) | 数据来源、下载入口和 Git 排除策略 |
+| [`DATA_ORGANIZATION.md`](./DATA_ORGANIZATION.md) | 数据组织和恢复说明 |
+| [`config/protocols/`](./config/protocols/) | TorWIC 协议配置 |
+| [`tools/`](./tools/) | 数据、协议、对象观测和报告工具 |
+| [`sam2/`](./sam2/) | SAM2 相关代码 |
+| [`grounding_dino/`](./grounding_dino/) | Grounding DINO 相关代码 |
 
-## Core Pipeline
+## 5. 核心流水线
 
-The current system is organized around an auditable object-maintenance chain:
+论文中的完整系统围绕如下对象维护链路组织：
 
 ```text
 RGB-D frames
@@ -123,55 +180,36 @@ RGB-D frames
   -> retained stable landmark or rejected transient/dynamic evidence
 ```
 
-This is the central scientific point of the paper: segmentation outputs are not
-inserted directly into the persistent SLAM map. They become candidate evidence
-and must pass cross-session admission rules.
+最小 demo 不运行大模型，而是用小型 JSON fixture 直接模拟 `ObjectObservation` 之后的地图准入逻辑，便于快速测试和审阅。
 
-## Dataset Policy
+## 6. 数据和 Git 策略
 
-Active dataset:
+完整数据集：
 
-- Dataset: TorWIC SLAM Dataset / Toronto Warehouse Incremental Change SLAM
-  Dataset
-- Local root: `/home/rui/slam/data/TorWIC_SLAM_Dataset`
-- Git policy: excluded from Git
-- Download/recovery entrypoints:
-  - [`tools/download_torwic_linux.py`](./tools/download_torwic_linux.py)
-  - [`tools/download_torwic_benchmark_batch1.sh`](./tools/download_torwic_benchmark_batch1.sh)
-  - [`DATA_SOURCES.md`](./DATA_SOURCES.md)
-  - [`config/protocols/README.md`](./config/protocols/README.md)
+- TorWIC SLAM Dataset / Toronto Warehouse Incremental Change SLAM Dataset；
+- 本地路径：`/home/rui/slam/data/TorWIC_SLAM_Dataset`；
+- Git 策略：完整数据不提交；
+- 下载和恢复入口见 [`DATA_SOURCES.md`](./DATA_SOURCES.md) 与 [`DATA_ORGANIZATION.md`](./DATA_ORGANIZATION.md)。
 
-Do not commit:
+不要提交：
 
 - `data/`
 - `outputs/`
 - `tmp/`
 - `checkpoints/`
 - `gdino_checkpoints/`
-- `.bag`, `.zip`, videos, point clouds, masks, model weights, and generated
-  large artifacts
+- `.bag`、压缩包、视频、点云、mask、模型权重和大型生成产物。
 
-When the research robot produces ignored artifacts, it should record the result
-summary in [`RESEARCH_PROGRESS.md`](./RESEARCH_PROGRESS.md), update the paper
-drafts or package index when appropriate, then commit and push the tracked
-metadata.
+小型 demo fixture 可以提交；运行生成的 `outputs/minimal_demo/` 不提交。
 
-## Current Submission Status
+## 7. 当前状态
 
-As of 2026-05-09, the repository has:
+截至 2026-05-09：
 
-- a thick English and Chinese first manuscript draft under `paper/`;
-- a P114-P119 evidence/package closure chain;
-- a minimal runnable smoke demo under `examples/minimal_slam_demo/`;
-- no active new dataset download or new experiment protocol.
+- 已有厚版中英文论文初稿；
+- 已有 P114-P119 证据和投稿包闭环；
+- 已有最小可运行 demo；
+- 当前没有新数据下载；
+- 当前没有新实验 protocol 在运行。
 
-The next research step should be explicit: venue-shaped manuscript polish,
-approved larger-window experiments, citation back-end preference, or another
-named paper/development branch.
-
-## Upstream Base
-
-This project started from Grounded-SAM-2 and still includes its model/demo code.
-The upstream-oriented README has been preserved as
-[`SAM2_README.md`](./SAM2_README.md). This root README describes the current
-SLAM research repository rather than the original upstream demo package.
+下一步必须是明确方向，例如：目标 venue 格式化、引用后端补强、更丰富可视化 demo、或经批准的更大实验。

@@ -1,31 +1,30 @@
-## SAM 2 toolkits
+## SAM 2 工具
 
-This directory provides toolkits for additional SAM 2 use cases.
+本目录包含仓库中的运行工具、协议工具和 SAM 2 相关工具。
 
-### Minimal semantic-SLAM smoke demo
+### 最小语义 SLAM smoke demo
 
-The `run_minimal_demo.py` script is the fastest repository sanity check. It uses
-the tiny Git-tracked fixture under `examples/minimal_slam_demo/` and exercises
-the paper's core map-admission loop without GPU, model weights, TorWIC downloads,
-or network access.
+`run_minimal_demo.py` 是最快的仓库运行检查入口。它使用
+`examples/minimal_slam_demo/` 下的 Git 跟踪小样例数据，不需要 GPU、模型权重、
+TorWIC 下载或网络访问，就能跑通论文核心的地图准入闭环。
 
 ```bash
 python ./tools/run_minimal_demo.py
 ```
 
-Outputs are written to `outputs/minimal_demo/`:
+输出写入 `outputs/minimal_demo/`：
 
 - `summary.json`
 - `map_objects.json`
 - `rejected_clusters.json`
 - `report.md`
+- `result.svg`
 
-### Local Grounded-SAM2 to ObjectObservation bridge
+### 本地 Grounded-SAM2 到 ObjectObservation 桥接
 
-The `demo_local_grounded_sam2_observations.py` script runs the original single-image
-`Grounding DINO + SAM2` path on a local RGB image, writes a minimal
-`all_instances_manifest.json`, and then builds `ObjectObservation` JSON files for the
-paper-v1 pipeline.
+`demo_local_grounded_sam2_observations.py` 在本地 RGB 图像上运行原始单图
+`Grounding DINO + SAM2` 路径，写出最小 `all_instances_manifest.json`，然后为
+paper-v1 管线构建 `ObjectObservation` JSON 文件。
 
 It auto-resolves the local cached `grounding-dino-tiny` Hugging Face snapshot and the
 first matching SAM2 checkpoint/config pair found in this repo.
@@ -38,7 +37,7 @@ python ./tools/demo_local_grounded_sam2_observations.py \
   --session-id truck_demo
 ```
 
-### Semi-supervised VOS inference
+### 半监督 VOS 推理
 
 The `vos_inference.py` script can be used to generate predictions for semi-supervised video object segmentation (VOS) evaluation on datasets such as [DAVIS](https://davischallenge.org/index.html), [MOSE](https://henghuiding.github.io/MOSE/) or the SA-V dataset.
 
