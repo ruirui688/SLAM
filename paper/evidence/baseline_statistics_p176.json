@@ -1,0 +1,209 @@
+{
+  "artifact": "P176 B3 baseline statistics closure",
+  "phase": "P176-b3-baseline-statistics-closure",
+  "created": "2026-05-10T00:25:18.119943+08:00",
+  "verdict": "B3 RESOLVED — per-baseline admission flags recovered from supplement.md, exact McNemar tests computed for all 3 baseline pairs",
+  "cluster_count": 20,
+  "source": "supplement.md §S2.2 per-cluster tables (Aisle ladder, 20 clusters)",
+  "baseline_admission_rates": {
+    "B0": {
+      "admitted": 20,
+      "total": 20,
+      "rate": 1.0
+    },
+    "B1": {
+      "admitted": 9,
+      "total": 20,
+      "rate": 0.45
+    },
+    "B2": {
+      "admitted": 5,
+      "total": 20,
+      "rate": 0.25
+    }
+  },
+  "mcnemar_results": {
+    "B0_vs_B1": {
+      "discordant_pairs": 11,
+      "k": 0,
+      "p_value": 0.0009765625,
+      "significant_05": true
+    },
+    "B1_vs_B2": {
+      "discordant_pairs": 4,
+      "k": 0,
+      "p_value": 0.125,
+      "significant_05": false
+    },
+    "B0_vs_B2": {
+      "discordant_pairs": 15,
+      "k": 0,
+      "p_value": 6.103515625e-05,
+      "significant_05": true
+    }
+  },
+  "hallway_note": "Hallway branch (16 clusters) has no per-baseline comparison (B0/B1/B2 baselines designed for Aisle ladder only; Hallway is supplementary scene-transfer validation).",
+  "statistical_method": "Exact McNemar test (binomial on discordant pairs) for paired binary data. Each cluster is a paired observation across all 3 baselines. Two-sided binomial test with H0: equal discordance probability (p=0.5).",
+  "per_cluster_flags": [
+    {
+      "cluster": "INF-01",
+      "label": "yellow barrier",
+      "B0": true,
+      "B1": true,
+      "B2": true,
+      "group": "infra"
+    },
+    {
+      "cluster": "INF-02",
+      "label": "yellow barrier",
+      "B0": true,
+      "B1": true,
+      "B2": true,
+      "group": "infra"
+    },
+    {
+      "cluster": "INF-03",
+      "label": "work table",
+      "B0": true,
+      "B1": true,
+      "B2": true,
+      "group": "infra"
+    },
+    {
+      "cluster": "INF-04",
+      "label": "work table",
+      "B0": true,
+      "B1": true,
+      "B2": true,
+      "group": "infra"
+    },
+    {
+      "cluster": "INF-05",
+      "label": "warehouse rack",
+      "B0": true,
+      "B1": true,
+      "B2": true,
+      "group": "infra"
+    },
+    {
+      "cluster": "FL-01",
+      "label": "forklift",
+      "B0": true,
+      "B1": true,
+      "B2": false,
+      "group": "dynamic"
+    },
+    {
+      "cluster": "FL-02",
+      "label": "forklift",
+      "B0": true,
+      "B1": true,
+      "B2": false,
+      "group": "dynamic"
+    },
+    {
+      "cluster": "FL-03",
+      "label": "forklift",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "dynamic"
+    },
+    {
+      "cluster": "FL-04",
+      "label": "forklift",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "dynamic"
+    },
+    {
+      "cluster": "SS-01",
+      "label": "unclassified",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "SS-02",
+      "label": "unclassified",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "SS-03",
+      "label": "unclassified",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "SS-04",
+      "label": "yellow barrier",
+      "B0": true,
+      "B1": true,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "SS-05",
+      "label": "work table",
+      "B0": true,
+      "B1": true,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "SS-06",
+      "label": "warehouse rack",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "LF-01",
+      "label": "yellow barrier",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "LF-02",
+      "label": "work table",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "LF-03",
+      "label": "warehouse rack",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "LF-04",
+      "label": "yellow barrier",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "low_quality"
+    },
+    {
+      "cluster": "LF-05",
+      "label": "unclassified",
+      "B0": true,
+      "B1": false,
+      "B2": false,
+      "group": "low_quality"
+    }
+  ]
+}

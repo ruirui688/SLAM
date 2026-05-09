@@ -1105,6 +1105,23 @@ summary and local paths here, then commit and push the repository.
 - **Smoke outputs:** `outputs/dynamic_slam_backend_smoke_p172_jun15_run2/` (ok), `outputs/dynamic_slam_backend_smoke_p172_jun23_run1/` (ok)
 - **Blocked:** P173 ORB-SLAM3 cross-check (no backend — needs user download approval)
 - **Active:** None — mainline blocked pending P173 download decision or new phase.
+- **Blocker status:** B1 ✅, B2 ✅, B3 ✅ — all 3 original ROUND1 blockers RESOLVED.
+
+## 2026-05-10 P176 — B3 baseline statistics closure
+
+- **Goal:** Close remaining B3 gap by computing per-baseline Fisher/McNemar exact tests.
+- **Result: ✅ B3 RESOLVED.** Per-baseline admission flags recovered from supplement.md §S2.2.
+  - 20 Aisle clusters with explicit B0/B1/B2 ✓/✗ flags
+  - **Exact McNemar tests:**
+    - B0 vs B1: 11 discordant pairs, p=0.001 (significant)
+    - B1 vs B2: 4 discordant pairs (FL-01, FL-02, SS-04, SS-05), p=0.125 (not significant at α=0.05, n=4 too small; but direction deterministic — all B1-admitted clusters B2 rejects)
+    - B0 vs B2: 15 discordant pairs, p<0.0001 (significant)
+  - All 4 Discordant pairs in B1/B2 comparison are forklifts (FL-01, FL-02) + single-session infra (SS-04, SS-05) — B2's dynamicity criterion is the critical differentiator
+- **Hallway:** No B0/B1/B2 baseline comparison (Hallway supplementary only; B0/B1 designed for Aisle ladder)
+- **Paper updates:** main.tex limitations §VII item 1 (McNemar p-values added), EDITOR_SUMMARY baseline row
+- **Audit:** ROUND3_FINAL_AUDIT B3 → RESOLVED. All 3 blockers resolved. Verdict: submission-ready (human actions only).
+- **Outputs:** `paper/evidence/baseline_statistics_p176.json` (5KB), `paper/export/baseline_statistics_p176.md` (3KB)
+- **Next:** P173 ORB-SLAM3 cross-check (blocked pending backend download)
 
 ## 2026-05-10 P175 — B2 Hallway sessions 9–10 closure
 

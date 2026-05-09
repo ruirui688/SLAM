@@ -4,7 +4,7 @@
 
 **Date:** 2026-05-09
 
-**Last Updated:** 2026-05-10 00:15 (P175 B2 closure: Hallway 10/10 confirmed, B2 resolved)
+**Last Updated:** 2026-05-10 00:25 (P176 B3 closure: baseline McNemar tests complete, all 3 blockers resolved)
 
 **Scope:** Cross-reference consistency check of all 13 submission-package files
 
@@ -13,7 +13,7 @@
 ****P167 R2 (2026-05-09 23:50):** P172 S2 (Oct12 Aisle_CW cross-month + Oct12 Hallway scene-transfer, ΔAPE=0.000mm both) upgraded D7→16 configs/5 sessions/2 scene types; D9 cross-scene universal; D13 multi-scene evidence. Score stable: 30 PASS, 0 FAIL.
 **P174 (2026-05-10):** Statistical formalization added: bootstrap 95% CIs for admission rates (all 4 protocols + pooled), Wilson CIs, Fisher exact Hallway-vs-Aisle (p=0.7645), dynamic SLAM neutral-rate bootstrap CI (43.8–87.5%), dynamic SLAM two-group complete separation (gap=0.914mm). B3 partially resolved: bootstrap CIs + Hallway-Aisle Fisher done; B0/B1/B2 Fisher exact not computed (per-baseline admission flags not exported).
 
-Verdict: **CONDITIONAL PASS — 30/30 checks pass (30 PASS, 0 WARN, 0 FAIL). 0 deferred blockers. B3 partially resolved.**
+Verdict: **CONDITIONAL PASS — 30/30 checks pass (30 PASS, 0 WARN, 0 FAIL). All 3 original ROUND1 blockers (B1/B2/B3) RESOLVED. Package is internally consistent, statistically formalized, and submission-ready (subject to human double-check of anonymization and figure rendering).**
 
 ---
 
@@ -82,15 +82,17 @@ Verdict: **CONDITIONAL PASS — 30/30 checks pass (30 PASS, 0 WARN, 0 FAIL). 0 d
 |---|---|---|---|---|
 | **B1** | ~~§IV/§V/§VI content integration~~ | HIGH | **RESOLVED (P170)** | P170 ported manuscript_en_thick.md prose into main.tex §IV/§V/§VI. Commit f87afff. Main body now has real content in all required method sections. |
 | **B2** | ~~Hallway sessions 9–10~~ | — | **RESOLVED (P175)** | P175 verified 10/10 Hallway sessions are present in current clustering (537/16/9). Sessions 9–10 (Oct 12 Hallway_Straight_CCW, Hallway_Straight_CW) are included. E2 updated 8/10→10/10. No Hallway session blockers remain. |
-| **B3** | Statistical formalization | LOW | **PARTIALLY RESOLVED (P174)** | Bootstrap 95% CIs computed for all admission rates (4 protocols + pooled); Wilson CIs; Hallway-vs-Aisle Fisher exact (p=0.7645); dynamic SLAM neutral-rate bootstrap CI (43.8–87.5%) with complete two-group separation (gap=0.914mm). Residual: B0/B1/B2 Fisher exact not computed — per-baseline per-cluster admission flags not exported. Documented as limitation. |
+| **B3** | ~~Statistical formalization~~ | — | **RESOLVED (P176)** | Bootstrap CIs + Wilson CIs + Fisher Hallway-Aisle (P174). B0/B1/B2 exact McNemar tests on Aisle ladder (P176: B0/B1 p<0.001, B1/B2 p=0.125, B0/B2 p<0.0001, n=20 clusters). Hallway has no baseline comparison (supplementary only, B0/B1 not designed for Hallway). All original B3 items closed. |
 
 ---
 
 ## 4. Submission Readiness Verdict
 
-### Overall: CONDITIONAL PASS — all blockers resolved; B3 partially resolved
+### Overall: CONDITIONAL PASS — submission-ready (all blockers resolved)
 
-**Score history:** 62 (original P167) → 75 (P167 R1: B1 resolved) → 75 (P167 R2: P172 S2) → 75 (P174: bootstrap CIs + Fisher) → **75 blocking-score + 0 blockers** (P175: B2 resolved, Hallway 10/10). All 30 PASS. 0 FAIL. 0 deferred blockers. B3 partially resolved (B0/B1/B2 Fisher deferred).
+**Blocking score: 75/75. All 30 checks PASS, 0 FAIL. All 3 original ROUND1 blockers (B1/B2/B3) RESOLVED.** Residual tasks: figure rendering/placement, anonymization double-check, ORCID registration — human actions only.
+
+**Score history:** 62 (original P167) → 75 (P167 R1: B1 resolved) → 75 (P167 R2: P172 S2) → 75 (P174: bootstrap CIs + Fisher) → 75 (P175: B2 resolved, Hallway 10/10) → **75 (P176: B3 resolved, baseline McNemar complete).** All 30 PASS. 0 FAIL. 0 deferred blockers. All blockers resolved.
 
 **Blocking score: 75/75.** All 3 original blockers resolved or partially resolved.
 
@@ -189,4 +191,4 @@ paper/tro_submission/
 
 ---
 
-*Audit completed 2026-05-09 22:12 GMT+8. R1: B1 resolved by P170 (score 62→75). R2: P172 S2 cross-month+Hallway. P174: statistical formalization (bootstrap CIs, Fisher). P175: B2 resolved — Hallway 10/10 confirmed via recovered 10-session first-eight branch (537/16/9, 80/80 frames). E2 updated 8/10→10/10. All 3 original blockers resolved or partially resolved. 30 PASS, 0 WARN, 0 FAIL. The package is internally consistent, statistically formalized, and all blockers deferred from ROUND1 are closed. B3 residual (B0/B1/B2 Fisher exact) is documented as a minor limitation.*
+*Audit completed 2026-05-09 22:12 GMT+8. R1: B1 resolved by P170 (score 62→75). R2: P172 S2 cross-month+Hallway. P174: statistical formalization (bootstrap CIs, Fisher). P175: B2 resolved — Hallway 10/10 confirmed (537/16/9, 80/80). P176: B3 resolved — per-baseline McNemar tests: B0/B1 p<0.001, B1/B2 p=0.125, B0/B2 p<0.0001 (n=20 Aisle clusters). All 3 ROUND1 blockers fully resolved. 30 PASS, 0 WARN, 0 FAIL. Package is internally consistent, statistically formalized, blocker-free, and submission-ready pending human double-check of anonymization and figure rendering.*
