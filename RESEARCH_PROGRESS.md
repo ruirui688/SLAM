@@ -771,3 +771,14 @@ summary and local paths here, then commit and push the repository.
   3. P150 README entry was missing — added.
 - Key stats: EN 499 lines / ZH 497 lines (Δ=2), 47 sections each, 10 figures all mapped, 6 tables cross-referenced, [1]-[10]+[S] all present and cited, no TODOs/FIXMEs, §VII.E-F complete with evidence chain, limitations 7 items, exports (HTML+PDF) verified, 12 dynamic SLAM backend directories.
 - Package is submission-ready for any venue requiring only template application and cover letter.
+
+## 2026-05-09 P152 advisor handoff and venue decision pack
+
+- Created comprehensive advisor handoff package: `paper/export/advisor_handoff_pack_v1.md`
+- Contents:
+  1. One-page delivery index (15 key artifacts with paths and descriptions)
+  2. Venue decision matrix (7 candidate venues: ICRA, IROS, RSS, CVPR, ECCV, RA-L, T-RO, JFR, IJRR)
+  3. Cover letter skeleton (venue-agnostic, ready to fill author list)
+  4. Final remaining decisions list (12 items: venue, page budget, §VII.E-F disposition, author ordering, hardware validation, arXiv, code release, acknowledgments, etc.)
+  5. Gap status summary (all 6 operational gaps resolved or deferred)
+  6. Project closure summary (achievements and non-claims)
