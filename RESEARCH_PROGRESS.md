@@ -907,3 +907,19 @@ summary and local paths here, then commit and push the repository.
 - **P161-P165 executable roadmap defined:** P161 T-RO template conversion, P162 supplementary evidence package, P163 cover letter & author statement, P164 arXiv/code release checklist, P165 advisor decision pack.
 - **Honest boundary maintained:** Dynamic masking negative result presented as scientifically valuable boundary contribution, not weakness. No ATE/RPE improvement claimed.
 - **Policy compliance:** existing-data-only, no new experiments, no water-venue recommendations, no auto-polish templates.
+
+## 2026-05-09 P161 T-RO submission LaTeX scaffold
+
+- Created `paper/tro_submission/` directory with 6 files:
+  - `README.md` (2.3 KB): T-RO regular submission scaffold, double-anonymous初稿注意事项, ORCID/PaperCept/20页上限/>12页超页费等提交准备项 checklist
+  - `main.tex` (19 KB): IEEEtran documentclass skeleton, 完整标题/摘要/section结构 (I-X), figure placeholders 映射到 paper/figures/, table placeholders（Table 1 Aisle ladder）, citation keys 对应 references.bib, 双盲占位符 `[BLINDED — ADD AFTER ACCEPTANCE]`
+  - `references.bib` (6.3 KB): 10 formal references [1]–[10] + evo software reference [S] 的初步 BibTeX 条目，标注 8-item 人工 BibTeX metadata clean-up checklist（作者缩写、DOI验证、NeurIPS entry type、arXiv note field 等）
+  - `references.md` (3.1 KB): 人类可读版参考文献列表，与 manuscripts 的 References 段一致
+  - `FIGURE_PLAN.md` (4.3 KB): 16 figures → 10 main-text + 6 supplementary 的映射方案；Figs 5–9 合并为 S1 multi-panel diagnostic、Figs 15–16 合并为 S2 rejection-reason derivatives；附页面预算估算（~16.8 页/20 页限额）
+  - `BUILD_NOTES.md` (2.5 KB): 记录本机无 pdflatex/latexmk/kpsewhich 的 blocker；提供 Overleaf/texlive/Docker 三种 compile 路线；标注已知 issues（figure paths、IEEEtran sizing、bib style 等）
+- Figure path mapping: 所有 `\includegraphics` 使用 `../figures/<file>.png` 相对路径，指向 `/home/rui/slam/paper/figures/` 的 18 个已编译 PNG
+- No manuscript modification: manuscript_en_thick.md 和 manuscript_zh_thick.md 未改动
+- No citation polish: references 内容严格从 manuscript References 段迁移，未做 author truncation/venue name abbreviation 等人工整理
+- No new phase opened: P161 本身是一次性 scaffold task，无后继 phase policy
+- No journal recommendation: T-RO 沿用 P160 的 venue strategy 结论
+- Policy: existing-data-only, no texlive install, no template download, no model/data download
