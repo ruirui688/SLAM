@@ -1,0 +1,22 @@
+{
+  "status": "frontend_mask_bridge_ready",
+  "claim_boundary": "Produces dynamic-masked RGB input for a SLAM backend; does not report ATE/RPE yet.",
+  "source_rgb": "/home/rui/slam/data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/image_left/000002.png",
+  "dynamic_instances": [
+    {
+      "label": "forklift",
+      "role": "dynamic_agent",
+      "mask": "examples/dynamic_slam_frontend_example/dynamic_mask.png",
+      "mask_pixels": 1592,
+      "coverage_ratio": 0.0017274305555555556
+    }
+  ],
+  "slam_inputs": [
+    {
+      "rgb_masked": "examples/dynamic_slam_frontend_example/slam_input_masked.png",
+      "dynamic_mask": "examples/dynamic_slam_frontend_example/dynamic_mask.png",
+      "intended_backend": "DROID-SLAM/ORB-SLAM style visual frontend"
+    }
+  ],
+  "next_backend_step": "Feed rgb_masked frames to a SLAM backend and compare trajectory/map metrics against unmasked RGB."
+}

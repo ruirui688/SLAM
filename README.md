@@ -8,7 +8,8 @@
 
 - 已打通：语义分割实例输出 -> `ObjectObservation` -> 跨会话对象聚类 -> 稳定对象保留 / 动态污染拒绝；
 - 已有可视化：工业场景 overlay、mask、bbox、中心点、summary JSON 和地图准入决策；
-- 尚未完成：把动态 mask 直接接入完整视觉 SLAM 后端，并报告 ATE/RPE、建图质量或导航收益；
+- 新增前端桥接：动态 mask -> masked RGB SLAM 输入 -> `slam_frontend_manifest.json`；
+- 尚未完成：把 masked RGB 序列送入完整视觉 SLAM 后端，并报告 ATE/RPE、建图质量或导航收益；
 - 因此本文当前主张是“语义分割辅助的动态对象过滤与长期对象地图维护”，不是“完整动态 SLAM benchmark 已经闭环优于现有后端”。
 
 ## 1. 最小可运行 Demo
@@ -181,6 +182,29 @@ examples/semantic_segmentation_example/forklift-summary.json
 - `pallet stack` 只在单 session 出现，且是瞬时对象，被拒绝；
 - 这正对应论文主张：语义分割输出是候选证据，不是可直接写入持久地图的真值。
 
+### 动态 SLAM 前端输入示例
+
+这一步把动态语义 mask 继续往 SLAM 方向推进：将 `forklift` 动态区域从 RGB 输入中屏蔽，生成给 DROID-SLAM / ORB-SLAM 这类视觉前端可消费的 masked RGB 和 manifest。
+
+运行：
+
+```bash
+make dynamic-slam-frontend
+```
+
+已验证输出：
+
+```text
+examples/dynamic_slam_frontend_example/dynamic_mask.png
+examples/dynamic_slam_frontend_example/slam_input_masked.png
+examples/dynamic_slam_frontend_example/slam_frontend_manifest.json
+examples/dynamic_slam_frontend_example/dynamic_slam_frontend_result.png
+```
+
+![动态 mask 到 SLAM 前端输入示例](examples/dynamic_slam_frontend_example/dynamic_slam_frontend_result.png)
+
+这还不是完整 ATE/RPE 实验，但已经把“语义分割动态物体”转换成了 SLAM 前端可消费的输入形式。
+
 ## 2. 论文稿件
 
 | 稿件 | 路径 | 用途 |
@@ -220,6 +244,7 @@ examples/semantic_segmentation_example/forklift-summary.json
 | 路径 | 作用 |
 |---|---|
 | [`examples/minimal_slam_demo/`](./examples/minimal_slam_demo/) | Git 跟踪的最小可运行样例数据 |
+| [`examples/dynamic_slam_frontend_example/`](./examples/dynamic_slam_frontend_example/) | 动态 mask 到 SLAM 前端 masked RGB 的最小桥接示例 |
 | [`tools/run_minimal_demo.py`](./tools/run_minimal_demo.py) | 最小 demo 入口 |
 | [`paper/`](./paper/) | 中英文论文稿 |
 | [`paper/evidence/`](./paper/evidence/) | Git 可见的实验结果证据包，由 `make evidence-pack` 从 ignored `outputs/` 生成 |

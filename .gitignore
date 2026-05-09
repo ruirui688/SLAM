@@ -99,6 +99,7 @@ gdino_checkpoints/
 *_overlay.png
 *_mask.png
 progress_contact_sheet.png
+!examples/dynamic_slam_frontend_example/dynamic_mask.png
 
 # Local agent scratch
 .codex

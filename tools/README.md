@@ -37,6 +37,31 @@ python ./tools/demo_local_grounded_sam2_observations.py \
   --session-id truck_demo
 ```
 
+### 动态 mask 到 SLAM 前端输入
+
+`build_dynamic_slam_frontend_demo.py` 把语义分割输出中的动态实例 mask 转成
+SLAM 前端可消费的 masked RGB 和 manifest。这是从“动态物体识别”走向“动态
+SLAM 后端评估”的中间桥接层。
+
+```bash
+python ./tools/build_dynamic_slam_frontend_demo.py
+```
+
+等价入口：
+
+```bash
+make dynamic-slam-frontend
+```
+
+输出写入 `examples/dynamic_slam_frontend_example/`：
+
+- `dynamic_mask.png`
+- `slam_input_masked.png`
+- `slam_frontend_manifest.json`
+- `dynamic_slam_frontend_result.png`
+
+当前边界：该脚本生成后端输入，不报告 ATE/RPE。
+
 ### 半监督 VOS 推理
 
 The `vos_inference.py` script can be used to generate predictions for semi-supervised video object segmentation (VOS) evaluation on datasets such as [DAVIS](https://davischallenge.org/index.html), [MOSE](https://henghuiding.github.io/MOSE/) or the SA-V dataset.
