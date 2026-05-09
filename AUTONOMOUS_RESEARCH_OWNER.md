@@ -41,6 +41,10 @@ host logs and should not leave the systemd timer failed or inactive.
   outputs feed the same active phase.
 - A progress turn must produce or refresh a concrete artifact, draft section,
   audit, manifest/checklist entry, or GitHub-facing progress note.
+- After every completed non-trivial phase, the owner must inspect the paper
+  manuscript state and either update the relevant paper text/tables/appendix
+  links or explicitly record why the phase is evidence-only and does not change
+  the manuscript body yet.
 - No new dataset downloads, larger-window/full-trajectory protocols, or
   downstream navigation/planning claims are allowed without explicit approval.
 - After non-trivial progress, update `RESEARCH_PROGRESS.md`, commit and push

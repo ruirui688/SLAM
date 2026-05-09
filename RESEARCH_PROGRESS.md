@@ -370,3 +370,15 @@ summary and local paths here, then commit and push the repository.
 - Artifacts: torwic_p131_backend_environment_probe_v1.{json,md}
 - Audit: projects/industrial-semantic-slam/artifacts/p131-backend-environment-probe-audit-2026-05-09.md
 - Bundle v36: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v36.md
+
+## 2026-05-09 owner execution rule update
+
+- User requested that every completed research step also improve the paper when
+  possible, instead of only producing isolated artifacts.
+- Updated `AUTONOMOUS_RESEARCH_OWNER.md`: after every completed non-trivial
+  phase, the owner must inspect manuscript state and either update the relevant
+  paper text/tables/appendix links or explicitly record why the phase is
+  evidence-only and does not change the manuscript body yet.
+- This rule applies to the dynamic SLAM backend queue P132-P135: once raw vs.
+  masked trajectory results, ATE/RPE, map-quality evidence, or navigation
+  evidence exist, the paper must be updated in the same completion cycle.
