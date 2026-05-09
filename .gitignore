@@ -194,3 +194,5 @@ celerybeat.pid
 # checkpoint
 *-checkpoint.ipynb
 _C.*
+_backup_pre_p181/
+build_p180/
