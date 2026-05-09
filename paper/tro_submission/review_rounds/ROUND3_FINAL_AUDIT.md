@@ -4,7 +4,7 @@
 
 **Date:** 2026-05-09
 
-**Last Updated:** 2026-05-10 00:40 (P177: figure/table scaffold — S2/S3 WARN→PASS, 30/30)
+**Last Updated:** 2026-05-10 01:00 (P178: LaTeX build readiness audit — conditionally build-ready, TeX env blocked)
 
 **Scope:** Cross-reference consistency check of all 13 submission-package files
 
@@ -14,6 +14,7 @@
 **P174 (2026-05-10):** Statistical formalization added bootstrap 95% CIs for admission rates (all 4 protocols + pooled), Wilson CIs, Fisher exact Hallway-vs-Aisle (p=0.7645), dynamic SLAM neutral-rate bootstrap CI (43.8–87.5%), and dynamic SLAM two-group complete separation (gap=0.914mm).
 **P176 (2026-05-10):** Remaining B3 baseline statistics closed: B0/B1/B2 exact McNemar tests computed from 20 paired Aisle clusters (B0/B1 p<0.001, B1/B2 p=0.125, B0/B2 p<0.0001). All 3 original ROUND1 evidence blockers RESOLVED.
 **P177 (2026-05-10):** Production scaffolding: all 12 main-body figures + 9 tables scaffolded in main.tex with real PNGs from paper/figures/ and data-backed table bodies. S2/S3 WARN→PASS. 30/30 PASS, 0 WARN, 0 FAIL. Submission-ready pending LaTeX compile and human final checks.
+**P178 (2026-05-10):** LaTeX build readiness audit: all pre-compilation checks pass (environment balance, figure files, citations, cross-refs, stale claims). TeX distribution absent (no pdflatex/latexmk/tectonic). Verdict: CONDITIONALLY BUILD-READY — needs user TeX install.
 
 Verdict: **CONDITIONAL PASS — 30/30 checks pass (30 PASS, 0 WARN, 0 FAIL). All 3 original ROUND1 blockers (B1/B2/B3) RESOLVED. All WARN items (S2/S3) resolved by P177 scaffolding. Package is internally consistent, statistically formalized, figure/table complete, and submission-ready (pending human: LaTeX compile/overflow fix, figure 300dpi regeneration, anonymization double-check, ORCID).**
 

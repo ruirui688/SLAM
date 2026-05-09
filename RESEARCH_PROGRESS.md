@@ -9,8 +9,18 @@ that lives in ignored paths such as `outputs/`, it should record the evidence
 summary and local paths here, then commit and push the repository.
 
 - **Blocked:** Optional ORB-SLAM3 cross-check remains gated on backend/vocabulary availability.
+  - **P178 LaTeX build:** CONDITIONALLY BUILD-READY — TeX distribution absent (no pdflatex/latexmk/tectonic). All source checks pass. Needs user TeX install.
 - **Active:** Manuscript production closure. B1/B2/B3/S2/S3 all resolved; next highest-value step is LaTeX compile/layout verification.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
+
+## 2026-05-10 P178 — LaTeX build readiness audit
+
+- **Goal:** Check if T-RO LaTeX package is build-ready; record exact TeX blocker without false compile claims.
+- **Result: CONDITIONALLY BUILD-READY.** No TeX distribution on machine (pdflatex/latexmk/tectonic all absent).
+  - All pre-compilation checks pass: environment balance, 12/12 figure files, 28/28 citations, 25/25 cross-refs, no stale claims, 62/62 unique labels.
+  - Predicted warnings: 4× figure* float overflow, possible overfull hbox in 6-column tables, missing `\balance` before end.
+- **Blocked by:** Missing TeX Live installation. Recommended: `sudo apt install texlive-full` or `texlive-latex-base texlive-publishers`.
+- **Outputs:** `paper/tro_submission/BUILD_READINESS_P178.md`
 
 ## 2026-05-10 P177 — Figure/table scaffolding closure
 
