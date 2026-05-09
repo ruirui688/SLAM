@@ -42,6 +42,17 @@ make evidence-pack
 | P138 first-eight real semantic masks | 0.051135 | 0.051177 | 0.032713 | 0.032712 | 8/64 (0.118100%) |
 | P139 first-sixteen real semantic masks | 0.051135 | 0.051182 | 0.032713 | 0.032711 | 16/64 (0.263896%) |
 | P140 first-thirty-two real semantic masks | 0.051135 | 0.051189 | 0.032713 | 0.032711 | 32/64 (0.567722%) |
+| P142 top-4 concentrated real masks | 0.051135 | 0.051135 | 0.032713 | 0.032713 | 4/64 (0.082921%) |
+| P142 top-8 concentrated real masks | 0.051135 | 0.051132 | 0.032713 | 0.032713 | 8/64 (0.162823%) |
+| P142 top-16 concentrated real masks | 0.051135 | 0.051122 | 0.032713 | 0.032713 | 16/64 (0.316157%) |
+
+P142 tests concentrated masking on the highest-coverage forklift frames rather
+than uniformly masking all available frames. The result remains
+trajectory-neutral (`|ΔAPE| < 0.06 mm`), while the sign asymmetry between
+concentrated and uniform masking suggests that boundary-feature loss in
+low-coverage frames is the dominant artifact. The next active research step is
+P143: screen other TorWIC windows for dynamic objects covering more than 5% of
+the frame before expecting an ATE/RPE gain.
 
 ## Tracked Files
 
