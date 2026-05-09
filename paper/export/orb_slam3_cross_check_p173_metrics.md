@@ -1,41 +1,42 @@
 # ORB-SLAM3 Cross-Check — P173 Metrics
 
-**Date:** 2026-05-10  
-**Phase:** P173-recovery — metric evaluation  
-**Status:** COMPLETED — APE/RPE computed, sparse-only, tracking fragile
+**Date:** 2026-05-10
+**Phase:** P173-cross-check-correction
+**Status:** COMPLETED — evo APE/RPE computed on sparse keyframe trajectories; no trajectory-level claim supported
 
 ## Metric Validity
 
-✅ **Metrics are mathematically valid** — timestamps match groundtruth exactly, SE(3) Umeyama alignment applied, APE/RPE computed with standard evo (`evo 1.36.4`).
+✅ **Metrics are mathematically valid** — timestamps match groundtruth within `--t_max_diff 0.05`, SE(3) Umeyama alignment applied, APE/RPE computed with evo 1.36.4.
 
-⚠️ **Low statistical power** — only 10 (raw) / 12 (masked) keyframes over ~1.2s. ORB-SLAM3 did not produce dense CameraTrajectory.txt.
+⚠️ **Low statistical power** — only 5 (raw) / 9 (masked) keyframe pose pairs. ORB-SLAM3 produced KeyFrameTrajectory.txt only, no dense per-frame CameraTrajectory.txt.
 
-⚠️ **Partial coverage** — ORB-SLAM3 tracked ~17% of the 64-frame (~7s) sequence before tracking loss.
+⚠️ **Partial coverage** — ORB-SLAM3 keyframes span ~1.2 s of the 64-frame (~7 s) sequence.
 
 ## Results Summary
 
-| Variant | Keyframes | Duration | APE RMSE (m) | APE Mean (m) | RPE RMSE (m) | RPE Mean (m) |
-|---|---|---|---|---|---|---|
-| Raw | 10 | 1.196 s | 0.052 | 0.044 | 0.024 | 0.023 |
-| Masked | 12 | 1.196 s | 0.048 | 0.041 | 0.020 | 0.018 |
+| Variant | Keyframes | APE RMSE (m) | APE Mean (m) | RPE RMSE (m) | RPE Mean (m) |
+|---------|-----------|-------------|-------------|-------------|-------------|
+| Raw | 5 | 0.041 | 0.035 | 0.044 | 0.036 |
+| Masked | 9 | 0.043 | 0.034 | 0.032 | 0.024 |
 
 ## Interpretation
 
-- **APE ~4–5 cm** on a ~1.2s keyframe window: consistent with monocular SLAM in a texture-challenged corridor, but based on very few poses.
-- **Raw vs masked**: The masked variant is numerically lower by ~0.5 cm in this short keyframe subset, but the sample is too small to infer an odometry improvement or a feature-matching mechanism.
-- **RPE ~2 cm** per keyframe step: reflects local drift between consecutive keyframes (irregular intervals).
-- **Scale**: ORB-SLAM3 monotonic scale was not explicitly corrected; SE(3) alignment includes implicit rotation+translation only.
+- **APE RMSE ~4 cm** on ~1.2 s of sparse keyframes: consistent with monocular SLAM on a texture-challenged corridor, but based on very few pose pairs (N=5–9).
+- **Raw vs masked APE difference** (0.041 vs 0.043 m) is within the uncertainty of a 5–9 point sparse sample. No direction claim is warranted.
+- **RPE** for raw (4 delta pairs) vs masked (8 delta pairs) computed over different numbers of pose transitions at irregular keyframe intervals — not directly comparable.
+- **Masked KF count (9) > raw KF count (5):** a runtime/tracking observation (ORB-SLAM3 tracked longer under masked input). Does NOT constitute odometry improvement evidence.
 
 ## Caveats
 
-1. **Sparse keyframes only** — no per-frame camera poses available. This is a fundamental limitation of ORB-SLAM3's KeyFrameTrajectory.txt output on this sequence.
-2. **Partial coverage** — ORB-SLAM3 failed to track >80% of the sequence. The computed metrics characterize only the successful portion.
-3. **Monocular scale ambiguity** — without additional metric information (e.g., known baseline length), absolute scale is unobservable.
-4. **Irregular keyframe spacing** — RPE computed between non-consecutive frames at variable time deltas; not directly comparable to frame-rate RPE from other systems.
+1. **Sparse keyframes only** — no per-frame camera poses available. This is a fundamental limitation on this 64-frame TorWIC sequence.
+2. **Partial coverage** — ORB-SLAM3 did not track the full 7 s sequence. Metrics characterize only the successful keyframe portion.
+3. **Monocular scale ambiguity** — SE(3) Umeyama alignment corrects rotation/translation but not scale. Without metric baseline information, absolute scale is unobservable.
+4. **Irregular keyframe spacing** — RPE computed between non-consecutive frames at variable time deltas; not comparable to frame-rate RPE from dense SLAM systems.
+5. **Cross-system comparison unsupported** — ORB-SLAM3 APE/RPE on sparse keyframes is not directly comparable to DROID-SLAM APE/RPE on dense per-frame poses. Different trajectory density, different coordinate frames, different error profiles.
 
 ## No Improvement Claim
 
-These numbers **do not** constitute a claim of improvement over any baseline SLAM system. They merely document that ORB-SLAM3 initialized and tracked briefly on the TorWIC Jun15 Run1 scene, and that the masked trajectory had slightly lower sparse-keyframe error inside that short window.
+These metrics document that ORB-SLAM3 built successfully, ran headless on TorWIC, produced numerically valid trajectories, and that evo APE/RPE can be computed on the output. They do NOT support a claim of raw-vs-masked trajectory improvement, trajectory-neutrality generalization, or cross-SLAM-paradigm comparability.
 
 ## Full Results
 
