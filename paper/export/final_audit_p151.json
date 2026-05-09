@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-09T20:43:57.587996",
+  "timestamp": "2026-05-09T20:46:22.730437",
   "checks": [
     {
       "check": "EN thick manuscript exists",
@@ -9,7 +9,7 @@
     {
       "check": "ZH thick manuscript exists",
       "pass": true,
-      "detail": "58281 bytes"
+      "detail": "58265 bytes"
     },
     {
       "check": "EN manuscript lines (~630)",
