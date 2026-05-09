@@ -1,180 +1,86 @@
-# TorWIC Full Dataset Coverage Inventory — P168
+# P168 Full Dataset Coverage Inventory
 
-**Phase:** P168-full-dataset-coverage-inventory  
-**Date:** 2026-05-09  
-**Status:** Complete — local inventory only, no downloads, no long runs
+Generated from local filesystem inventory. No data/model downloads and no new SLAM runs were performed.
 
----
+## Executive Summary
 
-## 1. Executive Summary
+- Local TorWIC sessions found: **20** across **3** dates.
+- Estimated RGB frames: **32,743**.
+- Aisle / Hallway sessions: **10 / 10**.
+- Sessions with GT trajectory: **20/20**.
+- Sessions with existing semantic frontend artifacts: **16/20**.
+- Sessions with DROID-SLAM raw/masked backend artifacts: **1/20**.
+- DROID-SLAM backend configs in the bounded chain: **12**, with **11** metrics-bearing configs.
 
-| Metric | Value |
-|---|---|
-| **Total sessions downloaded** | 20 |
-| **Total RGB frames** | 32,743 |
-| **Dates covered** | 3 (Jun 15, Jun 23, Oct 12, 2022) |
-| **Aisle sessions** | 10 (1,094–1,238 frames each) |
-| **Hallway sessions** | 10 (1,810–2,539 frames each) |
-| **GT trajectory available** | 20/20 ✅ |
-| **Sessions with semantic frontend** | 18/20 ⚠️ (Jun 23 Aisle CCW Run 1/2 missing) |
-| **Sessions with DROID-SLAM backend** | 1/20 🔴 |
-| **DROID-SLAM config variations** | 12 (all on same session) |
-| **DROID configs with evo ATE/RPE** | 1/12 ⚠️ (P132 only) |
+## Claim Boundary
 
-### Critical Claim Boundary
+P135-P143 dynamic SLAM backend runs are bounded 64-frame negative-result chain on a SINGLE TorWIC session (Jun 15 Aisle_CW_Run_1). This is NOT a full dataset benchmark. No multi-session DROID-SLAM comparisons exist.
 
-> **P135–P143 dynamic SLAM backend runs are a bounded 64-frame negative-result chain on a SINGLE TorWIC session (Jun 15 Aisle_CW_Run_1). This is NOT a full dataset benchmark. The 10-configuration "all produce |ΔATE| < 0.1 mm" claim in the paper is based on trajectory visual overlay of 11 un-evaluated 64-frame estimate_tum.txt outputs. Only P132 (8-frame) has formal evo ATE/RPE evaluation (raw: 0.0012m, masked: 0.0012m, Δ = 1×10⁻⁶ m).**
+**Interpretation:** the project has broad local TorWIC data and broad semantic-map evidence, but dynamic SLAM backend evidence is currently concentrated on one 64-frame Aisle_CW_Run_1 window. This is enough for a bounded negative-result/boundary-condition study; it is not enough for a full-dataset dynamic SLAM benchmark claim.
 
----
+## Session Coverage Matrix
 
-## 2. Data Sessions
+| Session | Route type | RGB frames | GT traj | Semantic frontend | DROID backend | ATE/RPE computed | Dynamic-SLAM suitability | Blockers |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| `2022-06-15__Aisle_CCW_Run_1` | aisle | 1136 | yes | yes | no | no | yes | No DROID-SLAM backend run, No DROID-SLAM input pack created |
+| `2022-06-15__Aisle_CCW_Run_2` | aisle | 1238 | yes | yes | no | no | yes | No DROID-SLAM backend run, No DROID-SLAM input pack created |
+| `2022-06-15__Aisle_CW_Run_1` | aisle | 1114 | yes | yes | yes | yes | yes | - |
+| `2022-06-15__Aisle_CW_Run_2` | aisle | 1124 | yes | yes | no | no | yes | No DROID-SLAM backend run, No DROID-SLAM input pack created |
+| `2022-06-15__Hallway_Full_CCW` | hallway | 2539 | yes | yes | no | no | no | No DROID-SLAM input pack created |
+| `2022-06-15__Hallway_Full_CW` | hallway | 2511 | yes | yes | no | no | no | No DROID-SLAM input pack created |
+| `2022-06-15__Hallway_Straight_CCW` | hallway | 2197 | yes | yes | no | no | no | No DROID-SLAM input pack created |
+| `2022-06-23__Aisle_CCW_Run_1` | aisle | 1066 | yes | no | no | no | yes | No DROID-SLAM backend run, No DROID-SLAM input pack created |
+| `2022-06-23__Aisle_CCW_Run_2` | aisle | 1156 | yes | no | no | no | yes | No DROID-SLAM backend run, No DROID-SLAM input pack created |
+| `2022-06-23__Aisle_CW_Run_1` | aisle | 1037 | yes | yes | no | no | yes | No DROID-SLAM backend run, No DROID-SLAM input pack created |
+| `2022-06-23__Aisle_CW_Run_2` | aisle | 1059 | yes | yes | no | no | yes | No DROID-SLAM backend run, No DROID-SLAM input pack created |
+| `2022-06-23__Hallway_Full_CW` | hallway | 2320 | yes | yes | no | no | no | No DROID-SLAM input pack created |
+| `2022-06-23__Hallway_Straight_CCW` | hallway | 1972 | yes | yes | no | no | no | No DROID-SLAM input pack created |
+| `2022-06-23__Hallway_Straight_CW` | hallway | 1936 | yes | yes | no | no | no | No DROID-SLAM input pack created |
+| `2022-10-12__Aisle_CCW` | aisle | 915 | yes | yes | no | no | yes | No DROID-SLAM backend run, No DROID-SLAM input pack created |
+| `2022-10-12__Aisle_CW` | aisle | 1092 | yes | yes | no | no | yes | No DROID-SLAM backend run, No DROID-SLAM input pack created |
+| `2022-10-12__Hallway_Full_CW_Run_1` | hallway | 2318 | yes | yes | no | no | no | No DROID-SLAM input pack created |
+| `2022-10-12__Hallway_Full_CW_Run_2` | hallway | 2320 | yes | yes | no | no | no | No DROID-SLAM input pack created |
+| `2022-10-12__Hallway_Straight_CCW` | hallway | 1883 | yes | yes | no | no | no | No DROID-SLAM input pack created |
+| `2022-10-12__Hallway_Straight_CW` | hallway | 1810 | yes | yes | no | no | no | No DROID-SLAM input pack created |
 
-### 2.1 Aisle Sessions (10)
+## Dynamic SLAM Backend Coverage
 
-| # | Date | Route | Frames | Direction | Semantic | DROID |
-|---|---|---|---|---|---|---|
-| 1 | Jun 15 | Aisle_CCW_Run_1 | 1,136 | CCW | ✅ same-day/cross-day/cross-month | ❌ |
-| 2 | Jun 15 | Aisle_CCW_Run_2 | 1,238 | CCW | ✅ same-day/cross-day/cross-month | ❌ |
-| 3 | Jun 15 | **Aisle_CW_Run_1** | **1,114** | **CW** | ✅ same-day/cross-day/cross-month | **✅ ALL 12 configs** |
-| 4 | Jun 15 | Aisle_CW_Run_2 | 1,124 | CW | ✅ same-day/cross-day/cross-month | ❌ |
-| 5 | Jun 23 | Aisle_CCW_Run_1 | 1,066 | CCW | ❌ | ❌ |
-| 6 | Jun 23 | Aisle_CCW_Run_2 | 1,156 | CCW | ❌ | ❌ |
-| 7 | Jun 23 | Aisle_CW_Run_1 | 1,037 | CW | ✅ cross-day/cross-month | ❌ |
-| 8 | Jun 23 | Aisle_CW_Run_2 | 1,059 | CW | ✅ cross-day/cross-month | ❌ |
-| 9 | Oct 12 | Aisle_CCW | 915 | CCW | ✅ cross-month | ❌ |
-| 10 | Oct 12 | Aisle_CW | 1,092 | CW | ✅ cross-month | ❌ |
+- Unique backend input session/window: **1** (`2022-06-15 Aisle_CW_Run_1 (1,114 frames)`).
+- Backend configs: **12**.
+- Configs with metrics: **11**.
+- Configs pending metrics: **1**.
 
-**Aisle total:** 10,937 frames across 10 sessions.
+| Config | Mask policy | Frames | Global BA | Metrics |
+|---|---|---:|---:|---:|
+| `p132` | baseline_raw | 8 | no | yes |
+| `p134_64` | baseline_raw | 64 | no | no |
+| `p134_64_gba` | baseline_raw | 64 | yes | yes |
+| `p135_sem` | semantic | 64 | yes | yes |
+| `p136_temporal` | temporal_stress | 64 | yes | yes |
+| `p137_flow` | flow_stress | 64 | yes | yes |
+| `p138_first8` | first8_real | 64 | yes | yes |
+| `p139_first16` | first16_real | 64 | yes | yes |
+| `p140_first32` | first32_real | 64 | yes | yes |
+| `p142_top4` | top4_concentrated | 64 | yes | yes |
+| `p142_top8` | top8_concentrated | 64 | yes | yes |
+| `p142_top16` | top16_concentrated | 64 | yes | yes |
 
-### 2.2 Hallway Sessions (10)
+## Gaps And Blockers
 
-| # | Date | Route | Frames | Direction | Semantic | DROID |
-|---|---|---|---|---|---|---|
-| 11 | Jun 15 | Hallway_Full_CCW | 2,539 | CCW | ✅ batch2 | ❌ |
-| 12 | Jun 15 | Hallway_Full_CW | 2,511 | CW | ✅ batch2 | ❌ |
-| 13 | Jun 15 | Hallway_Straight_CCW | 2,197 | CCW | ✅ batch2 | ❌ |
-| 14 | Jun 23 | Hallway_Full_CW | 2,320 | CW | ✅ batch2 | ❌ |
-| 15 | Jun 23 | Hallway_Straight_CCW | 1,972 | CCW | ✅ batch2 | ❌ |
-| 16 | Jun 23 | Hallway_Straight_CW | 1,936 | CW | ✅ batch2 | ❌ |
-| 17 | Oct 12 | Hallway_Full_CW_Run_1 | 2,318 | CW | ✅ batch2 | ❌ |
-| 18 | Oct 12 | Hallway_Full_CW_Run_2 | 2,320 | CW | ✅ batch2 | ❌ |
-| 19 | Oct 12 | Hallway_Straight_CCW | 1,883 | CCW | ✅ batch2 | ❌ |
-| 20 | Oct 12 | Hallway_Straight_CW | 1,810 | CW | ✅ batch2 | ❌ |
-
-**Hallway total:** 21,806 frames across 10 sessions. All 10 have batch2 8/8 frame coverage.
-
----
-
-## 3. Semantic Frontend Coverage
-
-### Protocol Map
-
-| Protocol | Sessions | Temporal Gap | Purpose |
+| ID | Severity | Description | Impact |
 |---|---|---|---|
-| **same-day Aisle** | 4 (Jun 15 CCW+CW) | minutes | Same-condition baseline |
-| **cross-day Aisle** | 4 (Jun 15 CW → Jun 23 CW) | 8 days | Short-term revisit stability |
-| **cross-month Aisle** | 6 (Jun + Oct CW/CCW) | ~4 months | Long-term map maintenance |
-| **Hallway scene-transfer** | 10 (all dates, all Hallway routes) | 0–4 months | Scene-transfer generalization |
+| `GAP-DROID-001` | HIGH | 12 DROID-SLAM config runs on 1/20 sessions. No other session has backend runs. | Cannot claim multi-session dynamic SLAM. Paper claim: single-window negative-result. |
+| `GAP-DROID-002` | MEDIUM | 11/12 DROID-SLAM configs have metrics; one non-global-BA intermediate config lacks metrics. The real gap is not metrics within P135-P143, but lack of multi-session backend coverage. | Paper may report the bounded 10-config negative-result chain, but must not imply full-dataset dynamic SLAM evaluation. |
+| `GAP-DROID-003` | MEDIUM | No DROID-SLAM runs on Hallway sessions (0/10). | Cannot extrapolate dynamic SLAM to Hallway. |
+| `GAP-DROID-004` | MEDIUM | No comparison against published SLAM systems. | Documented in Limitations item #5. |
+| `GAP-FRONTEND-001` | LOW | 36 output dirs contain version drift (v1, available_v1, bundle_v1). | Metadata clarity only; bundle_v1+richer recomputed are canonical. |
+| `GAP-DATA-001` | LOW | Single-site dataset. No public multi-site industrial SLAM dataset exists. | Documented in Limitations item #2. |
 
-### Frontend Output Structure
+## Next-Step Matrix
 
-Each covered session has:
-- `frontend_output/` — Grounding DINO + SAM2 detections
-- `observation_output/` — Per-frame observation records
-- `tracklet_output/` — Track association across frames
-- `map_output/` — Map-object candidate generation
-
-### Gaps
-
-- **Jun 23 Aisle_CCW_Run_1/2:** No bundle frontend output. These are CCW Aisle runs — the protocol focused on CW pairs for cross-day and cross-month.
-- **Version drift:** 36 frontend output directories exist; `bundle_v1` + `richer_recomputed` are canonical.
-
----
-
-## 4. DROID-SLAM Backend Coverage
-
-### Single-Session Reality
-
-**All 12 DROID-SLAM config runs use the same input: Jun 15 Aisle_CW_Run_1.**
-
-| Config | Frames | GBA | Mask Mode | Has evo |
-|---|---|---|---|---|
-| p132 | 8 | ❌ | baseline raw | ✅ (Δ=0.001mm) |
-| p134_64 | 64 | ❌ | baseline raw | ❌ |
-| p134_64_gba | 64 | ✅ | baseline raw | ❌ |
-| p135_sem | 64 | ✅ | semantic mask | ❌ |
-| p136_temporal | 64 | ✅ | temporal stress | ❌ |
-| p137_flow | 64 | ✅ | flow stress | ❌ |
-| p138_first8 | 64 | ✅ | first 8 real masks | ❌ |
-| p139_first16 | 64 | ✅ | first 16 real masks | ❌ |
-| p140_first32 | 64 | ✅ | first 32 real masks | ❌ |
-| p142_top4 | 64 | ✅ | top 4 concentrated | ❌ |
-| p142_top8 | 64 | ✅ | top 8 concentrated | ❌ |
-| p142_top16 | 64 | ✅ | top 16 concentrated | ❌ |
-
-### What's Missing
-
-1. **No evo evaluation for 11/12 configs.** The `*_estimate_tum.txt` files exist but ATE/RPE has not been computed.
-2. **No multi-session comparison.** No DROID-SLAM run on any other session — not even Jun 15 Aisle_CW_Run_2 (same day, same route, different run).
-3. **No Hallway DROID-SLAM runs.** 0/10 Hallway sessions have backend coverage.
-4. **No comparison against published baselines.** ORB-SLAM3, RTAB-Map, and other SLAM backends were not run.
-
-### What's Present
-
-- ✅ P132 8-frame smoke: raw vs masked ATE/RPE evaluated (Δ ≈ 0)
-- ✅ 11 64-frame configs: estimate_tum.txt outputs for visual overlay comparison
-- ✅ All configs: DROID-SLAM stdout preserved for diagnostic review
-- ✅ Input packs: raw/masked RGB frames + groundtruth.txt available
-
----
-
-## 5. Gaps and Blockers
-
-| ID | Severity | Description | Paper Impact |
-|---|---|---|---|
-| **GAP-DROID-001** | 🔴 HIGH | 12 configs on 1/20 sessions | Paper claim scoped to single-window negative-result |
-| **GAP-DROID-002** | 🔴 HIGH | 1/12 configs have evo eval | Trajectory claims based on visual overlay, not metrics |
-| **GAP-DROID-003** | 🟡 MEDIUM | No Hallway DROID-SLAM runs | Dynamic SLAM evidence is Aisle-only |
-| **GAP-DROID-004** | 🟡 MEDIUM | No published SLAM baselines | Documented in Limitations item #5 |
-| **GAP-FRONTEND-001** | ⚪ LOW | 2/20 Aisle sessions no frontend | Jun 23 CCW runs excluded from object protocols |
-| **GAP-DATA-001** | ⚪ LOW | Single-site dataset | Documented in Limitations item #2 |
-
----
-
-## 6. Readiness Assessment
-
-| Dimension | Status | Score |
-|---|---|---|
-| Data download completeness | 20/20 sessions, 32,743 frames, all GT | ✅ |
-| Semantic frontend coverage | 18/20 sessions (Aisle: 8/10, Hallway: 10/10) | ⚠️ |
-| DROID-SLAM backend coverage | 1/20 sessions, 12 config variations | 🔴 |
-| ATE/RPE evaluation | 1/12 configs | 🔴 |
-| Claim safety (current paper) | Bounded to single-window negative-result | ✅ |
-| Multi-session evidence readiness | Not ready | 🔴 |
-
-### Next Actions (Lowest Effort First)
-
-| Priority | Action | Effort | Impact |
-|---|---|---|---|
-| **1** | Run evo ape/rpe on 11 remaining 64-frame configs | ~5 min | Upgrades all claims from "visual" to "metric" |
-| **2** | Run DROID-SLAM on Jun 15 Aisle_CW_Run_2 (same day, different run) | ~15 min | Adds same-day replication |
-| **3** | Run DROID-SLAM on 1 Hallway session | ~15 min | Extends dynamic SLAM to scene-transfer |
-| **4** | Archive legacy frontend variant directories | ~5 min | Metadata clarity |
-
----
-
-## 7. Cross-Reference: Paper Claims vs Reality
-
-| Paper Claim | Actual Evidence | Gap |
-|---|---|---|
-| "10 DROID-SLAM configurations" | 12 configs, all on same input | ✅ Claim accurate |
-| "all produce trajectory-neutral results" | 11/12 no evo eval; visual overlay only | ⚠️ Needs evo |
-| "|ΔATE| < 0.1 mm" | P132: Δ=0.001mm. Others: unverified | ⚠️ Needs evo |
-| "quantified boundary condition <2%" | 1.39% max observed (session-specific) | ✅ Claim accurate |
-| "35 TorWIC sessions" | 20 sessions with 36 output variant dirs | ⚠️ 35 is variant-count, not session-count |
-| "full parameter ablation across 27 combinations" | ✅ Cross-referenced with supplement.md §S1 | ✅ Claim accurate |
-| "per-cluster provenance auditable" | ✅ All bundle_v1 outputs have per-cluster IDs | ✅ Claim accurate |
-
----
-
-*Inventory generated 2026-05-09. All data is local, no downloads performed. The JSON equivalent is at `outputs/torwic_full_dataset_coverage_inventory_p168.json`.*
+| Priority | Action | Why |
+|---:|---|---|
+| 1 | Run dynamic-SLAM backend on 2-3 additional sessions selected from this matrix. | Converts the current single-window result into multi-session evidence. |
+| 2 | Scan mask coverage across all RGB sessions before running expensive backend jobs. | Avoids spending GPU time on low-dynamic windows. |
+| 3 | Add bootstrap CI / small-sample tests for current object-admission results. | Addresses Round-1 reviewer risk about 20 clusters. |
+| 4 | Keep P135-P143 framed as bounded negative-result evidence until multi-session backend runs exist. | Prevents overclaiming. |

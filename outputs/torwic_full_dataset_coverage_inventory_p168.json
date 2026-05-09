@@ -1,0 +1,732 @@
+{
+  "project_id": "industrial-semantic-slam",
+  "phase": "P168-full-dataset-coverage-inventory",
+  "created": "2026-05-09T22:20:00+08:00",
+  "claim_boundary": "P135-P143 dynamic SLAM backend runs are bounded 64-frame negative-result chain on a SINGLE TorWIC session (Jun 15 Aisle_CW_Run_1). This is NOT a full dataset benchmark. No multi-session DROID-SLAM comparisons exist.",
+  "summary": {
+    "total_sessions_available": 20,
+    "total_dates": 3,
+    "total_rgb_frames_estimate": 32743,
+    "aisle_sessions": 10,
+    "hallway_sessions": 10,
+    "sessions_with_gt_trajectory": 20,
+    "sessions_with_semantic_frontend": 16,
+    "sessions_with_droid_slam_backend": 1,
+    "droid_slam_config_variations": 12,
+    "droid_slam_configs_with_evo_eval": 11,
+    "droid_slam_configs_pending_evo": 1
+  },
+  "data_sessions": [
+    {
+      "session_id": "2022-06-15__Aisle_CCW_Run_1",
+      "date": "2022-06-15",
+      "route": "Aisle_CCW_Run_1",
+      "route_type": "aisle",
+      "direction": "CCW",
+      "run": 1,
+      "rgb_frames": 1136,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "same_day_aisle_bundle_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": true,
+      "blockers": [
+        "No DROID-SLAM backend run",
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-15__Aisle_CCW_Run_2",
+      "date": "2022-06-15",
+      "route": "Aisle_CCW_Run_2",
+      "route_type": "aisle",
+      "direction": "CCW",
+      "run": 2,
+      "rgb_frames": 1238,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "same_day_aisle_bundle_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": true,
+      "blockers": [
+        "No DROID-SLAM backend run",
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-15__Aisle_CW_Run_1",
+      "date": "2022-06-15",
+      "route": "Aisle_CW_Run_1",
+      "route_type": "aisle",
+      "direction": "CW",
+      "run": 1,
+      "rgb_frames": 1114,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "same_day_aisle_bundle_v1",
+        "cross_day_aisle_bundle_v1",
+        "cross_month_aisle_bundle_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": true,
+      "droid_slam_backend_configs": [
+        "p132",
+        "p134_64",
+        "p134_64_gba",
+        "p135_sem",
+        "p136_temporal",
+        "p137_flow",
+        "p138_first8",
+        "p139_first16",
+        "p140_first32",
+        "p142_top4",
+        "p142_top8",
+        "p142_top16"
+      ],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": true,
+      "suitable_for_dynamic_slam": true,
+      "blockers": []
+    },
+    {
+      "session_id": "2022-06-15__Aisle_CW_Run_2",
+      "date": "2022-06-15",
+      "route": "Aisle_CW_Run_2",
+      "route_type": "aisle",
+      "direction": "CW",
+      "run": 2,
+      "rgb_frames": 1124,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "same_day_aisle_bundle_v1",
+        "cross_day_aisle_bundle_v1",
+        "cross_month_aisle_bundle_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": true,
+      "blockers": [
+        "No DROID-SLAM backend run",
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-15__Hallway_Full_CCW",
+      "date": "2022-06-15",
+      "route": "Hallway_Full_CCW",
+      "route_type": "hallway",
+      "direction": "CCW",
+      "run": 1,
+      "rgb_frames": 2539,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-15__Hallway_Full_CW",
+      "date": "2022-06-15",
+      "route": "Hallway_Full_CW",
+      "route_type": "hallway",
+      "direction": "CW",
+      "run": 1,
+      "rgb_frames": 2511,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-15__Hallway_Straight_CCW",
+      "date": "2022-06-15",
+      "route": "Hallway_Straight_CCW",
+      "route_type": "hallway",
+      "direction": "CCW",
+      "run": 1,
+      "rgb_frames": 2197,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-23__Aisle_CCW_Run_1",
+      "date": "2022-06-23",
+      "route": "Aisle_CCW_Run_1",
+      "route_type": "aisle",
+      "direction": "CCW",
+      "run": 1,
+      "rgb_frames": 1066,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [],
+      "has_semantic_frontend": false,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": true,
+      "blockers": [
+        "No DROID-SLAM backend run",
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-23__Aisle_CCW_Run_2",
+      "date": "2022-06-23",
+      "route": "Aisle_CCW_Run_2",
+      "route_type": "aisle",
+      "direction": "CCW",
+      "run": 2,
+      "rgb_frames": 1156,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [],
+      "has_semantic_frontend": false,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": true,
+      "blockers": [
+        "No DROID-SLAM backend run",
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-23__Aisle_CW_Run_1",
+      "date": "2022-06-23",
+      "route": "Aisle_CW_Run_1",
+      "route_type": "aisle",
+      "direction": "CW",
+      "run": 1,
+      "rgb_frames": 1037,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "cross_day_aisle_bundle_v1",
+        "cross_month_aisle_bundle_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": true,
+      "blockers": [
+        "No DROID-SLAM backend run",
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-23__Aisle_CW_Run_2",
+      "date": "2022-06-23",
+      "route": "Aisle_CW_Run_2",
+      "route_type": "aisle",
+      "direction": "CW",
+      "run": 2,
+      "rgb_frames": 1059,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "cross_day_aisle_bundle_v1",
+        "cross_month_aisle_bundle_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": true,
+      "blockers": [
+        "No DROID-SLAM backend run",
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-23__Hallway_Full_CW",
+      "date": "2022-06-23",
+      "route": "Hallway_Full_CW",
+      "route_type": "hallway",
+      "direction": "CW",
+      "run": 1,
+      "rgb_frames": 2320,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-23__Hallway_Straight_CCW",
+      "date": "2022-06-23",
+      "route": "Hallway_Straight_CCW",
+      "route_type": "hallway",
+      "direction": "CCW",
+      "run": 1,
+      "rgb_frames": 1972,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-06-23__Hallway_Straight_CW",
+      "date": "2022-06-23",
+      "route": "Hallway_Straight_CW",
+      "route_type": "hallway",
+      "direction": "CW",
+      "run": 1,
+      "rgb_frames": 1936,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-10-12__Aisle_CCW",
+      "date": "2022-10-12",
+      "route": "Aisle_CCW",
+      "route_type": "aisle",
+      "direction": "CCW",
+      "run": 1,
+      "rgb_frames": 915,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "cross_month_aisle_bundle_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": true,
+      "blockers": [
+        "No DROID-SLAM backend run",
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-10-12__Aisle_CW",
+      "date": "2022-10-12",
+      "route": "Aisle_CW",
+      "route_type": "aisle",
+      "direction": "CW",
+      "run": 1,
+      "rgb_frames": 1092,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "cross_month_aisle_bundle_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": true,
+      "blockers": [
+        "No DROID-SLAM backend run",
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-10-12__Hallway_Full_CW_Run_1",
+      "date": "2022-10-12",
+      "route": "Hallway_Full_CW_Run_1",
+      "route_type": "hallway",
+      "direction": "CW",
+      "run": 1,
+      "rgb_frames": 2318,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-10-12__Hallway_Full_CW_Run_2",
+      "date": "2022-10-12",
+      "route": "Hallway_Full_CW_Run_2",
+      "route_type": "hallway",
+      "direction": "CW",
+      "run": 2,
+      "rgb_frames": 2320,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-10-12__Hallway_Straight_CCW",
+      "date": "2022-10-12",
+      "route": "Hallway_Straight_CCW",
+      "route_type": "hallway",
+      "direction": "CCW",
+      "run": 1,
+      "rgb_frames": 1883,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    },
+    {
+      "session_id": "2022-10-12__Hallway_Straight_CW",
+      "date": "2022-10-12",
+      "route": "Hallway_Straight_CW",
+      "route_type": "hallway",
+      "direction": "CW",
+      "run": 1,
+      "rgb_frames": 1810,
+      "depth": true,
+      "seg": true,
+      "traj_gt": true,
+      "frame_times": true,
+      "imu": true,
+      "semantic_frontend_protocols": [
+        "hallway_batch2_v1"
+      ],
+      "has_semantic_frontend": true,
+      "has_droid_slam_backend": false,
+      "droid_slam_backend_configs": [],
+      "ate_rpe_computable": true,
+      "ate_rpe_computed": false,
+      "suitable_for_dynamic_slam": false,
+      "blockers": [
+        "No DROID-SLAM input pack created"
+      ]
+    }
+  ],
+  "semantic_frontend_coverage": {},
+  "droid_slam_backend_coverage": {
+    "total_configs": 12,
+    "unique_input_sessions": 1,
+    "input_session": "2022-06-15 Aisle_CW_Run_1 (1,114 frames)",
+    "configs": [
+      {
+        "id": "p132",
+        "mask": "baseline_raw",
+        "n_frames": 8,
+        "gba": false,
+        "has_evo": true,
+        "ate_mm": 0.001
+      },
+      {
+        "id": "p134_64",
+        "mask": "baseline_raw",
+        "n_frames": 64,
+        "gba": false,
+        "has_evo": false
+      },
+      {
+        "id": "p134_64_gba",
+        "mask": "baseline_raw",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      },
+      {
+        "id": "p135_sem",
+        "mask": "semantic",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      },
+      {
+        "id": "p136_temporal",
+        "mask": "temporal_stress",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      },
+      {
+        "id": "p137_flow",
+        "mask": "flow_stress",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      },
+      {
+        "id": "p138_first8",
+        "mask": "first8_real",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      },
+      {
+        "id": "p139_first16",
+        "mask": "first16_real",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      },
+      {
+        "id": "p140_first32",
+        "mask": "first32_real",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      },
+      {
+        "id": "p142_top4",
+        "mask": "top4_concentrated",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      },
+      {
+        "id": "p142_top8",
+        "mask": "top8_concentrated",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      },
+      {
+        "id": "p142_top16",
+        "mask": "top16_concentrated",
+        "n_frames": 64,
+        "gba": true,
+        "has_evo": true
+      }
+    ],
+    "bounded_claim": "All DROID-SLAM backend configs use one local input session/window: 2022-06-15 Aisle_CW_Run_1. 11/12 configs have metrics; the coverage gap is session/window breadth, not metric-file absence.",
+    "configs_with_evo_eval": 11,
+    "configs_pending_evo": 1
+  },
+  "protocol_map": {
+    "same_day_aisle": {
+      "n_sessions": 4,
+      "temporal": "minutes",
+      "purpose": "same-condition baseline"
+    },
+    "cross_day_aisle": {
+      "n_sessions": 4,
+      "temporal": "8 days",
+      "purpose": "short-term revisit"
+    },
+    "cross_month_aisle": {
+      "n_sessions": 6,
+      "temporal": "~4 months",
+      "purpose": "long-term maintenance"
+    },
+    "hallway_scene_transfer": {
+      "n_sessions": 10,
+      "temporal": "0-4 months",
+      "purpose": "scene-transfer generalization"
+    }
+  },
+  "gaps_and_blockers": [
+    {
+      "id": "GAP-DROID-001",
+      "severity": "HIGH",
+      "desc": "12 DROID-SLAM config runs on 1/20 sessions. No other session has backend runs.",
+      "impact": "Cannot claim multi-session dynamic SLAM. Paper claim: single-window negative-result."
+    },
+    {
+      "id": "GAP-DROID-002",
+      "severity": "MEDIUM",
+      "desc": "11/12 DROID-SLAM configs have metrics; one non-global-BA intermediate config lacks metrics. The real gap is not metrics within P135-P143, but lack of multi-session backend coverage.",
+      "impact": "Paper may report the bounded 10-config negative-result chain, but must not imply full-dataset dynamic SLAM evaluation."
+    },
+    {
+      "id": "GAP-DROID-003",
+      "severity": "MEDIUM",
+      "desc": "No DROID-SLAM runs on Hallway sessions (0/10).",
+      "impact": "Cannot extrapolate dynamic SLAM to Hallway."
+    },
+    {
+      "id": "GAP-DROID-004",
+      "severity": "MEDIUM",
+      "desc": "No comparison against published SLAM systems.",
+      "impact": "Documented in Limitations item #5."
+    },
+    {
+      "id": "GAP-FRONTEND-001",
+      "severity": "LOW",
+      "desc": "36 output dirs contain version drift (v1, available_v1, bundle_v1).",
+      "impact": "Metadata clarity only; bundle_v1+richer recomputed are canonical."
+    },
+    {
+      "id": "GAP-DATA-001",
+      "severity": "LOW",
+      "desc": "Single-site dataset. No public multi-site industrial SLAM dataset exists.",
+      "impact": "Documented in Limitations item #2."
+    }
+  ],
+  "readiness_assessment": {
+    "data": "20/20 ✅",
+    "semantic_frontend": "16/20 ✅ (4 Jun 23 Aisle CCW have earlier variants only)",
+    "droid_slam": "1/20 sessions ⚠️ (12 configs on one session/window)",
+    "ate_rpe": "11/12 configs ✅ within the bounded single-window chain; 0/19 other sessions evaluated",
+    "claim_safety": "SAFE — paper claims bounded to single-window negative-result",
+    "next_actions": [
+      "Run evo ape/rpe on 11 remaining 64-frame configs (~5 min)",
+      "If multi-session claim needed: run DROID-SLAM on 2-3 more sessions",
+      "If Hallway dynamic evidence needed: run 1 Hallway session",
+      "Archive legacy frontend variants"
+    ]
+  }
+}

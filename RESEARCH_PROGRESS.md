@@ -1032,15 +1032,15 @@ summary and local paths here, then commit and push the repository.
 - Scanned all 20 TorWIC sessions locally: 10 Aisle (10,937 frames) + 10 Hallway (21,806 frames) = 32,743 total RGB frames
 - All 20 sessions: RGB ✅, Depth ✅, Segmentation ✅, GT trajectory ✅, IMU ✅, frame_times ✅
 - **Critical finding: DROID-SLAM backend runs on 1/20 sessions (Jun 15 Aisle_CW_Run_1 only)**
-  - 12 config variations exist, ALL on the same single session and 64-frame window
-  - Only P132 (8-frame) has evo ATE/RPE evaluation (Δ=0.001mm, effectively tied)
-  - 11/12 64-frame configs have estimate_tum.txt but NO evo ATE/RPE metrics
+  - 12 config variations exist, ALL on the same single session/window
+  - 11/12 configs have evo ATE/RPE metrics; the one missing metrics file is the non-global-BA intermediate `p134_64`
+  - The main gap is therefore session/window breadth, not missing metrics inside the bounded P135-P143 chain
   - 0/10 Hallway sessions have DROID-SLAM runs
-- Semantic frontend: 18/20 sessions have bundle frontend outputs (2 Jun 23 CCW runs excluded)
+- Semantic frontend: 16/20 sessions have bundle frontend outputs (Jun 23 CCW runs and two other sessions lack canonical bundle coverage)
   - 4 protocols: same-day, cross-day, cross-month Aisle + Hallway scene-transfer
 - Gap inventory: 6 gaps identified (2 HIGH, 2 MEDIUM, 2 LOW)
   - GAP-DROID-001: single-session backend (HIGH)
-  - GAP-DROID-002: 11/12 configs lack evo evaluation (HIGH)
+  - GAP-DROID-002: only 1/20 sessions has backend coverage despite 11/12 bounded configs having metrics (MEDIUM)
   - GAP-DROID-003: no Hallway DROID-SLAM (MEDIUM)
   - GAP-DROID-004: no published SLAM baselines (MEDIUM)
 - Claim boundary verification: "35 sessions" in paper = variant count, not session count (actual = 20 sessions)

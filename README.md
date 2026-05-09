@@ -9,8 +9,8 @@
 - 已打通：语义分割实例输出 -> `ObjectObservation` -> 跨会话对象聚类 -> 稳定对象保留 / 动态污染拒绝；
 - 已有可视化：工业场景 overlay、mask、bbox、中心点、summary JSON 和地图准入决策；
 - 新增后端 input pack：raw RGB / masked RGB / TUM-style GT 片段 -> `backend_input_manifest.json`；
-- 新增后端 smoke：DROID-SLAM raw vs masked 12 配置变体，全在单 session（Jun 15 Aisle_CW_Run_1）64 帧窗口上；仅有 P132（8 帧 smoke）有 evo ATE/RPE（Δ=0.001mm，effectively tied）；剩余 11 个 64 帧配置仅有估计轨迹，未经 evo 评估；
-- P168 全数据集清点：20 sessions, 32,743 RGB frames, 18/20 有语义前端，1/20 有 DROID-SLAM 后端；
+- 新增后端 smoke：DROID-SLAM raw vs masked 12 配置变体，全在单 session（Jun 15 Aisle_CW_Run_1）64 帧窗口上；其中 11/12 配置已有 evo ATE/RPE 指标，结论仍为 bounded negative-result；
+- P168 全数据集清点：20 sessions, 32,743 RGB frames, 16/20 有语义前端，1/20 有 DROID-SLAM 后端；
 - 尚未完成：扩大到多 session DROID-SLAM 后端轨迹实验，并报告有统计意义的 ATE/RPE、建图质量或导航收益；
 - 因此本文当前主张是“语义分割辅助的动态对象过滤与长期对象地图维护”，不是“完整动态 SLAM benchmark 已经闭环优于现有后端”。
 
