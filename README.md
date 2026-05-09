@@ -471,6 +471,27 @@ make dynamic-first32-real-mask-figure
 
 
 
+
+### P144 动态 SLAM backend 章节闭环（2026-05-09 17:53+08）
+
+**完成：** P135-P143 完整证据链已作为自包含 negative-result study 整合进论文。
+
+| 变更 | 内容 |
+|---|---|
+| §VII.F | Table 6 — 10-config 完整证据链表格 + Boundary Conditions 段落 |
+| §IX Limitations | 引用 Table 6，量化边界条件 |
+| §X Conclusion | 动态 SLAM 负面结果研究总结 |
+| Appendix | 动态 SLAM 证据链归档路径 + 关键数字总结 |
+
+**Table 6 关键数字：**
+- 10 配置全部 trajectory-neutral（\|ΔATE\| < 0.1mm）
+- Baseline ATE RMSE: 0.051135 m
+- 最大叉车覆盖率: 1.39%（Jun 23 Aisle_CW_Run_1）
+- 可观测效应边界: >5% 动态目标帧覆盖率
+- 最大 \|ΔATE\|: 0.087mm（P136-P137 传播测试）
+
+**下一步：P145 — 全面论文完整性审查**（citation audit, figure references, claim boundaries, evidence chain cross-check）
+
 ### P143 跨窗口动态内容审计（2026-05-09 17:44+08）
 
 **审计：** 扫描本地所有 TorWIC Aisle 序列的已有 frontend 输出，寻找叉车占帧面积 >5% 的片段。

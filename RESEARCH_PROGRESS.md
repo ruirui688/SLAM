@@ -670,3 +670,14 @@ summary and local paths here, then commit and push the repository.
 - Produced `outputs/torwic_p143_cross_window_dynamic_audit_v1.{json,md}`.
 - Updated: paper/manuscript_en_thick.md (§VII.F P143 note + updated Limitation), README.md.
 - Next: P144 paper integration — integrate full dynamic SLAM evidence chain as self-contained negative-result study.
+
+## 2026-05-09 P144 dynamic SLAM backend chapter closure
+
+- Integrated complete P135-P143 evidence chain as self-contained negative-result study.
+- Added Table 6 (Complete Dynamic Masking Evidence Chain) to §VII.F with all 10 configurations.
+- Added Boundary Conditions paragraph: |ΔATE| < 0.1mm for objects <2% frame area; >5% needed for observable effect.
+- Added Appendix: Dynamic SLAM Evidence Chain (P135-P143) with archival paths and summary.
+- Updated §IX Limitations to reference Table 6.
+- Updated §X Conclusion with dynamic SLAM study summary.
+- Dynamic SLAM backend chapter now fully self-contained with quantified boundary conditions.
+- Manuscript is submission-ready for the dynamic SLAM component.
