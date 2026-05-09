@@ -1026,3 +1026,22 @@ summary and local paths here, then commit and push the repository.
   - F3: README.md "11 references" → "35 references (7 supplementary-only)"
 - **Verdict: NOT READY TO SUBMIT** — 62/75 (83%). 3 blockers: B1 (§IV/§V/§VI content integration), B2 (Hallway sessions 9-10), B3 (statistical formalization)
 - ROUND3_FINAL_AUDIT.md written: pass/fail table, issues-found-and-fixed log, 8 pre-submission human actions, 4 author decision points, cross-file data map
+
+## 2026-05-09 P168 Full Dataset Coverage Inventory
+
+- Scanned all 20 TorWIC sessions locally: 10 Aisle (10,937 frames) + 10 Hallway (21,806 frames) = 32,743 total RGB frames
+- All 20 sessions: RGB ✅, Depth ✅, Segmentation ✅, GT trajectory ✅, IMU ✅, frame_times ✅
+- **Critical finding: DROID-SLAM backend runs on 1/20 sessions (Jun 15 Aisle_CW_Run_1 only)**
+  - 12 config variations exist, ALL on the same single session and 64-frame window
+  - Only P132 (8-frame) has evo ATE/RPE evaluation (Δ=0.001mm, effectively tied)
+  - 11/12 64-frame configs have estimate_tum.txt but NO evo ATE/RPE metrics
+  - 0/10 Hallway sessions have DROID-SLAM runs
+- Semantic frontend: 18/20 sessions have bundle frontend outputs (2 Jun 23 CCW runs excluded)
+  - 4 protocols: same-day, cross-day, cross-month Aisle + Hallway scene-transfer
+- Gap inventory: 6 gaps identified (2 HIGH, 2 MEDIUM, 2 LOW)
+  - GAP-DROID-001: single-session backend (HIGH)
+  - GAP-DROID-002: 11/12 configs lack evo evaluation (HIGH)
+  - GAP-DROID-003: no Hallway DROID-SLAM (MEDIUM)
+  - GAP-DROID-004: no published SLAM baselines (MEDIUM)
+- Claim boundary verification: "35 sessions" in paper = variant count, not session count (actual = 20 sessions)
+- Outputs: `outputs/torwic_full_dataset_coverage_inventory_p168.json` (20KB) + `paper/export/full_dataset_coverage_inventory_p168.md` (8KB)
