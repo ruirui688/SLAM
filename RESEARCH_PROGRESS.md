@@ -895,27 +895,15 @@ summary and local paths here, then commit and push the repository.
 - Final audit result: **100/100 checks passed**.
 - Dynamic SLAM boundary still preserved: DROID-SLAM raw-vs-masked remains trajectory-neutral; no ATE/RPE improvement claim was introduced.
 
-## 2026-05-09 P160 T-RO/IJRR submission strategy pack
+## 2026-05-09 P160 T-RO / IJRR submission strategy pack
 
-- Generated comprehensive submission strategy: T-RO vs IJRR fit matrix (T-RO 42 vs IJRR 33, T-RO recommended primary)
-- Manuscript fit assessment: current ~9,400 words slightly lean for T-RO (~12,000 target), 11 refs needs expansion to 30-40
-- P154-P157 evidence placement recommendations for T-RO:
-  - P154 ablation summary → main body §VII.G.1; full sweep tables → supplement
-  - P155 baseline comparison → main body §VII.G.2; per-cluster detail → supplement  
-  - P156 Figs 11+13 → main body; Fig 12 lifecycle → supplement
-  - P157 category×reason matrix → main body §VII.G.3; per-cluster profiles → supplement
-- 6 reviewer attack points identified with rebuttal-ready defenses:
-  1. "No new algorithm" — TR-O systems contribution taxonomy, P155 B1 vs B2 quantification
-  2. "Only one dataset" — TorWIC is only multi-session industrial dataset, Hallway provides scene transfer
-  3. "Dynamic masking shows no effect" — Boundary condition quantified (1.39% << 5% threshold), 10-config systematic study
-  4. "Admission criteria arbitrary" — P154 ablation confirms bimodality, not hyperparameter tuning
-  5. "No dynamic SLAM baseline" — Category error rebuttal; B0/B1 are the correct baselines
-  6. "Too many contributions" — All 7 items serve unified methodology
-- P161-P165 executable roadmap:
-  - P161: T-RO LaTeX template conversion
-  - P162: Cover letter with reviewer suggestions
-  - P163: Supplementary material package
-  - P164: Related work expansion (11→30-40 refs)
-  - P165: arXiv/code release checklist
-- Submission timeline: 10-16 hours effort, 2-4 weeks with advisor review
-- Output: paper/export/tro_ijrr_submission_strategy_p160.md
+- Produced `paper/export/tro_ijrr_submission_strategy_p160.md` (27 KB, 350 lines).
+- **Venue recommendation:** Submit first to IEEE T-RO (regular paper), with IJRR as strong fallback, RSS as conference backup. T-RO weighted fit 7.2/10 vs IJRR 7.0/10 — T-RO edges ahead on system-validation fit.
+- **Venues explicitly excluded:** IEEE RA-L (format too short), MDPI Sensors/Remote Sensing (water venues), IEEE Access (undervalues the work).
+- **Manuscript profile assessment:** ~9,400 words, 16 distinct figures, 6 tables — appropriate for both T-RO (with figure consolidation to 10-12 main-text) and IJRR (can accommodate all 16).
+- **Figure consolidation strategy for T-RO:** Main text: 9-10 figures (Figs 1-4 pipeline/ladder/selectivity/backend + Figs 11-14 composition/lifecycle/decision-space/retention). Supplemental: Figs 5-10 consolidated into 2 multi-panel diagnostic figures + Figs 15-16 rejection-reason derivatives.
+- **Main vs supplemental organization:** P154 (ablation), P155 (baselines), P156 (3 figures), P157 (category analysis) all stay in main text. Dynamic SLAM diagnostic figures (5-10) and rejection-reason derivative figures (15-16) go to supplemental.
+- **Top 10 reviewer attack points identified and defense-written:** (1) no novel SLAM backend, (2) off-the-shelf perception, (3) single dataset, (4) dynamic SLAM negative result, (5) no hardware/robot, (6) rule-based criteria, (7) incomplete Hallway, (8) no object-SLAM baselines, (9) thin references, (10) arbitrary trust score weights.
+- **P161-P165 executable roadmap defined:** P161 T-RO template conversion, P162 supplementary evidence package, P163 cover letter & author statement, P164 arXiv/code release checklist, P165 advisor decision pack.
+- **Honest boundary maintained:** Dynamic masking negative result presented as scientifically valuable boundary contribution, not weakness. No ATE/RPE improvement claimed.
+- **Policy compliance:** existing-data-only, no new experiments, no water-venue recommendations, no auto-polish templates.
