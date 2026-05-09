@@ -1144,3 +1144,16 @@ summary and local paths here, then commit and push the repository.
   - `paper/evidence/dynamic_slam_stage2_p173_coverage_scan.json`
   - `paper/export/dynamic_slam_stage2_p173_coverage_scan.md`
 - Claim boundary: this is readiness/coverage evidence only; no DROID-SLAM trajectory or ATE/RPE is reported in this step.
+
+## 2026-05-09 P173 high-coverage selective-mask DROID diagnostic
+
+- Ran DROID-SLAM raw vs masked on the strongest P173 pressure sample: Jun15 Aisle_CCW_Run_1.
+- Mask profile: 5/64 frames masked; max frame coverage 17.324544%; mean coverage 0.567534%; no temporal propagation; no dilation.
+- evo result:
+  - raw APE RMSE: 0.010632 m; masked APE RMSE: 0.010746 m; ΔAPE = +0.000114 m (+0.114 mm).
+  - raw RPE RMSE: 0.015133 m; masked RPE RMSE: 0.015127 m; ΔRPE = -0.000006 m (-0.006 mm).
+- Interpretation: this is a high-coverage boundary case. It remains far below aggressive-mask failures (0.92-7.52 mm) but is not exactly trajectory-neutral under the previous ≤0.1 mm shorthand. Paper claim tightened: mask selectivity is necessary, and coverage magnitude also matters.
+- Paper-facing outputs:
+  - `paper/evidence/dynamic_slam_high_coverage_p173.json`
+  - `paper/export/dynamic_slam_high_coverage_p173.md`
+- Updated `paper/tro_submission/main.tex` and `EDITOR_SUMMARY.md` to avoid overclaiming universal trajectory-neutrality.

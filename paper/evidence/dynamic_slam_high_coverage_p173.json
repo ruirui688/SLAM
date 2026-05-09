@@ -1,0 +1,53 @@
+{
+  "artifact": "P173 high-coverage dynamic SLAM diagnostic",
+  "created": "2026-05-09T23:50:28+08:00",
+  "scope": "High-coverage selective semantic mask pressure test; not a full benchmark.",
+  "claim_boundary": "Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.",
+  "inputs": {
+    "groundtruth": "outputs/dynamic_slam_backend_input_pack_p173_jun15_aisle_ccw_run1/groundtruth.txt",
+    "raw_estimate": "outputs/dynamic_slam_backend_smoke_p173_jun15_aisle_ccw_run1/raw_estimate_tum.txt",
+    "masked_estimate": "outputs/dynamic_slam_backend_smoke_p173_jun15_aisle_ccw_run1/masked_estimate_tum.txt"
+  },
+  "mask_coverage": {
+    "masked_frames": [
+      2,
+      4,
+      5,
+      6,
+      7
+    ],
+    "masked_frame_count": 5,
+    "total_frames": 64,
+    "nonzero_frame_coverage_percent": {
+      "000002": 0.798611,
+      "000004": 0.786458,
+      "000005": 17.324544,
+      "000006": 0.900716,
+      "000007": 16.511827
+    },
+    "mean_coverage_percent": 0.567534,
+    "policy": "Use existing fork semantic frontend masks when --dynamic-mask-summary-dir is provided; otherwise only frame 000002 uses the repository forklift semantic example mask.",
+    "temporal_propagation_radius": 0,
+    "temporal_propagation_mode": "nearest",
+    "dynamic_mask_dilation_px": 0
+  },
+  "metrics": {
+    "raw RGB": {
+      "ape_rmse_m": 0.010632,
+      "ape_mean_m": 0.006707,
+      "rpe_rmse_m": 0.015133,
+      "rpe_mean_m": 0.008336
+    },
+    "masked RGB": {
+      "ape_rmse_m": 0.010746,
+      "ape_mean_m": 0.006816,
+      "rpe_rmse_m": 0.015127,
+      "rpe_mean_m": 0.008315
+    }
+  },
+  "delta_masked_minus_raw": {
+    "ape_rmse_m": 0.00011399999999999952,
+    "rpe_rmse_m": -6.000000000000796e-06
+  },
+  "interpretation": "Jun15 Aisle_CCW_Run_1 has selective semantic masks with max 17.324544% coverage and mean 0.567722%; interpret raw-vs-masked deltas as a pressure test of mask selectivity."
+}
