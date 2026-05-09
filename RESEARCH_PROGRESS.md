@@ -1103,7 +1103,23 @@ summary and local paths here, then commit and push the repository.
   - EDITOR_SUMMARY.md: abstract, statement, and limitations updated (14 configs, 3 sessions, 9/14 neutral)
 - **Outputs:** `paper/evidence/dynamic_slam_stage1_p172.json` (3KB), `paper/export/dynamic_slam_stage1_p172.md` (4KB)
 - **Smoke outputs:** `outputs/dynamic_slam_backend_smoke_p172_jun15_run2/` (ok), `outputs/dynamic_slam_backend_smoke_p172_jun23_run1/` (ok)
-- **Next:** P172 Stage 2 (cross-month + Hallway scene transfer), P167 ROUND3 audit update (B1 resolved), P173 ORB-SLAM3 cross-check
+- **Next:** P173 ORB-SLAM3 cross-check, update P167 ROUND3 audit with Stage 2 evidence
+
+## 2026-05-09 P172 Stage 2 — cross-month + Hallway DROID-SLAM replication
+
+- **Goal:** Extend trajectory-neutrality to cross-month temporal separation and Hallway scene transfer.
+- **Method:** DROID-SLAM 64-frame with global BA, semantic frontend forklift masks (cross_month_aisle_bundle_v1, hallway_benchmark_batch2_v1 frontend_output).
+- **Sessions:**
+  - Oct 12 Aisle_CW (cross-month, +4 months): 2/64 frames masked, max coverage 4.89%, ΔAPE = 0.000 mm, ΔRPE = 0.000 mm
+  - Oct 12 Hallway_Full_CW_Run_2 (Hallway scene-transfer, first-ever): 3/64 frames masked, max coverage 0.63%, ΔAPE = 0.000 mm, ΔRPE = 0.000 mm
+- **Result: ✅ Both sessions trajectory-neutral.** Cross-month + Hallway both replicated.
+- **Final evidence chain:** 11/16 configs neutral across 5 sessions (same-day + cross-day + cross-month + Hallway scene-transfer). 5 sessions, 2 scene types (Aisle, Hallway).
+- **Paper updates:**
+  - main.tex §VII.F: Stage 2 paragraph appended (Oct 12 Aisle_CW cross-month + Oct 12 Hallway scene-transfer)
+  - EDITOR_SUMMARY.md: abstract, statement, limitations all updated (5 sessions, 2 scene types)
+- **Outputs:** `paper/evidence/dynamic_slam_stage2_p172.json` (5KB), `paper/export/dynamic_slam_stage2_p172.md` (4KB)
+- **Smoke outputs:** `outputs/dynamic_slam_backend_smoke_p172_oct12_aisle_cw/` (ok), `outputs/dynamic_slam_backend_smoke_p172_oct12_hallway_cw/` (ok)
+- **Data unzipped:** Oct 12 Aisle_CW (4.4GB), Oct 12 Hallway_Full_CW_Run_2 (9.2GB) — existing local zip files
 
 ## 2026-05-09 P167 ROUND3 audit update — score 62→75
 
