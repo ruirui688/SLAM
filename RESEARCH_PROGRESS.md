@@ -180,13 +180,14 @@ summary and local paths here, then commit and push the repository.
 
 ## 2026-05-09 actual industrial result images in README
 
-- Added two real industrial scene result figures to the root README, separate
-  from the abstract smoke-demo SVG.
+- Added two annotated real industrial scene result figures to the root README,
+  separate from the abstract smoke-demo SVG.
 - Figures:
-  - `paper/figures/torwic_real_session_overlays.png`
-  - `paper/figures/torwic_hallway_composite.png`
+  - `paper/figures/torwic_real_session_overlays_annotated_zh.png`
+  - `paper/figures/torwic_hallway_composite_annotated_zh.png`
 - Purpose: make the repository front page show actual TorWIC industrial
-  segmentation/map-maintenance evidence, not only an abstract runnable test.
+  segmentation/map-maintenance evidence with reader-facing labels, not only an
+  abstract runnable test or unannotated raw scene composite.
 
 ## 2026-05-09 P120 thick manuscript draft v1 (EN + ZH)
 

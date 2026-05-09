@@ -110,19 +110,19 @@ outputs/minimal_demo/result.svg
 
 ### 真实工业场景结果图
 
-上面的 SVG 是最小 smoke demo 的结构化结果图。为了让读者直观看到论文面对的真实工业场景，仓库也放了两张来自当前论文证据包的实际结果图。
+上面的 SVG 是最小 smoke demo 的结构化结果图。为了让读者直观看到论文面对的真实工业场景，仓库也放了两张来自当前论文证据包的实际标注图。标注图是在真实 TorWIC 结果图上叠加中文说明框和箭头，不是抽象示意图。
 
 **图 1：TorWIC 工业 RGB-D 重访中的分割 overlay。**
 
 这张图展示真实工业场景中的候选语义对象：稳定护栏、工作台、货架，以及可能污染长期地图的 forklift-like 动态对象。它说明为什么本项目不把每个分割结果直接写入持久 SLAM 地图。
 
-![TorWIC 工业场景分割 overlay](paper/figures/torwic_real_session_overlays.png)
+![TorWIC 工业场景分割 overlay 标注图](paper/figures/torwic_real_session_overlays_annotated_zh.png)
 
 **图 2：Hallway 更广泛验证分支结果。**
 
 这张图展示 Hallway 10-session broader-validation 分支。该分支用于验证同一套对象维护输出结构在另一个工业回访场景中仍然可用，但它不会被混入主 Aisle 证据阶梯。
 
-![TorWIC Hallway 更广泛验证 composite](paper/figures/torwic_hallway_composite.png)
+![TorWIC Hallway 更广泛验证 composite 标注图](paper/figures/torwic_hallway_composite_annotated_zh.png)
 
 结果解释：
 
