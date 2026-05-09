@@ -1,4 +1,4 @@
-.PHONY: build-image run demo semantic-example dynamic-slam-frontend dynamic-slam-backend-pack dynamic-slam-backend-env-check dynamic-slam-backend-smoke dynamic-slam-backend-64 dynamic-slam-backend-semantic-masks dynamic-slam-backend-first8-real-masks dynamic-slam-backend-first16-real-masks dynamic-slam-backend-temporal-mask-stress dynamic-slam-backend-flow-mask-stress dynamic-slam-backend-figure dynamic-mask-coverage-figure dynamic-first8-real-mask-figure dynamic-first16-real-mask-figure dynamic-temporal-mask-stress-figure dynamic-flow-mask-stress-figure evidence-pack
+.PHONY: build-image run demo semantic-example dynamic-slam-frontend dynamic-slam-backend-pack dynamic-slam-backend-env-check dynamic-slam-backend-smoke dynamic-slam-backend-64 dynamic-slam-backend-semantic-masks dynamic-slam-backend-first8-real-masks dynamic-slam-backend-first16-real-masks dynamic-slam-backend-first32-frontend dynamic-slam-backend-first32-real-masks dynamic-slam-backend-temporal-mask-stress dynamic-slam-backend-flow-mask-stress dynamic-slam-backend-figure dynamic-mask-coverage-figure dynamic-first8-real-mask-figure dynamic-first16-real-mask-figure dynamic-first32-real-mask-figure dynamic-temporal-mask-stress-figure dynamic-flow-mask-stress-figure evidence-pack
 
 # Get version of CUDA and enable it for compilation if CUDA > 11.0
 # This solves https://github.com/IDEA-Research/Grounded-Segment-Anything/issues/53
@@ -24,6 +24,8 @@ else
 	BUILD_MESSAGE := "CUDA $(NVCC_VERSION) is not supported"
 endif
 
+FIRST32_FRAMES := $(shell seq -f "%06g" 0 31)
+FIRST32_MASK_SUMMARY_ARGS := $(foreach frame,$(FIRST32_FRAMES),--dynamic-mask-summary-dir outputs/torwic_jun23_aisle_cw_run1_f$(frame)/frontend_output)
 
 build-image:
 	@echo $(BUILD_MESSAGE)
@@ -75,6 +77,14 @@ dynamic-slam-backend-first16-real-masks:
 	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/dynamic_slam_backend_input_pack_64_first16_real_masks --output-dir outputs/dynamic_slam_backend_smoke_p139_64_first16_real_masks_global_ba --frame-limit 64 --buffer 256 --global-ba
 	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/dynamic_slam_backend_input_pack_64_first16_real_masks --output-dir outputs/dynamic_slam_backend_smoke_p139_64_first16_real_masks_global_ba --artifact "P139 first-sixteen real semantic masks DROID-SLAM global BA metrics" --scope "64-frame TorWIC Aisle_CW_Run_1, DROID-SLAM global BA, masked input built from real per-frame frontend forklift masks on frames 000000-000015." --masked-label "first-sixteen real masked RGB" --output-prefix p139_first16_real_mask_metrics --interpretation "This uses real frontend masks across the first sixteen frames. It tests whether extending true semantic mask coverage beyond P138 changes backend trajectory metrics."
 
+dynamic-slam-backend-first32-frontend:
+	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/run_torwic_forklift_frontend_window.py --start-frame 16 --end-frame-exclusive 32
+
+dynamic-slam-backend-first32-real-masks:
+	python tools/build_dynamic_slam_backend_input_pack.py --frame-count 64 --output-dir outputs/dynamic_slam_backend_input_pack_64_first32_real_masks $(FIRST32_MASK_SUMMARY_ARGS)
+	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/dynamic_slam_backend_input_pack_64_first32_real_masks --output-dir outputs/dynamic_slam_backend_smoke_p140_64_first32_real_masks_global_ba --frame-limit 64 --buffer 256 --global-ba
+	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/dynamic_slam_backend_input_pack_64_first32_real_masks --output-dir outputs/dynamic_slam_backend_smoke_p140_64_first32_real_masks_global_ba --artifact "P140 first-thirty-two real semantic masks DROID-SLAM global BA metrics" --scope "64-frame TorWIC Aisle_CW_Run_1, DROID-SLAM global BA, masked input built from real per-frame frontend forklift masks on frames 000000-000031." --masked-label "first-thirty-two real masked RGB" --output-prefix p140_first32_real_mask_metrics --interpretation "This extends true frontend mask generation to half of the backend window. It tests whether substantially denser real semantic masks change the backend trajectory metrics."
+
 dynamic-slam-backend-temporal-mask-stress:
 	python tools/build_dynamic_slam_backend_input_pack.py --frame-count 64 --output-dir outputs/dynamic_slam_backend_input_pack_64_temporal_mask_stress --dynamic-mask-summary-dir outputs/torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1/frontend_output --temporal-propagation-radius 8 --dynamic-mask-dilation-px 4
 	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/dynamic_slam_backend_input_pack_64_temporal_mask_stress --output-dir outputs/dynamic_slam_backend_smoke_p136_64_temporal_mask_stress_global_ba --frame-limit 64 --buffer 256 --global-ba
@@ -96,6 +106,9 @@ dynamic-first8-real-mask-figure:
 
 dynamic-first16-real-mask-figure:
 	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/plot_dynamic_mask_coverage_diagnostic.py --manifest outputs/dynamic_slam_backend_input_pack_64_first16_real_masks/backend_input_manifest.json --metrics outputs/dynamic_slam_backend_smoke_p139_64_first16_real_masks_global_ba/p139_first16_real_mask_metrics.json --output paper/figures/torwic_dynamic_mask_first16_real_p139.png --title "P139: real first-sixteen semantic masks remain trajectory-neutral" --caption "Real frontend masks cover 16/64 frames with 0.264% mean coverage; DROID-SLAM APE/RPE remain effectively tied." --masked-label "first-sixteen real masked RGB"
+
+dynamic-first32-real-mask-figure:
+	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/plot_dynamic_mask_coverage_diagnostic.py --manifest outputs/dynamic_slam_backend_input_pack_64_first32_real_masks/backend_input_manifest.json --metrics outputs/dynamic_slam_backend_smoke_p140_64_first32_real_masks_global_ba/p140_first32_real_mask_metrics.json --output paper/figures/torwic_dynamic_mask_first32_real_p140.png --title "P140: real first-thirty-two semantic masks remain trajectory-neutral" --caption "Real frontend masks cover 32/64 frames; DROID-SLAM APE/RPE remain effectively tied, identifying mask scale/placement rather than backend wiring as the bottleneck." --masked-label "first-thirty-two real masked RGB"
 
 dynamic-temporal-mask-stress-figure:
 	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/plot_dynamic_mask_coverage_diagnostic.py --manifest outputs/dynamic_slam_backend_input_pack_64_temporal_mask_stress/backend_input_manifest.json --metrics outputs/dynamic_slam_backend_smoke_p136_64_temporal_mask_stress_global_ba/p136_temporal_mask_stress_metrics.json --output paper/figures/torwic_dynamic_mask_temporal_stress_p136.png --title "P136 stress test: temporal mask propagation increases coverage but not trajectory gain" --caption "Nearest-frame mask propagation covers 16/64 frames with 0.267% mean coverage; backend metrics remain effectively tied." --masked-label "temporal propagated masked RGB"

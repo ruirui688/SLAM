@@ -295,6 +295,10 @@ DynaSLAM[2]证明在动态场景中屏蔽动态物体（人、车辆）可以改
 
 ![图9. P139 真实 first-sixteen 语义 mask 后端诊断。](figures/torwic_dynamic_mask_first16_real_p139.png)
 
+为了检验瓶颈是否只是“真实语义帧数量不够”，我们继续把同一 frontend 流程扩展到帧 000016--000031，并在 64 帧后端窗口的前半段合并真实 forklift masks（图10）。这把覆盖提高到 32/64 帧，平均 mask 覆盖率为 0.568%。后端结果仍为轨迹中性：first-thirty-two real masked RGB 的 APE RMSE 为 0.051189 m，raw RGB 为 0.051135 m；RPE RMSE 为 0.032711 m，raw RGB 为 0.032713 m。这是一个重要的负结果：它说明剩余瓶颈不是后端接线或 evo 评估，而是在这个 TorWIC 窗口中，可见动态物体的 mask 尺度和位置仍不足以显著改变 DROID-SLAM 轨迹估计。后续若要追求正向 ATE/RPE 收益，应优先选择更强动态片段、完成 64/64 真实 frontend，或按动态 mask 面积对窗口排序，而不是在同一弱动态窗口上反复期待指标提升。
+
+![图10. P140 真实 first-thirty-two 语义 mask 后端诊断。](figures/torwic_dynamic_mask_first32_real_p140.png)
+
 ---
 
 ## 八、讨论

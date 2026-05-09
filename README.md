@@ -429,6 +429,27 @@ make dynamic-first16-real-mask-figure
 
 当前解释：真实 masks 覆盖提高到 `16/64` 帧、平均覆盖率 `0.263896%`，但轨迹指标仍基本持平。这个结果进一步说明，当前窗口内 forklift mask 面积和位置不足以显著改变 DROID-SLAM 轨迹；后续更有价值的方向是扩展到 32/64 帧真实 frontend，并同时报告 mask 质量/面积分布，而不是只追求单次 ATE/RPE 改善。
 
+P140 把真实 frontend 覆盖继续推进到半个后端窗口：复用/补齐 `000000` 到
+`000031` 的 Grounding DINO + SAM2 forklift masks，并合并为 32/64 帧真实
+mask 的 64 帧 DROID-SLAM global-BA 对比。
+
+```bash
+make dynamic-slam-backend-first32-frontend
+make dynamic-slam-backend-first32-real-masks
+make dynamic-first32-real-mask-figure
+```
+
+结果：
+
+| 输入 | APE RMSE (m) | RPE RMSE (m) |
+|---|---:|---:|
+| raw RGB | 0.051135 | 0.032713 |
+| first-thirty-two real masked RGB | 0.051189 | 0.032711 |
+
+![真实 first-thirty-two mask 后端诊断](paper/figures/torwic_dynamic_mask_first32_real_p140.png)
+
+当前解释：真实 masks 覆盖达到 `32/64` 帧、平均覆盖率 `0.567722%`，但轨迹指标仍基本持平。这不是“束手无策”，而是更清楚地定位了瓶颈：后端链路、evo 评估和真实 mask 接入都已打通；当前 TorWIC 片段中的 forklift mask 面积/位置仍太弱，下一步应转向更强动态目标片段、完整 64/64 真实 frontend、或基于目标运动/遮挡面积的样本筛选，而不是在同一弱动态窗口上反复声称收益。
+
 ## 2. 论文稿件
 
 | 稿件 | 路径 | 用途 |

@@ -594,3 +594,31 @@ summary and local paths here, then commit and push the repository.
   produces trajectory-neutral DROID-SLAM metrics. The next phase should either
   extend real frontend inference to 32/64 frames or analyze mask area/placement
   before expecting ATE/RPE improvement.
+
+## 2026-05-09 P140 first-thirty-two real semantic mask backend diagnostic
+
+- Added `tools/run_torwic_forklift_frontend_window.py` to make per-frame
+  Grounding DINO + SAM2 forklift frontend expansion reproducible instead of a
+  hand-written shell loop.
+- Added Make targets:
+  - `dynamic-slam-backend-first32-frontend`;
+  - `dynamic-slam-backend-first32-real-masks`;
+  - `dynamic-first32-real-mask-figure`.
+- Verified frames `000016` through `000031` already had frontend outputs on
+  disk, so the batch script skipped existing results without rerunning them.
+- Built `outputs/dynamic_slam_backend_input_pack_64_first32_real_masks` from
+  true frontend masks on frames `000000` through `000031`.
+- Mask coverage: `32/64` frames, `0.567722%` average coverage.
+- Ran DROID-SLAM 64-frame global BA on raw vs first-thirty-two real semantic
+  masked inputs:
+  - raw: APE RMSE `0.051135 m`, RPE RMSE `0.032713 m`;
+  - first-thirty-two real masked: APE RMSE `0.051189 m`, RPE RMSE `0.032711 m`;
+  - delta masked-minus-raw: APE RMSE `+0.000054 m`, RPE RMSE `-0.000002 m`.
+- Generated `paper/figures/torwic_dynamic_mask_first32_real_p140.png` and
+  refreshed `paper/evidence/dynamic_slam_backend_metrics.{csv,json}` plus
+  `paper/evidence/README.md`.
+- Paper update completed in EN/ZH thick drafts as Fig. 10.
+- Interpretation: even half-window real dynamic masks remain trajectory-neutral
+  on this TorWIC segment. The bottleneck is now better localized to dynamic
+  target scale/placement and window selection, not backend execution, evo
+  evaluation, or semantic-mask file integration.

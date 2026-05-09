@@ -295,6 +295,10 @@ We therefore extend the real frontend evidence to the first sixteen frames by ru
 
 ![Fig. 9. P139 first-sixteen real semantic mask backend diagnostic.](figures/torwic_dynamic_mask_first16_real_p139.png)
 
+To test whether the bottleneck is merely the number of real semantic frames, we further extend the same frontend process to frames 000016--000031 and merge true forklift masks for the first half of the 64-frame backend window (Fig. 10). This raises coverage to 32/64 frames and 0.568% mean mask coverage. The backend result is still trajectory-neutral: first-thirty-two real masked RGB gives APE RMSE 0.051189 m versus 0.051135 m for raw RGB, and RPE RMSE 0.032711 m versus 0.032713 m. This is an important negative result. It shows that the remaining bottleneck is not backend wiring or evo evaluation; for this TorWIC window, the visible dynamic-object mask scale and placement are too weak to alter DROID-SLAM trajectory estimates materially. Future gain-oriented experiments should therefore select stronger dynamic intervals, complete the full 64/64 real frontend pass, or rank windows by dynamic-mask area before expecting ATE/RPE improvement.
+
+![Fig. 10. P140 first-thirty-two real semantic mask backend diagnostic.](figures/torwic_dynamic_mask_first32_real_p140.png)
+
 ---
 
 ## VIII. Discussion
@@ -401,6 +405,8 @@ Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferre
 **Fig. 8.** First-eight real semantic mask backend diagnostic. Existing per-frame frontend forklift masks for frames 000000--000007 are merged into the 64-frame backend input. The result remains trajectory-neutral, showing that the next step is longer-window real semantic inference rather than synthetic propagation.
 
 **Fig. 9.** First-sixteen real semantic mask backend diagnostic. Grounding DINO and SAM2 are run on frames 000008--000015 and merged with the existing first-eight masks. Coverage increases to 16/64 frames and 0.264% mean coverage, but raw and masked DROID-SLAM trajectories remain effectively tied.
+
+**Fig. 10.** First-thirty-two real semantic mask backend diagnostic. True frontend forklift masks are merged for frames 000000--000031, covering half of the 64-frame DROID-SLAM window with 0.568% mean coverage. Raw and masked trajectories remain effectively tied, identifying dynamic-mask scale and window selection as the next bottleneck rather than backend execution.
 
 ---
 

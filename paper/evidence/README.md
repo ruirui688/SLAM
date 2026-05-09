@@ -41,6 +41,7 @@ make evidence-pack
 | P137 optical-flow mask stress test | 0.051135 | 0.051222 | 0.032713 | 0.03271 | 16/64 (0.267154%) |
 | P138 first-eight real semantic masks | 0.051135 | 0.051177 | 0.032713 | 0.032712 | 8/64 (0.118100%) |
 | P139 first-sixteen real semantic masks | 0.051135 | 0.051182 | 0.032713 | 0.032711 | 16/64 (0.263896%) |
+| P140 first-thirty-two real semantic masks | 0.051135 | 0.051189 | 0.032713 | 0.032711 | 32/64 (0.567722%) |
 
 ## Tracked Files
 

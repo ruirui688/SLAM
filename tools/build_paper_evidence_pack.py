@@ -98,6 +98,13 @@ BACKEND_METRICS = [
         / "dynamic_slam_backend_smoke_p139_64_first16_real_masks_global_ba"
         / "p139_first16_real_mask_metrics.json",
     },
+    {
+        "key": "p140_first32_real_masks",
+        "name": "P140 first-thirty-two real semantic masks",
+        "path": OUTPUTS
+        / "dynamic_slam_backend_smoke_p140_64_first32_real_masks_global_ba"
+        / "p140_first32_real_mask_metrics.json",
+    },
 ]
 
 
@@ -179,6 +186,7 @@ def normalize_backend_metrics(payload: dict[str, Any]) -> tuple[dict[str, Any], 
         or metrics.get("flow propagated masked RGB")
         or metrics.get("first-eight real masked RGB")
         or metrics.get("first-sixteen real masked RGB")
+        or metrics.get("first-thirty-two real masked RGB")
         or next((value for key, value in metrics.items() if key != "raw RGB" and key != "raw"), None)
     )
     return raw or {}, masked
