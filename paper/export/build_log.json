@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-05-09T18:29:26.191303",
+  "toolchain": {
+    "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]",
+    "markdown": "3.10.2",
+    "weasyprint": "68.1"
+  },
+  "builds": [
+    {
+      "lang": "en",
+      "html": "/home/rui/slam/paper/export/manuscript_en_thick.html",
+      "html_size_kb": 61.0,
+      "pdf": "/home/rui/slam/paper/export/manuscript_en_thick.pdf",
+      "pdf_size_kb": 643.4,
+      "pdf_ok": true
+    },
+    {
+      "lang": "zh",
+      "html": "/home/rui/slam/paper/export/manuscript_zh_thick.html",
+      "html_size_kb": 50.9,
+      "pdf": "/home/rui/slam/paper/export/manuscript_zh_thick.pdf",
+      "pdf_size_kb": 819.9,
+      "pdf_ok": true
+    }
+  ],
+  "status": "ok"
+}

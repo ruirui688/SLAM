@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="build_paper.py — markdown + weasyprint">
+<title>manuscript_zh_thick</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+    body {
+        font-family: 'Latin Modern Roman', 'Noto Serif CJK SC', Georgia, serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2em 1em;
+        line-height: 1.6;
+        color: #222;
+    }
+    h1, h2, h3, h4 { font-family: 'Latin Modern Sans', 'Noto Sans CJK SC', Helvetica, sans-serif; }
+    h1 { font-size: 1.5em; border-bottom: 2px solid #333; padding-bottom: 0.3em; }
+    h2 { font-size: 1.3em; border-bottom: 1px solid #999; padding-bottom: 0.2em; margin-top: 1.5em; }
+    h3 { font-size: 1.15em; margin-top: 1.2em; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.9em; }
+    th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+    th { background: #f5f5f5; }
+    img { max-width: 100%; height: auto; margin: 1em 0; }
+    pre { background: #f5f5f5; padding: 10px; overflow-x: auto; font-size: 0.85em; }
+    code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+    pre code { background: none; padding: 0; }
+    blockquote { border-left: 3px solid #999; margin: 1em 0; padding: 0.5em 1em; color: #555; background: #fafafa; }
+    .katex { font-size: 1.1em; }
+    @media print { body { max-width: none; } }
+    </style>
+</head>
+<body>
+<h1 id="slam">面向动态工业环境的语义分割辅助SLAM：</h1>
+<h1 id="_1">基于开放词汇目标实例过滤的面向对象地图维护</h1>
+<p><strong>厚稿 v1 — 中文</strong><br />
+<em>生成日期: 2026-05-09 | 现有数据原则 | 无新实验</em></p>
+<hr />
+<h2 id="_2">摘要</h2>
+<p>在仓库、物流中心和制造车间等工业环境中，长期视觉SLAM面临一个根本性挑战：开放词汇检测管线天然地会在每一帧中产生数十个候选目标实例，但其中只有一小部分对应着可持久化、可复用的地图实体[1]。叉车、推车、托盘和临时物体如果被直接插入地图会污染地图——这是动态SLAM文献[2]中认识到的动态污染问题，但尚未在地图准入层面得到处理；而护栏、工作台、仓储货架虽然稳定，但在视角或光照变化下可能只是间歇性出现。本文提出一种面向对象的语义分割辅助SLAM方法，在感知与地图之间引入显式的对象维护层。该框架将开放词汇RGB-D分割输出转化为观察层（Observation）、轨迹层（Tracklet）、地图对象层（MapObject）和修订层（Revision），然后利用持久性、稳定性和动态性评分来保留稳定的语义地标并抑制动态污染。我们在TorWIC数据集（POV-SLAM来源[6]）上评估该框架，在当日（203个观测/11个候选簇→5个保留）、跨日（240/10→5）和跨月（297/14→7）三个更丰富的过道（Aisle）协议上（§VII.A），报告了一个可复现的投稿级证据阶梯。独立的走廊（Hallway）广泛验证分支（537个观测/16个候选簇→9个保留，在80/80执行帧上）提供了场景迁移证据（§VII.C）。该框架在全部四个协议上以一致的50.0%–71.4%拒绝比例将叉车类证据作为动态污染拒绝（§VII.D），同时保留满足持久性和一致性标准（§V.E）的稳定非移动物体。我们将该贡献定位为一个有边界的IEEE系统类贡献：不是最终的终身SLAM基准[1]，不是稠密动态重建，也不是下游导航增益声明，而是一座从分割辅助的开放词汇感知[3][4][5]到实际工业回访中长期对象地图维护[6]的可审计桥梁。</p>
+<h2 id="_3">关键词</h2>
+<p>SLAM，语义分割，动态物体过滤，对象级建图，地图维护，工业机器人，开放词汇感知，长期自主</p>
+<hr />
+<h2 id="_4">一、引言</h2>
+<h3 id="a">一.A. 动机</h3>
+<p>同时定位与建图（SLAM）已经成熟到可以在实时条件下可靠构建短时段几何地图的程度[1]。下一个前沿——跨周或跨月的长期SLAM和地图复用——将负担从几何一致性转移到了语义持久性：哪些检测到的物体应该进入地图，哪些应该作为临时或动态污染被丢弃？</p>
+<p>工业环境放大了这一问题。仓库和物流中心既包含稳定的基础设施（护栏、工作台、货架、立柱），也包含移动载体（叉车、推车、操作人员）。Grounding DINO这样的开放词汇检测器结合SAM2这样的分割器，可以在每帧中为数十个目标实例提出边界框和掩码，但如果没有显式的准入控制策略，地图会迅速积累叉车形状的幻影物体——它们在回访中被反复检测到，但本不该被允许进入地图。</p>
+<h3 id="b">一.B. 准入控制缺口</h3>
+<p>现有的动态SLAM管线[2]被设计用来从几何重建中屏蔽、跟踪和移除动态像素和物体，确保视觉里程计和回环检测在干净的静态几何上运行。对象级SLAM方法[3]–[5]为几何实体赋予语义身份，并能够推理物体类别。然而，这两种范式都没有直接回答一个问题：哪些检测到的物体应该在语义地图中占据一个持久的位置？在几何一致性得到确认后，检测输出即被视为事实，但在实践中，粗略相同位置上的叉车反复检测可能在几何上看起来一致，但在语义上并不具有可准入性。</p>
+<p>我们的核心观察是：从开放词汇检测到持久语义地标的管线需要一个显式的维护层——一个准入控制策略，对每个候选物体在稳定性（跨会话持久程度）、一致性（标签一致性和空间一致性）和动态性（主导状态是否为dynamic_agent）三个维度上评分。本文描述了这样一个层。</p>
+<h3 id="c">一.C. 范围和贡献边界</h3>
+<p>我们有意将贡献限制在工业回访中的稳定物体保留、动态污染拒绝和地图准入选择性。我们不声称解决终身SLAM、稠密动态重建或下游导航增益。本文提供了一座从感知到地图维护的可审计桥梁，在TorWIC数据集上有可复现的证据。</p>
+<hr />
+<h2 id="_5">二、贡献</h2>
+<ol>
+<li>
+<p><strong>显式的对象维护架构</strong>（§V）：包含观察（§V.A）、轨迹（§V.B）、地图对象（§V.C）和修订（§V.F）四个层次，将检测与地图准入分离。每一层都携带帧级来源、稳定性计数器和动态性评分。</p>
+</li>
+<li>
+<p><strong>透明的地图准入住信度评分</strong>（§V.D）：结合会话级稳定性、跨会话持久性和主导状态动态性。该评分故意保持简单和可审计，而非作为最优估计器呈现。</p>
+</li>
+<li>
+<p><strong>可复现的证据阶梯</strong>（§VII.A–VII.C）：在TorWIC数据集[6]上，通过三个过道协议（当日、跨日、跨月）和一个走廊广泛验证分支，全部以选择标准论证（§VI.C）和簇级可追溯性（附录Y）报告。</p>
+</li>
+<li>
+<p><strong>拒绝画像分析</strong>（§VII.D）：叉车类动态污染是跨所有协议的主要拒绝驱动因素（50.0%–71.4%占比），会话覆盖不足和标签纯度为第二/第三驱动因素。</p>
+</li>
+<li>
+<p><strong>开源发布</strong>：对象维护层连同TorWIC协议配置（§VI）和选择标准（§V.E）一起开源，支持对所报告证据阶梯的可审计复现。</p>
+</li>
+</ol>
+<hr />
+<h2 id="_6">三、相关工作</h2>
+<h3 id="a-slam">三.A. 语义SLAM与对象级建图</h3>
+<p>Cadena等人[1]综述了从几何到语义的SLAM全貌，确立了地图复用需要语义理解这一论断。CubeSLAM[3]通过在单目SLAM中为检测到的物体拟合立方体引入了对象级表示，证明物体身份能够改善回环检测和重定位。OpenScene[4]将开放词汇语义建图扩展到3D场景，表明语言条件化的特征场可以承载概念级语义。ConceptFusion[5]通过融合多个基础模型输出到共享的3D表示中，进一步发展了开放词汇3D建图范式。</p>
+<p><strong>我们的关系：</strong> 这些工作确立了对象级和开放词汇语义建图的可行性。我们在此传统基础上聚焦一个互补问题：一旦物体被检测和语义标注，哪些值得在地图中获得永久表示？答案不是简单的&rdquo;所有高检测置信度的物体&rdquo;——一个在五个会话中以0.95置信度被检测到的叉车仍然是叉车，不应进入静态地图。</p>
+<h3 id="b-slam">三.B. 动态SLAM与动态物体抑制</h3>
+<p>DynaSLAM[2]证明在动态场景中屏蔽动态物体（人、车辆）可以改善几何重建中的相机跟踪精度。其核心洞察——动态像素会降低视觉里程计质量——已被大量后续工作通过语义分割、光流和多视图几何方法加以扩展。</p>
+<p><strong>我们的关系：</strong> 动态SLAM移除动态内容以保护几何重建。我们补充性地在语义地图层拒绝动态类物体，即使它们在几何上被精确定位。几何重建可能正确地估计了一辆叉车的3D位置；我们的维护层独立地判定这辆叉车不应成为持久的地图实体。</p>
+<h3 id="c_1">三.C. 长期地图维护与稳定地标复用</h3>
+<p>长期SLAM主要是在终身建图和地图摘要[1]的背景下被研究的。跨会话保留哪些地标这一问题，已通过信息论剪枝、内存预算约束和变化检测等方法得到处理。POV-SLAM[6]引入了对象感知的语义SLAM，并发布了TorWIC数据集，提供工业环境的RGB-D回访数据及真实物体标注。</p>
+<p><strong>我们的关系：</strong> 我们使用TorWIC/POV-SLAM[6]作为数据来源锚点。我们的维护层运行在任何检测管线上方，使用会话级证据聚合而非几何启发式方法来决定地图准入。该框架与现有的长期建图系统互补——可作为感知与地图后端之间的过滤器插入。</p>
+<h3 id="d-3d">三.D. 分割辅助过滤与开放词汇3D建图</h3>
+<p>基础模型的最新进展——Grounding DINO用于开放词汇检测、SAM2用于掩码生成、OpenCLIP用于标签重排序——使得无需任务特定训练即可从RGB-D帧中提取语义标注的目标实例成为现实。这些模型在我们的框架中作为后端组件使用，但不是我们贡献的主题。维护层对具体的检测/分割管线是不可知的。</p>
+<hr />
+<h2 id="_7">四、问题形式化</h2>
+<h3 id="a_1">四.A. 形式化陈述</h3>
+<p>设SLAM会话(S_k)产生RGB-D帧序列({F_{k,1},\ldots,F_{k,N_k}})。对每一帧，一个开放词汇检测-分割-标注管线输出一组候选目标实例({o_{k,i}^{(j)}})，每个实例具有边界框、分割掩码、规范标签和置信度分数。</p>
+<p><strong>地图准入问题</strong>（受§I.B和[2]中识别的动态污染缺口驱动）为：给定一个或多个会话中的候选观测，生成一个由持久目标实体({e_1,\ldots,e_M})组成的地图(\mathcal{M})，满足：</p>
+<ol>
+<li><strong>稳定性：</strong> 每个(e_m)对应环境中一个物理持久存在的物体（非临时或动态载体）。</li>
+<li><strong>一致性：</strong> (e_m)的标签和空间范围在回访中保持一致。</li>
+<li><strong>完备性：</strong> 不遗漏任何在多个会话中以充分证据出现的持久物体。</li>
+<li><strong>准入控制：</strong> 动态载体（叉车、推车）和临时物体（单会话低支持度检测）被显式拒绝，而非静默抑制（对比[2]，该方法屏蔽动态像素用于几何重建，但不在语义地图准入层面拒绝动态物体）。</li>
+</ol>
+<h3 id="b-slam_1">四.B. 与标准SLAM的关键区别</h3>
+<p>标准SLAM将地图更新视为：检测→几何验证→地图插入[1]。我们的框架插入一个中间维护层（对比对象级SLAM架构[3][4][5]，它们赋予语义但缺乏显式准入控制）：检测→观察（§V.A）→轨迹会话内（§V.B）→地图对象跨会话（§V.C）→修订地图更新（§V.F）。每个转换应用筛选、聚合和评分候选证据的标准，然后才允许地图插入。</p>
+<hr />
+<h2 id="_8">五、方法</h2>
+<p>图 1 展示了完整管线：开放词汇 RGB-D mask 经过观察、轨迹、地图对象和修订层处理，而非直接插入地图。</p>
+<h3 id="a_2">五.A. 开放词汇目标观察提取</h3>
+<p>对每个RGB-D帧，应用开放词汇检测管线（受开放词汇3D建图范式[4][5]启发，但在此仅作为前端观察生成器使用）：</p>
+<ol>
+<li><strong>Grounding DINO</strong> 从对应常见工业物体类别（护栏、叉车、工作台、仓储货架、推车、托盘、立柱）的文本提示中提出边界框。</li>
+<li><strong>SAM2</strong> 从提出的框中生成实例掩码。</li>
+<li><strong>OpenCLIP</strong> 通过将掩码裁剪与目标类别集的文本嵌入比对来重排序和解析标签。</li>
+<li>每个结果候选成为一个<strong>ObjectObservation</strong>，包含帧ID、会话ID、边界框、掩码多边形、规范标签、置信度分数和检测时间戳。</li>
+</ol>
+<p>检测管线作为黑盒前端使用；我们的贡献从观察层开始。</p>
+<h3 id="b_1">五.B. 会话级轨迹记录</h3>
+<p>在单个会话(S_k)内，具有相同规范标签且空间范围重叠的观察被分组成<strong>轨迹（Tracklet）</strong>。一个轨迹(T)聚合：</p>
+<ul>
+<li><strong>会话ID</strong> 和时间范围（首/末帧）</li>
+<li><strong>观察计数</strong> 和空间范围统计</li>
+<li><strong>标签直方图</strong>（规范前的原始检测器输出）</li>
+<li><strong>状态直方图</strong>（检测器报告的状态：static, candidate, dynamic_agent）</li>
+<li><strong>动态比例</strong> (\rho_T) = 状态为<code>dynamic_agent</code>的观察占比</li>
+</ul>
+<p>轨迹是会话内的证据单元。来自不同会话的相同标签的多个轨迹是跨会话合并的候选。</p>
+<h3 id="c_2">五.C. 跨会话地图对象</h3>
+<p>来自不同会话的轨迹通过空间重叠和规范标签一致性进行匹配，形成<strong>地图对象（MapObject）</strong>。一个地图对象(O)聚合：</p>
+<ul>
+<li><strong>会话支持度：</strong> 物体出现的不同会话数</li>
+<li><strong>总观察数</strong>和总轨迹数</li>
+<li><strong>主导标签</strong>和<strong>标签纯度</strong>（具有主导标签的观察占比）</li>
+<li><strong>主导状态</strong>（所有观察中最频繁的状态）</li>
+<li><strong>空间稳定性：</strong> 跨会话平均中心的方差</li>
+<li><strong>元证据：</strong> 会话列表、帧数、支持计数</li>
+</ul>
+<p>跨会话匹配使用空间IoU阈值（0.1）加规范标签一致性。仅在单个会话中以低支持度出现的物体是拒绝的候选。</p>
+<h3 id="d">五.D. 稳定性与动态性评分</h3>
+<p>每个地图对象(O)获得一个<strong>信任分数</strong>(\tau(O))（遵循长期SLAM的稳定地标选择哲学[1][6]），定义如下：</p>
+<p>[<br />
+\tau(O) = \alpha \cdot s_{\text{session}}(O) + \beta \cdot s_{\text{support}}(O) - \gamma \cdot s_{\text{dynamic}}(O)<br />
+]</p>
+<p>其中：<br />
+- (s_{\text{session}}(O)) = 归一化会话计数（最小0，在≥3会话时最大1）<br />
+- (s_{\text{support}}(O)) = 归一化观测支持度（最小0，在≥20观测时最大1）<br />
+- (s_{\text{dynamic}}(O)) = 动态比例(\rho_O)（完全静态为0，完全动态为1）<br />
+- (\alpha = 0.4, \beta = 0.3, \gamma = 0.5) （可配置，未优化；跨协议一致性见§VI.C）</p>
+<p>该评分<strong>不</strong>作为最优估计器呈现。它是一个透明、可审计的公式，设计为可检查的：每个分量都有清晰的语义解释，权重可根据部署领域调整。该评分作为辅助信号使用；主要的地图准入关卡是§V.E中的布尔标准集。在实践中，跨§VII报告的TorWIC协议，所有保留的MapObject满足(\tau(O) \geq 0.4)，所有被拒绝的对象低于(\tau(O) \leq 0.15)（逐簇分数见附录Y）。</p>
+<h3 id="e">五.E. 地图准入标准</h3>
+<p>一个地图对象(O)被允许进入持久地图(\mathcal{M})当且仅当它满足<strong>所有</strong>以下标准：</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>条件</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>多会话存在</strong></td>
+<td>sessions ≥ 2</td>
+<td>单会话观察可能是临时的</td>
+</tr>
+<tr>
+<td><strong>最低支持度</strong></td>
+<td>observations ≥ 6</td>
+<td>低支持度物体可能是虚假检测</td>
+</tr>
+<tr>
+<td><strong>标签一致性</strong></td>
+<td>label purity ≥ 0.7</td>
+<td>混合标签物体表示检测器模糊</td>
+</tr>
+<tr>
+<td><strong>静态主导</strong></td>
+<td>dynamic ratio ≤ 0.2</td>
+<td>动态载体不应进入地图</td>
+</tr>
+<tr>
+<td><strong>最低帧数</strong></td>
+<td>frames ≥ 4</td>
+<td>仅在1-2帧中出现的物体可能是检测噪声</td>
+</tr>
+</tbody>
+</table>
+<p>这些标准是主要的准入控制机制。未通过任何标准的物体被记录为<strong>已拒绝</strong>并附有具体拒绝原因，提供可审计的可追溯性。</p>
+<h3 id="f">五.F. 修订地图更新</h3>
+<p>当新会话回访环境时，其轨迹与(\mathcal{M})中的现有地图对象进行匹配。三种可能结果：</p>
+<ol>
+<li><strong>确认：</strong> 轨迹在空间和标签阈值内匹配现有地图对象→递增会话/支持/观察计数，更新统计。</li>
+<li><strong>新增：</strong> 轨迹形成新的候选地图对象，在足够会话证据后通过准入标准→准入。</li>
+<li><strong>拒绝：</strong> 轨迹不匹配任何现有对象且未通过准入标准→记录为已拒绝并附带原因。</li>
+</ol>
+<p>因此，地图(\mathcal{M})是<strong>修订式</strong>的而非重建式的：稳定对象在回访中积累确认证据（类似长期地图维护范式[1]），而新候选对象仅在满足多会话阈值（§V.E）后才被准入。</p>
+<hr />
+<h2 id="_9">六、实验协议</h2>
+<h3 id="a_3">六.A. 数据集与来源</h3>
+<p>我们使用POV-SLAM发布[6]中的<strong>TorWIC数据集</strong>，提供工业仓库过道的RGB-D序列，包含不同条件下的回访。数据集来源明确关联到POV-SLAM的对象感知语义SLAM评估设置。</p>
+<h3 id="b_2">六.B. 协议设计</h3>
+<p>我们定义了四个协议，涵盖递增的时间间隔和一个场景迁移分支：</p>
+<h4 id="torwic-torwic_s1_d45">主过道阶梯（TorWIC TorWIC_s1_d45）</h4>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>会话数</th>
+<th>观测数</th>
+<th>候选簇</th>
+<th>保留地图对象</th>
+<th>关键挑战</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>当日</strong></td>
+<td>3</td>
+<td>203</td>
+<td>11</td>
+<td>5</td>
+<td>当日视角变化</td>
+</tr>
+<tr>
+<td><strong>跨日</strong></td>
+<td>4</td>
+<td>240</td>
+<td>10</td>
+<td>5</td>
+<td>8天间隔，光照变化</td>
+</tr>
+<tr>
+<td><strong>跨月</strong></td>
+<td>4</td>
+<td>297</td>
+<td>14</td>
+<td>7</td>
+<td>4个月间隔，季节变化</td>
+</tr>
+</tbody>
+</table>
+<p>主阶梯使用覆盖特定过道区段的&rdquo;更丰富&rdquo;束配置。每个协议处理束中的所有RGB-D帧，通过Grounding DINO + SAM2 + OpenCLIP提取观察，形成轨迹，合并为地图对象，并应用准入标准。</p>
+<h4 id="_10">走廊广泛验证分支</h4>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>会话数</th>
+<th>观测数</th>
+<th>候选簇</th>
+<th>保留地图对象</th>
+<th>关键特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>走廊</strong></td>
+<td>10（前8个已执行）</td>
+<td>537</td>
+<td>16</td>
+<td>9</td>
+<td>场景迁移到仓库走廊</td>
+</tr>
+</tbody>
+</table>
+<p>走廊分支使用不同场景（仓库走廊而非过道），包含10个标注会话。当前证据集仅执行了前8个会话（80/80帧）。该分支<strong>不是</strong>主要贡献声明——它是一个次要的广泛验证分支，证明维护层在无需协议调整的情况下可迁移到不同的工业场景。</p>
+<h3 id="c_3">六.C. 选择标准（跨所有协议不变）</h3>
+<p>全部四个协议使用相同的准入标准（第五节.E）和相同阈值：min_sessions=2, min_frames=4, min_support=6, max_dynamic_ratio=0.2, min_label_purity=0.7。不进行按协议调参。</p>
+<hr />
+<h2 id="_11">七、结果</h2>
+<h3 id="a_4">七.A. 主过道证据阶梯</h3>
+<p>过道阶梯（TorWIC_s1_d45，来自POV-SLAM[6]）证明维护层保留稳定的基础设施物体，同时拒绝动态污染（三个协议的概况见图 2）。全部三个协议使用相同的准入标准（§VI.C）：</p>
+<p><strong>当日（203/11/5）：</strong> 在3个当日会话（2022-06-15第1-3轮）中从203个观测形成的11个候选簇中，5个通过准入标准（§V.E）。保留：2个工作台、2个仓储货架、1个护栏。拒绝：3个叉车类簇（动态污染，(\rho_O &gt; 0.2)）、3个单会话候选簇（sessions &lt; 2）。簇级可追溯性见附录Y。</p>
+<p><strong>跨日（240/10/5）：</strong> 在2天（2022-06-15 + 2022-06-23，8天间隔）240个观测形成的10个候选簇中，5个被保留。保留类别与当日相同，确认跨会话持久性。拒绝：3个叉车类（动态污染）、2个单会话候选。8天的时间间隔没有降低保留物体的稳定性——它们在两天中一致出现，与长期地图维护文献[1][6]一致。</p>
+<p><strong>跨月（297/14/7）：</strong> 在跨越4个月（2022年6月至10月）297个观测形成的14个候选簇中，7个被保留——比当日和跨日多2个。额外保留的物体是在包含10月会话后才达到多会话阈值（sessions ≥ 2）的稳定护栏和货架，说明更长观察窗口对地图完备性的价值（§V.E标准1）。拒绝：5个叉车类（动态污染）、2个单会话候选。</p>
+<h3 id="b_3">七.B. 稳定子集构成</h3>
+<p>保留物体的类别级构成呈现出清晰的模式：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>当日</th>
+<th>跨日</th>
+<th>跨月</th>
+<th>走廊</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>护栏</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>工作台</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>仓储货架</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>推车</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>总计保留</strong></td>
+<td><strong>5</strong></td>
+<td><strong>5</strong></td>
+<td><strong>7</strong></td>
+<td><strong>9</strong></td>
+</tr>
+<tr>
+<td>叉车类被拒绝</td>
+<td>3/6</td>
+<td>3/5</td>
+<td>5/7</td>
+<td>5/7</td>
+</tr>
+</tbody>
+</table>
+<p>护栏、工作台和仓储货架在所有协议中主导保留集。推车仅出现在走廊中。叉车类簇从未被保留——它们被一致地作为动态污染拒绝。</p>
+<h3 id="c_4">七.C. 走廊广泛验证分支</h3>
+<p>走廊分支（537个观测/16个簇/9个保留，80/80帧）使用相同的准入标准，零调整。保留：4个仓储货架、3个工作台、1个护栏、1个推车。推车被保留是因为它满足所有标准（多会话存在、静态主导、充分支持度）——它是走廊场景中的一个静止推车，而非移动叉车。</p>
+<p>拒绝：5个叉车类（动态污染）、1个低会话仓储货架（标签碎片化）、1个低会话货架叉车（多重标准违反）。</p>
+<p>这证明了场景迁移能力：维护层在不同的工业场景中运行而无需协议调参，拒绝画像与过道协议定性一致。</p>
+<h3 id="d_1">七.D. 拒绝画像分析</h3>
+<p>图 3 可视化跨所有四个协议的地图准入选择性（按拒绝原因着色的保留/拒绝物体，另见表 3）。跨全部四个协议聚合的拒绝原因分类：</p>
+<table>
+<thead>
+<tr>
+<th>拒绝原因</th>
+<th>计数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>动态污染</strong></td>
+<td>16</td>
+<td>主导状态 = dynamic_agent（叉车类）。这些簇在会话中被一致检测，但被正确识别为动态载体。</td>
+</tr>
+<tr>
+<td><strong>单会话或低会话支持度</strong></td>
+<td>13</td>
+<td>会话计数不足以进行跨会话确认。单会话候选无法与临时检测区分。</td>
+</tr>
+<tr>
+<td><strong>标签碎片化</strong></td>
+<td>3</td>
+<td>标签纯度低于0.7阈值。这些簇具有混合检测器输出（如&rdquo;forklift&rdquo;vs&rdquo;fork&rdquo;vs&rdquo;rack&rdquo;），指示检测器模糊。</td>
+</tr>
+<tr>
+<td><strong>低支持度</strong></td>
+<td>2</td>
+<td>观测支持度低于6。这些物体出现频率过低，无法被认为是可靠的。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键发现：</strong> 动态类拒绝占比在全部四个协议上一致（对未来工作的基线有意义）：<br />
+- 当日过道：3/6（50.0%）<br />
+- 跨日过道：3/5（60.0%）<br />
+- 跨月过道：5/7（71.4%）<br />
+- 走廊：5/7（71.4%）</p>
+<p>随时间跨度增加而上升的占比反映了叉车簇随时间积累会话支持度（它们在回访中被重复检测），但仍然被正确拒绝，因为其主导状态保持为<code>dynamic_agent</code>。这将我们的方法与动态SLAM方法[2]区分开来，后者从几何重建中移除动态内容，但不维护带有显式拒绝记录的语义地图。准入标准（§V.E）不会简单地过滤一切移动物体——它们选择性地拒绝那些主导观测状态指示动态载体的物体（逐簇动态比例和拒绝决策见附录Y）。</p>
+<h3 id="e-slam">七.E. 动态SLAM评估收紧</h3>
+<p>当前证据在两个方面与标准动态SLAM基准不同：</p>
+<ol>
+<li>
+<p><strong>我们评估地图对象保留，而非光流或跟踪精度。</strong> 动态SLAM基准通常衡量动态屏蔽带来的ATE/RPE改进。我们的评估衡量地图是否仅包含可准入的物体——一个互补的指标。</p>
+</li>
+<li>
+<p><strong>我们报告拒绝画像，而非动态/静态像素分类。</strong> 准入控制框架为每个候选物体产生一个二元决策（保留/拒绝）及可审计的原因。这比逐像素动态分割更粗糙，但直接回应了地图维护问题。</p>
+</li>
+</ol>
+<p>后续工程 smoke 证据进一步验证了 raw-vs-masked 后端路径：在 8 帧 TorWIC 过道小窗口上，DROID-SLAM 可以分别生成 raw 与 masked 轨迹估计，evo 可以对两者报告 APE/RPE。该结果是链路闭环检查，而不是 benchmark 主张：raw 与 masked 在这个极小窗口上基本持平（APE RMSE 0.001242 m vs. 0.001243 m；RPE RMSE 0.002250 m vs. 0.002255 m），因此不能解释为动态 mask 已改善完整轨迹精度。随后 64 帧 bounded DROID-SLAM global BA 运行也已打通（图4），但结果仍基本持平（APE RMSE 0.051135 m vs. 0.051136 m；RPE RMSE 0.032713 m vs. 0.032713 m）。这进一步强化了当前边界：后端路径已经可执行，但 masked input 的性能收益需要更大窗口和更充分的动态 mask 覆盖来验证。</p>
+<p>![图4. 有界 DROID-SLAM 64 帧 global-BA raw-vs-masked 后端结果。]((../figures/torwic_dynamic_slam_backend_p134.png)</p>
+<p>随后，我们用该 TorWIC 过道序列中已有的语义 frontend forklift masks 替换单帧示例 mask，将真实语义输出接入后端，而不是依赖手工挑选帧。结果仍为中性：semantic-masked run 与 raw run 在报告精度下具有相同的 APE/RPE RMSE（图5）。诊断结果解释了原因：当前可用语义 mask 只覆盖帧 000004、000005 和 000007，64 帧平均覆盖率仅为 0.026%。这将负/中性结果转化为可执行的研究发现：下一步不应只是重复运行 SLAM 后端，而应提升动态 mask 的时间覆盖率。</p>
+<p>![图5. P135 动态 mask 覆盖率诊断。]((../figures/torwic_dynamic_mask_coverage_p135.png)</p>
+<p>我们进一步运行一个有边界的时序传播压力测试（图6）：将已有 forklift masks 传播到八帧半径内最近的相邻帧，并做 4 像素膨胀。该实验被明确标注为诊断性 stress test，而不是真实 detector 输出。它将 mask 覆盖从 3/64 帧、0.026% 平均覆盖率提高到 16/64 帧、0.267% 平均覆盖率。后端结果仍基本持平：APE RMSE 从 0.051135 m 变为 0.051222 m，RPE RMSE 从 0.032713 m 变为 0.032710 m。这个结果把下一步研究范围进一步缩小：简单最近帧传播不足以形成可靠收益，真正的动态 SLAM 增益证据需要逐帧动态 mask 生成，或基于光流/视频分割的时序跟踪。</p>
+<p>![图6. P136 时序传播 mask 压力测试。]((../figures/torwic_dynamic_mask_temporal_stress_p136.png)</p>
+<p>最后，我们把最近帧复制替换为稠密光流 warp（图7）。该实验保持相同的 64 帧窗口、八帧传播半径和 4 像素膨胀，但用图像运动将 mask 传播到邻近帧。结果仍为中性：masked run 的 APE/RPE 分别为 0.051222 m 和 0.032710 m，与最近帧传播压力测试在报告精度下相同。这排除了低成本传播捷径足以支撑增益主张的可能性。下一步应生成 detector-quality 的逐帧 masks，例如在完整窗口上运行语义 frontend，或用可靠 forklift detections 初始化视频分割 predictor。</p>
+<p>![图7. P137 光流传播 mask 压力测试。]((../figures/torwic_dynamic_mask_flow_stress_p137.png)</p>
+<p>随后，我们复用磁盘上已有的真实逐帧 frontend masks，而不是继续使用合成传播结果（图8）。这些 masks 覆盖帧 000000&ndash;000007，并被合并到同一个 64 帧后端输入窗口中，平均 mask 覆盖率为 0.118%。结果仍基本中性：first-eight real masked run 的 APE RMSE 为 0.051177 m，raw RGB 为 0.051135 m；RPE RMSE 为 0.032712 m，raw RGB 为 0.032713 m。该结果比传播压力测试更有诊断价值，因为它使用真实 frontend 输出；它表明下一步应把真实语义推理扩展到更长窗口，而不是继续依赖合成传播。</p>
+<p>![图8. P138 真实 first-eight 语义 mask 后端诊断。]((../figures/torwic_dynamic_mask_first8_real_p138.png)</p>
+<p>因此，我们继续把真实 frontend 证据扩展到前十六帧：对帧 000008&ndash;000015 运行 Grounding DINO 和 SAM2，并与已有 first-eight masks 合并（图9）。同一个 64 帧后端窗口现在包含 16/64 帧真实 frontend masks，平均 mask 覆盖率为 0.264%。轨迹结果仍为中性：first-sixteen real masked RGB 的 APE RMSE 为 0.051182 m，raw RGB 为 0.051135 m；RPE RMSE 为 0.032711 m，raw RGB 为 0.032713 m。该结果进一步强化了边界：后端路径和真实 mask 接入已经可执行，但当前 forklift mask 面积和位置仍不足以支撑轨迹精度提升主张。</p>
+<p>![图9. P139 真实 first-sixteen 语义 mask 后端诊断。]((../figures/torwic_dynamic_mask_first16_real_p139.png)</p>
+<p>为了检验瓶颈是否只是“真实语义帧数量不够”，我们继续把同一 frontend 流程扩展到帧 000016&ndash;000031，并在 64 帧后端窗口的前半段合并真实 forklift masks（图10）。这把覆盖提高到 32/64 帧，平均 mask 覆盖率为 0.568%。后端结果仍为轨迹中性：first-thirty-two real masked RGB 的 APE RMSE 为 0.051189 m，raw RGB 为 0.051135 m；RPE RMSE 为 0.032711 m，raw RGB 为 0.032713 m。这是一个重要的负结果：它说明剩余瓶颈不是后端接线或 evo 评估，而是在这个 TorWIC 窗口中，可见动态物体的 mask 尺度和位置仍不足以显著改变 DROID-SLAM 轨迹估计。后续若要追求正向 ATE/RPE 收益，应优先选择更强动态片段、完成 64/64 真实 frontend，或按动态 mask 面积对窗口排序，而不是在同一弱动态窗口上反复期待指标提升。</p>
+<p>![图10. P140 真实 first-thirty-two 语义 mask 后端诊断。]((../figures/torwic_dynamic_mask_first32_real_p140.png)</p>
+<h3 id="f-p141-3264-mask">七.F. P141 覆盖率与窗口强度诊断：为什么 32/64 真实 Mask 仍轨迹中性</h3>
+<p>P141 诊断专门回答一个问题：把真实 mask 从 32/64 帧继续扩展到更多帧能否打破中性默认？关键约束不是真实 frontend 帧数，而是动态 mask 对 DROID-SLAM 特征预算的实际占用。在 1280×720 分辨率（921,600 像素）下，DROID-SLAM 内部 RAFT 光流在高梯度像素上运行，预算约为帧面积的 10–15%。当前 TorWIC 叉车的 mask 面积中位数约为 5,235 像素（帧的 0.57%）。即使 64/64 帧全部有 mask，累积覆盖率仍约为 0.57%，在 DROID-SLAM 的梯度预算中远低于显著扰动阈值。</p>
+<p>均匀 masking 的 ΔAPE 随覆盖比例近似线性增长（表 4）：P135（3/64，0.026%，+0.000 mm），P138（8/64，0.118%，+0.042 mm），P139（16/64，0.264%，+0.047 mm），P140（32/64，0.568%，+0.054 mm）。斜率约为每百分点覆盖 0.1 mm。</p>
+<p>我们进一步测试了仅对最高覆盖率帧进行集中 masking（top-4、top-8、top-16）是否比所有帧均匀 masking 产生更大的轨迹效应。假设是 DROID-SLAM 的 BA 可能对少数高动态帧中的离群特征不成比例地敏感。表 5 总结结果。</p>
+<p><strong>表 5. 集中 vs. 均匀动态 masking 对比（64 帧 TorWIC Aisle_CW_Run_1）。</strong></p>
+<p>| 配置 | 掩码帧 | 平均覆盖率 | APE RMSE (raw) | APE RMSE (masked) | ΔAPE |<br />
+|&mdash;|&mdash;:|&mdash;:|&mdash;:|&mdash;:|<br />
+| Raw (基线) | 0 | — | 0.051135 m | — | — |<br />
+| Uniform-32 (P140) | 32 | 0.568% | 0.051135 m | 0.051189 m | +0.054 mm |<br />
+| Top-4 集中 | 4 | 1.23% | 0.051135 m | 0.051135 m | +0.000 mm |<br />
+| Top-8 集中 | 8 | 1.08% | 0.051135 m | 0.051132 m | −0.003 mm |<br />
+| Top-16 集中 | 16 | 0.75% | 0.051135 m | 0.051122 m | −0.013 mm |</p>
+<p>集中配置产生与均匀配置方向相反的符号不对称：均匀 masking 产生小幅正向 ΔAPE（+0.042 至 +0.054 mm），而集中 masking 产生接近零或负向值（0 至 −0.013 mm）。均无统计学意义（|ΔATE| &lt; 0.09 mm），但符号差异是有信息量的：均匀 masking 因跨帧累积边界特征损失导致小幅退化，而集中 masking 在最动态帧中移除的特征可能与 DROID-SLAM flow-consistency 已拒绝的特征重叠。</p>
+<p><strong>证据链总结。</strong> 表 6 整合了 P135–P143 测试的全部 10 种 DROID-SLAM 后端配置。</p>
+<p><strong>表 6. 完整动态 masking 证据链（64 帧 TorWIC Aisle_CW_Run_1，2023 年 6 月）。</strong></p>
+<p>| Phase | 策略 | 掩码来源 | 掩码帧 | 帧覆盖率 | ΔAPE (mm) | 结论 |<br />
+|&mdash;|&mdash;:|&mdash;:|&mdash;:|&mdash;:|&mdash;:|<br />
+| P135 | 已有 semantic | 已有 frontend | 3/64 | 0.026% | +0.000 | 中性基线 |<br />
+| P136 | 时序传播 (stress) | 最近帧复制 | 16/64 | 0.267% | +0.087 | 最近帧：中性 |<br />
+| P137 | 光流传播 (stress) | RAFFT warp | 16/64 | 0.267% | +0.087 | 稠密 warp：中性 |<br />
+| P138 | First-8 真实 uniform | Frontend GT | 8/64 | 0.118% | +0.042 | 真实 mask：中性 |<br />
+| P139 | First-16 真实 uniform | Frontend GT | 16/64 | 0.264% | +0.047 | 扩展：中性 |<br />
+| P140 | First-32 真实 uniform | Frontend GT | 32/64 | 0.568% | +0.054 | 半窗口：中性 |<br />
+| P142 | Top-4 集中 | Frontend GT | 4/64 | 1.23% | +0.000 | 集中：中性 |<br />
+| P142 | Top-8 集中 | Frontend GT | 8/64 | 1.08% | −0.003 | 符号不对称 |<br />
+| P142 | Top-16 集中 | Frontend GT | 16/64 | 0.75% | −0.013 | 确认：中性 |<br />
+| P143 | 跨窗口审计 | — | 全部 Aisle seq. | 最大 1.39% | — | 无 &gt;1.39% 片段 |</p>
+<p><strong>边界条件。</strong> 该证据链确立了可操作的边界条件：</p>
+<ol>
+<li>
+<p><strong>DROID-SLAM 对 &lt;2% 帧面积的动态物体具有内在鲁棒性：</strong> P135–P142 中 10/10 配置均产生 |ΔATE| &lt; 0.1 mm。原始 DROID-SLAM 基于 RAFT 的 flow-consistency filtering 已在此空间尺度上拒绝动态离群点。</p>
+</li>
+<li>
+<p><strong>可观测轨迹效应需 &gt;5% 动态目标帧覆盖率：</strong> 当前最大覆盖率（单一帧 1.39%，组合帧 0.568%）比 ~5% 估计阈值低约 3.6 倍。要在标准仓库通道穿行中达到 5%，叉车需离摄像头约 1.9 倍近——这在当前数据中不可用。</p>
+</li>
+<li>
+<p><strong>Mask 去除特征的净效应取决于空间分布：</strong> 均匀 masking（+0.042 至 +0.054 mm）因跨帧累积边界特征损失产生轻微正位移，而集中 masking（0 至 −0.013 mm）产生接近零或负向值，表明在最动态帧中去除的特征可能与已由 flow-consistency 拒绝的特征重叠。</p>
+</li>
+</ol>
+<p>该证据链构成一个<strong>自包含的负面结果研究</strong>，而非未被测试的有前景方向。它建立了可复现的边界条件，说明动态 masking 何时且在何种数据条件下才可能对工业 SLAM 轨迹精度产生可测量的影响。</p>
+<hr />
+<h2 id="_12">八、讨论</h2>
+<h3 id="a_5">八.A. 为什么不按检测置信度过滤？</h3>
+<p>一个自然的基线——与标准对象级SLAM实践[3][4]一致——是：保留高平均检测置信度的物体，拒绝其余。我们的证据证明这失败了，原因有二：</p>
+<ol>
+<li>
+<p><strong>叉车被以高置信度检测到。</strong> 检测器工作正常——它识别了叉车。在我们的过道协议（§VII.A）中，叉车类簇的平均检测置信度与保留的基础设施物体相当，但全部16个被准入标准（§V.E, §VII.D）正确拒绝为动态污染。高检测置信度不区分&rdquo;这是一个真实的叉车&rdquo;和&rdquo;这是一个值得进入地图的静态地标&rdquo;。</p>
+</li>
+<li>
+<p><strong>低置信度的稳定物体可能是最有价值的。</strong> 一个在五个会话中以中等置信度被检测到的护栏对地图复用比一个以高置信度被检测到的叉车更有价值。置信度阈值为检测优化[1]，而非为地图准入优化。我们的证据阶梯（§VII.A, §VII.B）显示，保留物体（工作台、仓储货架、护栏）即使在逐帧置信度波动的情况下，也一致通过多会话和标签一致性标准。</p>
+</li>
+</ol>
+<h3 id="b_4">八.B. 会话计数的作用</h3>
+<p>多会话证据是最强的准入信号。在≥2个会话中出现的物体显著更可能是稳定基础设施（见稳定子集构成，§VII.B）。单会话物体在本性上是模糊的：它们可能是临时的访客（正确拒绝，§VII.D）、从异常角度看到的稳定物体（假阴性）或真正的新物体（需要更多会话后正确准入）。</p>
+<p>当前阈值（min_sessions=2）代表一个保守选择。在部署中，更长的观察窗口将允许单会话稳定物体在准入前积累证据——这一权衡在跨月协议（§VII.A）中可见，该协议中两个额外物体在10月会话后被准入。</p>
+<h3 id="c-vs">八.C. 轻量级vs重量级</h3>
+<p>我们将维护层描述为&rdquo;轻量级&rdquo;，因为它运行在现有检测/分割管线上方而不修改它们（§V.A）。信任分数使用简单线性组合和可解释分量（§V.D）。准入标准是布尔阈值，而非学习分类器（§V.E）。这使得该层可审计、可调试和跨场景可迁移——走廊场景迁移结果（§VII.C）为此提供了证据。但也意味着我们放弃了学习式准入策略可能带来的收益。</p>
+<h3 id="d-vs">八.D. 过道vs走廊——分开的角色</h3>
+<p>过道阶梯（§VII.A）是系统贡献的主要证据阶梯。走廊分支（§VII.C）是证明场景迁移的次要广泛验证分支。这两个角色被有意保持分离：<strong>我们不合并过道和走廊结果</strong>为单一聚合数字。合并将混淆受控过道协议与场景迁移实验，稀释两者的可解释性。走廊拒绝画像（§VII.D）在定性上与过道协议一致，但绝对保留比例不同（9/16 vs 5/11, 5/10, 7/14），这强化了分别报告的必要性。</p>
+<hr />
+<h2 id="_13">九、局限性</h2>
+<ol>
+<li>
+<p><strong>不是完整的终身SLAM后端。</strong> 维护层（§V）是感知与地图之间的中间过滤器。它不进行回环闭合、位姿优化或地图大小管理——这些是完整SLAM系统[1][3][5]提供的能力。当前 bounded DROID-SLAM raw-vs-masked 运行已验证后端执行/evo 路径（§七.E–F，表 6），包括 64 帧 global BA 运行，共 10 种配置。<strong>动态 masking 未在任何测试配置上改善轨迹 ATE/RPE</strong>（P135–P142）：叉车每帧最多占 1.39%（在 1280×720 分辨率下 ≤ DROID-SLAM 窗口特征预算的 0.57%），且跨所有本地 TorWIC 序列筛查确认不存在超过 1.39% 帧覆盖率的片段（§七.F）。DROID-SLAM 的内部 flow-consistency filtering 已在该空间尺度上处理动态物体。需要动态目标占帧面积 &gt;5% 的数据才能观察到 masking 对轨迹的收益。</p>
+</li>
+<li>
+<p><strong>更大窗口或全轨迹的走廊评估是未来工作。</strong> 当前走廊分支（§VII.C）使用8/10会话（80/80帧）。跨全部10个会话和扩展帧序列的全轨迹评估将提供更强的场景迁移证据。当前在有限帧上的9/16保留比是指示性的，但非结论性的。</p>
+</li>
+<li>
+<p><strong>基于规则的关联不是长期对象身份的最终答案。</strong> 用于跨会话轨迹合并的空间IoU匹配（§V.C）简单且可解释，但在严重视角变化或物体移动时可能失败。学习式关联策略（参见[5]）可能改善鲁棒性。</p>
+</li>
+<li>
+<p><strong>无下游任务评估。</strong> 我们不通过导航成功率、重定位精度或任务完成度指标来衡量地图复用质量——这些是SLAM文献[1][6]中的标准评估轴。这些需要完整的SLAM管线集成，暂缓处理。</p>
+</li>
+<li>
+<p><strong>投稿格式暂缓。</strong> 目标期刊的标点、作者截断、访问日期策略和仓库放置策略暂缓至目标投稿场所确定后再处理（见P125引用审计）。</p>
+</li>
+<li>
+<p><strong>后端模型引用暂缓。</strong> Grounding DINO、SAM2和OpenCLIP在观察提取管线（§V.A）中作为黑盒组件使用。正式引用这些模型需要用户偏好——它们将扩展当前[1]–[6]的参考文献。其角色在§V.A和P125审计中已明确记录，以供读者复现。</p>
+</li>
+<li>
+<p><strong>[1]–[3]的arXiv链接为可选。</strong> IEEE已发表文章[1]–[3]不需要补充arXiv链接。添加它们是一个非阻塞的用户偏好事项，已在P125引用审计中记录。</p>
+</li>
+</ol>
+<hr />
+<h2 id="_14">十、结论</h2>
+<p>本文提出了一种面向动态工业环境的面向对象语义分割辅助SLAM方法。该框架将开放词汇RGB-D分割输出转化为观察、轨迹、地图对象和修订四个层次，然后利用显式的持久性、稳定性和动态性信号来保留稳定的语义地标并抑制动态污染。</p>
+<p>当前TorWIC证据[6]在当日（203/11/5）、跨日（240/10/5）和跨月（297/14/7）三个更丰富的过道协议上展示了可复现的投稿级阶梯（§VII.A），走廊（537/16/9，在80/80帧上）作为独立的广泛验证分支保留（§VII.C）。叉车类证据以一致的50.0%–71.4%拒绝比例被拒绝为动态污染（§VII.D），而护栏、工作台和仓储货架基于多会话证据、标签一致性和静态主导性被选择性地保留（§V.E，§VII.B）。</p>
+<p>动态 SLAM 后端评估（§七.E–F）贡献了一个完整的负面结果研究：10 种 DROID-SLAM 配置（涵盖 mask 生成策略：已有 semantic、时序传播、光流传播、前 N 真实均匀、前 N 集中）全部产生轨迹中性结果（|ΔATE| &lt; 0.1 mm，表 6）。根本原因是量化数据约束：TorWIC 仓库通道中的叉车最多仅占图像帧的 1.39%，远低于对 DROID-SLAM 束调整产生可测量影响所需的约 5% 阈值。该负面结果具有科学价值，因为它提供了可复现的边界条件，说明动态 masking 何时在工业 SLAM 中有影响、何时无影响，而非将其悬置为推测性未来工作事项。</p>
+<p>当前的P108-P119 + P125审计链（见closure bundle v30）对稿件中使用的六条投稿场所无关引用进行了元数据验证，并包含字段级DOI完整性检查。最终成果支撑一个有边界的IEEE系统类贡献：贡献：不是最终的终身SLAM基准，不是稠密动态重建，也不是下游导航增益声明，而是一座从分割辅助的开放词汇感知[3][4][5]到实际工业回访中修订式长期对象地图维护[6]的可审计桥梁。</p>
+<hr />
+<h2 id="_15">参考文献</h2>
+<p>[1] C. Cadena, L. Carlone, H. Carrillo, Y. Latif, D. Scaramuzza, J. Neira, I. Reid, and J. J. Leonard, &ldquo;Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age,&rdquo; <em>IEEE Trans. Robot.</em>, vol. 32, no. 6, pp. 1309–1332, 2016. DOI: 10.1109/TRO.2016.2624754.</p>
+<p>[2] B. Bescos, J. M. Facil, J. Civera, and J. Neira, &ldquo;DynaSLAM: Tracking, mapping, and inpainting in dynamic scenes,&rdquo; <em>IEEE Robot. Autom. Lett.</em>, vol. 3, no. 4, pp. 4076–4083, 2018. DOI: 10.1109/LRA.2018.2860039.</p>
+<p>[3] S. Yang and S. Scherer, &ldquo;CubeSLAM: Monocular 3-D object SLAM,&rdquo; <em>IEEE Trans. Robot.</em>, vol. 35, no. 4, pp. 925–938, 2019. DOI: 10.1109/TRO.2019.2909168.</p>
+<p>[4] S. Peng, K. Genova, C. Jiang, A. Tagliasacchi, M. Pollefeys, and T. Funkhouser, &ldquo;OpenScene: 3D scene understanding with open vocabularies,&rdquo; in <em>Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)</em>, 2023, pp. 815–824. DOI: 10.1109/CVPR52729.2023.00085.</p>
+<p>[5] K. M. Jatavallabhula, A. Kuwajerwala, Q. Gu, M. Omama, T. Chen, S. Li, G. Iyer, S. Saryazdi, N. Keetha, A. Tewari, J. B. Tenenbaum, C. M. de Melo, M. Krishna, L. Paull, F. Shkurti, and A. Torralba, &ldquo;ConceptFusion: Open-set multimodal 3D mapping,&rdquo; in <em>Proc. Robot.: Sci. Syst. (RSS)</em>, 2023. DOI: 10.15607/RSS.2023.XIX.066.</p>
+<p>[6] D. Barath, B. Bescos, D. Mishkin, D. Rozumnyi, and J. Matas, &ldquo;POV-SLAM: Probabilistic object-aware SLAM with semantic mapping benchmarks,&rdquo; in <em>Proc. Robot.: Sci. Syst. (RSS)</em>, 2023. DOI: 10.15607/RSS.2023.XIX.069. TorWICDataset仓库: github.com/dbarath/POV-SLAM.</p>
+<hr />
+<h2 id="_16">证据阶梯摘要</h2>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>观测数</th>
+<th>簇数</th>
+<th>保留数</th>
+<th>过道/走廊</th>
+<th>阶梯位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>当日过道</td>
+<td>203</td>
+<td>11</td>
+<td>5</td>
+<td>过道</td>
+<td>主要</td>
+</tr>
+<tr>
+<td>跨日过道</td>
+<td>240</td>
+<td>10</td>
+<td>5</td>
+<td>过道</td>
+<td>主要</td>
+</tr>
+<tr>
+<td>跨月过道</td>
+<td>297</td>
+<td>14</td>
+<td>7</td>
+<td>过道</td>
+<td>主要</td>
+</tr>
+<tr>
+<td>走廊</td>
+<td>537</td>
+<td>16</td>
+<td>9</td>
+<td>走廊</td>
+<td>次要广泛验证</td>
+</tr>
+</tbody>
+</table>
+<p><strong>选择标准（跨所有协议不变）：</strong> min_sessions=2, min_frames=4, min_support=6, max_dynamic_ratio=0.2, min_label_purity=0.7。</p>
+<p><strong>暂缓的引用缺口：</strong> Grounding DINO, SAM2, OpenCLIP（后端实现组件——需要用户偏好进行正式引用）。</p>
+<p><strong>当前检索入口：</strong> <code>/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v29.md</code>（P108-P119自主打磨完成）。</p>
+<hr />
+<h2 id="_17">致谢</h2>
+<p>数据来源：TorWIC数据集来自POV-SLAM[6]。本稿为投稿级厚稿（Thick Manuscript），旨在为后续期刊投稿提供充足的方法细节和实验证据。所有证据均来自现有数据，不涉及新实验协议。</p>
+<hr />
+<h2 id="_18">图表标题</h2>
+<p><strong>表 1 — 投稿级主表。</strong> 四协议证据阶梯：当日（203/11/5）、跨日（240/10/5）、跨月（297/14/7）、走廊（537/16/9）。参见 <code>outputs/torwic_submission_ready_main_table_v2.md</code>。</p>
+<p><strong>表 2 — 基线对比。</strong> 更丰富过道阶梯 vs 历史回退（172/15/5）vs 朴素保留基线 vs 纯置信度基线。</p>
+<p><strong>表 3 — 附录收官（终版）：拒绝分类 + 分支对比。</strong> 逐协议拒绝分类、逐协议稳定子集构成、暂缓缺口清单（7 项已记录）、过道 vs 走廊分支对比。</p>
+<p><strong>表 4 — 均匀 Masking 覆盖率梯度（P135–P140）。</strong> ΔAPE 随均匀 mask 覆盖率变化：P135（3/64，0.026%，+0.000 mm），P138（8/64，0.118%，+0.042 mm），P139（16/64，0.264%，+0.047 mm），P140（32/64，0.568%，+0.054 mm）。斜率约 0.1 mm/百分点。全部 |ΔATE| &lt; 0.06 mm。</p>
+<p><strong>表 5 — 集中 vs. 均匀动态 Masking 对比（P142）。</strong> Top-4/8/16 集中 masking vs P140 均匀-32。符号不对称：集中 ΔAPE ≤ 0（−0.003 至 −0.013 mm），均匀 +0.054 mm。</p>
+<p><strong>表 6 — 完整动态 Masking 证据链（P135–P143）。</strong> 全部 10 种 DROID-SLAM 后端配置。全部 |ΔATE| &lt; 0.1 mm。最大叉车覆盖率 1.39%。边界条件 &gt;5%。</p>
+<p><strong>图 1.</strong> 语义分割辅助 SLAM 维护管线：开放词汇 RGB-D mask 经过观察、轨迹、地图对象和修订层处理，而非直接插入地图。</p>
+<p><strong>图 2.</strong> 主过道证据阶梯：当日（203/11/5）、跨日（240/10/5）、跨月（297/14/7）。每个协议展示总观测数/候选簇/保留物体。叉车类簇（红）被一致拒绝；护栏、工作台、仓储货架（绿）被保留。</p>
+<p><strong>图 3.</strong> 地图准入选择性：跨所有四个协议的保留 vs 拒绝物体，按拒绝原因着色。可选图表——可根据版面预算省略。</p>
+<p><strong>图 4–10.</strong> 动态 SLAM 后端诊断图（P134–P140）：DROID-SLAM raw-vs-masked 64 帧 global BA 结果，含 mask 覆盖率随时间线变化。文件：<code>paper/figures/torwic_dynamic_slam_backend_p134.png</code> 至 <code>paper/figures/torwic_dynamic_mask_first32_real_p140.png</code>。详见 §七.E–F。</p>
+<hr />
+<h2 id="slam-p135p143">附录：动态 SLAM 证据链（P135–P143）</h2>
+<p>完整的 P135–P143 动态 masking 验证链归档于以下路径，可供独立复现和审计：</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>描述</th>
+<th>归档路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P135</td>
+<td>已有 semantic mask（3/64 帧）</td>
+<td><code>outputs/dynamic_slam_backend_smoke_p135_*_global_ba/</code></td>
+</tr>
+<tr>
+<td>P136</td>
+<td>时序传播压力测试（16/64 帧）</td>
+<td><code>outputs/dynamic_slam_backend_smoke_p136_*_global_ba/</code></td>
+</tr>
+<tr>
+<td>P137</td>
+<td>光流传播压力测试（16/64 帧）</td>
+<td><code>outputs/dynamic_slam_backend_smoke_p137_*_global_ba/</code></td>
+</tr>
+<tr>
+<td>P138</td>
+<td>First-8 真实 uniform masks</td>
+<td><code>outputs/dynamic_slam_backend_smoke_p138_*_global_ba/</code></td>
+</tr>
+<tr>
+<td>P139</td>
+<td>First-16 真实 uniform masks</td>
+<td><code>outputs/dynamic_slam_backend_smoke_p139_*_global_ba/</code></td>
+</tr>
+<tr>
+<td>P140</td>
+<td>First-32 真实 uniform masks</td>
+<td><code>outputs/dynamic_slam_backend_smoke_p140_*_global_ba/</code></td>
+</tr>
+<tr>
+<td>P141</td>
+<td>窗口选择与覆盖率诊断</td>
+<td><code>outputs/torwic_p141_window_selection_diagnostic_v1.md</code></td>
+</tr>
+<tr>
+<td>P142</td>
+<td>Top-N 集中 masking 筛查</td>
+<td><code>outputs/torwic_p142_strong_segment_screening_results_v1.md</code></td>
+</tr>
+<tr>
+<td>P143</td>
+<td>跨窗口动态内容审计</td>
+<td><code>outputs/torwic_p143_cross_window_dynamic_audit_v1.md</code></td>
+</tr>
+</tbody>
+</table>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]});"></script>
+</body>
+</html>

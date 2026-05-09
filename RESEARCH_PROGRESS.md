@@ -730,3 +730,19 @@ summary and local paths here, then commit and push the repository.
 - Updated Chinese manuscript figure captions with file paths.
 - Checked compilation tooling: pandoc not installed, texlive not installed → recorded as GAP-010 (compile via Overleaf or after install).
 - Package now camera-ready: navigable from index → manuscript → figures → evidence files.
+
+## 2026-05-09 P149 local paper build and export
+
+- Built reproducible paper export pipeline:
+  1. `pip3 install --user markdown weasyprint` (user-level, no sudo)
+  2. `python3 paper/build_paper.py` — converts EN + ZH thick manuscripts → HTML + PDF
+- Results:
+  - `paper/export/manuscript_en_thick.html` (61 KB)
+  - `paper/export/manuscript_en_thick.pdf` (643 KB, 488 lines → ~30 pages)
+  - `paper/export/manuscript_zh_thick.html` (51 KB)
+  - `paper/export/manuscript_zh_thick.pdf` (820 KB, Chinese CJK rendered with Noto Serif CJK SC)
+  - `paper/export/build_log.json` (build metadata)
+- Toolchain: Python 3.10.12 + markdown 3.10.2 + weasyprint 68.1, NO sudo, NO pandoc, NO texlive
+- Figure files automatically resolved from `paper/figures/` via build_paper.py mappings
+- Math (inline \(...\) / display $$...$$) rendered as-is in PDF (LaTeX notation readable, KaTeX CDN used in HTML)
+- GAP-010 resolved: PDF export now possible locally

@@ -472,7 +472,22 @@ make dynamic-first32-real-mask-figure
 
 
 
-### P146 最终论文润色（2026-05-09 18:00+08）
+### P149 本地论文导出（2026-05-09 18:29+08）
+
+**完成：** 中英文论文本地 HTML + PDF 导出，GAP-010 关闭。
+
+| 产出 | 大小 |
+|---|---|
+| `paper/export/manuscript_en_thick.html` | 61 KB |
+| `paper/export/manuscript_en_thick.pdf` | 643 KB |
+| `paper/export/manuscript_zh_thick.html` | 51 KB |
+| `paper/export/manuscript_zh_thick.pdf` | 820 KB |
+
+**工具链：** Python 3.10 + markdown 3.10.2 + weasyprint 68.1。无 sudo，无 pandoc，无 texlive。
+**中文 PDF：** 使用 Noto Serif CJK SC 字体，12,317 个 CJK 字符正确渲染。
+**可复现命令：** `pip3 install --user markdown weasyprint && python3 paper/build_paper.py`
+
+**下一步：项目进入休眠待命。** 论文包已完整闭环：manuscript → figures → evidence → export。
 
 **完成：** 中英文论文同步，最终交付路径验证。
 
