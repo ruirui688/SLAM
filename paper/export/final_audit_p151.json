@@ -1,40 +1,40 @@
 {
-  "timestamp": "2026-05-09T18:44:29.165706",
+  "timestamp": "2026-05-09T20:42:31.506768",
   "checks": [
     {
       "check": "EN thick manuscript exists",
       "pass": true,
-      "detail": "54893 bytes"
+      "detail": "70355 bytes"
     },
     {
       "check": "ZH thick manuscript exists",
       "pass": true,
-      "detail": "45826 bytes"
+      "detail": "65092 bytes"
     },
     {
-      "check": "EN manuscript lines (~495)",
+      "check": "EN manuscript lines (~630)",
       "pass": true,
-      "detail": "499 lines"
+      "detail": "627 lines"
     },
     {
-      "check": "ZH manuscript lines (~490)",
+      "check": "ZH manuscript lines (~730)",
       "pass": true,
-      "detail": "497 lines"
+      "detail": "718 lines"
     },
     {
-      "check": "EN sections (~47)",
+      "check": "EN sections (~50)",
       "pass": true,
-      "detail": "47 sections"
+      "detail": "50 sections"
     },
     {
-      "check": "ZH sections (~47)",
+      "check": "ZH sections (~56)",
       "pass": true,
-      "detail": "47 sections"
+      "detail": "55 sections"
     },
     {
       "check": "EN/ZH line parity",
       "pass": true,
-      "detail": "Δ=2"
+      "detail": "Δ=91"
     },
     {
       "check": "Export: manuscript_en_thick.html",
@@ -112,7 +112,37 @@
       "detail": "139 KB"
     },
     {
-      "check": "All 10 figures present",
+      "check": "  Fig.11 = torwic_before_after_map_composition_p156.png",
+      "pass": true,
+      "detail": "107 KB"
+    },
+    {
+      "check": "  Fig.12 = torwic_object_lifecycle_p156.png",
+      "pass": true,
+      "detail": "167 KB"
+    },
+    {
+      "check": "  Fig.13 = torwic_admission_decision_space_p156.png",
+      "pass": true,
+      "detail": "141 KB"
+    },
+    {
+      "check": "  Fig.14 = torwic_per_category_retention_p157.png",
+      "pass": true,
+      "detail": "67 KB"
+    },
+    {
+      "check": "  Fig.15 = torwic_rejection_reason_distribution_p157.png",
+      "pass": true,
+      "detail": "42 KB"
+    },
+    {
+      "check": "  Fig.16 = torwic_rejection_reason_heatmap_p157.png",
+      "pass": true,
+      "detail": "73 KB"
+    },
+    {
+      "check": "All 16 figures present",
       "pass": true,
       "detail": ""
     },
@@ -167,7 +197,37 @@
       "detail": "Fig. 10)."
     },
     {
-      "check": "All 10 figures referenced in EN body",
+      "check": "  Fig.11 in EN body",
+      "pass": true,
+      "detail": "Fig. 11."
+    },
+    {
+      "check": "  Fig.12 in EN body",
+      "pass": true,
+      "detail": "Fig. 12."
+    },
+    {
+      "check": "  Fig.13 in EN body",
+      "pass": true,
+      "detail": "Fig. 13."
+    },
+    {
+      "check": "  Fig.14 in EN body",
+      "pass": true,
+      "detail": "Fig. 14."
+    },
+    {
+      "check": "  Fig.15 in EN body",
+      "pass": true,
+      "detail": "Fig. 15."
+    },
+    {
+      "check": "  Fig.16 in EN body",
+      "pass": true,
+      "detail": "Fig. 16."
+    },
+    {
+      "check": "All 16 figures referenced in EN body",
       "pass": true,
       "detail": ""
     },
@@ -179,7 +239,7 @@
     {
       "check": "  Table 2 in EN body",
       "pass": true,
-      "detail": "Table 2"
+      "detail": "Table 2"
     },
     {
       "check": "  Table 3 in EN body",
@@ -318,7 +378,7 @@
     },
     {
       "check": "evo entry in References",
-      "pass": false,
+      "pass": true,
       "detail": ""
     },
     {
@@ -423,7 +483,7 @@
     },
     {
       "check": "  P148 in README",
-      "pass": false,
+      "pass": true,
       "detail": ""
     },
     {
@@ -433,7 +493,7 @@
     },
     {
       "check": "  P150 in README",
-      "pass": false,
+      "pass": true,
       "detail": ""
     },
     {
@@ -442,7 +502,7 @@
       "detail": "none"
     }
   ],
-  "total": 88,
-  "passed": 85,
-  "failed": 3
+  "total": 100,
+  "passed": 100,
+  "failed": 0
 }

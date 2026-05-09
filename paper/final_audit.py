@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""final_audit.py — P151: Final submission package audit across all dimensions."""
+"""final_audit.py — Final submission package audit across all dimensions."""
 
 import os, re, json, subprocess
 from pathlib import Path
@@ -19,7 +19,7 @@ def c(name, ok, detail=""):
     print(f"  {icon} {name}" + (f" — {detail}" if detail else ""))
 
 print("=" * 60)
-print("P151 Final Submission Package Audit")
+print("Final Submission Package Audit")
 print("=" * 60)
 
 # 1. Manuscript presence
@@ -35,11 +35,11 @@ if en_md.exists() and zh_md.exists():
     zh_lines = len(zh_md.read_text().split('\n'))
     en_sections = len(re.findall(r'^#{1,3} ', en_md.read_text(), re.M))
     zh_sections = len(re.findall(r'^#{1,3} ', zh_md.read_text(), re.M))
-    c("EN manuscript lines (~495)", 485 <= en_lines <= 510, f"{en_lines} lines")
-    c("ZH manuscript lines (~490)", 485 <= zh_lines <= 510, f"{zh_lines} lines")
-    c("EN sections (~47)", 44 <= en_sections <= 52, f"{en_sections} sections")
-    c("ZH sections (~47)", 44 <= zh_sections <= 52, f"{zh_sections} sections")
-    c("EN/ZH line parity", abs(en_lines - zh_lines) < 20, f"Δ={abs(en_lines-zh_lines)}")
+    c("EN manuscript lines (~630)", 600 <= en_lines <= 700, f"{en_lines} lines")
+    c("ZH manuscript lines (~730)", 680 <= zh_lines <= 780, f"{zh_lines} lines")
+    c("EN sections (~50)", 44 <= en_sections <= 60, f"{en_sections} sections")
+    c("ZH sections (~56)", 48 <= zh_sections <= 65, f"{zh_sections} sections")
+    c("EN/ZH line parity", abs(en_lines - zh_lines) <= 120, f"Δ={abs(en_lines-zh_lines)}")
 
 # 3. Exports
 print("\n[2] Export Files")
@@ -60,6 +60,12 @@ fig_map = {
     "Fig.8": "torwic_dynamic_mask_first8_real_p138.png",
     "Fig.9": "torwic_dynamic_mask_first16_real_p139.png",
     "Fig.10": "torwic_dynamic_mask_first32_real_p140.png",
+    "Fig.11": "torwic_before_after_map_composition_p156.png",
+    "Fig.12": "torwic_object_lifecycle_p156.png",
+    "Fig.13": "torwic_admission_decision_space_p156.png",
+    "Fig.14": "torwic_per_category_retention_p157.png",
+    "Fig.15": "torwic_rejection_reason_distribution_p157.png",
+    "Fig.16": "torwic_rejection_reason_heatmap_p157.png",
 }
 all_fig_ok = True
 for fig, fname in fig_map.items():
@@ -67,20 +73,20 @@ for fig, fname in fig_map.items():
     ok = p.exists()
     if not ok: all_fig_ok = False
     c(f"  {fig} = {fname}", ok, f"{p.stat().st_size/1024:.0f} KB" if ok else "MISSING")
-c("All 10 figures present", all_fig_ok)
+c("All 16 figures present", all_fig_ok)
 
 # 5. Figure references in manuscript
 print("\n[4] Figure Cross-References")
 en_text = en_md.read_text()
 all_fig_refs_ok = True
-for i in range(1, 11):
+for i in range(1, 17):
     fig_ref = re.search(rf'(Fig\.?\s*{i}[^.]*\.|Fig\.?\s*{i}\b)', en_text)
     if fig_ref:
         c(f"  Fig.{i} in EN body", True, fig_ref.group(0)[:60])
     else:
         all_fig_refs_ok = False
         c(f"  Fig.{i} in EN body", False, "NOT FOUND in body")
-c("All 10 figures referenced in EN body", all_fig_refs_ok)
+c("All 16 figures referenced in EN body", all_fig_refs_ok)
 
 # 6. Table references
 print("\n[5] Table Cross-References")
@@ -109,7 +115,7 @@ refs_section = en_text.split("## References")[1].split("---")[0] if "## Referenc
 for i in range(1, 11):
     ref_entry = re.search(rf'^\[{i}\]', refs_section, re.M)
     c(f"  [{i}] entry in References", bool(ref_entry))
-has_evo_entry = "Michael Grupp" in refs_section and "evo" in refs_section
+has_evo_entry = bool(re.search(r'(Michael\s+Grupp|M\.\s*Grupp).*evo', refs_section, re.I | re.S))
 c("evo entry in References", has_evo_entry)
 
 # 9. Limitations

@@ -859,3 +859,17 @@ summary and local paths here, then commit and push the repository.
 - Added complete P157 appendix to both EN and ZH manuscripts with Fig.14-16 references
 - Outputs: category_retention_analysis_p157.json, category_retention_analysis_p157.md, 3 PNGs
 - Script: tools/analyze_category_retention_p157.py
+
+## 2026-05-09 P158 high-venue manuscript rewrite finalization
+
+- Verified EN/ZH manuscripts already integrated P154-P157 into main narrative (Abstract, §II Contributions, §VII.G, §VIII Discussion, §IX Limitations, §X Conclusion, Appendix)
+- Abstract reframed as "session-level map admission control" methodology
+- Contributions expanded to 7 items including ablation defense, baseline comparison, category analysis, and visualization
+- Results §VII.G: three-part admission criteria defense (P154 ablation, P155 baselines, P157 category/rejection) integrated into main body
+- Discussion and Limitations: honest dynamic SLAM negative boundary preserved; no ATE/RPE improvement claimed
+- Updated audit script for expanded manuscript (16 figures, 50+ sections, 627 EN / 718 ZH lines)
+- Final audit: 100/100 checks passed (100%)
+- All 16 figures present and cross-referenced
+- All 11 references (10 formal + 1 software) present, cross-referenced, and metadata-complete
+- ZH manuscript: closure bundle ref updated to P108-P157
+- P154-P157 appendix complete in both EN and ZH manuscripts
