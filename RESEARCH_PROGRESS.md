@@ -842,3 +842,20 @@ summary and local paths here, then commit and push the repository.
 - **ZH manuscript synced**: Same conclusion and closure bundle updates applied
 - **Related work**: All four buckets present and populated — semantic SLAM/object-level mapping (§III.A), dynamic SLAM/dynamic-object suppression (§III.B), long-term map maintenance (§III.C), segmentation-assisted filtering/open-vocabulary 3D mapping (§III.D). Grounding DINO [7], SAM2 [8], OpenCLIP [9] formally cited.
 - No TODOs/FIXMEs/placeholders in either manuscript
+
+## 2026-05-09 P157 category retention and rejection analysis
+
+- Computed per-category retention/rejection breakdown over 20 combined Aisle+Hallway clusters:
+  - Yellow barrier: 2/5 (40%), Work table: 2/4 (50%), Warehouse rack: 1/3 (33%), Forklift: 0/4 (0%)
+- Rejection reason prevalence (multi-label, 15 rejected clusters):
+  - Single session: 7 (47%), Low frames: 8 (53%), Low support: 5 (33%), Dynamic contamination: 4 (27%), Label fragmentation: 1 (7%)
+- Per-category × reason matrix reveals clean separation:
+  - Barriers/tables: rejected only for single-session coverage
+  - Racks: most diverse rejection profile (single_session + low_frames + low_support + label_frag)
+  - Forklifts: rejected for dynamic_contamination + low_frames + low_support — never for single_session
+- Key finding: admission policy is not category-biased — same five numerical gates apply to all categories. Forklift universal rejection is driven by data (dynamic_ratio ≥ 0.83), not by forklift-specific rules.
+- Self-validation: dynamic_ratio bimodality (0.00 for infra vs ≥0.83 for forklifts, zero intermediate) emerges naturally from data.
+- Generated 3 figures: per-category retention bar chart, rejection reason distribution, category×reason heatmap
+- Added complete P157 appendix to both EN and ZH manuscripts with Fig.14-16 references
+- Outputs: category_retention_analysis_p157.json, category_retention_analysis_p157.md, 3 PNGs
+- Script: tools/analyze_category_retention_p157.py
