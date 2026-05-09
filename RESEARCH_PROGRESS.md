@@ -23,3 +23,10 @@ summary and local paths here, then commit and push the repository.
 - Latest OpenClaw research closure before repo initialization: closure bundle
   v11 under `/home/rui/slam/outputs/` and research-orchestrator project state
   under `/home/rui/.openclaw/workspace-research-orchestrator/`.
+
+## 2026-05-09 P106 evaluation tightening delta matrix
+
+- Produced ignored/generated evidence artifact: `/home/rui/slam/outputs/torwic_p106_evaluation_delta_matrix_v1.md` and `.json`.
+- Evidence summary: compared historical `current172` fallback rows `6/6/0`, `14/7/0`, `172/15/5` against the authoritative richer Aisle ladder `203/11/5 -> 240/10/5 -> 297/14/7`; retained Hallway as current secondary broader validation at `537/16/9` over `80/80` executed first-eight frames.
+- Paper-facing sync: synchronized Appendix M into both OpenClaw paper drafts and refreshed closure bundle v16 under `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v16.md`.
+- Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
