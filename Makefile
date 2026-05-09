@@ -1,4 +1,4 @@
-.PHONY: build-image run demo semantic-example dynamic-slam-frontend dynamic-slam-backend-pack dynamic-slam-backend-env-check evidence-pack
+.PHONY: build-image run demo semantic-example dynamic-slam-frontend dynamic-slam-backend-pack dynamic-slam-backend-env-check dynamic-slam-backend-smoke evidence-pack
 
 # Get version of CUDA and enable it for compilation if CUDA > 11.0
 # This solves https://github.com/IDEA-Research/Grounded-Segment-Anything/issues/53
@@ -52,6 +52,9 @@ dynamic-slam-backend-pack:
 
 dynamic-slam-backend-env-check:
 	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/check_dynamic_slam_backend_env.py
+
+dynamic-slam-backend-smoke:
+	LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$$LD_LIBRARY_PATH conda run -n tram python tools/run_dynamic_slam_backend_smoke.py
 
 evidence-pack:
 	python tools/build_paper_evidence_pack.py

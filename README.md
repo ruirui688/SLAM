@@ -10,7 +10,8 @@
 - 已有可视化：工业场景 overlay、mask、bbox、中心点、summary JSON 和地图准入决策；
 - 新增前端桥接：动态 mask -> masked RGB SLAM 输入 -> `slam_frontend_manifest.json`；
 - 新增后端输入包：raw RGB / masked RGB / TUM-style GT 片段 -> `backend_input_manifest.json`；
-- 尚未完成：把 masked RGB 序列送入完整视觉 SLAM 后端，并报告 ATE/RPE、建图质量或导航收益；
+- 新增后端 smoke：DROID-SLAM raw vs masked 8 帧短窗口已生成估计轨迹，并用 evo 报告最小 ATE/RPE；
+- 尚未完成：扩大到完整视觉 SLAM 后端轨迹实验，并报告有统计意义的 ATE/RPE、建图质量或导航收益；
 - 因此本文当前主张是“语义分割辅助的动态对象过滤与长期对象地图维护”，不是“完整动态 SLAM benchmark 已经闭环优于现有后端”。
 
 ## 0. 环境口径
@@ -250,7 +251,31 @@ outputs/dynamic_slam_backend_input_pack/groundtruth.txt
 outputs/dynamic_slam_backend_input_pack/backend_input_manifest.json
 ```
 
-当前边界：该输入包只准备后端评估接口，不运行 DROID-SLAM / ORB-SLAM，也不报告 ATE/RPE。
+### 动态 SLAM 后端 smoke 与最小 ATE/RPE
+
+在本机 `tram` conda 环境中，已经完成一个 bounded DROID-SLAM smoke run：
+
+```bash
+make dynamic-slam-backend-smoke
+```
+
+已验证输出写入 ignored `outputs/`：
+
+```text
+outputs/dynamic_slam_backend_smoke_p132/raw_estimate_tum.txt
+outputs/dynamic_slam_backend_smoke_p132/masked_estimate_tum.txt
+outputs/dynamic_slam_backend_smoke_p132/dynamic_slam_backend_smoke_manifest.json
+outputs/dynamic_slam_backend_smoke_p132/p132_p133_raw_vs_masked_metrics.md
+```
+
+8 帧 smoke 结果：
+
+| 输入 | APE RMSE (m) | RPE RMSE (m) |
+|---|---:|---:|
+| raw RGB | 0.001242 | 0.002250 |
+| masked RGB | 0.001243 | 0.002255 |
+
+当前边界：这证明 raw-vs-masked 后端运行和 evo ATE/RPE 路径已经打通；但短窗口 raw/masked 基本持平，不能声称 masked input 已改善完整轨迹、建图质量或导航收益。
 
 ## 2. 论文稿件
 
@@ -294,6 +319,8 @@ outputs/dynamic_slam_backend_input_pack/backend_input_manifest.json
 | [`examples/dynamic_slam_frontend_example/`](./examples/dynamic_slam_frontend_example/) | 动态 mask 到 SLAM 前端 masked RGB 的最小桥接示例 |
 | [`tools/run_minimal_demo.py`](./tools/run_minimal_demo.py) | 最小 demo 入口 |
 | [`tools/build_dynamic_slam_backend_input_pack.py`](./tools/build_dynamic_slam_backend_input_pack.py) | raw-vs-masked 后端输入包生成入口 |
+| [`tools/check_dynamic_slam_backend_env.py`](./tools/check_dynamic_slam_backend_env.py) | 本机 `tram` GPU/DROID/evo 后端环境复查 |
+| [`tools/run_dynamic_slam_backend_smoke.py`](./tools/run_dynamic_slam_backend_smoke.py) | DROID-SLAM raw-vs-masked smoke run |
 | [`paper/`](./paper/) | 中英文论文稿 |
 | [`paper/evidence/`](./paper/evidence/) | Git 可见的实验结果证据包，由 `make evidence-pack` 从 ignored `outputs/` 生成 |
 | [`RESEARCH_PROGRESS.md`](./RESEARCH_PROGRESS.md) | 研究机器人和论文进度日志 |

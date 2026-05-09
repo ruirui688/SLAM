@@ -91,6 +91,25 @@ make dynamic-slam-backend-pack
 当前边界：该脚本只准备 raw-vs-masked 后端输入和 GT 片段，不调用
 DROID-SLAM / ORB-SLAM，也不报告 ATE/RPE。
 
+### 动态 SLAM 后端环境复查与 smoke run
+
+`check_dynamic_slam_backend_env.py` 复查本机统一研究环境 `tram` 中的
+PyTorch CUDA、cuDNN、DROID-SLAM、`lietorch`、`evo`、DROID 权重和后端输入包。
+
+```bash
+make dynamic-slam-backend-env-check
+```
+
+`run_dynamic_slam_backend_smoke.py` 在已有 raw/masked 输入包上运行 bounded
+DROID-SLAM smoke，并输出 raw/masked TUM 轨迹估计和 manifest。
+
+```bash
+make dynamic-slam-backend-smoke
+```
+
+当前边界：8 帧 smoke 只证明 raw-vs-masked 后端和 evo ATE/RPE 路径可执行。
+它不是 full-trajectory benchmark，不能证明 masked input 改善建图或导航。
+
 ### 半监督 VOS 推理
 
 The `vos_inference.py` script can be used to generate predictions for semi-supervised video object segmentation (VOS) evaluation on datasets such as [DAVIS](https://davischallenge.org/index.html), [MOSE](https://henghuiding.github.io/MOSE/) or the SA-V dataset.

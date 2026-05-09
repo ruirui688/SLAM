@@ -1,0 +1,38 @@
+{
+  "artifact": "P132/P133 raw-vs-masked DROID-SLAM smoke metrics",
+  "created": "2026-05-09T15:22:03+08:00",
+  "scope": "8-frame bounded TorWIC Aisle_CW_Run_1 window, DROID-SLAM frontend/trajectory filler, global BA disabled because the smoke window is too short for proximity edges.",
+  "claim_boundary": "This proves the raw-vs-masked backend and evo evaluation path is executable. It does not prove masked input improves full-trajectory SLAM, map quality, or navigation.",
+  "runtime": {
+    "environment": "conda tram",
+    "torch": "2.4.0+cu118",
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "droid_weights": "/home/rui/tram/data/pretrain/droid.pth"
+  },
+  "inputs": {
+    "groundtruth": "outputs/dynamic_slam_backend_input_pack/groundtruth.txt",
+    "raw_estimate": "outputs/dynamic_slam_backend_smoke_p132/raw_estimate_tum.txt",
+    "masked_estimate": "outputs/dynamic_slam_backend_smoke_p132/masked_estimate_tum.txt",
+    "frame_count": 8,
+    "masked_policy": "Only frame 000002 has the forklift semantic mask; other frames have empty masks."
+  },
+  "metrics": {
+    "raw": {
+      "ape_rmse_m": 0.001242,
+      "ape_mean_m": 0.001212,
+      "rpe_rmse_m": 0.002250,
+      "rpe_mean_m": 0.002109
+    },
+    "masked": {
+      "ape_rmse_m": 0.001243,
+      "ape_mean_m": 0.001212,
+      "rpe_rmse_m": 0.002255,
+      "rpe_mean_m": 0.002115
+    },
+    "delta_masked_minus_raw": {
+      "ape_rmse_m": 0.000001,
+      "rpe_rmse_m": 0.000005
+    }
+  },
+  "interpretation": "On this tiny smoke window, raw and masked trajectories are effectively tied. The result should be reported as pipeline closure, not as a performance improvement claim."
+}

@@ -407,3 +407,24 @@ summary and local paths here, then commit and push the repository.
   dependency-free and can run in any Python 3.10+ environment, while sustained
   local research and GPU backend work should use only the verified `tram` conda
   runtime to avoid `.venv`/`base`/sandbox probe confusion.
+
+## 2026-05-09 P132/P133 raw-vs-masked DROID-SLAM smoke and evo metrics
+
+- Added `tools/run_dynamic_slam_backend_smoke.py` and
+  `make dynamic-slam-backend-smoke`.
+- Ran bounded DROID-SLAM smoke on the existing 8-frame
+  `outputs/dynamic_slam_backend_input_pack` raw/masked RGB lists using the
+  verified `tram` runtime and `/home/rui/tram/data/pretrain/droid.pth`.
+- DROID global BA was disabled for the smoke run because the 8-frame window is
+  too short for proximity-edge global BA; the run uses DROID frontend and
+  trajectory filler.
+- Generated:
+  - `outputs/dynamic_slam_backend_smoke_p132/raw_estimate_tum.txt`;
+  - `outputs/dynamic_slam_backend_smoke_p132/masked_estimate_tum.txt`;
+  - `outputs/dynamic_slam_backend_smoke_p132/dynamic_slam_backend_smoke_manifest.json`;
+  - `outputs/dynamic_slam_backend_smoke_p132/p132_p133_raw_vs_masked_metrics.{json,md}`.
+- evo APE/RPE smoke metrics:
+  - raw: APE RMSE `0.001242 m`, RPE RMSE `0.002250 m`;
+  - masked: APE RMSE `0.001243 m`, RPE RMSE `0.002255 m`.
+- Paper update completed in EN/ZH thick drafts: this is now framed as backend
+  path closure, not as evidence that masking improves full-trajectory SLAM.
