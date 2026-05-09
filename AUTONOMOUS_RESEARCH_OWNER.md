@@ -16,6 +16,12 @@ The owner is configured for hosted autonomy:
 - update `RESEARCH_PROGRESS.md` after non-trivial progress;
 - commit and push GitHub-facing progress to `origin/main`.
 
+The user has authorized continued paper execution, but not open-ended token
+spend. Every expensive owner turn must have a named phase, a concrete artifact
+target, and a verification criterion before it starts. If the project only needs
+a fresh heartbeat or status check, the host should return a cheap local
+heartbeat and must not call the planning model.
+
 Wake policy is intentionally narrow: the host watchdog is the only active
 research wake driver. The timer checks every 15 minutes with a 45-minute stale
 threshold, but an expensive owner turn is only started when progress is stale or
@@ -26,6 +32,28 @@ disabled to avoid duplicate wakeups.
 
 Timeouts are recoverable operational events. They are recorded in the OpenClaw
 host logs and should not leave the systemd timer failed or inactive.
+
+## Execution Rules
+
+- One wake may execute only one bounded owner step.
+- One wake may complete at most one phase.
+- Parallel subagents are allowed only when their modules are explicit and all
+  outputs feed the same active phase.
+- A progress turn must produce or refresh a concrete artifact, draft section,
+  audit, manifest/checklist entry, or GitHub-facing progress note.
+- No new dataset downloads, larger-window/full-trajectory protocols, or
+  downstream navigation/planning claims are allowed without explicit approval.
+- After non-trivial progress, update `RESEARCH_PROGRESS.md`, commit and push
+  safe GitHub-facing files, and send the Telegram progress payload.
+
+Current primary purpose: execute `P119-submission-ready-closure`, which closes
+the final submission package around the existing evidence ladder, stable subset,
+failure-case mix, baseline framing, audits, paper drafts, appendix/table closure,
+manifest, checklist, and GitHub progress log.
+
+Current non-purpose: generic polishing, repeated citation checking without a new
+gap, fresh-status model calls, new data acquisition, or new experiment protocol
+launches.
 
 The OpenClaw default model is `deepseek-v4-flash` for ordinary agent work.
 Planning, owner-loop execution, and long-horizon autonomous project pushing
