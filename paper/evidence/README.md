@@ -55,6 +55,18 @@ low-coverage frames is the dominant artifact. The next active research step is
 P143: screen other TorWIC windows for dynamic objects covering more than 5% of
 the frame before expecting an ATE/RPE gain.
 
+### P143 Cross-Window Dynamic Content Audit
+
+- Artifact: `outputs/torwic_p143_cross_window_dynamic_audit_v1.{json,md}`.
+- Key finding: no locally available TorWIC sequence has forklift coverage above
+  `1.39%` of the frame; the `1.39% -> 5%` gap would require roughly `1.9x`
+  closer camera-target proximity.
+- Interpretation: P135-P143 now form a bounded negative-result study showing
+  DROID-SLAM trajectory estimates are robust to industrial dynamic objects
+  below roughly `2%` frame coverage in these aisle traverses.
+- Next paper step: integrate the full P135-P143 chain as a self-contained
+  dynamic SLAM backend chapter with explicit boundary conditions.
+
 ## Tracked Files
 
 - `protocol_summary.csv`: compact table for paper/result table reuse.

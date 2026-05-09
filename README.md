@@ -485,7 +485,7 @@ make dynamic-first32-real-mask-figure
 
 **结论：** 所有可用 TorWIC 数据中，叉车最大帧覆盖率为 1.39%。要从 1.39% 达到 5%，叉车需离摄像头约 1.9 倍近——这在标准仓库通道穿行中不太可能。这是一个量化数据约束，而非方法失败。P135-P143 构成完整的 negative-result 研究：DROID-SLAM 对 <2% 帧面积动态对象具有内在鲁棒性。
 
-详见 。
+详见 `outputs/torwic_p143_cross_window_dynamic_audit_v1.md`。
 
 ### P142 强动态片段筛选结果（2026-05-09 17:21+08）
 
