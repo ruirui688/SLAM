@@ -1130,3 +1130,17 @@ summary and local paths here, then commit and push the repository.
 - **Score:** 62/75 (83%) → 75/75 (100%). 0 FAIL items remain.
 - **Remaining blockers:** B2 (Hallway 9–10), B3 (statistical formalization).
 - **File:** `paper/tro_submission/review_rounds/ROUND3_FINAL_AUDIT.md`
+
+## 2026-05-09 P173 Stage 2 coverage scan and input-pack readiness
+
+- Built five 64-frame backend input packs for Stage 2 without running DROID-SLAM/GPU:
+  - Jun23 Aisle_CW_Run_2: 4/64 masked frames, max 0.889540%, mean 0.027783%.
+  - Oct12 Aisle_CW: 0/64 masked frames, max 0.000000%, mean 0.000000%.
+  - Jun15 Aisle_CCW_Run_1: 5/64 masked frames, max 17.324544%, mean 0.567722%.
+  - Oct12 Aisle_CCW: 3/64 masked frames, max 5.377713%, mean 0.212720%.
+  - Jun15 Hallway_Full_CW: 0/64 masked frames, Hallway negative control.
+- Key research implication: Jun15 Aisle_CCW_Run_1 is the strongest next GPU target because it has much higher dynamic coverage than P172 Stage 1 and can stress-test the mask-selectivity claim.
+- Outputs committed as lightweight paper evidence:
+  - `paper/evidence/dynamic_slam_stage2_p173_coverage_scan.json`
+  - `paper/export/dynamic_slam_stage2_p173_coverage_scan.md`
+- Claim boundary: this is readiness/coverage evidence only; no DROID-SLAM trajectory or ATE/RPE is reported in this step.
