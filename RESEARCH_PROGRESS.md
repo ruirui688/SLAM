@@ -97,7 +97,7 @@ summary and local paths here, then commit and push the repository.
 ## 2026-05-09 wake mechanism consolidation
 
 - Consolidated autonomous research wakeups to one active driver: host-side `research-owner-host-watchdog.timer`.
-- New host policy: 15-minute interval, 45-minute stale threshold, 30-minute owner-loop timeout, 3 bounded steps per wake, and at most one phase completed per wake.
+- New host policy: 15-minute interval, 45-minute stale threshold, 30-minute owner-loop timeout, 1 bounded owner step per wake, and at most one phase completed per wake.
 - Disabled the duplicate OpenClaw `research-owner-watchdog-industrial-semantic-slam` cron job; it should not independently start research-owner work.
 - Policy: Telegram remains enabled for real progress reports, while duplicate/skip heartbeats stay local.
 
@@ -106,7 +106,7 @@ summary and local paths here, then commit and push the repository.
 - Produced appendix/table closure v14, P113 audit, and closure bundle v23; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_submission_ready_appendix_table_closure_v14.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v23.md`.
 - Evidence summary: closure v14 consolidates the full P108-P113 audit chain with category-level stable-subset composition, cluster rejection profile, consolidated evidence ladder, and Appendix A-T mapping. Synchronized Appendix T into both positioned and clean drafts. Phase queue exhausted after P113.
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol.
-- GitHub push blocked by SSH for commits a48e320 (P112) and subsequent; local commits preserved.
+- GitHub push was later recovered; commits through P118 are now on `origin/main`.
 
 ## 2026-05-09 P114 citation metadata field-level verification
 
@@ -135,4 +135,5 @@ summary and local paths here, then commit and push the repository.
 
 - Produced P118 failure-case mix breakdown and closure bundle v28.
 - Evidence: per-protocol rejection breakdown (same-day/cross-day/cross-month/Hallway), dynamic-like rejection share 50.0%-71.4%, rejection reason taxonomy (16 forklift dynamic-like, 13 low-session, 3 label fragmentation, 2 low support), cluster-ID-level detail for all four protocols. Data sourced from selection_v5.json rejected arrays.
+- GitHub: `7098771 docs: record P118 failure-case mix quantitative breakdown`, pushed to `origin/main`.
 - Policy: existing-data-only; no new experiments.
