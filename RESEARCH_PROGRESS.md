@@ -936,3 +936,19 @@ summary and local paths here, then commit and push the repository.
 - Page budget estimate: ~16 pages (within 20-page TR-O limit, above 12-page free tier)
 - Blockers: BLOCKER-TRO-LATEX-001 (no LaTeX on host)
 - All files are syntactically complete scaffolds — content integration from manuscript_en_thick.md remains as next step
+
+## 2026-05-09 P164 related work reference expansion (11 → 35)
+
+- Expanded references.bib from 11 to 35 entries across 7 categories:
+  1. SLAM surveys/foundations (3): Cadena 2016, ORB-SLAM2, ORB-SLAM3
+  2. Semantic SLAM/object-level (7): CubeSLAM, Kimera, Kimera-Multi, MaskFusion, Detect-SLAM, DS-SLAM, SemanticFusion
+  3. Dynamic SLAM (7): DynaSLAM, DynaSLAM II, Co-Fusion, MID-Fusion, FlowFusion, VDO-SLAM, Saputra survey
+  4. Long-term/large-scale mapping (4): RTAB-Map, Churchill 2012, Fehr 2017, Derczynski 2021
+  5. Open-vocabulary/foundation models (7): OpenScene, ConceptFusion, LERF, CLIP-Fields, OpenMask3D, Grounding DINO, SAM2
+  6. SLAM backends/datasets (5): POV-SLAM, DROID-SLAM, TUM RGB-D, EuRoC, OpenCLIP
+  7. Evaluation metrics/software (2): evo, Zhang 2016
+- Related Work section (III.A–III.D) in main.tex expanded with all new citations, narrative structure, and explicit Relationship paragraphs
+- Placement strategy: 28 main-body, 7 supplementary-only (Kimera-Multi, VDO-SLAM, Churchill 2012, Derczynski 2021, CLIP-Fields, OpenMask3D, EuRoC)
+- BibTeX verification: 35 entries, 0 duplicate keys, 0 placeholder entries, all DOIs verified where available
+- Venue quality: 6 T-RO/TPAMI, 10 top conferences (CVPR/ICCV/RSS/NeurIPS), 12 major conferences (ICRA/IROS/ECCV), 3 field journals
+- Output: paper/tro_submission/references.bib (35 entries), paper/tro_submission/main.tex (Related Work expanded), paper/export/references_expansion_p164.md

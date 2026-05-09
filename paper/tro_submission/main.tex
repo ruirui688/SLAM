@@ -114,37 +114,35 @@ We deliberately limit the contribution to stable-object retention, dynamic-conta
 \subsection{Semantic SLAM and Object-Level Mapping}
 \label{sec:related_semantic}
 
-Cadena et al.~\cite{cadena2016past} survey the SLAM landscape from geometric to semantic, establishing that map reuse requires semantic understanding. CubeSLAM~\cite{yang2019cubeslam} introduced object-level representations by fitting cuboids to detected objects in monocular SLAM. OpenScene~\cite{peng2023openscene} extended open-vocabulary semantic mapping to 3D scenes. ConceptFusion~\cite{jatavallabhula2023conceptfusion} further developed the open-vocabulary 3D mapping paradigm by fusing multiple foundation model outputs.
+Semantic SLAM has progressed from geometric-only maps to systems that assign meaning to spatial entities. Cadena et al.~\cite{cadena2016past} survey the SLAM landscape from geometric to semantic, establishing that map reuse requires semantic understanding. Early object-level approaches---CubeSLAM~\cite{yang2019cubeslam} (cuboids in monocular SLAM) and MaskFusion~\cite{runz2018maskfusion} (instance-level RGB-D tracking)---demonstrated that object identity improves robustness and interpretability. Kimera~\cite{rosinol2020kimera} provides a complete metric-semantic SLAM pipeline with mesh reconstruction and semantic labeling, while SemanticFusion~\cite{mccormac2017semanticfusion} enabled dense 3D semantic maps from CNN predictions.
 
-\textit{Relationship:} We build on this tradition but focus on a complementary problem: once objects are detected, which deserve permanent map representation? The answer is not ``all objects with high detection confidence''---a forklift detected with 0.95 confidence across five sessions is still a forklift.
+The open-vocabulary era has further expanded semantic mapping capabilities. OpenScene~\cite{peng2023openscene} demonstrated that language-conditioned 3D feature fields carry concept-level semantics without closed-set training. ConceptFusion~\cite{jatavallabhula2023conceptfusion} fused multiple foundation model outputs into an open-set 3D map. LERF~\cite{kerr2023lerf} grounded CLIP embeddings within neural radiance fields, enabling open-vocabulary 3D queries. These systems share a common architectural assumption: once an object is detected, it is admissible to the map. Our work challenges this assumption by introducing an explicit admission-control policy informed by cross-session stability.
 
-% NOTE: P164 will expand this section with 15-25 additional references in:
-% - Semantic SLAM: DS-SLAM, Detect-SLAM, SO-SLAM, Kimera, ORB-SLAM3 semantics
-% - Dynamic SLAM: FlowFusion, Co-Fusion, MID-Fusion, RGB-D dynamic benchmarks  
-% - Long-term mapping: Fehr et al., Labbé \& Michaud, RTAB-Map derivatives
-% - Open-vocabulary: CLIP-Fields, LERF, OpenMask3D, LangSplat
+\textit{Relationship:} We build on semantic SLAM's object-level representations but focus on a complementary problem: which detected objects deserve permanent map representation? A forklift detected with 0.95 confidence across five sessions is still a forklift---semantic confidence alone does not imply semantic admissibility.
 
 % === III.B ===
 \subsection{Dynamic SLAM and Dynamic-Object Suppression}
 \label{sec:related_dynamic}
 
-DynaSLAM~\cite{bescos2018dynaslam} demonstrated that masking dynamic objects improves camera tracking accuracy. The key insight---that dynamic pixels degrade visual odometry---has been extended by numerous follow-up works.
+Dynamic environments present a fundamental challenge for SLAM. DynaSLAM~\cite{bescos2018dynaslam} demonstrated that masking dynamic objects using Mask R-CNN and multi-view geometry improves camera tracking accuracy. Its follow-up, DynaSLAM~II~\cite{bescos2021dynaslam2}, added tightly-coupled multi-object tracking. Several systems target object-level dynamic handling: Co-Fusion~\cite{runz2017cofusion} segments and tracks multiple independently-moving objects, MID-Fusion~\cite{xu2019midfusion} uses an octree-based volumetric representation for multi-instance dynamic reconstruction, and FlowFusion~\cite{zhang2020flowfusion} leverages optical flow residuals for dynamic/static segmentation. DS-SLAM~\cite{yu2018dsslam} combines SegNet with a moving-consistency check, while Detect-SLAM~\cite{zhong2018detectslam} makes object detection and SLAM mutually beneficial by using detected keypoints only when objects are static. Saputra et al.~\cite{saputra2018visualslam} provide a comprehensive survey of visual SLAM in dynamic environments.
 
-\textit{Relationship:} Dynamic SLAM removes dynamic content to protect geometric reconstruction. We complement this by rejecting dynamic-like objects from the semantic map layer even when geometrically well-localized.
+\textit{Relationship:} Dynamic SLAM removes dynamic content to protect geometric reconstruction (pose estimation and mapping). We address a different layer of the architecture: semantic map admission. An object may be correctly tracked as dynamic (DynaSLAM's goal) but still be erroneously admitted to the long-term semantic map (our concern). The two layers are complementary: dynamic SLAM cleans the geometric map, while our maintenance layer cleans the semantic map.
 
 % === III.C ===
 \subsection{Long-Term Map Maintenance}
 \label{sec:related_longterm}
 
-Long-term SLAM has been studied in the context of lifelong mapping and map summarization~\cite{cadena2016past}. POV-SLAM~\cite{barath2023povslam} introduced object-aware semantic SLAM and released the TorWIC dataset with ground-truth object annotations.
+Long-term SLAM requires managing map memory across extended durations. RTAB-Map~\cite{labbe2019rtabmap} implements an appearance-based memory management system for large-scale and long-term operation. Churchill and Newman~\cite{churchill2012practice} demonstrated experience-based navigation where the robot maintains multiple map representations for different temporal conditions. Fehr et al.~\cite{fehr2016tsdf} proposed TSDF-based change detection for long-term dense reconstruction, distinguishing persistent structure from dynamic objects. ORB-SLAM3~\cite{campos2021orb3} introduced multi-map capabilities that enable map reuse and merging across sessions. The standard SLAM backends---ORB-SLAM2~\cite{murartal2015orb2} and DROID-SLAM~\cite{teed2021droidslam}---provide the visual odometry foundation on which our maintenance layer operates. POV-SLAM~\cite{barath2023povslam} introduced object-aware semantic SLAM and released the TorWIC dataset with ground-truth object annotations across multiple revisits.
 
-\textit{Relationship:} We use TorWIC/POV-SLAM as the data provenance anchor. Our maintenance layer is complementary to existing long-term mapping systems.
+\textit{Relationship:} Long-term mapping systems focus on memory management and geometric consistency across time. Our maintenance layer adds an orthogonal dimension: semantic admission control based on stability, persistence, and dynamicity signals---not just geometric or memory constraints.
 
 % === III.D ===
 \subsection{Segmentation-Assisted Filtering}
 \label{sec:related_segmentation}
 
-Recent foundation models---Grounding DINO~\cite{liu2024grounding} for open-vocabulary detection, SAM~2~\cite{ravi2024sam2} for mask generation, and OpenCLIP~\cite{cherti2023reproducible} for label reranking---have made it practical to extract semantically labeled object instances without task-specific training. These models are used as back-end components; the maintenance layer is agnostic to the specific pipeline.
+Recent advances in vision foundation models enable extracting semantically labeled object instances without task-specific training. Grounding~DINO~\cite{liu2024grounding} provides open-vocabulary detection by marrying DINO with grounded pre-training. SAM~2~\cite{ravi2024sam2} extends the Segment Anything paradigm to video with promptable spatio-temporal masks. OpenCLIP~\cite{cherti2023reproducible} provides reproducible CLIP-scale vision-language embeddings used for label reranking. At the 3D level, OpenMask3D~\cite{takmaz2023openmask3d} and CLIP-Fields~\cite{shafiullah2023clipfields} enable open-vocabulary 3D instance segmentation and semantic field learning, respectively---demonstrating that language-conditioned reasoning can operate directly on geometric representations.
+
+\textit{Relationship:} We treat these models as interchangeable perception backends. Our maintenance layer consumes their output (detected object instances with semantic labels and masks) and applies session-level admission criteria. The architecture is backend-agnostic: any detection+segmentation pipeline producing frame-level object instances can feed into the maintenance layer.
 
 % ============================================================================
 % IV. PROBLEM FORMULATION
