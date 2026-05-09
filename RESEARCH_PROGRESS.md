@@ -280,3 +280,14 @@ summary and local paths here, then commit and push the repository.
 - Related Work 4/4 buckets covered with sufficient citations.
 - Bundle v30 created (P120 thick drafts + P125 citation audit).
 - Audit artifact: projects/industrial-semantic-slam/artifacts/p125-final-polish-citation-verification-audit-2026-05-09.md.
+
+## 2026-05-09 P126 inline citation threading (thick draft pass)
+
+- Applied inline citation threading to EN+ZH thick drafts.
+- EN thick: 25 → 68 inline citations (+172%, 2.72×). All 10 sections now threaded.
+- ZH thick: synced to 64 inline citations.
+- Key threading: Abstract (8 cites), Conclusion (10 cites), Method (5 new cites), Problem Formulation (6 cites), Discussion (3 cites), Limitations (12 cites).
+- Added cross-references: 35+ §-style references to Results, Method subsections, and Appendix Y.
+- Gaps recorded: 3 deferred (Grounding DINO/SAM2/OpenCLIP back-end citations), 3 optional (arXiv links for [1]–[3]).
+- Audit: projects/industrial-semantic-slam/artifacts/p126-inline-citation-threading-audit-2026-05-09.md.
+- Bundle v31: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v31.md.

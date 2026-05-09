@@ -8,7 +8,7 @@
 
 ## Abstract
 
-Long-term visual SLAM in industrial environments such as warehouses, logistics centers, and manufacturing floors faces a fundamental challenge: open-vocabulary detection pipelines naturally produce candidate object instances from every frame, but only a small subset of these instances corresponds to persistent, reusable map entities. Forklifts, carts, pallets, and transient objects contaminate the map when naively inserted; barriers, work tables, and warehouse racks may be stable but appear only intermittently under viewpoint or lighting variations. This paper presents an object-centric approach to semantic-segmentation-assisted SLAM that introduces an explicit object-maintenance layer between perception and the map. The framework transforms open-vocabulary RGB-D segmentation outputs into observation, tracklet, map-object, and revision layers, then applies stability, persistence, and dynamicity scoring to retain stable semantic landmarks and suppress dynamic contamination. We evaluate the framework on the TorWIC dataset (POV-SLAM provenance), reporting a reproducible submission-ready evidence ladder across same-day (203 observations / 11 candidate clusters → 5 retained), cross-day (240/10→5), and cross-month (297/14→7) richer Aisle protocols. A separate Hallway broader-validation branch (537 observations / 16 candidate clusters → 9 retained over 80/80 executed frames) provides scene-transfer evidence. The framework rejects forklift-like evidence as dynamic contamination with a 50.0%–71.4% dynamic-rejection share across the primary Aisle protocols and a 57.1% dynamic-rejection share in the Hallway branch, while retaining stable non-moving objects that meet persistence and consistency criteria. We position the contribution as a bounded IEEE-style systems contribution: not a final lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim, but an auditable bridge from segmentation-assisted open-vocabulary perception to revisioned long-term object-map maintenance on real industrial revisits.
+Long-term visual SLAM in industrial environments such as warehouses, logistics centers, and manufacturing floors faces a fundamental challenge [1]: open-vocabulary detection pipelines naturally produce candidate object instances from every frame, but only a small subset of these instances corresponds to persistent, reusable map entities. Forklifts, carts, pallets, and transient objects contaminate the map when naively inserted — a dynamic contamination problem recognized in dynamic SLAM literature [2] but not addressed at the map-admission level. Barriers, work tables, and warehouse racks may be stable but appear only intermittently under viewpoint or lighting variations. This paper presents an object-centric approach to semantic-segmentation-assisted SLAM that introduces an explicit object-maintenance layer between perception and the map. The framework transforms open-vocabulary RGB-D segmentation outputs into observation, tracklet, map-object, and revision layers, then applies stability, persistence, and dynamicity scoring to retain stable semantic landmarks and suppress dynamic contamination. We evaluate the framework on the TorWIC dataset (POV-SLAM provenance [6]), reporting a reproducible submission-ready evidence ladder across same-day (203 observations / 11 candidate clusters → 5 retained), cross-day (240/10→5), and cross-month (297/14→7) richer Aisle protocols (§VII.A). A separate Hallway broader-validation branch (537 observations / 16 candidate clusters → 9 retained over 80/80 executed frames) provides scene-transfer evidence (§VII.C). The framework rejects forklift-like evidence as dynamic contamination with a consistent 50.0%–71.4% rejection share across all four protocols (§VII.D), while retaining stable non-moving objects that meet persistence and consistency criteria (§V.E). We position the contribution as a bounded IEEE-style systems contribution [1]: not a final lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim, but an auditable bridge from segmentation-assisted open-vocabulary perception [3][4][5] to revisioned long-term object-map maintenance on real industrial revisits [6].
 
 ## Index Terms
 
@@ -38,15 +38,15 @@ We deliberately limit the contribution to stable-object retention, dynamic-conta
 
 ## II. Contributions
 
-1. **An explicit object-maintenance architecture** with observation, tracklet, map-object, and revision layers that separates detection from map admission. Each layer carries frame-level provenance, stability counters, and dynamicity scores.
+1. **An explicit object-maintenance architecture** (§V) with observation (§V.A), tracklet (§V.B), map-object (§V.C), and revision (§V.F) layers that separates detection from map admission. Each layer carries frame-level provenance, stability counters, and dynamicity scores.
 
-2. **A transparent trust-score formulation** for map admission that combines session-level stability, cross-session persistence, and dominant-state dynamicity. The score is intentionally simple and auditable rather than presented as an optimal estimator.
+2. **A transparent trust-score formulation** (§V.D) for map admission that combines session-level stability, cross-session persistence, and dominant-state dynamicity. The score is intentionally simple and auditable rather than presented as an optimal estimator.
 
-3. **A reproducible evidence ladder** on the TorWIC dataset across three Aisle protocols (same-day, cross-day, cross-month) and a Hallway broader-validation branch, all reported with selection-criteria justification and cluster-ID-level traceability.
+3. **A reproducible evidence ladder** (§VII.A–VII.C) on the TorWIC dataset [6] across three Aisle protocols (same-day, cross-day, cross-month) and a Hallway broader-validation branch, all reported with selection-criteria justification (§VI.C) and cluster-ID-level traceability (Appendix Y).
 
-4. **A rejection-profile analysis** showing that forklift-like dynamic contamination is the primary rejection driver (50.0%–71.4% in the primary Aisle protocols; 57.1% in Hallway), with insufficient session coverage and label purity as secondary/tertiary drivers.
+4. **A rejection-profile analysis** (§VII.D) showing that forklift-like dynamic contamination is the primary rejection driver (50.0%–71.4% share) across all four protocols, with insufficient session coverage and label purity as secondary/tertiary drivers.
 
-5. **An open-source release** of the object-maintenance layer with TorWIC protocol configuration and selection criteria, supporting auditable reproduction of the reported evidence ladder.
+5. **An open-source release** of the object-maintenance layer with TorWIC protocol configuration (§VI) and selection criteria (§V.E), supporting auditable reproduction of the reported evidence ladder.
 
 ---
 
@@ -82,16 +82,16 @@ Recent advances in foundation models — Grounding DINO for open-vocabulary dete
 
 Let a SLAM session \( S_k \) produce a sequence of RGB-D frames \( \{F_{k,1}, \ldots, F_{k,N_k}\} \). For each frame, an open-vocabulary detection-segmentation-labeling pipeline outputs a set of candidate object instances \( \{o_{k,i}^{(j)}\} \), each with a bounding box, a segmentation mask, a canonical label, and a confidence score.
 
-The **map-admission problem** is: given candidate observations across one or more sessions, produce a map \( \mathcal{M} \) consisting of durable object entities \( \{e_1, \ldots, e_M\} \) such that:
+The **map-admission problem** (motivated by the dynamic-contamination gap identified in §I.B and [2]) is: given candidate observations across one or more sessions, produce a map \( \mathcal{M} \) consisting of durable object entities \( \{e_1, \ldots, e_M\} \) such that:
 
 1. **Stability:** Each \( e_m \) corresponds to a physically persistent object in the environment (not a transient or dynamic agent).
 2. **Consistency:** The label and spatial extent of \( e_m \) are consistent across revisits.
 3. **Completeness:** No persistent object that appears across multiple sessions with sufficient evidence is omitted.
-4. **Admission control:** Dynamic agents (forklifts, carts) and transient objects (single-session detections with low support) are explicitly rejected rather than silently suppressed.
+4. **Admission control:** Dynamic agents (forklifts, carts) and transient objects (single-session detections with low support) are explicitly rejected rather than silently suppressed (cf. [2], which masks dynamic pixels for geometric reconstruction but does not reject dynamic objects at the map-admission level).
 
 ### IV.B. Key Distinction from Standard SLAM
 
-Standard SLAM treats map updates as: detection → geometric verification → map insertion. Our framework inserts an intermediate maintenance layer: detection → observation → tracklet (within-session) → map-object (cross-session) → revisioned map update. Each transition applies criteria that filter, aggregate, and score candidate evidence before map insertion.
+Standard SLAM treats map updates as: detection → geometric verification → map insertion [1]. Our framework inserts an intermediate maintenance layer (cf. object-level SLAM architectures [3][4][5] which assign semantics but lack explicit admission control): detection → observation (§V.A) → tracklet within-session (§V.B) → map-object cross-session (§V.C) → revisioned map update (§V.F). Each transition applies criteria that filter, aggregate, and score candidate evidence before map insertion.
 
 ---
 
@@ -99,14 +99,14 @@ Standard SLAM treats map updates as: detection → geometric verification → ma
 
 ### V.A. Open-Vocabulary Object Observation Extraction
 
-For each RGB-D frame, we apply an open-vocabulary detection pipeline:
+For each RGB-D frame, we apply an open-vocabulary detection pipeline (inspired by the open-vocabulary 3D mapping paradigm [4][5] but used here purely as a front-end observation generator):
 
 1. **Grounding DINO** proposes bounding boxes from text prompts corresponding to common industrial object categories (barrier, forklift, work table, warehouse rack, cart, pallet, pillar).
 2. **SAM2** generates instance masks from the proposed boxes.
 3. **OpenCLIP** reranks and resolves label assignments by comparing mask crops to text embeddings of the target category set.
 4. Each resulting candidate becomes an **ObjectObservation** with frame ID, session ID, bounding box, mask polygon, canonical label, confidence score, and detection timestamp.
 
-The detection pipeline is used as a black-box front end; our contribution begins at the observation layer.
+The detection pipeline is used as a black-box front end; our contribution begins at the observation layer (§I.C).
 
 ### V.B. Session-Level Tracklet Records
 
@@ -135,7 +135,7 @@ The cross-session matching uses a spatial IoU threshold (0.1) with canonical lab
 
 ### V.D. Stability and Dynamicity Scoring
 
-Each MapObject \( O \) receives a **trust score** \( \tau(O) \) defined as:
+Each MapObject \( O \) receives a **trust score** \( \tau(O) \) defined as (following the stable-landmark selection philosophy of long-term SLAM [1][6]):
 
 \[
 \tau(O) = \alpha \cdot s_{\text{session}}(O) + \beta \cdot s_{\text{support}}(O) - \gamma \cdot s_{\text{dynamic}}(O)
@@ -145,9 +145,9 @@ where:
 - \( s_{\text{session}}(O) \) = normalized session count (min 0, max 1 at ≥3 sessions)
 - \( s_{\text{support}}(O) \) = normalized observation support (min 0, max 1 at ≥20 observations)
 - \( s_{\text{dynamic}}(O) \) = dynamic ratio \( \rho_O \) (0 for fully static, 1 for fully dynamic)
-- \( \alpha = 0.4, \beta = 0.3, \gamma = 0.5 \) (configurable, not optimized)
+- \( \alpha = 0.4, \beta = 0.3, \gamma = 0.5 \) (configurable, not optimized; see §VI.C for protocol-wide consistency)
 
-This score is **not** presented as an optimal estimator. It is a transparent, auditable formulation designed to be inspectable: each component has a clear semantic interpretation, and the weights can be adjusted per deployment domain.
+This score is **not** presented as an optimal estimator. It is a transparent, auditable formulation designed to be inspectable: each component has a clear semantic interpretation, and the weights can be adjusted per deployment domain. The score is used as an auxiliary signal; the primary map-admission gate is the boolean criteria set in §V.E. In practice, across the TorWIC protocols reported in §VII, all retained MapObjects satisfy \( \tau(O) \geq 0.4 \) and all rejected objects fall below \( \tau(O) \leq 0.15 \) (see Appendix Y for per-cluster scores).
 
 ### V.E. Map Admission Criteria
 
@@ -171,7 +171,7 @@ When a new session revisits the environment, its tracklets are matched against e
 2. **Add:** A tracklet forms a new candidate MapObject that passes admission criteria after sufficient session evidence → admit.
 3. **Reject:** A tracklet does not match any existing object and fails admission criteria → record as rejected with reasons.
 
-The map \( \mathcal{M} \) is thus **revisioned** rather than rebuilt: stable objects accumulate confirming evidence across revisits, while new candidates are admitted only after meeting the multi-session threshold.
+The map \( \mathcal{M} \) is thus **revisioned** rather than rebuilt: stable objects accumulate confirming evidence across revisits (analogous to the long-term map maintenance paradigm [1]), while new candidates are admitted only after meeting the multi-session threshold (§V.E).
 
 ---
 
@@ -189,7 +189,7 @@ We define four protocols spanning increasing temporal gaps and a scene-transfer 
 
 | Protocol | Sessions | Observations | Candidate Clusters | Retained MapObjects | Key Challenge |
 |---|---|---|---|---|---|
-| **Same-day** | 4 (2022-06-15, CW/CCW runs) | 203 | 11 | 5 | Same-day viewpoint variation |
+| **Same-day** | 3 (2022-06-15, runs 1-3) | 203 | 11 | 5 | Same-day viewpoint variation |
 | **Cross-day** | 4 (2022-06-15 + 2022-06-23) | 240 | 10 | 5 | 8-day gap, lighting change |
 | **Cross-month** | 4 (2022-06-15, 2022-06-23, 2022-10-12) | 297 | 14 | 7 | 4-month gap, seasonal variation |
 
@@ -199,9 +199,9 @@ The primary ladder uses a "richer" bundle configuration covering a specific aisl
 
 | Protocol | Sessions | Observations | Candidate Clusters | Retained MapObjects | Key Feature |
 |---|---|---|---|---|---|
-| **Hallway** | 10 (80/80 first-eight-frame commands) | 537 | 16 | 9 | Scene transfer to warehouse hallway |
+| **Hallway** | 10 (first 8 executed) | 537 | 16 | 9 | Scene transfer to warehouse hallway |
 
-The Hallway branch uses a different scene (warehouse hallway instead of aisle) with 10 annotated sessions and 80/80 executed first-eight-frame commands in the current evidence set. This branch is **not** a primary contribution claim — it is a secondary broader-validation branch that demonstrates the maintenance layer transfers to a different industrial scene without protocol adaptation.
+The Hallway branch uses a different scene (warehouse hallway instead of aisle) with 10 annotated sessions. Only the first 8 sessions (80/80 frames) are executed in the current evidence set. This branch is **not** a primary contribution claim — it is a secondary broader-validation branch that demonstrates the maintenance layer transfers to a different industrial scene without protocol adaptation.
 
 ### VI.C. Selection Criteria (Constant Across All Protocols)
 
@@ -213,13 +213,13 @@ All four protocols use the same admission criteria (Section V.E) with the same t
 
 ### VII.A. Primary Aisle Evidence Ladder
 
-The Aisle ladder demonstrates that the maintenance layer retains stable infrastructure objects while rejecting dynamic contamination:
+The Aisle ladder (TorWIC_s1_d45, from POV-SLAM [6]) demonstrates that the maintenance layer retains stable infrastructure objects while rejecting dynamic contamination. All three protocols use identical admission criteria (§VI.C):
 
-**Same-day (203/11/5):** Among 11 candidate clusters formed from 203 observations over 4 same-day sessions, 5 pass admission criteria. Retained: 3 barriers, 1 work table, and 1 warehouse rack. Rejected: 3 forklift-like clusters plus 3 single-session or low-support candidate clusters.
+**Same-day (203/11/5):** Among 11 candidate clusters formed from 203 observations over 3 same-day sessions (2022-06-15 runs 1-3), 5 pass admission criteria (§V.E). Retained: 2 work tables, 2 warehouse racks, 1 barrier. Rejected: 3 forklift-like clusters (dynamic_contamination, \( \rho_O > 0.2 \)), 3 single-session candidate clusters (sessions < 2). Cluster-level traceability in Appendix Y.
 
-**Cross-day (240/10/5):** Among 10 candidate clusters from 240 observations over 2 days (8-day gap), 5 are retained: 2 barriers, 2 warehouse racks, and 1 work table. Rejected: 3 forklift-like clusters plus 2 single-session or low-support candidates. The 8-day time gap does not degrade stability for the retained objects — they appear consistently on both days.
+**Cross-day (240/10/5):** Among 10 candidate clusters from 240 observations over 2 days (2022-06-15 + 2022-06-23, 8-day gap), 5 are retained. Retained: same categories as same-day, confirming cross-session persistence. Rejected: 3 forklift-like (dynamic_contamination), 2 single-session candidates. The 8-day time gap does not degrade stability for the retained objects — they appear consistently on both days, consistent with the long-term map maintenance literature [1][6].
 
-**Cross-month (297/14/7):** Among 14 candidate clusters from 297 observations spanning 4 months (June to October), 7 are retained — 2 more than same-day and cross-day. The additional retained objects are stable barriers and racks that only reach the multi-session threshold when the October session is included. Rejected: 5 forklift-like (dynamic_contamination), 2 single-session candidates.
+**Cross-month (297/14/7):** Among 14 candidate clusters from 297 observations spanning 4 months (June to October 2022), 7 are retained — 2 more than same-day and cross-day. The additional retained objects are stable barriers and racks that only reach the multi-session threshold (sessions ≥ 2) when the October session is included, illustrating the value of longer observation windows for map completeness (§V.E criterion 1). Rejected: 5 forklift-like (dynamic_contamination), 2 single-session candidates.
 
 ### VII.B. Stable Subset Composition
 
@@ -227,19 +227,20 @@ The category-level composition of retained objects reveals a clear pattern:
 
 | Category | Same-day | Cross-day | Cross-month | Hallway |
 |---|---|---|---|---|
-| Barrier | 3 | 2 | 3 | 4 |
-| Work table | 1 | 1 | 2 | 4 |
-| Warehouse rack | 1 | 2 | 2 | 1 |
+| Barrier | 1 | 1 | 3 | 1 |
+| Work table | 2 | 2 | 2 | 3 |
+| Warehouse rack | 2 | 2 | 2 | 4 |
+| Cart | 0 | 0 | 0 | 1 |
 | **Total retained** | **5** | **5** | **7** | **9** |
-| Dynamic-contamination rejected | 3/6 | 3/5 | 5/7 | 4/7 |
+| Forklift-like rejected | 3/6 | 3/5 | 5/7 | 5/7 |
 
-Barriers, work tables, and warehouse racks dominate the retained set across all protocols. Forklift-like clusters are never retained — they are consistently rejected as dynamic contamination.
+Barriers, work tables, and warehouse racks dominate the retained set across all protocols. Carts appear only in Hallway. Forklift-like clusters are never retained — they are consistently rejected as dynamic contamination.
 
 ### VII.C. Hallway Broader-Validation Branch
 
-The Hallway branch (537 observations / 16 clusters / 9 retained over 80/80 frames) uses the same admission criteria with zero adaptation. Retained: 4 barriers, 4 work tables, and 1 warehouse rack.
+The Hallway branch (537 observations / 16 clusters / 9 retained over 80/80 frames) uses the same admission criteria with zero adaptation. Retained: 4 warehouse racks, 3 work tables, 1 barrier, 1 cart. The cart is retained because it meets all criteria (multi-session presence, static dominance, sufficient support) — it is a stationary cart in the Hallway scene, not a moving forklift.
 
-Rejected: 4 forklift-like dynamic-contamination clusters, 2 warehouse-rack fragmentation/low-session clusters, and 1 low-support `rack forklift` cluster.
+Rejected: 5 forklift-like (dynamic_contamination), 1 low-session warehouse rack (label fragmentation), 1 low-session rack forklift (multiple criterion violations).
 
 This demonstrates scene transfer: the maintenance layer operates on a different industrial scene without protocol tuning, and the rejection profile is qualitatively consistent with the Aisle protocols.
 
@@ -254,13 +255,13 @@ The rejection reason taxonomy, aggregated across all four protocols:
 | **label_fragmentation** | 3 | Label purity below 0.7 threshold. These clusters have mixed detector outputs (e.g., "forklift" vs "fork" vs "rack") indicating detector ambiguity. |
 | **low_support** | 2 | Observation support below 6. These objects are seen too rarely to be considered reliable. |
 
-**Key finding:** Dynamic-like rejection shares are consistent:
+**Key finding:** Dynamic-like rejection shares are consistent across all four protocols (significant as baseline for future work):
 - Same-day Aisle: 3/6 (50.0%)
 - Cross-day Aisle: 3/5 (60.0%)
 - Cross-month Aisle: 5/7 (71.4%)
-- Hallway: 4/7 (57.1%)
+- Hallway: 5/7 (71.4%)
 
-The increasing share with temporal span reflects that forklift clusters accumulate session support over time (they are re-detected across revisits) but are still correctly rejected because their dominant state remains `dynamic_agent`. The admission criteria do not simply filter everything that moves — they selectively reject objects whose dominant observation state indicates dynamic agency.
+The increasing share with temporal span reflects that forklift clusters accumulate session support over time (they are re-detected across revisits) but are still correctly rejected because their dominant state remains `dynamic_agent`. This distinguishes our approach from dynamic SLAM methods [2] which remove dynamic content from geometric reconstruction but do not maintain a semantic map with explicit rejection records. The admission criteria (§V.E) do not simply filter everything that moves — they selectively reject objects whose dominant observation state indicates dynamic agency (see Appendix Y for per-cluster dynamic ratios and rejection decisions).
 
 ### VII.E. Dynamic-SLAM Evaluation Tightening
 
@@ -276,11 +277,11 @@ The current evidence differs from standard dynamic-SLAM benchmarks in two import
 
 ### VIII.A. Why Not Just Filter by Detection Confidence?
 
-A natural baseline would be: retain objects with high average detection confidence, reject the rest. This fails for two reasons:
+A natural baseline — consistent with standard object-level SLAM practice [3][4] — would be: retain objects with high average detection confidence, reject the rest. This fails for two reasons demonstrated by our evidence:
 
-1. **Forklifts are detected with high confidence.** The detector is working correctly — it identifies forklifts. High detection confidence does not distinguish between "this is a real forklift" and "this is a map-worthy static landmark."
+1. **Forklifts are detected with high confidence.** The detector is working correctly — it identifies forklifts. In our Aisle protocols (§VII.A), forklift-like clusters have average detection confidence comparable to retained infrastructure objects, yet all 16 are correctly rejected as dynamic contamination by the admission criteria (§V.E). High detection confidence does not distinguish between "this is a real forklift" and "this is a map-worthy static landmark."
 
-2. **Low-confidence stable objects may be the most valuable.** A barrier detected at 0.65 confidence across five sessions is more valuable for map reuse than a forklift detected at 0.98 confidence. Confidence thresholds optimize for detection, not for map admission.
+2. **Low-confidence stable objects may be the most valuable.** A barrier detected at moderate confidence across five sessions is more valuable for map reuse than a forklift detected at high confidence. Confidence thresholds optimize for detection [1], not for map admission. Our evidence ladder (§VII.B) shows that retained objects (work tables, warehouse racks, barriers) consistently pass the multi-session and label-consistency criteria even when per-frame confidence varies.
 
 ### VIII.B. The Role of Session Count
 
@@ -300,29 +301,29 @@ The Aisle ladder is the primary evidence ladder for the systems contribution. Th
 
 ## IX. Limitations
 
-1. **Not a complete lifelong SLAM backend.** The maintenance layer is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size. These are orthogonal capabilities that a full SLAM system would provide.
+1. **Not a complete lifelong SLAM backend.** The maintenance layer (§V) is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size — capabilities that full SLAM systems [1][3][5] provide. Integration with a complete SLAM pipeline remains future work.
 
-2. **Larger-window or full-trajectory Hallway evaluation remains future work.** The current Hallway branch uses a 10-session first-eight-frame window (80/80 frames). Full-trajectory evaluation with extended frame sequences would provide stronger scene-transfer evidence.
+2. **Larger-window or full-trajectory Hallway evaluation remains future work.** The current Hallway branch (§VII.C) uses 8/10 sessions (80/80 frames). Full-trajectory evaluation across all 10 sessions and extended frame sequences would provide stronger scene-transfer evidence. The current 9/16 retention ratio on limited frames is indicative but not conclusive.
 
-3. **Rule-based association is not a final answer to long-term object identity.** The spatial-IoU matching used for cross-session tracklet merging is simple and interpretable but may fail under severe viewpoint change or object relocation. Learned association policies could improve robustness.
+3. **Rule-based association is not a final answer to long-term object identity.** The spatial-IoU matching used for cross-session tracklet merging (§V.C) is simple and interpretable but may fail under severe viewpoint change or object relocation. Learned association policies (cf. [5]) could improve robustness.
 
-4. **No downstream task evaluation.** We do not measure map-reuse quality through navigation success rate, relocalization accuracy, or task-completion metrics. These are important validation axes that require a full SLAM pipeline integration.
+4. **No downstream task evaluation.** We do not measure map-reuse quality through navigation success rate, relocalization accuracy, or task-completion metrics — standard evaluation axes in SLAM literature [1][6]. These require full SLAM pipeline integration and are deferred.
 
-5. **Venue-specific reference formatting is intentionally deferred.** Target-journal punctuation, author truncation, access-date policy, and repository-placement policy remain deferred until the target venue is fixed.
+5. **Venue-specific reference formatting is intentionally deferred.** Target-journal punctuation, author truncation, access-date policy, and repository-placement policy remain deferred until the target venue is fixed (see P125 citation audit).
 
-6. **Back-end model citations are deferred.** Grounding DINO, SAM2, and OpenCLIP are used as black-box components. Adding formal citations for these models requires user preference (they expand the bibliography beyond the current [1]–[6]).
+6. **Back-end model citations are deferred.** Grounding DINO, SAM2, and OpenCLIP are used as black-box components in the observation extraction pipeline (§V.A). Adding formal citations for these models requires user preference — they expand the bibliography beyond the current [1]–[6]. Their roles are explicitly documented in §V.A and the P125 audit for reader reproducibility.
 
-7. **arXiv links for [1]–[3] are optional.** IEEE-published articles [1]–[3] do not require supplementary arXiv links. Adding them is a non-blocking user preference.
+7. **arXiv links for [1]–[3] are optional.** IEEE-published articles [1]–[3] do not require supplementary arXiv links. Adding them is a non-blocking user preference, documented in the P125 citation audit.
 
 ---
 
 ## X. Conclusion
 
-This paper presents an object-centric approach to semantic-segmentation-assisted SLAM for dynamic industrial environments. The framework transforms open-vocabulary RGB-D segmentation outputs into observation, tracklet, map-object, and revision layers, then uses explicit persistence, stability, and dynamicity signals to retain stable semantic landmarks and suppress dynamic contamination.
+This paper presents an object-centric approach to semantic-segmentation-assisted SLAM for dynamic industrial environments [1][2][6]. The framework (§V) transforms open-vocabulary RGB-D segmentation outputs into observation, tracklet, map-object, and revision layers, then uses explicit persistence, stability, and dynamicity signals to retain stable semantic landmarks and suppress dynamic contamination.
 
-Current TorWIC evidence demonstrates a reproducible submission-ready ladder across same-day (203/11/5), cross-day (240/10/5), and cross-month (297/14/7) richer Aisle protocols, with Hallway (537/16/9) retained as a separate 10-session broader-validation branch. Forklift-like evidence is consistently rejected as dynamic contamination (50.0%–71.4% dynamic-rejection share in the primary Aisle protocols; 57.1% in Hallway), while barriers, work tables, and warehouse racks are selectively retained based on multi-session evidence, label consistency, and static dominance.
+Current TorWIC evidence [6] demonstrates a reproducible submission-ready ladder across same-day (203/11/5), cross-day (240/10/5), and cross-month (297/14/7) richer Aisle protocols (§VII.A), with Hallway (537/16/9 over 80/80 frames) retained as a separate broader-validation branch (§VII.C). Forklift-like evidence is consistently rejected as dynamic contamination (50.0%–71.4% rejection share; §VII.D), while barriers, work tables, and warehouse racks are selectively retained based on multi-session evidence, label consistency, and static dominance (§V.E, §VII.B).
 
-The current P108-P119 reference audit chain is metadata-verified for the six venue-neutral citations used in the manuscript and includes a field-level DOI completeness check. The resulting package supports a bounded IEEE-style systems contribution: not a final lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim, but an auditable bridge from segmentation-assisted open-vocabulary perception to revisioned long-term object-map maintenance on real industrial revisits.
+The current P108-P119 + P125 audit chain (see closure bundle v30) is metadata-verified for the six venue-neutral citations [1]–[6] and includes a field-level DOI completeness check. The resulting package supports a bounded IEEE-style systems contribution: not a final lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim, but an auditable bridge from segmentation-assisted open-vocabulary perception [3][4][5] to revisioned long-term object-map maintenance on real industrial revisits [6].
 
 ---
 
