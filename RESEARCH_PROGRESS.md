@@ -302,3 +302,17 @@ summary and local paths here, then commit and push the repository.
 - ZH draft synced.
 - Audit: projects/industrial-semantic-slam/artifacts/p127-manuscript-coherence-polish-audit-2026-05-09.md.
 - Bundle v32: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v32.md.
+
+## 2026-05-09 P128 submission package consistency audit
+
+- Full package cross-reference audit completed.
+- Bundle chain v18-v32: 15/15 mapped to phase audits, 0 gaps.
+- Manifest: 223 entries, all phases P86-P127 represented.
+- Positioned/clean drafts: byte-identical, all evidence anchors present.
+- Deliverables checklist: 27/27 done, 0 pending.
+- Appendix anchors: Appendix Y 4× referenced in thick draft.
+- Deferred gaps: 7 explicitly recorded in ≥2 package components.
+- Archive: 374 evidence files in /home/rui/slam/outputs/.
+- 0 dangling references across entire package.
+- Audit: projects/industrial-semantic-slam/artifacts/p128-submission-package-consistency-audit-2026-05-09.md.
+- Bundle v33: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v33.md.
