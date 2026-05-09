@@ -80,3 +80,17 @@ summary and local paths here, then commit and push the repository.
 - Produced P112 stable-subset composition table and closure bundle v22; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_p112_evaluation_tightening_stable_subset_composition_v1.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v22.md`.
 - Evidence summary: derived category-level stable-subset composition from actual aisle/hallway subset JSON data. Barriers (42.9%), work tables (28.6%), and warehouse racks (28.6%) consistently dominate the cross-month Aisle retained set. Forklift-like clusters are never retained. Dynamic-like rejection share increases from 50.0% same-day to 71.4% cross-month and Hallway. Synchronized Appendix S into both positioned and clean drafts.
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
+
+## 2026-05-09 repository-visible paper figures
+
+- Added curated paper figures under `paper/figures/` and embedded them in both English and Chinese repository-visible manuscript drafts.
+- Figure set: TorWIC real-session overlays, paper result overview, stable-object selection table, and Hallway broader-validation composite.
+- Evidence summary: GitHub readers can now inspect the visual story directly from `paper/manuscript_en.md` and `paper/manuscript_zh.md` without opening ignored `outputs/` paths.
+- Policy: selected lightweight paper figures are tracked; raw datasets, videos, point clouds, model weights, and full generated output directories remain excluded.
+
+## 2026-05-09 P113 submission-ready closure
+
+- Produced appendix/table closure v14, P113 audit, and closure bundle v23; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_submission_ready_appendix_table_closure_v14.md` and `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v23.md`.
+- Evidence summary: closure v14 consolidates the full P108-P113 audit chain with category-level stable-subset composition, cluster rejection profile, consolidated evidence ladder, and Appendix A-T mapping. Synchronized Appendix T into both positioned and clean drafts. Phase queue exhausted after P113.
+- Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol.
+- GitHub push blocked by SSH for commits a48e320 (P112) and subsequent; local commits preserved.
