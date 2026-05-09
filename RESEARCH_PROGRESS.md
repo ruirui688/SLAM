@@ -243,3 +243,24 @@ summary and local paths here, then commit and push the repository.
   object-map admission and dynamic-object filtering is connected; a full
   visual-SLAM backend with ATE/RPE or map-quality improvements is not yet
   claimed.
+
+## 2026-05-09 dynamic mask to SLAM frontend bridge
+
+- Added `tools/build_dynamic_slam_frontend_demo.py` and `make dynamic-slam-frontend`.
+- The new demo converts a tracked `forklift` semantic mask into:
+  - `examples/dynamic_slam_frontend_example/dynamic_mask.png`;
+  - `examples/dynamic_slam_frontend_example/slam_input_masked.png`;
+  - `examples/dynamic_slam_frontend_example/slam_frontend_manifest.json`;
+  - `examples/dynamic_slam_frontend_example/dynamic_slam_frontend_result.png`.
+- Verified output: dynamic mask coverage is `0.173%` on the example frame.
+- Claim boundary: this is now a file-level bridge from semantic dynamic masks
+  to SLAM frontend inputs. It is not yet a backend trajectory evaluation with
+  ATE/RPE.
+
+## 2026-05-09 P125 citation metadata verification (thick draft pass)
+
+- Verified [1]-[6] citations in EN+ZH thick drafts: 6/6 present, 0 orphans, 0 unresolved placeholders.
+- 3 deferred gaps explicitly recorded (Grounding DINO/SAM2/OpenCLIP — back-end tools, user preference needed for formal citation).
+- Related Work 4/4 buckets covered with sufficient citations.
+- Bundle v30 created (P120 thick drafts + P125 citation audit).
+- Audit artifact: projects/industrial-semantic-slam/artifacts/p125-final-polish-citation-verification-audit-2026-05-09.md.
