@@ -1,68 +1,80 @@
-# Build Notes — T-RO LaTeX Scaffold
+# BUILD_NOTES.md — T-RO LaTeX Build Environment
 
-## BLOCKER: No LaTeX on This Host
+**Date:** 2026-05-09  
+**Status:** ⚠️ LaTeX unavailable on build host — scaffold-only
 
-This machine does not have `pdflatex`, `latexmk`, `bibtex`, `kpsewhich`, or
-any TeX Live installation. **The scaffold will not compile locally** in its
-current state.
+## Current Environment
 
-```bash
-$ which pdflatex || echo "NOT FOUND"
-# NOT FOUND
-
-$ which latexmk || echo "NOT FOUND"
-# NOT FOUND
-
-$ kpsewhich IEEEtran.cls || echo "NOT FOUND"
-# NOT FOUND
+```
+Host: ubuntu (x64)
+LaTeX: NOT INSTALLED
+  - pdflatex: not found
+  - tectonic: not found
+  - texlive-latex-base: not installed
+  - IEEEtran.cls: not available locally
 ```
 
-## Compile Options (Do Not Install Now)
+## Blocker Record
 
-1. **Overleaf (recommended for draft iterations):**
-   - Upload the entire `paper/tro_submission/` directory to an Overleaf project.
-   - Select `IEEEtran` as the document class (Overleaf provides it by default).
-   - Set compiler to `pdfLaTeX` (NOT XeLaTeX or LuaLaTeX for IEEEtran).
-   - `references.bib` will be auto-processed by Overleaf's BibTeX backend.
+**Blocker ID:** BLOCKER-TRO-LATEX-001  
+**Severity:** Non-blocking for scaffold phase (P161). Must be resolved before P161 completion or delegated to P161b.  
+**Description:** `pdflatex` and `IEEEtran.cls` are not available on the build host. The `main.tex` scaffold is syntactically complete but cannot be compiled.  
+**Resolution options:**
+1. Install texlive on build host: `sudo apt-get install texlive-latex-base texlive-latex-recommended texlive-latex-extra` (requires root, ~500 MB)
+2. Use a minimal TeX distribution: `tectonic` (single-binary, ~30 MB, downloads packages on-demand)
+3. Use Overleaf for compilation while keeping source in git (recommended for collaboration)
+4. Delegate compilation to a separate machine with LaTeX installed
 
-2. **Local TeX Live (after explicit user approval):**
-   ```bash
-   sudo apt install texlive-full   # ~6 GB — user approval required
-   # OR minimal:
-   sudo apt install texlive-base texlive-latex-recommended texlive-latex-extra
-   ```
-   The minimal install is sufficient for IEEEtran + basic journal compilation.
+**Recommendation:** Option 3 (Overleaf) is the pragmatic path for advisor collaboration. The git repo remains the source of truth; Overleaf syncs via git or manual upload.
 
-3. **Docker (alternative):**
-   ```bash
-   docker run --rm -v $(pwd):/workdir -w /workdir texlive/texlive:latest \
-     pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex main.tex
-   ```
-
-## Expected Compile Sequence
+## Build Commands (when LaTeX is available)
 
 ```bash
-cd paper/tro_submission/
-pdflatex main.tex    # first pass: figure/table placeholders, citation keys
-bibtex main           # resolve \cite{} → BibTeX entries
-pdflatex main.tex    # second pass: bibliography insertion
-pdflatex main.tex    # third pass: cross-reference stabilization
-```
+cd /home/rui/slam/paper/tro_submission
 
-Or with `latexmk`:
-```bash
+# Option A: traditional pdflatex + bibtex
+pdflatex main.tex
+bibtex main
+pdflatex main.tex
+pdflatex main.tex
+
+# Option B: latexmk (recommended, handles cross-refs and bibtex automatically)
 latexmk -pdf main.tex
+
+# Option C: tectonic (single pass, auto-downloads packages)
+tectonic main.tex
 ```
 
-## Known Issues to Fix Before First Real Compile
+## Dependency Checklist
 
-- Figure file paths: the `main.tex` skeleton uses `../figures/<file>.png`
-  relative paths. Overleaf will need adjusted paths or symlinks.
-- IEEEtran figure sizing: `.png` exports from Python pipelines are high-DPI;
-  scaling with `\includegraphics[width=\columnwidth]{...}` should be adjusted.
-- Bibliography style: currently `\bibliographystyle{IEEEtran}`; verify with
-  IEEE T-RO author guidelines for any custom `.bst` requirement.
-- Double-column figure placement: `figure*` (wide) vs `figure` (column-width)
-  needs per-figure tuning after real content is filled in.
-- `\today` in the blind header placeholder should be removed before final
-  submission — T-RO does not use submission-date headers.
+- [ ] IEEEtran.cls (IEEE Transactions class file, v1.8)
+- [ ] graphicx (included in texlive-latex-recommended)
+- [ ] amsmath, amssymb (included in texlive-latex-recommended)
+- [ ] booktabs (included in texlive-latex-recommended)
+- [ ] multirow (included in texlive-latex-recommended)
+- [ ] hyperref (included in texlive-latex-recommended)
+- [ ] cite (included in texlive-latex-base)
+- [ ] xcolor (included in texlive-latex-recommended)
+- [ ] balance (included in texlive-latex-extra)
+
+All packages are standard IEEEtran dependencies. No exotic packages are required.
+
+## Known Issues
+
+1. **IEEEtran.cls not bundled.** IEEEtran is distributed with texlive but may need explicit installation: `tlmgr install ieeetran` (if using TeX Live). Overleaf includes it by default.
+2. **Figure paths.** All `\includegraphics` paths in `main.tex` are relative to `paper/tro_submission/figures/`. PNG files must be copied or symlinked from `paper/figures/`.
+3. **Double-anonymous mode.** The `\author{}` block is empty. Self-citations use `\cite{...}` with no author-year formatting that would reveal identity. The acknowledgments section is removed.
+4. **Abstract as separate file.** `main.tex` uses `\input{abstract}` to keep the abstract in a separate file for easier reuse. Create `abstract.tex` in this directory, or replace `\input{abstract}` with inline abstract text.
+
+## Rebuild Triggers
+
+Regenerate the full T-RO PDF after:
+- P164: Related work expansion (new references → new citations in text)
+- Any manuscript content changes
+- Figure regeneration at 300 dpi
+
+## Supplementary Material (P163)
+
+Supplementary material should be a separate PDF. Options:
+- Create `supplementary.tex` using `\documentclass{article}` and the same IEEEtran bibliography style
+- Or assemble a portable supplementary package with figures and tables in a self-contained document

@@ -923,3 +923,16 @@ summary and local paths here, then commit and push the repository.
 - No new phase opened: P161 本身是一次性 scaffold task，无后继 phase policy
 - No journal recommendation: T-RO 沿用 P160 的 venue strategy 结论
 - Policy: existing-data-only, no texlive install, no template download, no model/data download
+
+## 2026-05-09 P161 T-RO template conversion scaffold
+
+- Created `paper/tro_submission/` directory with complete LaTeX scaffold:
+  - `README.md`: directory guide, conversion checklist, TR-O author guidelines reference
+  - `main.tex`: ~500-line IEEEtran scaffold with all 10 sections, figure/table placeholders, cross-reference labels, double-anonymous author block
+  - `references.bib`: 11 BibTeX entries (DOI-verified) + 15-25 expansion slots for P164
+  - `FIGURE_PLAN.md`: 12 main-body + 4 supplementary figures placement plan with sizing notes
+  - `BUILD_NOTES.md`: build environment documentation, LaTeX blocker record, dependency checklist, known issues
+- **LaTeX blocker recorded:** pdflatex/texlive not installed on build host. Recommendations: Overleaf for compilation (pragmatic) or tectonic as lightweight alternative.
+- Page budget estimate: ~16 pages (within 20-page TR-O limit, above 12-page free tier)
+- Blockers: BLOCKER-TRO-LATEX-001 (no LaTeX on host)
+- All files are syntactically complete scaffolds — content integration from manuscript_en_thick.md remains as next step

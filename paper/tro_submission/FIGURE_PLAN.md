@@ -1,86 +1,63 @@
-# T-RO Figure Plan — Main vs. Supplementary
+# FIGURE_PLAN.md — T-RO Figure Placement Plan
 
-Total figures: 16. T-RO main text target: 10–12 figures.
-Supplementary material: 4–6 figures (submitted as a separate PDF).
+**Template:** IEEEtran, two-column  
+**Figure width target:** \columnwidth (3.5 in / 89 mm) for single-column, \textwidth (7.16 in / 182 mm) for double-column (spanning) floats  
+**Resolution:** 300 dpi recommended for TR-O (current figures at 150 dpi — acceptable, but regenerate at 300 dpi for final submission)
 
-## Main Text Figures (10)
+## Main-Body Figures (12 figures)
 
-| Main # | Original # | File | Description | Width |
-|---|---|---|---|---|
-| 1 | Fig. 1 | `../figures/torwic_paper_result_overview.png` | Pipeline overview: observation→tracklet→map-object→revision | column |
-| 2 | Fig. 2 | `../figures/torwic_real_session_overlays.png` | Primary Aisle evidence ladder (203/11/5, 240/10/5, 297/14/7) | wide |
-| 3 | Fig. 3 | `../figures/torwic_stable_object_selection_v5.png` | Map-admission selectivity across four protocols | wide |
-| 4 | Fig. 4 | `../figures/torwic_dynamic_slam_backend_p134.png` | Bounded DROID-SLAM backend closure (64-frame) | column |
-| 5 | Fig. 11 | `../figures/torwic_before_after_map_composition_p156.png` | Before/after map composition: B0 vs B2 | column |
-| 6 | Fig. 12 | `../figures/torwic_object_lifecycle_p156.png` | Object lifecycle: stable barrier vs forklift rejection | wide |
-| 7 | Fig. 13 | `../figures/torwic_admission_decision_space_p156.png` | Admission decision space: dynamic_ratio × session_count | wide |
-| 8 | Fig. 14 | `../figures/torwic_per_category_retention_p157.png` | Per-category retention/rejection bar chart | column |
-| 9 | Fig. 10 | `../figures/torwic_dynamic_mask_first32_real_p140.png` | Representative dynamic-mask diagnostic (strongest: 32 real frames) | column |
-| 10 | Fig. 4 (Hallway) | `../figures/torwic_hallway_composite.png` | Hallway broader-validation composite | wide |
+| Fig | File | Width | Section | Caption Summary |
+|-----|------|-------|---------|-----------------|
+| 1 | `figures/torwic_paper_result_overview.png` | double-col | §VII.A | Full pipeline: perception → maintenance → map |
+| 2 | `figures/torwic_real_session_overlays.png` | double-col | §VII.D | Four-protocol rejection-ratio overview |
+| 3 | `figures/torwic_hallway_composite.png` | double-col | §VII.C | Hallway scene-transfer evidence |
+| 4 | `figures/torwic_dynamic_slam_backend_p134.png` | single-col | §VII.E | DROID-SLAM raw-vs-masked trajectories |
+| 5 | `figures/torwic_dynamic_mask_coverage_p135.png` | single-col | §VII.F | Dynamic mask coverage per config |
+| 6 | `figures/torwic_dynamic_mask_temporal_stress_p136.png` | single-col | §VII.F | Temporal propagation stress test |
+| 7 | `figures/torwic_dynamic_mask_flow_stress_p137.png` | single-col | §VII.F | Optical-flow propagation stress test |
+| 8 | `figures/torwic_dynamic_mask_first8_real_p138.png` | single-col | §VII.F | First-8 real mask diagnostic |
+| 9 | `figures/torwic_dynamic_mask_first16_real_p139.png` | single-col | §VII.F | First-16 real mask diagnostic |
+| 10 | `figures/torwic_dynamic_mask_first32_real_p140.png` | single-col | §VII.F | First-32 real mask diagnostic |
+| 11 | `figures/torwic_before_after_map_composition_p156.png` | single-col | §VII.G.2 | B0 vs B2 map composition |
+| 13 | `figures/torwic_admission_decision_space_p156.png` | double-col | §VII.G.1 | Dynamic_ratio × session_count scatter |
 
-## Supplementary Figures (6)
+## Supplementary Figures (4 figures, P163)
 
-### S1. Consolidated Dynamic-SLAM Mask Coverage Panel (Figs 5–9 merged)
+| Fig | File | Caption Summary |
+|-----|------|-----------------|
+| S1 (12) | `figures/torwic_object_lifecycle_p156.png` | Object lifecycle: barrier admission vs forklift rejection |
+| S2 (14) | `figures/torwic_per_category_retention_p157.png` | Per-category retention/rejection bar chart |
+| S3 (15) | `figures/torwic_rejection_reason_distribution_p157.png` | Rejection reason distribution |
+| S4 (16) | `figures/torwic_rejection_reason_heatmap_p157.png` | Category × rejection reason heatmap |
 
-Merge Figs 5–9 into a single multi-panel figure:
+## Figure Sizing Notes
 
-| Panel | Original | File |
-|---|---|---|
-| (a) | Fig. 5 | `../figures/torwic_dynamic_mask_coverage_p135.png` |
-| (b) | Fig. 6 | `../figures/torwic_dynamic_mask_temporal_stress_p136.png` |
-| (c) | Fig. 7 | `../figures/torwic_dynamic_mask_flow_stress_p137.png` |
-| (d) | Fig. 8 | `../figures/torwic_dynamic_mask_first8_real_p138.png` |
-| (e) | Fig. 9 | `../figures/torwic_dynamic_mask_first16_real_p139.png` |
+- **Double-column figures (1,2,3,13):** Use `\begin{figure*}`. Consider reducing size to fit within page margins while preserving readability.
+- **Single-column figures (4-11):** Use `\begin{figure}`. Current PNGs are ~1200-1600px wide; at 150dpi they render at ~8-10 inches. They will need to be scaled via `\includegraphics[width=\columnwidth]{...}`.
+- **Resolution:** Current figures at 150 dpi are readable but slightly below the 300 dpi TR-O recommendation. For final submission, regenerate all figures at `dpi=300` and update in this plan.
 
-Caption: "Dynamic-SLAM mask coverage diagnostics (P135–P139).
-(a) Existing semantic-mask coverage: 3/64 frames, 0.026% mean.
-(b) Temporal nearest-frame propagation stress test: 16/64 frames, 0.267%.
-(c) Optical-flow warped propagation stress test: same coverage.
-(d) First-eight real frontend masks: 8/64 frames, 0.118%.
-(e) First-sixteen real frontend masks: 16/64 frames, 0.264%.
-All five configurations produce effectively tied ATE/RPE
-(|Δ| < 0.1 mm), confirming that the bounding constraint is
-dynamic-mask area, not propagation method."
+## Table Placement
 
-### S2. Rejection-Reason Derivative Figures (Figs 15–16)
+| Table | Content | Section |
+|-------|---------|---------|
+| 1 | Evidence Ladder Summary (Aisle protocols) | §VII.A |
+| 2 | Same-Day Aisle Selection Analysis | §VII.B |
+| 3 | Cross-Day Aisle Selection Analysis | §VII.B |
+| 4 | Hallway Selection Analysis | §VII.C |
+| 5 | DROID-SLAM Backend Configuration Survey | §VII.E |
+| 6 | Complete Dynamic Masking Evidence Chain | §VII.F |
+| 7 | Parameter Ablation Summary (P154) | §VII.G.1 |
+| 8 | Baseline Comparison (P155) | §VII.G.2 |
+| 9 | Per-Category Retention Matrix (P157) | §VII.G.3 |
 
-| Panel | Original | File |
-|---|---|---|
-| (a) | Fig. 15 | `../figures/torwic_rejection_reason_distribution_p157.png` |
-| (b) | Fig. 16 | `../figures/torwic_rejection_reason_heatmap_p157.png` |
+Tables 7-9 are new (P154-P157). Tables 1-6 are existing.
 
-Caption: "Rejection reason analysis (P157).
-(a) Distribution across 15 rejected clusters (multi-label).
-(b) Per-category × rejection reason heatmap."
+## Overlength Risk Assessment
 
-## Consolidation Rationale
+- All 12 main-body figures: ~3 pages of figure floats
+- 9 tables: ~3 pages of table floats
+- Text body: ~8 pages
+- References: ~2 pages
+- **Estimated total: ~16 pages** (within 20-page limit, but >12-page free tier)
 
-- **Figs 5–9 → S1 multi-panel**: These are diagnostic variants of the same
-  core experiment (dynamic-mask coverage vs ATE). Showing all five as separate
-  main-text figures would inflate the page count without adding independent
-  evidence. A merged multi-panel figure preserves traceability while saving 4
-  figure slots.
-
-- **Figs 15–16 → S2 multi-panel**: These are supporting analytics for the
-  per-category retention result (Fig. 14 in main text). The main narrative is
-  adequately served by the bar chart; the distribution and heatmap provide
-  reviewer-facing detail.
-
-- **Fig. 10 (first-32 real masks, P140)** is selected as the single
-  representative dynamic-mask figure in the main text because it is the
-  strongest configuration (32/64 frames, 0.568% coverage) and shows the
-  asymptote of the real-mask scaling experiment.
-
-## Page Budget Accounting
-
-| What | Pages (est.) |
-|---|---|
-| Text body (~9,400 words) | ~10.5 |
-| 10 main-text figures | ~3.5 |
-| 5 tables | ~2.0 |
-| References (11 entries) | ~0.8 |
-| **Total** | **~16.8** |
-
-Within IEEE T-RO 20-page limit with ~3 pages margin for layout variance.
-If a reviewer or editor requests cuts, Figs 3 and 10 are the first candidates
-for supplementary relocation.
+The 16-page estimate is within TR-O's regular-paper budget. If the page count exceeds 20 after full content insertion, move Tables 4 and/or 9 to supplementary.

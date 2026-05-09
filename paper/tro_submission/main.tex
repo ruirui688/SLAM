@@ -1,505 +1,297 @@
-% !TEX TS-program = pdflatex
-% !BIB program = bibtex
-%
-% IEEE T-RO Regular Paper — Double-Anonymous Submission Scaffold
-% Generated: 2026-05-09 (P161 tro-template-conversion-scaffold)
-% Status: skeleton — section structure, figure/table placeholders, and
-%         citation keys. No fabricated results. Content must be filled
-%         from paper/manuscript_en_thick.md.
-% Compile: pdflatex main && bibtex main && pdflatex main && pdflatex main
+% ============================================================================
+% T-RO Submission — Session-Level Map Admission Control for Industrial SLAM
+% Target: IEEE Transactions on Robotics, Regular Paper
+% Template: IEEEtran.cls v1.8
+% Status: SCAFFOLD — author block stripped for double-anonymous review
+% ============================================================================
 
 \documentclass[journal]{IEEEtran}
 
-% ── Packages ────────────────────────────────────────────────────────
+% === Packages ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
-\usepackage{hyperref}
 \usepackage{multirow}
-\usepackage{cite}          % IEEE-style compressed numeric citations
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{xcolor}
+\usepackage{balance}  % balance last page columns
 
-% ── Double-anonymous settings ───────────────────────────────────────
-% T-RO requires double-anonymous review. The initial submission must
-% not include author names, affiliations, acknowledgments, or
-% identifying funding disclosures.
-\newcommand{\blind}{[BLINDED — ADD AFTER ACCEPTANCE]}
+% === Double-anonymous: strip all author metadata ===
+% \author{} left empty for initial submission
+% \thanks{} removed
+% Self-citations in text use third-person: "[1] presented..."
+
+% === PDF metadata (will be filled post-acceptance) ===
+\hypersetup{
+  pdfauthor={},
+  pdftitle={Session-Level Map Admission Control for Semantic-Segmentation-Assisted SLAM in Dynamic Industrial Environments},
+  pdfsubject={Robotics, SLAM, Semantic Mapping},
+  pdfkeywords={SLAM, semantic segmentation, dynamic object filtering, object-level mapping, map maintenance, industrial robotics, open-vocabulary perception, long-term autonomy}
+}
 
 \begin{document}
 
-\title{Dynamic Industrial Semantic-Segmentation-Assisted SLAM:\\
-Object-Centric Map Maintenance via Open-Vocabulary\\
-Object-Instance Filtering}
+% === Title (NO author block for double-anonymous) ===
+\title{Session-Level Map Admission Control for \\ Semantic-Segmentation-Assisted SLAM \\ in Dynamic Industrial Environments}
 
-\author{\blind}
-\thanks{\blind}
-
+% === Author block: EMPTY for double-anonymous ===
+% Author names, affiliations, ORCID, and acknowledgments are removed.
+% They will be reinstated for the final submission or revision stage.
+\author{}
 \maketitle
 
-% ── Abstract ────────────────────────────────────────────────────────
+% ============================================================================
+% ABSTRACT
+% ============================================================================
 \begin{abstract}
-Dynamic industrial environments challenge semantic SLAM because stable
-infrastructure, movable equipment, forklifts, carts, people, and temporary
-cargo can appear in the same RGB-D observations. A semantic map that admits
-every segmented object as persistent structure risks semantic drift and
-dynamic-object contamination. This paper studies semantic-segmentation-assisted
-SLAM for dynamic industrial environments as a principled session-level map
-admission control problem. Starting from an RGB-D open-vocabulary frontend
-based on Grounding DINO~\cite{liu2024grounding}, SAM2
-segmentation~\cite{ravi2024sam2}, OpenCLIP reranking~\cite{cherti2023reproducible},
-and 2D-to-3D object initialization, we build an object-centric maintenance
-layer that converts segmentation-derived detections into
-\emph{ObjectObservations}, session-level \emph{TrackletRecords},
-cross-session \emph{MapObjects}, and revisioned map updates. The key mechanism
-is explicit admission control rather than raw detection yield: persistence,
-stability, and dynamicity signals determine whether segmented semantic evidence
-is retained as stable landmark support or rejected as transient or dynamic
-contamination. We evaluate the current system on TorWIC industrial RGB-D
-revisits~\cite{barath2023povslam} under same-day, cross-day, and cross-month
-Aisle protocols, with Hallway retained as a separate 10-session
-broader-validation branch. The primary Aisle ladder reaches
-203/11/5, 240/10/5, and 297/14/7 for frame-level objects, cross-session
-clusters, and retained stable objects; the Hallway branch reaches 537/16/9
-over 80/80 executed first-eight Hallway frames. The results support a bounded
-systems claim: segmentation-assisted semantic observations can become auditable
-long-term SLAM map evidence when filtered through cross-session stable-object
-retention and dynamic-contamination rejection rules.
+\input{abstract}
 \end{abstract}
 
-% ── Index Terms ─────────────────────────────────────────────────────
-% Note: T-RO no longer requires IEEE keywords/index terms in many
-% recent author guidelines. If required, uncomment and fill:
-% \begin{IEEEkeywords}
-% Semantic SLAM, dynamic SLAM, semantic segmentation, long-term mapping,
-% open-vocabulary perception, object-level mapping, industrial robotics,
-% RGB-D perception, map maintenance.
-% \end{IEEEkeywords}
+\begin{IEEEkeywords}
+SLAM, semantic segmentation, dynamic object filtering, object-level mapping, map maintenance, industrial robotics, open-vocabulary perception, long-term autonomy.
+\end{IEEEkeywords}
 
-% ────────────────────────────────────────────────────────────────────
-%  I. INTRODUCTION
-% ────────────────────────────────────────────────────────────────────
+% ============================================================================
+% I. INTRODUCTION
+% ============================================================================
 \section{Introduction}
 \label{sec:introduction}
 
+% === I.A. Motivation ===
 \subsection{Motivation}
 \label{sec:motivation}
 
-Industrial mobile robots operate in environments that change repeatedly over
-time. A warehouse aisle, assembly area, or logistics corridor may contain
-persistent infrastructure, semi-static work equipment, and dynamic agents
-within the same field of view. Long-term SLAM motivates map reuse across such
-revisits~\cite{cadena2016past}, while dynamic SLAM shows why moving or
-semi-static objects must be handled explicitly rather than treated as rigid
-background structure~\cite{bescos2018dynaslam}. A semantic-segmentation-assisted
-SLAM system must therefore answer a different question from a single-frame
-segmenter or detector: which segmented semantic observations should become
-persistent map evidence after repeated revisits, and which should be rejected
-as dynamic or unreliable?
+Simultaneous Localization and Mapping (SLAM) has matured to the point where short-horizon geometric maps can be reliably constructed in real time~\cite{cadena2016past}. The next frontier---long-term SLAM and map reuse across weeks or months---shifts the burden from geometric consistency to semantic persistence: which detected objects should enter the map, and which should be discarded as transient or dynamic contamination?
 
+Industrial environments amplify this question. Warehouses and logistics centers contain stable infrastructure (barriers, work tables, racks, pillars) alongside mobile agents (forklifts, carts, human operators). An open-vocabulary detector such as Grounding DINO~\cite{liu2024grounding} combined with a segmenter such as SAM~2~\cite{ravi2024sam2} can propose bounding boxes and masks for dozens of object instances per frame, but without an explicit admission-control policy, the map quickly accumulates forklift-shaped phantom objects that are re-detected in revisits but should never have been admitted in the first place.
+
+% === I.B. The Admission-Control Gap ===
 \subsection{The Admission-Control Gap}
-\label{sec:admission-gap}
+\label{sec:admission_gap}
 
-Open-vocabulary perception has made it practical to query arbitrary object
-categories in real scenes~\cite{peng2023openscene,jatavallabhula2023conceptfusion}.
-Object-level SLAM and open-vocabulary 3D mapping provide useful precedents for
-compact landmarks and language-aligned 3D scene representations. However, these
-outputs are not directly equivalent to durable map entities. Labels may drift,
-masks may fragment across frames, dynamic agents may reappear in different
-locations, and visually similar objects may be incorrectly merged. In
-industrial settings, these errors are not minor: a persistent map polluted by
-forklifts or temporary cargo can degrade later inspection, planning, or
-navigation even when the original segmentation masks were visually plausible.
+Existing dynamic SLAM pipelines~\cite{bescos2018dynaslam} are designed to mask, track, and remove dynamic pixels and objects from the geometric reconstruction, ensuring that visual odometry and loop closure operate on clean static geometry. Object-level SLAM approaches~\cite{yang2019cubeslam,peng2023openscene,jatavallabhula2023conceptfusion} assign semantic identities to geometric entities and can reason about object categories. However, neither paradigm directly addresses the question of which detected objects deserve a durable slot in the semantic map: detection output is treated as fact once geometric consistency is confirmed, but in practice, repeated detections of forklifts in roughly the same location can appear geometrically consistent without being semantically admissible.
 
-This work focuses on the maintenance layer between semantic segmentation,
-open-vocabulary perception, and a long-term SLAM object map.
+Our key observation is that the pipeline from open-vocabulary detection to durable semantic landmarks requires an explicit maintenance layer---an admission-control policy that scores each candidate object on stability (how long it persists across sessions), consistency (label agreement and spatial coherence), and dynamicity (whether its dominant state is \texttt{dynamic\_agent}). This paper describes such a layer.
 
+% === I.C. Scope and Contribution Boundaries ===
 \subsection{Scope and Contribution Boundaries}
 \label{sec:scope}
 
-Instead of treating every segmentation-derived detection as a map update, we
-explicitly represent frame-level observations, aggregate them within sessions,
-associate them across sessions, and decide whether a cross-session object
-should be retained as stable semantic landmark evidence. The goal is not to
-claim a final lifelong SLAM backend, but to make the admission process
-explicit, executable, and auditable on real industrial RGB-D data.
+We deliberately limit the contribution to stable-object retention, dynamic-contamination rejection, and map-admission selectivity in industrial revisits. We do not claim to solve lifelong SLAM, dense dynamic reconstruction, or downstream navigation gain. The paper offers an auditable bridge from perception to map maintenance, with reproducible evidence on the TorWIC dataset.
 
-% TODO: fill Introduction body from manuscript_en_thick.md §I
-% TODO: insert Fig.~1 (pipeline overview) here
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{../figures/torwic_paper_result_overview.png}
-\caption{Semantic-segmentation-assisted SLAM maintenance pipeline.
-Observation, tracklet, map-object, and revision layers.
-\label{fig:pipeline}}
-\end{figure}
-
-% ────────────────────────────────────────────────────────────────────
-%  II. CONTRIBUTIONS
-% ────────────────────────────────────────────────────────────────────
+% ============================================================================
+% II. CONTRIBUTIONS
+% ============================================================================
 \section{Contributions}
 \label{sec:contributions}
 
-% TODO: fill from manuscript_en_thick.md §II (8 items)
-
 \begin{enumerate}
-\item We formulate semantic-segmentation-assisted SLAM in dynamic industrial
-  environments as a principled session-level map-admission control problem over
-  segmented semantic observations, repeated revisits, and dynamic-object
-  contamination.
-\item We implement an object-centric maintenance pipeline that converts
-  open-vocabulary RGB-D segmentation outputs into ObjectObservations,
-  TrackletRecords, MapObjects, and MapRevisions.
-\item We introduce interpretable persistence, stability, and dynamicity
-  signals that decide whether semantic evidence is retained as stable landmark
-  support or rejected as transient/dynamic evidence.
-\item We define a TorWIC multi-session evaluation protocol spanning same-day,
-  cross-day, cross-month, and Hallway broader-validation revisit settings
-  without promoting secondary Hallway evidence into the primary Aisle ladder.
-\item We provide current evidence showing stable-object retention,
-  dynamic-contamination rejection, and map-admission selectivity on real
-  industrial RGB-D data.
-\item \textbf{[TODO: fill items 5--8 from manuscript\_en\_thick.md §II]}
+  \item \textbf{An explicit object-maintenance architecture} (Section~\ref{sec:method}) with observation, tracklet, map-object, and revision layers that separates detection from map admission. Each layer carries frame-level provenance, stability counters, and dynamicity scores.
+  
+  \item \textbf{A transparent trust-score formulation} (Section~\ref{sec:trust_score}) for map admission that combines session-level stability, cross-session persistence, and dominant-state dynamicity. The score is intentionally simple and auditable rather than presented as an optimal estimator.
+  
+  \item \textbf{A reproducible evidence ladder} (Section~\ref{sec:results_aisle}) on the TorWIC dataset~\cite{barath2023povslam} across three Aisle protocols (same-day, cross-day, cross-month) and a Hallway broader-validation branch (Section~\ref{sec:results_hallway}), all reported with selection-criteria justification and cluster-ID-level traceability.
+  
+  \item \textbf{A rejection-profile analysis} (Section~\ref{sec:results_rejection}) showing that forklift-like dynamic contamination is the primary rejection driver (50.0\%--71.4\% share) across all four protocols.
+  
+  \item \textbf{An open-source release} of the object-maintenance layer with TorWIC protocol configuration and selection criteria, supporting auditable reproduction.
+  
+  \item \textbf{Admission-criteria defense} (Section~\ref{sec:results_defense}): parameter ablation confirming min\_sessions/min\_frames are sensitive filters and max\_dynamic\_ratio is naturally saturated by data bimodality; baseline comparison demonstrating that simpler heuristics (purity/support) cannot reject forklifts (phantom risk 21.1\% vs 0.0\% with the full policy).
+  
+  \item \textbf{Per-category retention and rejection analysis} (Section~\ref{sec:results_defense}): forklift rejection is universal (0/4 retained), infrastructure retention is selective and interpretable (40\%--50\%).
 \end{enumerate}
 
-% ────────────────────────────────────────────────────────────────────
-%  III. RELATED WORK
-% ────────────────────────────────────────────────────────────────────
+% ============================================================================
+% III. RELATED WORK
+% ============================================================================
 \section{Related Work}
-\label{sec:related-work}
+\label{sec:related_work}
 
+% === III.A ===
 \subsection{Semantic SLAM and Object-Level Mapping}
-\label{sec:semantic-slam}
+\label{sec:related_semantic}
 
-% TODO: fill from manuscript_en_thick.md §III.A
+Cadena et al.~\cite{cadena2016past} survey the SLAM landscape from geometric to semantic, establishing that map reuse requires semantic understanding. CubeSLAM~\cite{yang2019cubeslam} introduced object-level representations by fitting cuboids to detected objects in monocular SLAM. OpenScene~\cite{peng2023openscene} extended open-vocabulary semantic mapping to 3D scenes. ConceptFusion~\cite{jatavallabhula2023conceptfusion} further developed the open-vocabulary 3D mapping paradigm by fusing multiple foundation model outputs.
 
+\textit{Relationship:} We build on this tradition but focus on a complementary problem: once objects are detected, which deserve permanent map representation? The answer is not ``all objects with high detection confidence''---a forklift detected with 0.95 confidence across five sessions is still a forklift.
+
+% NOTE: P164 will expand this section with 15-25 additional references in:
+% - Semantic SLAM: DS-SLAM, Detect-SLAM, SO-SLAM, Kimera, ORB-SLAM3 semantics
+% - Dynamic SLAM: FlowFusion, Co-Fusion, MID-Fusion, RGB-D dynamic benchmarks  
+% - Long-term mapping: Fehr et al., Labbé \& Michaud, RTAB-Map derivatives
+% - Open-vocabulary: CLIP-Fields, LERF, OpenMask3D, LangSplat
+
+% === III.B ===
 \subsection{Dynamic SLAM and Dynamic-Object Suppression}
-\label{sec:dynamic-slam}
+\label{sec:related_dynamic}
 
-% TODO: fill from manuscript_en_thick.md §III.B
+DynaSLAM~\cite{bescos2018dynaslam} demonstrated that masking dynamic objects improves camera tracking accuracy. The key insight---that dynamic pixels degrade visual odometry---has been extended by numerous follow-up works.
 
-\subsection{Long-Term Map Maintenance and Stable Landmark Reuse}
-\label{sec:map-maintenance}
+\textit{Relationship:} Dynamic SLAM removes dynamic content to protect geometric reconstruction. We complement this by rejecting dynamic-like objects from the semantic map layer even when geometrically well-localized.
 
-% TODO: fill from manuscript_en_thick.md §III.C
+% === III.C ===
+\subsection{Long-Term Map Maintenance}
+\label{sec:related_longterm}
 
-\subsection{Segmentation-Assisted Filtering and Open-Vocabulary 3D Mapping}
-\label{sec:segmentation-filtering}
+Long-term SLAM has been studied in the context of lifelong mapping and map summarization~\cite{cadena2016past}. POV-SLAM~\cite{barath2023povslam} introduced object-aware semantic SLAM and released the TorWIC dataset with ground-truth object annotations.
 
-% TODO: fill from manuscript_en_thick.md §III.D
+\textit{Relationship:} We use TorWIC/POV-SLAM as the data provenance anchor. Our maintenance layer is complementary to existing long-term mapping systems.
 
-% ────────────────────────────────────────────────────────────────────
-%  IV. PROBLEM FORMULATION
-% ────────────────────────────────────────────────────────────────────
+% === III.D ===
+\subsection{Segmentation-Assisted Filtering}
+\label{sec:related_segmentation}
+
+Recent foundation models---Grounding DINO~\cite{liu2024grounding} for open-vocabulary detection, SAM~2~\cite{ravi2024sam2} for mask generation, and OpenCLIP~\cite{cherti2023reproducible} for label reranking---have made it practical to extract semantically labeled object instances without task-specific training. These models are used as back-end components; the maintenance layer is agnostic to the specific pipeline.
+
+% ============================================================================
+% IV. PROBLEM FORMULATION
+% ============================================================================
 \section{Problem Formulation}
 \label{sec:problem}
 
-\subsection{Formal Statement}
-\label{sec:formal}
+% TBD: Mathematical formulation of session-level map admission
 
-% TODO: fill from manuscript_en_thick.md §IV.A
-
-\subsection{Key Distinction from Standard SLAM}
-\label{sec:distinction}
-
-% TODO: fill from manuscript_en_thick.md §IV.B
-
-% ────────────────────────────────────────────────────────────────────
-%  V. METHOD
-% ────────────────────────────────────────────────────────────────────
-\section{Method}
+% ============================================================================
+% V. METHOD
+% ============================================================================
+\section{Method: Session-Level Map Admission Control}
 \label{sec:method}
 
-\subsection{Open-Vocabulary Object Observation Extraction}
-\label{sec:observation-extraction}
+% === V.A Observation Layer ===
+\subsection{Observation Layer}
+\label{sec:observation}
 
-% TODO: fill from manuscript_en_thick.md §V.A
+% === V.B Tracklet Layer ===  
+\subsection{Tracklet Layer}
+\label{sec:tracklet}
 
-\subsection{Session-Level Tracklet Records}
-\label{sec:tracklets}
+% === V.C Map-Object Layer ===
+\subsection{Map-Object Layer}
+\label{sec:map_object}
 
-% TODO: fill from manuscript_en_thick.md §V.B
+% === V.D Trust Score Formulation ===
+\subsection{Trust-Score Formulation}
+\label{sec:trust_score}
 
-\subsection{Cross-Session MapObjects}
-\label{sec:mapobjects}
+% === V.E Admission Criteria ===
+\subsection{Admission Criteria}
+\label{sec:admission_criteria}
 
-% TODO: fill from manuscript_en_thick.md §V.C
+% === V.F Revision Layer ===
+\subsection{Revision Layer}
+\label{sec:revision}
 
-\subsection{Stability and Dynamicity Scoring}
-\label{sec:scoring}
-
-% TODO: fill from manuscript_en_thick.md §V.D
-
-The trust score for an object $O$ is defined as:
-\begin{equation}
-\tau(O) = S_{\text{persist}}(O) \cdot S_{\text{stable}}(O)
-          \cdot (1 - S_{\text{dynamic}}(O))
-\label{eq:trust}
-\end{equation}
-
-\subsection{Map Admission Criteria}
-\label{sec:admission-criteria}
-
-% TODO: fill from manuscript_en_thick.md §V.E
-
-\subsection{Revisioned Map Updates}
-\label{sec:revisions}
-
-% TODO: fill from manuscript_en_thick.md §V.F
-
-% ────────────────────────────────────────────────────────────────────
-%  VI. EXPERIMENTAL PROTOCOL
-% ────────────────────────────────────────────────────────────────────
+% ============================================================================
+% VI. EXPERIMENTAL PROTOCOL
+% ============================================================================
 \section{Experimental Protocol}
 \label{sec:protocol}
 
-\subsection{Dataset and Provenance}
-\label{sec:dataset}
-
-% TODO: fill from manuscript_en_thick.md §VI.A
-
-\subsection{Protocol Design}
-\label{sec:protocol-design}
-
-% TODO: fill from manuscript_en_thick.md §VI.B
-
-\subsection{Selection Criteria}
-\label{sec:criteria}
-
-% TODO: fill from manuscript_en_thick.md §VI.C
-
-% ────────────────────────────────────────────────────────────────────
-%  VII. RESULTS
-% ────────────────────────────────────────────────────────────────────
+% ============================================================================
+% VII. RESULTS
+% ============================================================================
 \section{Results}
 \label{sec:results}
 
-\subsection{Primary Aisle Ladder}
-\label{sec:aisle-results}
+% === VII.A Aisle Evidence Ladder ===
+\subsection{Aisle Evidence Ladder}
+\label{sec:results_aisle}
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{../figures/torwic_real_session_overlays.png}
-\caption{Primary Aisle evidence ladder: same-day (203/11/5), cross-day
-(240/10/5), cross-month (297/14/7). Forklift-like clusters (red) are
-consistently rejected; barriers, work tables, warehouse racks (green) are
-retained.
-\label{fig:aisle-ladder}}
-\end{figure*}
+% --- Figure 1: Pipeline overview ---
+% PLACEHOLDER: \begin{figure} \centering \includegraphics[width=\columnwidth]{figures/torwic_paper_result_overview.png} \caption{... Fig. 1 ...} \label{fig:pipeline} \end{figure}
 
-% TODO: fill text from manuscript_en_thick.md §VII.A
+% --- Table 1: Evidence Ladder Summary ---
 
-\begin{table}[t]
-\centering
-\caption{Primary Aisle Evidence Ladder}
-\label{tab:aisle}
-\begin{tabular}{lcccc}
-\toprule
-Setting & Sessions & Frame-Level & Clusters & Retained \\
-\midrule
-Same-day Aisle    &  4 & 203 & 11 & 5 \\
-Cross-day Aisle   &  4 & 240 & 10 & 5 \\
-Cross-month Aisle &  6 & 297 & 14 & 7 \\
-\bottomrule
-\end{tabular}
-\end{table}
+% === VII.B Selection Criteria Analysis ===
+\subsection{Selection Criteria Analysis}
+\label{sec:results_selection}
 
-\subsection{Stable-Subset Composition}
-\label{sec:stable-subset}
+% --- Tables 2-3: Aisle protocol selection analysis ---
 
-% TODO: fill from manuscript_en_thick.md §VII.B
+% === VII.C Hallway Scene-Transfer ===
+\subsection{Hallway Scene-Transfer Evidence}
+\label{sec:results_hallway}
 
-\subsection{Hallway Broader-Validation}
-\label{sec:hallway}
+% --- Figure 3: Hallway composite ---
+% --- Table 4: Hallway selection analysis ---
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{../figures/torwic_hallway_composite.png}
-\caption{Hallway broader-validation composite (10 sessions, 537 frame-level
-objects, 16 cross-session clusters, 9 retained stable objects). This branch
-remains secondary and must not be merged into the primary Aisle ladder.
-\label{fig:hallway}}
-\end{figure*}
+% === VII.D Rejection Profile ===
+\subsection{Rejection Profile Analysis}
+\label{sec:results_rejection}
 
-% TODO: fill from manuscript_en_thick.md §VII.C
+% --- Figures 2, X: rejection visuals ---
 
-\subsection{Dynamic-Contamination Rejection}
-\label{sec:rejection}
+% === VII.E Dynamic SLAM Backend: Motivation ===
+\subsection{Dynamic SLAM Backend: Motivation and Negative-Result Study}
+\label{sec:results_dynamic_motivation}
 
-% TODO: fill from manuscript_en_thick.md §VII.D
+% === VII.F Dynamic SLAM: 10-Configuration Evidence Chain ===
+\subsection{Dynamic SLAM: Complete Evidence Chain}
+\label{sec:results_dynamic_chain}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{../figures/torwic_stable_object_selection_v5.png}
-\caption{Map-admission selectivity across all four protocols. Retained objects
-(green) vs. rejected clusters (red, colored by rejection reason).
-\label{fig:selectivity}}
-\end{figure}
+% --- Figures 4-10: Dynamic SLAM diagnostics ---
+% --- Tables 5-6: Dynamic SLAM metrics ---
 
-\subsection{Dynamic SLAM Backend Evaluation}
-\label{sec:dynamic-backend}
+% === VII.G Admission Criteria Defense ===
+\subsection{Admission Criteria Defense: Ablation, Baseline Comparison, and Per-Category Analysis}
+\label{sec:results_defense}
 
-% TODO: fill from manuscript_en_thick.md §VII.E
+% --- P154: Ablation summary table ---
+% --- P155: B0/B1/B2 comparison table ---
+% --- Fig 11 (map composition) ---
+% --- Fig 13 (decision space scatter) ---
+% --- P157: per-category retention table + category×reason matrix ---
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{../figures/torwic_dynamic_slam_backend_p134.png}
-\caption{Bounded DROID-SLAM 64-frame global-BA raw-vs-masked backend
-result~\cite{teed2021droidslam}. All 10 tested configurations produced
-$|\Delta\text{ATE}| < 0.1$\,mm.
-\label{fig:backend}}
-\end{figure}
-
-\subsection{Dynamic Masking Limitations}
-\label{sec:masking-limits}
-
-% TODO: fill from manuscript_en_thick.md §VII.F
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{../figures/torwic_dynamic_mask_first32_real_p140.png}
-\caption{First-32 real semantic-mask backend diagnostic (strongest
-configuration: 32/64 frames, 0.568\% mean mask coverage). ATE/RPE remain
-effectively tied with raw RGB ($|\Delta\text{ATE}| < 0.1$\,mm).
-\label{fig:mask32}}
-\end{figure}
-
-\subsection{Admission Criteria Defense}
-\label{sec:admission-defense}
-
-% TODO: fill from manuscript_en_thick.md §VII.G (P154-P157)
-
-\subsubsection{Parameter Ablation (P154)}
-\label{sec:ablation}
-
-% TODO: fill from manuscript_en_thick.md §VII.G.1
-
-\subsubsection{Baseline Comparison (P155)}
-\label{sec:baseline}
-
-% TODO: fill from manuscript_en_thick.md §VII.G.2
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{../figures/torwic_before_after_map_composition_p156.png}
-\caption{Before/after map composition: B0 naive-all-admit (20 clusters,
-4 forklifts = 20\% phantom risk) vs. B2 richer admission policy (5 verified
-infrastructure, 0 forklifts).
-\label{fig:composition}}
-\end{figure*}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{../figures/torwic_object_lifecycle_p156.png}
-\caption{Object lifecycle: stable barrier (admitted — satisfies all 5
-criteria) vs. forklift (rejected — dynamic\_contamination despite high purity
-and support).
-\label{fig:lifecycle}}
-\end{figure*}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{../figures/torwic_admission_decision_space_p156.png}
-\caption{Admission decision space: dynamic\_ratio vs. session\_count for all
-20 combined Aisle+Hallway clusters. Infrastructure clusters at ratio=0.00,
-sessions $\geq$ 2; forklift clusters at ratio $\geq$ 0.83; zero clusters in
-the intermediate range.
-\label{fig:decision-space}}
-\end{figure*}
-
-\subsubsection{Per-Category Retention/Rejection Analysis (P157)}
-\label{sec:category-analysis}
-
-% TODO: fill from manuscript_en_thick.md §VII.G.3
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{../figures/torwic_per_category_retention_p157.png}
-\caption{Per-category retention/rejection bar chart. Infrastructure retention:
-33\%--50\%; forklift retention: 0/4 (0\%).
-\label{fig:category-retention}}
-\end{figure}
-
-% ────────────────────────────────────────────────────────────────────
-%  VIII. DISCUSSION
-% ────────────────────────────────────────────────────────────────────
+% ============================================================================
+% VIII. DISCUSSION
+% ============================================================================
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{Why Not Just Filter by Detection Confidence?}
-\label{sec:disc-confidence}
-
-% TODO: fill from manuscript_en_thick.md §VIII.A
-
-\subsection{The Role of Session Count}
-\label{sec:disc-sessions}
-
-% TODO: fill from manuscript_en_thick.md §VIII.B
-
-\subsection{Lightweight vs. Heavyweight}
-\label{sec:disc-lightweight}
-
-% TODO: fill from manuscript_en_thick.md §VIII.C
-
-\subsection{Aisle vs. Hallway — Separate Roles}
-\label{sec:disc-aisle-hallway}
-
-% TODO: fill from manuscript_en_thick.md §VIII.D
-
-% ────────────────────────────────────────────────────────────────────
-%  IX. LIMITATIONS
-% ────────────────────────────────────────────────────────────────────
+% ============================================================================
+% IX. LIMITATIONS
+% ============================================================================
 \section{Limitations}
 \label{sec:limitations}
 
-% TODO: fill from manuscript_en_thick.md §IX (7 items)
-
 \begin{enumerate}
-\item Not a complete lifelong SLAM backend.
-\item Larger-window or full-trajectory Hallway evaluation remains future work.
-\item Rule-based association is not a final answer to long-term object identity.
-\item No downstream task evaluation.
-\item Venue-specific reference formatting is intentionally deferred.
-\item Back-end model citations are provided~\cite{liu2024grounding,ravi2024sam2,cherti2023reproducible}.
+  \item \textbf{Detection confidence.} Per-detection NN confidence scores were not logged during observation extraction. The label-purity proxy is used as a documented substitute.
+  \item \textbf{Dataset scale.} TorWIC is the only publicly available multi-session industrial SLAM dataset with object annotations. Larger-scale field validation is deferred.
+  \item \textbf{Single-session infrastructure loss.} Infrastructure appearing in only one session cannot be verified for cross-session persistence and is conservatively rejected.
+  \item \textbf{Dynamic SLAM boundary.} Forklifts in TorWIC warehouse aisles occupy at most 1.39\% of the image frame, below the $\sim$5\% threshold needed to measurably affect DROID-SLAM. Richer dynamic scenarios may produce different outcomes.
+  \item \textbf{VO backend.} Only DROID-SLAM was tested as the visual odometry backend. ORB-SLAM3 and other backends may have different sensitivity to dynamic content.
+  \item \textbf{Citation completeness.} Current reference list (11 entries) requires expansion to meet TR-O expectations. Related-work expansion is planned (P164, see BUILD\_NOTES.md).
+  \item \textbf{Ground-truth object annotations.} TorWIC provides ground-truth object IDs; we use them for protocol configuration but the framework itself operates without ground truth.
 \end{enumerate}
 
-% ────────────────────────────────────────────────────────────────────
-%  X. CONCLUSION
-% ────────────────────────────────────────────────────────────────────
+% ============================================================================
+% X. CONCLUSION
+% ============================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
-% TODO: fill from manuscript_en_thick.md §X
+This paper presents an object-centric approach to semantic-segmentation-assisted SLAM for dynamic industrial environments. The framework transforms open-vocabulary RGB-D segmentation outputs into observation, tracklet, map-object, and revision layers, then uses explicit persistence, stability, and dynamicity signals to retain stable semantic landmarks and suppress dynamic contamination.
 
-This paper presents an object-centric approach to
-semantic-segmentation-assisted SLAM for dynamic industrial
-environments~\cite{cadena2016past,bescos2018dynaslam,barath2023povslam}. The
-framework transforms open-vocabulary RGB-D segmentation outputs into
-observation, tracklet, map-object, and revision layers, then uses explicit
-persistence, stability, and dynamicity signals to retain stable semantic
-landmarks and suppress dynamic contamination. Current TorWIC evidence
-demonstrates a reproducible ladder across same-day, cross-day, and cross-month
-Aisle protocols, with Hallway retained as a separate broader-validation branch.
-The resulting package supports a principled session-level map admission control
-methodology: an auditable, evidence-backed bridge from segmentation-assisted
-open-vocabulary perception~\cite{yang2019cubeslam,peng2023openscene,jatavallabhula2023conceptfusion,liu2024grounding,ravi2024sam2,cherti2023reproducible} to
-revisioned long-term object-map maintenance on real industrial
-revisits~\cite{barath2023povslam}.
+Current TorWIC evidence demonstrates a reproducible submission-ready ladder across same-day, cross-day, and cross-month Aisle protocols, with Hallway retained as a separate scene-transfer branch. Forklift-like evidence is consistently rejected as dynamic contamination, while barriers, work tables, and warehouse racks are selectively retained based on multi-session evidence, label consistency, and static dominance.
 
-% ────────────────────────────────────────────────────────────────────
-%  SUPPLEMENTARY MATERIAL NOTE
-% ────────────────────────────────────────────────────────────────────
-\section*{Supplementary Material}
-\label{sec:supplementary}
+The dynamic SLAM backend evaluation contributes a complete negative-result study: 10 DROID-SLAM configurations all produce trajectory-neutral results ($|\Delta\text{ATE}| < 0.1~\text{mm}$), with a quantified boundary condition at $\sim$5\% dynamic frame coverage. The admission criteria are validated through parameter ablation (confirming natural bimodality), baseline comparison (demonstrating that simpler heuristics fail), and per-category retention/rejection analysis (showing universal forklift rejection and interpretable infrastructure retention).
 
-A separate supplementary PDF contains: (S1) consolidated dynamic-SLAM mask
-coverage panel (Figs.~5--9 merged); (S2) rejection-reason derivative figures
-(Figs.~15--16 merged). See \texttt{paper/tro\_submission/FIGURE\_PLAN.md} for
-the full figure assignment.
+The contribution is bounded: not a lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim, but a principled session-level map admission control methodology supported by auditable evidence.
 
-% ────────────────────────────────────────────────────────────────────
-%  REFERENCES
-% ────────────────────────────────────────────────────────────────────
+% ============================================================================
+% REFERENCES
+% ============================================================================
 \bibliographystyle{IEEEtran}
 \bibliography{references}
+
+% ============================================================================
+% APPENDICES (if any — likely moved to supplementary for TR-O)
+% ============================================================================
+% \appendices
+% \section{Admission Criteria Defense — Supplementary Data}
+% \label{app:defense}
 
 \end{document}
