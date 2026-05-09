@@ -1045,3 +1045,18 @@ summary and local paths here, then commit and push the repository.
   - GAP-DROID-004: no published SLAM baselines (MEDIUM)
 - Claim boundary verification: "35 sessions" in paper = variant count, not session count (actual = 20 sessions)
 - Outputs: `outputs/torwic_full_dataset_coverage_inventory_p168.json` (20KB) + `paper/export/full_dataset_coverage_inventory_p168.md` (8KB)
+
+## 2026-05-09 P168b Dynamic SLAM Follow-Up Plan
+
+- Interpreted P168 coverage inventory → 4-tier session priority map:
+  - Tier 0 (done): Jun 15 Aisle_CW_Run_1 (1 session, 12 configs)
+  - Tier 1 (P0): Jun 15 Aisle_CW_Run_2 + Jun 23 Aisle_CW_Run_1 — same-day replication + cross-day
+  - Tier 2 (P1): 5 more sessions — temporal+directional matrix + Hallway negative control
+  - Tier 3 (P2): Full 20-session benchmark (19 new sessions)
+- Claim upgrade ladder: single-session → cross-session → multi-condition → systematic → benchmark
+- Staged execution plan: Priority 1 (evo for 11 pending configs, 5 min) → Stage 1 (2 sessions, 30 min GPU) → Stage 2 (5 more, 1.5 hr GPU) → Stage 3 (full)
+- GPU estimate: RTX 3060, ~3 min per 64f DROID run, ~4 hr for full 20-session coverage
+- 6 failure modes documented with mitigations (OOM fallback to window, GT format validation, 0% mask fallback)
+- Batch manifest draft for Stage 1: mask coverage scan → input pack → DROID → evo → summary
+- Recommendation: A (evo 11 configs) → B (Stage 1, 2 sessions) → assess → decide on C/D
+- Output: `paper/export/full_dataset_dynamic_slam_followup_plan_p168b.md` (17KB)
