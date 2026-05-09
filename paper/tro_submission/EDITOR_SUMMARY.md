@@ -61,7 +61,7 @@ Comparable systems/methodology papers accepted at T-RO:
 
 ### 3.2 Single Dataset
 
-TorWIC is the only publicly available multi-session industrial SLAM dataset with object-level annotations. This limitation is shared by the entire field—even DynaSLAM's evaluation is on 1–2 datasets. The Hallway protocol provides within-dataset scene-transfer evidence.
+TorWIC is the only publicly available multi-session industrial SLAM dataset with object-level annotations. This limitation is shared by the entire field—even DynaSLAM's evaluation is on 1–2 datasets. The Hallway protocol provides within-dataset scene-transfer evidence. Bootstrap 95% CIs for per-protocol admission rates range from 18.2–72.7% (same-day, n=11) to 31.2–81.2% (Hallway, n=16). The pooled 51-cluster admission rate is 51.0% (95% CI: 37.3–64.7%). Hallway vs Aisle admission rates do not differ (Fisher exact p=0.76).
 
 ### 3.3 Detection Confidence Not Logged
 

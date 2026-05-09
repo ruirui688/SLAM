@@ -1,0 +1,140 @@
+{
+  "artifact": "P174 submission-grade statistical formalization",
+  "project_id": "industrial-semantic-slam",
+  "phase": "P174-statistical-formalization-for-submission",
+  "created": "2026-05-10T00:03:34.916750+08:00",
+  "policy": "existing-data-only; no downloads; no GPU",
+  "claim_boundary": "Statistics are bounded by available evidence. Admission rates have wide CIs due to small cluster count per protocol (n=10–16). Dynamic SLAM neutral rate is based on 16 configurations across 5 sessions. No B0/B1/B2 per-baseline per-cluster admission flags exist → Fisher exact between baselines NOT computed. No claim of statistical significance made; CIs are reported for transparency.",
+  "admission_rate_statistics": {
+    "unit": "cluster (cross-session semantic cluster)",
+    "method": "bootstrap percentile 95% CI (10,000 resamples) + Wilson score 95% CI",
+    "per_protocol": [
+      {
+        "protocol": "Same-day Aisle",
+        "total_clusters": 11,
+        "admitted": 5,
+        "rejected": 6,
+        "admission_pct": 45.5,
+        "bootstrap_95_ci_pct": "18.2–72.7",
+        "wilson_95_ci_pct": "21.3–72.0",
+        "retained_composition": {
+          "barrier": 3,
+          "work table": 1,
+          "warehouse rack": 1
+        }
+      },
+      {
+        "protocol": "Cross-day Aisle",
+        "total_clusters": 10,
+        "admitted": 5,
+        "rejected": 5,
+        "admission_pct": 50.0,
+        "bootstrap_95_ci_pct": "20.0–80.0",
+        "wilson_95_ci_pct": "23.7–76.3",
+        "retained_composition": {
+          "work table": 1,
+          "barrier": 2,
+          "warehouse rack": 2
+        }
+      },
+      {
+        "protocol": "Cross-month Aisle",
+        "total_clusters": 14,
+        "admitted": 7,
+        "rejected": 7,
+        "admission_pct": 50.0,
+        "bootstrap_95_ci_pct": "21.4–78.6",
+        "wilson_95_ci_pct": "26.8–73.2",
+        "retained_composition": {
+          "work table": 2,
+          "barrier": 3,
+          "warehouse rack": 2
+        }
+      },
+      {
+        "protocol": "Hallway broader validation",
+        "total_clusters": 16,
+        "admitted": 9,
+        "rejected": 7,
+        "admission_pct": 56.2,
+        "bootstrap_95_ci_pct": "31.2–81.2",
+        "wilson_95_ci_pct": "33.2–76.9",
+        "retained_composition": {
+          "barrier": 4,
+          "work table": 4,
+          "warehouse rack": 1
+        }
+      }
+    ],
+    "overall_pooled": {
+      "total_clusters": 51,
+      "admitted": 26,
+      "rejected": 25,
+      "admission_pct": 51.0,
+      "bootstrap_95_ci_pct": "37.3–64.7",
+      "wilson_95_ci_pct": "37.7–64.1"
+    },
+    "observation": "Admission rates range from 45.5% (same-day, n=11) to 56.2% (Hallway, n=16). All protocols' 95% CIs overlap substantially, consistent with a stable ~50% admission rate across settings. Hallway admission (56.2%) does not differ from pooled Aisle (17/35=48.6%, Fisher exact two-sided p=0.764) — Hallway validates rather than contradicts the Aisle admission regime.",
+    "label_purity_statistics": {
+      "mean_purity_pct": 94.7,
+      "bootstrap_95_ci_pct": "92.2–97.2",
+      "n": 26,
+      "interpretation": "Retained clusters have mean label purity >94%. High purity is a consequence of the admission criteria, not an independent finding."
+    },
+    "session_coverage_statistics": {
+      "mean_sessions": 3.7,
+      "bootstrap_95_ci": "3.2–4.4",
+      "n": 26,
+      "interpretation": "Retained clusters span 2–9 sessions per cluster across protocols."
+    },
+    "limitation_fisher_baselines": "FISHER EXACT BETWEEN B0/B1/B2 BASELINES NOT COMPUTED: Per-baseline per-cluster admission flags are not available in the current evidence. B0/B1/B2 comparisons exist as aggregate ladder-level admission rates from P100/P106 matrices, not as cluster-level binary (admitted/rejected) flags per baseline. Bootstrap CI on per-baseline rates could be computed IF per-baseline admission flags are added to retained/rejected CSV exports."
+  },
+  "dynamic_slam_statistics": {
+    "unit": "DROID-SLAM configuration (64-frame, global BA)",
+    "total_configs": 16,
+    "neutral_configs": 11,
+    "perturbed_configs": 5,
+    "neutral_rate_pct": 68.8,
+    "bootstrap_95_ci_pct": "43.8–87.5",
+    "wilson_95_ci_pct": "44.4–85.8",
+    "neutral_group": {
+      "n": 11,
+      "ΔAPE_min_mm": -0.002,
+      "ΔAPE_max_mm": 0.006,
+      "ΔAPE_mean_mm": 9.1e-05,
+      "ΔAPE_bootstrap_95_ci_mm": "-0.000818–0.001455"
+    },
+    "perturbed_group": {
+      "n": 5,
+      "ΔAPE_min_mm": 0.92,
+      "ΔAPE_max_mm": 7.517,
+      "ΔAPE_mean_mm": 3.5594,
+      "ΔAPE_bootstrap_95_ci_mm": "0.9208–6.198"
+    },
+    "separation": {
+      "method": "Two groups fully separated at |ΔAPE|=0.006mm boundary",
+      "neutral_range_mm": "-0.002–0.006",
+      "perturbed_range_mm": "0.92–7.517",
+      "gap_mm": 0.914,
+      "note": "No overlap between neutral and perturbed groups; no formal test needed for complete separation."
+    },
+    "interpretation": "Bootstrap 95% CI for neutral rate: [43.8%–87.5%]. Neutral group ΔAPE mean: 9.1e-05 mm (95% CI [-0.000818–0.001455]). Perturbed group ΔAPE mean: 3.5594 mm (95% CI [0.9208–6.198]). The neutral-perturbed boundary at |ΔAPE| ≤ 0.006 mm produces complete group separation (gap = 0.914 mm). With selective semantic frontend masks, DROID-SLAM trajectories remain neutral in 11/16 configurations. The neutral rate 95% CI includes 50%, cautioning against overclaiming: the evidence supports \"mask selectivity is a necessary condition for trajectory neutrality\" but not \"selective masking always guarantees neutrality\"."
+  },
+  "comparison_hallway_vs_aisle": {
+    "test": "Fisher exact (two-sided)",
+    "aisle_admitted": 17,
+    "aisle_rejected": 18,
+    "aisle_rate_pct": 48.6,
+    "hallway_admitted": 9,
+    "hallway_rejected": 7,
+    "hallway_rate_pct": 56.2,
+    "p_value": 0.7645,
+    "interpretation": "Hallway admission rate (56.2%) vs pooled Aisle (48.6%): Fisher exact p=0.7645. No evidence of difference between Hallway and Aisle admission regimes. Hallway serves as broader validation, not as a statistically distinct setting."
+  },
+  "remaining_gaps": [
+    "B0/B1/B2 per-baseline per-cluster admission flags not exported → Fisher exact between baselines not computed.",
+    "Dynamic SLAM: 16 configurations is a small sample for rate estimation. CI lower bound crosses 50%.",
+    "No statistical formalization for within-protocol cluster-level covariates (dynamic_ratio, session_count, label_purity as predictors) — would require logistic regression with n=10–16 clusters, underpowered.",
+    "Bootstrapping at the cluster level assumes clusters are exchangeable; session-level clustering is not modeled."
+  ]
+}

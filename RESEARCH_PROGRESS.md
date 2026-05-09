@@ -1103,14 +1103,33 @@ summary and local paths here, then commit and push the repository.
   - EDITOR_SUMMARY.md: abstract, statement, and limitations updated (14 configs, 3 sessions, 9/14 neutral)
 - **Outputs:** `paper/evidence/dynamic_slam_stage1_p172.json` (3KB), `paper/export/dynamic_slam_stage1_p172.md` (4KB)
 - **Smoke outputs:** `outputs/dynamic_slam_backend_smoke_p172_jun15_run2/` (ok), `outputs/dynamic_slam_backend_smoke_p172_jun23_run1/` (ok)
-- **Blocked:** P173 ORB-SLAM3 cross-check (no ORB-SLAM3 installation)
-- **Active:** None — mainline blocked. User input needed.
+- **Blocked:** P173 ORB-SLAM3 cross-check (no ORB-SLAM3 installation — needs user approval)
+- **Active:** None — mainline blocked. User input needed (P173 download approval or B2 Hallway sessions decision).
 
-## 2026-05-09 P167 ROUND3 R2 audit + P173 blocker
+## 2026-05-10 P174 — Submission-grade statistical formalization
 
 - **P167 R2:** Updated D7→16 configs/5 sessions/2 scene types (P172 S2 cross-month+Hallway), D9 cross-scene universal, D13 multi-scene. Score stable at 75 (all 30 PASS, 0 FAIL).
 - **P173:** Blocked — ORB-SLAM3 source/vocabulary/wrapper do not exist. Needs user approval for `git clone` + `ORBvoc.txt` download (~100MB).
 - **Commit:** audit update pushed.
+
+## 2026-05-10 P174 — Submission-grade statistical formalization
+
+- **Goal:** Add bootstrap CIs, Wilson CIs, Fisher exact tests to submission evidence.
+- **Admission rates** (all protocols + pooled): bootstrap 95% CIs computed (10,000 resamples).
+  - Same-day: 45.5% (18.2–72.7%), n=11
+  - Cross-day: 50.0% (20.0–80.0%), n=10
+  - Cross-month: 50.0% (21.4–78.6%), n=14
+  - Hallway: 56.2% (31.2–81.2%), n=16
+  - Pooled: 51.0% (37.3–64.7%), n=51
+- **Hallway vs Aisle:** Fisher exact p=0.7645 — no evidence of difference.
+- **Dynamic SLAM:** Neutral rate 11/16=68.8%, bootstrap 95% CI: 43.8–87.5%.
+  Complete two-group separation at |ΔAPE|≤0.006mm (gap=0.914mm, no overlap).
+- **Residual:** B0/B1/B2 Fisher exact NOT computed — per-baseline per-cluster admission flags not exported. Documented as limitation.
+- **Outputs:** `paper/evidence/submission_statistics_p174.json` (7KB), `paper/export/submission_statistics_p174.md` (3KB)
+- **Tool:** `tools/compute_submission_statistics.py` — reproducible, runs in <1s
+- **Paper updates:** main.tex limitations §VII (items 1, 3 updated with CIs), EDITOR_SUMMARY (statistics added to scale paragraph)
+- **Audit:** ROUND3_FINAL_AUDIT B3 → PARTIALLY RESOLVED. B2 remains only full blocker.
+- **Next:** P173 ORB-SLAM3 cross-check (blocked pending backend download)
 
 ## 2026-05-09 P172 Stage 2 — cross-month + Hallway DROID-SLAM replication
 

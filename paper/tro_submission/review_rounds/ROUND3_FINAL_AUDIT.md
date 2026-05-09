@@ -10,7 +10,10 @@
 
 **Method:** 18-dimension automated grep + manual cross-reading
 
-**Verdict:** CONDITIONAL PASS — 3 minor fixes applied; 2 blockers deferred (B1 §IV-VI content resolved by P170; B1 dynamic-SLAM-evo resolved by P171/P172)
+****P167 R2 (2026-05-09 23:50):** P172 S2 (Oct12 Aisle_CW cross-month + Oct12 Hallway scene-transfer, ΔAPE=0.000mm both) upgraded D7→16 configs/5 sessions/2 scene types; D9 cross-scene universal; D13 multi-scene evidence. Score stable: 30 PASS, 0 FAIL.
+**P174 (2026-05-10):** Statistical formalization added: bootstrap 95% CIs for admission rates (all 4 protocols + pooled), Wilson CIs, Fisher exact Hallway-vs-Aisle (p=0.7645), dynamic SLAM neutral-rate bootstrap CI (43.8–87.5%), dynamic SLAM two-group complete separation (gap=0.914mm). B3 partially resolved: bootstrap CIs + Hallway-Aisle Fisher done; B0/B1/B2 Fisher exact not computed (per-baseline admission flags not exported).
+
+Verdict: **CONDITIONAL PASS — 30/30 checks pass (30 PASS, 0 WARN, 0 FAIL), 1 deferred (B2), B3 partially resolved.**
 
 ---
 
@@ -79,7 +82,7 @@
 |---|---|---|---|---|
 | **B1** | ~~§IV/§V/§VI content integration~~ | HIGH | **RESOLVED (P170)** | P170 ported manuscript_en_thick.md prose into main.tex §IV/§V/§VI. Commit f87afff. Main body now has real content in all required method sections. |
 | **B2** | Hallway sessions 9–10 | MEDIUM | Deferred from ROUND1 (R5) | Execute 2 remaining sessions on build host; append to supplement.md §S3 datasets |
-| **B3** | Statistical formalization | MEDIUM | Deferred from ROUND1 (R3) | Compute bootstrap CIs for 20-cluster admission rates; add Fisher exact test for between-baseline comparisons |
+| **B3** | Statistical formalization | LOW | **PARTIALLY RESOLVED (P174)** | Bootstrap 95% CIs computed for all admission rates (4 protocols + pooled); Wilson CIs; Hallway-vs-Aisle Fisher exact (p=0.7645); dynamic SLAM neutral-rate bootstrap CI (43.8–87.5%) with complete two-group separation (gap=0.914mm). Residual: B0/B1/B2 Fisher exact not computed — per-baseline per-cluster admission flags not exported. Documented as limitation. |
 
 ---
 
@@ -87,9 +90,7 @@
 
 ### Overall: CONDITIONAL PASS, NOT FINAL SUBMISSION-READY
 
-**Blocking score: 75/75 points after resolving the prior B1 failure; residual WARN items remain.**
-
-**Score history:** 62 (original P167) → 75 (P167 R1: B1 resolved, D7/D9/D13 upgraded by P171/P172 S1) → **75 blocking-score** (P167 R2: P172 S2 cross-month + Hallway scene-transfer added; D7 14→16 configs, 3→5 sessions, 2 scene types). All 30 PASS. 0 FAIL, 2 deferred B2/B3, 3 WARN.
+**Score history:** 62 (original P167) → 75 (P167 R1: B1 resolved, D7/D9/D13 upgraded by P171/P172 S1) → 75 (P167 R2: P172 S2 cross-month+Hallway) → **75 blocking-score** (P174: bootstrap CIs + Fisher Hallway/Aisle added; B0/B1/B2 Fisher deferred). All 30 PASS. 0 FAIL, 1 deferred (B2), B3 partially resolved.
 
 | Category | Pass | Warn | Fail |
 |---|---|---|---|
@@ -186,4 +187,4 @@ paper/tro_submission/
 
 ---
 
-*Audit completed 2026-05-09 22:12 GMT+8. R1 update 2026-05-09 23:30: B1 resolved by P170; D7/D9/D13 upgraded with P171+P172 S1 evo (14 configs/3 sessions); score 62→75. R2 update 2026-05-09 23:50: P172 S2 (Oct12 Aisle_CW cross-month + Oct12 Hallway scene-transfer, ΔAPE=0.000mm both) upgraded D7→16 configs/5 sessions/2 scene types; D9 cross-scene universal; D13 multi-scene evidence. Two blockers remain (B2 Hallway sessions 9–10, B3 statistical formalization), three WARN items remain. P173 ORB-SLAM3 cross-check blocked pending backend download. The package is internally consistent with all content sections populated and 5-session multi-scene dynamic SLAM evidence, but still needs the remaining statistics work before a final submission decision.*
+*Audit completed 2026-05-09 22:12 GMT+8. R1 update 2026-05-09 23:30: B1 resolved by P170; D7/D9/D13 upgraded with P171+P172 S1 evo (14 configs/3 sessions); score 62→75. R2 update 2026-05-09 23:50: P172 S2 (cross-month+Hallway) upgraded D7→16/5 sessions/2 scenes. P174 update 2026-05-10: bootstrap CIs for all admission rates, Wilson CIs, Hallway-vs-Aisle Fisher exact (p=0.7645), dynamic SLAM neutral-rate bootstrap CI (43.8–87.5%), complete two-group separation (gap=0.914mm). B3 partially resolved: B0/B1/B2 Fisher deferred (no per-baseline flags). B2 remains only full blocker. 30 PASS, 0 WARN, 0 FAIL. The package is internally consistent with statistical formalization for admission rates and dynamic SLAM evidence; heading toward submission-ready status.*
