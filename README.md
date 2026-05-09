@@ -106,23 +106,25 @@ outputs/minimal_demo/result.svg
 
 结果图如下：
 
+![最小 demo 终端运行结果](examples/minimal_slam_demo/terminal_result.svg)
+
 ![最小语义 SLAM Demo 结果](examples/minimal_slam_demo/expected_result.svg)
 
-### 真实工业场景结果图
+### 真实工业场景示例
 
-上面的 SVG 是最小 smoke demo 的结构化结果图。为了让读者直观看到论文面对的真实工业场景，仓库也放了两张来自当前论文证据包的实际标注图。标注图是在真实 TorWIC 结果图上叠加中文说明框和箭头，不是抽象示意图。
+上面的 SVG 是运行 `make demo` 后的结构化结果图，展示仓库可以实际跑出“保留稳定对象 / 拒绝动态证据”的结果。下面两张图只用于说明项目面向的真实工业场景，不在图上强行标注对象位置，避免误导读者。
 
 **图 1：TorWIC 工业 RGB-D 重访中的分割 overlay。**
 
-这张图展示真实工业场景中的候选语义对象：稳定护栏、工作台、货架，以及可能污染长期地图的 forklift-like 动态对象。它说明为什么本项目不把每个分割结果直接写入持久 SLAM 地图。
+这张图展示 TorWIC 工业 RGB-D 重访中的真实场景和 segmentation overlay。它说明项目处理的不是玩具场景，而是真实工业环境中的语义观测。
 
-![TorWIC 工业场景分割 overlay 标注图](paper/figures/torwic_real_session_overlays_annotated_zh.png)
+![TorWIC 工业场景分割 overlay](paper/figures/torwic_real_session_overlays.png)
 
 **图 2：Hallway 更广泛验证分支结果。**
 
-这张图展示 Hallway 10-session broader-validation 分支。该分支用于验证同一套对象维护输出结构在另一个工业回访场景中仍然可用，但它不会被混入主 Aisle 证据阶梯。
+这张图展示 Hallway 10-session broader-validation 分支。它用于展示项目在另一个工业回访场景中的验证材料，不替代最小 demo 的运行结果。
 
-![TorWIC Hallway 更广泛验证 composite 标注图](paper/figures/torwic_hallway_composite_annotated_zh.png)
+![TorWIC Hallway 更广泛验证 composite](paper/figures/torwic_hallway_composite.png)
 
 结果解释：
 

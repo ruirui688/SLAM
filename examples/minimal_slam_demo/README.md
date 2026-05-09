@@ -30,4 +30,6 @@ make demo
 
 预期结果图：
 
+![终端运行结果](terminal_result.svg)
+
 ![最小 demo 预期结果](expected_result.svg)

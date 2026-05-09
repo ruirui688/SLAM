@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680">
+<rect width="1120" height="680" fill="#f6f8f5"/>
+<rect x="40" y="38" width="1040" height="604" rx="18" fill="#111827"/>
+<circle cx="76" cy="72" r="9" fill="#ef4444"/>
+<circle cx="104" cy="72" r="9" fill="#f59e0b"/>
+<circle cx="132" cy="72" r="9" fill="#22c55e"/>
+<text x="164" y="80" font-size="22" fill="#d1d5db" font-family="monospace">SLAM minimal demo test</text>
+<text x="72" y="128" font-size="24" fill="#a7f3d0" font-family="monospace">$ make demo</text>
+<text x="72" y="176" font-size="21" fill="#e5e7eb" font-family="monospace">{</text>
+<text x="100" y="208" font-size="21" fill="#e5e7eb" font-family="monospace">"observations": 11,</text>
+<text x="100" y="240" font-size="21" fill="#e5e7eb" font-family="monospace">"clusters": 4,</text>
+<text x="100" y="272" font-size="21" fill="#e5e7eb" font-family="monospace">"retained_stable_map_objects": 2,</text>
+<text x="100" y="304" font-size="21" fill="#e5e7eb" font-family="monospace">"rejected_clusters": 2,</text>
+<text x="100" y="336" font-size="21" fill="#e5e7eb" font-family="monospace">"max_dynamic_ratio": 0.34</text>
+<text x="72" y="368" font-size="21" fill="#e5e7eb" font-family="monospace">}</text>
+<rect x="72" y="404" width="976" height="132" rx="12" fill="#1f2937" stroke="#374151"/>
+<text x="96" y="442" font-size="23" fill="#93c5fd" font-family="sans-serif">生成文件</text>
+<text x="96" y="478" font-size="20" fill="#e5e7eb" font-family="monospace">outputs/minimal_demo/summary.json</text>
+<text x="96" y="508" font-size="20" fill="#e5e7eb" font-family="monospace">outputs/minimal_demo/map_objects.json</text>
+<text x="560" y="478" font-size="20" fill="#e5e7eb" font-family="monospace">outputs/minimal_demo/rejected_clusters.json</text>
+<text x="560" y="508" font-size="20" fill="#e5e7eb" font-family="monospace">outputs/minimal_demo/report.md / result.svg</text>
+<rect x="72" y="562" width="464" height="46" rx="10" fill="#064e3b"/>
+<text x="94" y="593" font-size="22" fill="#d1fae5" font-family="sans-serif">保留稳定对象：safety barrier, warehouse rack</text>
+<rect x="564" y="562" width="484" height="46" rx="10" fill="#7c2d12"/>
+<text x="586" y="593" font-size="22" fill="#ffedd5" font-family="sans-serif">拒绝动态/瞬时证据：forklift, pallet stack</text>
+</svg>

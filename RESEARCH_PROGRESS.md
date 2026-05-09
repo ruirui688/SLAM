@@ -177,17 +177,18 @@ summary and local paths here, then commit and push the repository.
 - Updated the minimal demo to generate `outputs/minimal_demo/result.svg`.
 - Added tracked expected image:
   `examples/minimal_slam_demo/expected_result.svg`.
+- Added a terminal-style result image:
+  `examples/minimal_slam_demo/terminal_result.svg`.
 
-## 2026-05-09 actual industrial result images in README
+## 2026-05-09 actual industrial scene images in README
 
-- Added two annotated real industrial scene result figures to the root README,
-  separate from the abstract smoke-demo SVG.
+- Added two real industrial scene figures to the root README, separate from the
+  runnable smoke-demo result SVG.
 - Figures:
-  - `paper/figures/torwic_real_session_overlays_annotated_zh.png`
-  - `paper/figures/torwic_hallway_composite_annotated_zh.png`
-- Purpose: make the repository front page show actual TorWIC industrial
-  segmentation/map-maintenance evidence with reader-facing labels, not only an
-  abstract runnable test or unannotated raw scene composite.
+  - `paper/figures/torwic_real_session_overlays.png`
+  - `paper/figures/torwic_hallway_composite.png`
+- Purpose: show the real industrial scene context while keeping the runnable
+  demo result image as the source of the tested output claim.
 
 ## 2026-05-09 P120 thick manuscript draft v1 (EN + ZH)
 
