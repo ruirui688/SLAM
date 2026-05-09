@@ -178,6 +178,16 @@ summary and local paths here, then commit and push the repository.
 - Added tracked expected image:
   `examples/minimal_slam_demo/expected_result.svg`.
 
+## 2026-05-09 actual industrial result images in README
+
+- Added two real industrial scene result figures to the root README, separate
+  from the abstract smoke-demo SVG.
+- Figures:
+  - `paper/figures/torwic_real_session_overlays.png`
+  - `paper/figures/torwic_hallway_composite.png`
+- Purpose: make the repository front page show actual TorWIC industrial
+  segmentation/map-maintenance evidence, not only an abstract runnable test.
+
 ## 2026-05-09 P120 thick manuscript draft v1 (EN + ZH)
 
 - Created paper/manuscript_en_thick.md (372 lines, 31K chars) and paper/manuscript_zh_thick.md (366 lines, 12K chars).
