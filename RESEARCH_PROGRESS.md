@@ -819,3 +819,15 @@ summary and local paths here, then commit and push the repository.
 - Appended baseline comparison appendix to both EN and ZH manuscripts (§Appendix)
 - Outputs: torwic_baseline_comparison_results.json, baseline_comparison_report_v1.md
 - Script: tools/run_baseline_comparison.py
+
+## 2026-05-09 P156 map visualization and lifecycle
+
+- Generated 3 paper-quality figures for the baseline comparison appendix:
+  1. `torwic_before_after_map_composition_p156.png` (107 KB): B0 vs B2 pie charts showing map composition change (20→5 objects, 20%→0% phantom risk)
+  2. `torwic_object_lifecycle_p156.png` (167 KB): Side-by-side lifecycle — stable barrier admitted (meets all criteria) vs forklift rejected (dynamic_contamination)
+  3. `torwic_admission_decision_space_p156.png` (141 KB): Scatter plot of all 20 clusters in dynamic_ratio × session_count space, annotated with admission regions
+- Key visual evidence: decision space figure confirms natural bimodality — infrastructure clusters at ratio=0.00, forklifts at ratio≥0.83, no intermediate values. The separation is clean and self-validating.
+- Added Fig. 11–13 captions to EN manuscript figure captions section
+- Added figures and descriptions to both EN and ZH baseline comparison appendix
+- Figures saved to paper/figures/
+- Script: tools/plot_p156_visualizations.py

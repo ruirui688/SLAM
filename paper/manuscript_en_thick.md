@@ -472,6 +472,12 @@ Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferre
 
 **Fig. 10.** First-thirty-two real semantic mask backend diagnostic. [File: `paper/figures/torwic_dynamic_mask_first32_real_p140.png`]
 
+**Fig. 11.** Before/after map composition: B0 naive-all-admit (20 objects, 20% phantom risk) vs B2 richer admission policy (5 objects, 0% phantom risk). [File: `paper/figures/torwic_before_after_map_composition_p156.png`]
+
+**Fig. 12.** Object lifecycle panel: stable yellow barrier (admitted — 2 sessions, 18 observations, dynamic_ratio=0.00) vs forklift (rejected — dynamic_contamination at ratio≥0.83). [File: `paper/figures/torwic_object_lifecycle_p156.png`]
+
+**Fig. 13.** Map-admission decision space: dynamic_ratio vs session_count for all 20 combined Aisle+Hallway clusters. Infrastructure clusters concentrate at ratio=0.00 with sessions≥2; forklift clusters occupy ratio≥0.83. The separation is bimodal with no clusters in the intermediate range (0.01–0.82). [File: `paper/figures/torwic_admission_decision_space_p156.png`]
+
 **Table 6 — Complete Dynamic Masking Evidence Chain (P135–P143).** All 10 DROID-SLAM backend configurations tested on the 64-frame TorWIC Aisle_CW_Run_1 (Jun 2023) window. All |ΔATE| < 0.1 mm. See §VII.F and `outputs/torwic_p142_strong_segment_screening_results_v1.md`, `outputs/torwic_p143_cross_window_dynamic_audit_v1.md`.
 
 ## Appendix: Dynamic SLAM Evidence Chain (P135–P143)
@@ -536,6 +542,16 @@ The criteria are not arbitrary hyperparameters optimized for a specific metric. 
 ---
 
 ## Appendix: Baseline Comparison Study (P155)
+
+![Fig. 11. Before/after map composition: B0 naive-all-admit vs B2 richer admission policy.](figures/torwic_before_after_map_composition_p156.png)
+
+![Fig. 12. Object lifecycle: stable barrier admission vs forklift rejection.](figures/torwic_object_lifecycle_p156.png)
+
+![Fig. 13. Map-admission decision space: dynamic ratio vs session count for all 20 clusters.](figures/torwic_admission_decision_space_p156.png)
+
+Three map-admission strategies were compared over the combined Aisle + Hallway dataset (20 cross-session clusters). The comparison quantifies what the richer admission policy adds over simpler baselines.
+
+*Fig. 11 visualizes the map composition change: B0 admits all 20 clusters including 4 forklifts (20% phantom risk); B2 retains only 5 verified infrastructure objects (0% phantom). Fig. 12 illustrates the object lifecycle for a stable barrier (admitted — meets all 5 criteria) vs a forklift (rejected — dynamic_contamination despite high purity and support). Fig. 13 maps the full 20-cluster decision space: infrastructure clusters (blue/yellow/purple) concentrate at dynamic_ratio=0.00 with sessions≥2; forklift clusters (red) occupy dynamic_ratio≥0.83, naturally separated from infrastructure by ≥0.83 in the dynamic_ratio axis.*
 
 Three map-admission strategies were compared over the combined Aisle + Hallway dataset (20 cross-session clusters). The comparison quantifies what the richer admission policy adds over simpler baselines.
 
