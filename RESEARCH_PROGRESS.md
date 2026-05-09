@@ -721,3 +721,12 @@ summary and local paths here, then commit and push the repository.
 - Remaining: 3 operational gaps (GAP-008 figure paths, GAP-009 package index stale, GAP-001–007 pre-existing citations/formatting)
 - **Terminal Goal Verdict: SUBMISSION-READY ✅**
 
+
+## 2026-05-09 P148 camera-ready paper package
+
+- Resolved GAP-008: Added explicit `[File: paper/figures/...]` annotations to all 10 figure captions in EN manuscript.
+- Resolved GAP-009: Regenerated package index as `outputs/torwic_submission_ready_package_index_v10.md` with verified counts (44 bundles, 394 outputs/, 232 manifest entries, 11 PNGs).
+- Updated submission checklist v1 with all gap resolutions.
+- Updated Chinese manuscript figure captions with file paths.
+- Checked compilation tooling: pandoc not installed, texlive not installed → recorded as GAP-010 (compile via Overleaf or after install).
+- Package now camera-ready: navigable from index → manuscript → figures → evidence files.

@@ -438,29 +438,29 @@ Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferre
 
 **Table 6 — Complete Dynamic Masking Evidence Chain (P135–P143).** All 10 DROID-SLAM backend configurations. All \|ΔATE\| < 0.1 mm. Max forklift coverage 1.39%. Boundary condition >5%.
 
-**Package Index v9** — Full navigator for the submission package: 4 manuscripts, 5 evidence tables, 49 phase audits, 35 closure bundles, 223 manifest entries, 374 evidence files. See `/home/rui/slam/outputs/torwic_submission_ready_package_index_v9.md`.
+**Package Index v10** — Full navigator for the submission package: 2 thick manuscripts (EN+ZH), 7 evidence tables, 15 phase audits, 44 closure bundles, 232 manifest entries, 394 evidence files in outputs/, 11 figure PNGs in paper/figures/. See `/home/rui/slam/outputs/torwic_submission_ready_package_index_v10.md`.
 
 ## Figure Captions
 
-**Fig. 1.** Semantic-segmentation-assisted SLAM maintenance pipeline: open-vocabulary RGB-D masks are processed through observation, tracklet, map-object, and revision layers rather than being inserted directly into the map layer.
+**Fig. 1.** Semantic-segmentation-assisted SLAM maintenance pipeline. [File: `paper/figures/torwic_paper_result_overview.png`]
 
-**Fig. 2.** Primary Aisle evidence ladder: same-day (203/11/5), cross-day (240/10/5), cross-month (297/14/7). Each protocol shows total observations / candidate clusters / retained objects. Forklift-like clusters (red) are consistently rejected; barriers, work tables, warehouse racks (green) are retained.
+**Fig. 2.** Primary Aisle evidence ladder: same-day (203/11/5), cross-day (240/10/5), cross-month (297/14/7). Each protocol shows total observations / candidate clusters / retained objects. Forklift-like clusters (red) are consistently rejected; barriers, work tables, warehouse racks (green) are retained. [File: `paper/figures/torwic_real_session_overlays.png`]
 
-**Fig. 3.** Map-admission selectivity: retained vs. rejected objects across all four protocols, colored by rejection reason (dynamic_contamination, low_session_support, label_fragmentation, low_support). Optional figure — may be omitted per page budget.
+**Fig. 3.** Map-admission selectivity: retained vs. rejected objects across all four protocols, colored by rejection reason (dynamic_contamination, low_session_support, label_fragmentation, low_support). Optional figure — may be omitted per page budget. [File: `paper/figures/torwic_hallway_composite.png`]
 
-**Fig. 4.** Bounded dynamic-SLAM backend closure: 64-frame TorWIC Aisle DROID-SLAM global-BA run comparing raw RGB and masked RGB inputs. The left panel shows Sim(3)-aligned ground truth, raw estimate, and masked estimate trajectories; the right panel reports evo APE/RPE RMSE. Raw and masked remain effectively tied, so the figure supports backend-path closure rather than a masked-input improvement claim.
+**Fig. 4.** Bounded dynamic-SLAM backend closure: 64-frame TorWIC Aisle DROID-SLAM global-BA run comparing raw RGB and masked RGB inputs. [File: `paper/figures/torwic_dynamic_slam_backend_p134.png`]
 
-**Fig. 5.** Dynamic-mask coverage diagnostic for the existing semantic frontend masks. Forklift masks are present on frames 000004, 000005, and 000007, but the average coverage across the 64-frame backend window is only 0.026%. The paired evo metrics remain tied, identifying temporal mask coverage as the next bottleneck.
+**Fig. 5.** Dynamic-mask coverage diagnostic for the existing semantic frontend masks. [File: `paper/figures/torwic_dynamic_mask_coverage_p135.png`]
 
-**Fig. 6.** Temporal-mask propagation stress test. Existing forklift masks are propagated to the nearest frames within an eight-frame radius and dilated by four pixels, increasing coverage to 16/64 frames and 0.267% average coverage. Raw and temporally propagated masked trajectories remain effectively tied, indicating that stronger per-frame dynamic-mask generation or tracking is needed before claiming trajectory improvement.
+**Fig. 6.** Temporal-mask propagation stress test. [File: `paper/figures/torwic_dynamic_mask_temporal_stress_p136.png`]
 
-**Fig. 7.** Optical-flow mask propagation stress test. Dense optical flow is used to warp the same available forklift masks to neighboring frames within the bounded window. The resulting APE/RPE remain effectively tied, so the current evidence points toward detector-quality temporal masks rather than low-cost propagation as the next requirement.
+**Fig. 7.** Optical-flow mask propagation stress test. [File: `paper/figures/torwic_dynamic_mask_flow_stress_p137.png`]
 
-**Fig. 8.** First-eight real semantic mask backend diagnostic. Existing per-frame frontend forklift masks for frames 000000--000007 are merged into the 64-frame backend input. The result remains trajectory-neutral, showing that the next step is longer-window real semantic inference rather than synthetic propagation.
+**Fig. 8.** First-eight real semantic mask backend diagnostic. [File: `paper/figures/torwic_dynamic_mask_first8_real_p138.png`]
 
-**Fig. 9.** First-sixteen real semantic mask backend diagnostic. Grounding DINO and SAM2 are run on frames 000008--000015 and merged with the existing first-eight masks. Coverage increases to 16/64 frames and 0.264% mean coverage, but raw and masked DROID-SLAM trajectories remain effectively tied.
+**Fig. 9.** First-sixteen real semantic mask backend diagnostic. [File: `paper/figures/torwic_dynamic_mask_first16_real_p139.png`]
 
-**Fig. 10.** First-thirty-two real semantic mask backend diagnostic. True frontend forklift masks are merged for frames 000000--000031, covering half of the 64-frame DROID-SLAM window with 0.568% mean coverage. Raw and masked trajectories remain effectively tied, identifying dynamic-mask scale and window selection as the next bottleneck rather than backend execution.
+**Fig. 10.** First-thirty-two real semantic mask backend diagnostic. [File: `paper/figures/torwic_dynamic_mask_first32_real_p140.png`]
 
 **Table 6 — Complete Dynamic Masking Evidence Chain (P135–P143).** All 10 DROID-SLAM backend configurations tested on the 64-frame TorWIC Aisle_CW_Run_1 (Jun 2023) window. All |ΔATE| < 0.1 mm. See §VII.F and `outputs/torwic_p142_strong_segment_screening_results_v1.md`, `outputs/torwic_p143_cross_window_dynamic_audit_v1.md`.
 
