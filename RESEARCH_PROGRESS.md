@@ -156,3 +156,10 @@ summary and local paths here, then commit and push the repository.
   analysis, limitations, figures, and evidence tables.
 - Policy: use existing evidence only; no new dataset downloads, no new
   experiment protocol, no unsupported downstream navigation/planning claim.
+
+## 2026-05-09 P120 thick manuscript draft v1 (EN + ZH)
+
+- Created paper/manuscript_en_thick.md (372 lines, 31K chars) and paper/manuscript_zh_thick.md (366 lines, 12K chars).
+- Both thick drafts contain: expanded Related Work (4 subsections with relationship to each bucket), detailed Method with formal trust score, full Experimental Protocol with 4 protocols, Results with per-protocol discussion and rejection taxonomy, Discussion of design choices, Limitations (7 items), Conclusion.
+- Evidence embedded: Aisle ladder (203/11/5→240/10/5→297/14/7), Hallway branch (537/16/9 over 80/80), rejection profile tables, cluster-ID-level traceability notes.
+- Policy: existing-data-only; no new experiments; all figures referenced from existing evidence.
