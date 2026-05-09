@@ -97,6 +97,8 @@ Standard SLAM treats map updates as: detection → geometric verification → ma
 
 ## V. Method
 
+Fig. 1 illustrates the full pipeline: open-vocabulary RGB-D masks flow through observation, tracklet, map-object, and revision layers rather than being inserted directly into the map.
+
 ### V.A. Open-Vocabulary Object Observation Extraction
 
 For each RGB-D frame, we apply an open-vocabulary detection pipeline (inspired by the open-vocabulary 3D mapping paradigm [4][5] but used here purely as a front-end observation generator):
@@ -213,7 +215,7 @@ All four protocols use the same admission criteria (Section V.E) with the same t
 
 ### VII.A. Primary Aisle Evidence Ladder
 
-The Aisle ladder (TorWIC_s1_d45, from POV-SLAM [6]) demonstrates that the maintenance layer retains stable infrastructure objects while rejecting dynamic contamination. All three protocols use identical admission criteria (§VI.C):
+The Aisle ladder (TorWIC_s1_d45, from POV-SLAM [6]) demonstrates that the maintenance layer retains stable infrastructure objects while rejecting dynamic contamination (see Fig. 2 for the three-protocol overview). All three protocols use identical admission criteria (§VI.C):
 
 **Same-day (203/11/5):** Among 11 candidate clusters formed from 203 observations over 3 same-day sessions (2022-06-15 runs 1-3), 5 pass admission criteria (§V.E). Retained: 2 work tables, 2 warehouse racks, 1 barrier. Rejected: 3 forklift-like clusters (dynamic_contamination, \( \rho_O > 0.2 \)), 3 single-session candidate clusters (sessions < 2). Cluster-level traceability in Appendix Y.
 
@@ -246,7 +248,7 @@ This demonstrates scene transfer: the maintenance layer operates on a different 
 
 ### VII.D. Rejection Profile Analysis
 
-The rejection reason taxonomy, aggregated across all four protocols:
+Fig. 3 visualizes the map-admission selectivity across all four protocols (retained vs. rejected objects colored by rejection reason). The rejection reason taxonomy, aggregated across all four protocols (see also Table 3):
 
 | Rejection Reason | Count | Description |
 |---|---|---|
@@ -303,7 +305,7 @@ To test whether the bottleneck is merely the number of real semantic frames, we 
 
 We analyze the per-frame mask coverage across the P135--P140 evidence chain at the authoritative 1280×720 resolution. The forklift occupies 0.63--1.39% of each frame (mean 1.14% per masked frame, 0.568% window-level `mean_mask_coverage_percent`). After DROID-SLAM's 8× optical-flow downsampling (160×90=14,400 feature points per frame), approximately 163 feature points are affected per masked frame --- 0.57% of the 921,600-point window feature budget.
 
-The ΔAPE grows approximately linearly with coverage: 0.000 mm at 0.026% (P135), +0.042 mm at 0.118% (P138), +0.047 mm at 0.264% (P139), +0.054 mm at 0.568% (P140). The slope is ~0.1 mm per percentage point of coverage. Extrapolating to a hypothetical 64/64 real mask configuration (estimated window coverage ~1.14%) predicts ΔATE ≈ +0.11 mm --- still trajectory-neutral at any meaningful evaluation threshold.
+The ΔAPE grows approximately linearly with uniform-mask coverage (Table 4): 0.000 mm at 0.026% (P135), +0.042 mm at 0.118% (P138), +0.047 mm at 0.264% (P139), +0.054 mm at 0.568% (P140). The slope is ~0.1 mm per percentage point of coverage. Extrapolating to a hypothetical 64/64 real mask configuration (estimated window coverage ~1.14%) predicts ΔATE ≈ +0.11 mm --- still trajectory-neutral at any meaningful evaluation threshold.
 
 **Root cause.** Three factors converge: (1) The forklift occupies a tiny fraction of each frame at typical industrial aisle camera distances, covering <0.6% of the DROID-SLAM feature budget across the window. (2) DROID-SLAM's RAFT flow-consistency mechanism internally rejects outlier features --- dynamic objects like forklifts naturally produce flow vectors that deviate from the dominant static-scene flow, and the explicit mask adds negligible additional rejection. (3) The 5.1 cm ATE baseline is dominated by static-scene errors (lighting variation, repetitive aisle texture, global-BA drift over 64 frames); removing 0.57% of features cannot move the ATE by more than the measurement noise floor (~0.05 mm with evo Sim(3) alignment).
 
@@ -373,7 +375,7 @@ The Aisle ladder (§VII.A) is the primary evidence ladder for the systems contri
 
 ## IX. Limitations
 
-1. **Not a complete lifelong SLAM backend.** The maintenance layer (§V) is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size — capabilities that full SLAM systems [1][3][5] provide. Bounded DROID-SLAM raw-vs-masked runs now verify the backend execution/evo path (§VII.E–F, Table 6), including 64-frame global-BA runs across 10 configurations. **Dynamic masking did not improve trajectory ATE/RPE on any tested configuration** (P135–P142): the forklift occupies at most 1.39% per frame (≤0.57% of DROID-SLAM's window feature budget at 1280×720), and screening across locally-available TorWIC sequences confirms no segment with >1.39% frame coverage exists (§P143). DROID-SLAM's internal flow-consistency filtering already handles dynamic objects at this spatial scale. Data where dynamic targets occupy > 5% of the frame is needed to observe a trajectory benefit from masking.
+1. **Not a complete lifelong SLAM backend.** The maintenance layer (§V) is an intermediate filter between perception and the map. It does not close loops, optimize poses, or manage map size — capabilities that full SLAM systems [1][3][5] provide. Bounded DROID-SLAM raw-vs-masked runs now verify the backend execution/evo path (§VII.E–F, Table 6), including 64-frame global-BA runs across 10 configurations. **Dynamic masking did not improve trajectory ATE/RPE on any tested configuration** (P135–P142): the forklift occupies at most 1.39% per frame (≤0.57% of DROID-SLAM's window feature budget at 1280×720), and screening across locally-available TorWIC sequences confirms no segment with >1.39% frame coverage exists (§VII.F). DROID-SLAM's internal flow-consistency filtering already handles dynamic objects at this spatial scale. Data where dynamic targets occupy > 5% of the frame is needed to observe a trajectory benefit from masking.
 
 2. **Larger-window or full-trajectory Hallway evaluation remains future work.** The current Hallway branch (§VII.C) uses 8/10 sessions (80/80 frames). Full-trajectory evaluation across all 10 sessions and extended frame sequences would provide stronger scene-transfer evidence. The current 9/16 retention ratio on limited frames is indicative but not conclusive.
 
@@ -429,6 +431,12 @@ Comparison matrix: Richer Aisle Ladder vs Historical Fallback (172/15/5) vs Naiv
 
 **Table 3 — Appendix Closure (Final): Rejection Taxonomy + Branch Comparison**
 Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferred gap inventory (7 gaps recorded), Aisle vs Hallway branch comparison. See `/home/rui/slam/outputs/torwic_submission_ready_appendix_table_closure_final_v1.md`.
+
+**Table 4 — Uniform Masking Coverage-Power Gradient (P135–P140).** ΔAPE as a function of uniform mask coverage. P135 (3/64, 0.026%, +0.000 mm), P138 (8/64, 0.118%, +0.042 mm), P139 (16/64, 0.264%, +0.047 mm), P140 (32/64, 0.568%, +0.054 mm). Slope ~0.1 mm/pct-pt. All |ΔATE| < 0.06 mm.
+
+**Table 5 — Concentrated vs. Uniform Dynamic Masking Comparison (P142).** Top-4/8/16 concentrated masking vs. P140 uniform-32. Sign asymmetry: concentrated ΔAPE ≤ 0 (−0.003 to −0.013 mm), uniform +0.054 mm.
+
+**Table 6 — Complete Dynamic Masking Evidence Chain (P135–P143).** All 10 DROID-SLAM backend configurations. All \|ΔATE\| < 0.1 mm. Max forklift coverage 1.39%. Boundary condition >5%.
 
 **Package Index v9** — Full navigator for the submission package: 4 manuscripts, 5 evidence tables, 49 phase audits, 35 closure bundles, 223 manifest entries, 374 evidence files. See `/home/rui/slam/outputs/torwic_submission_ready_package_index_v9.md`.
 

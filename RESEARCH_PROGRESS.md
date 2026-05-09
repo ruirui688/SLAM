@@ -681,3 +681,15 @@ summary and local paths here, then commit and push the repository.
 - Updated §X Conclusion with dynamic SLAM study summary.
 - Dynamic SLAM backend chapter now fully self-contained with quantified boundary conditions.
 - Manuscript is submission-ready for the dynamic SLAM component.
+
+## 2026-05-09 P145 manuscript integrity audit
+
+- Systematic automated audit of `paper/manuscript_en_thick.md` (480 lines).
+- Issues found and fixed:
+  1. Figs 1-3 had captions but no text-body references → added references in §V, §VII.A, §VII.D.
+  2. Table 3 unreferenced → added reference in §VII.D.
+  3. Table 4 missing from numbering (1-3,5-6 gap) → created Table 4 (Uniform Coverage-Power Gradient) and added reference in §VII.F.
+  4. `§P143` incorrect section reference → fixed to `§VII.F`.
+  5. Tables 4-6 captions added to Table Captions section (previously only inline in §VII.F).
+- All checks passing: 10 figures cross-referenced, 6 tables cross-referenced, citations [1]-[6] complete, section references valid.
+- Manuscript is submission-ready for cross-reference completeness.
