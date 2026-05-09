@@ -316,3 +316,33 @@ summary and local paths here, then commit and push the repository.
 - 0 dangling references across entire package.
 - Audit: projects/industrial-semantic-slam/artifacts/p128-submission-package-consistency-audit-2026-05-09.md.
 - Bundle v33: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v33.md.
+
+## 2026-05-09 dynamic SLAM backend closure long-term plan
+
+- User approved sustained progress on the remaining dynamic SLAM backend gaps
+  using this machine's GPU and the existing local TorWIC data.
+- Added long-term research-orchestrator phases after the current paper-package
+  closure queue:
+  - P131: backend environment probe (GPU/CUDA/PyTorch, TorWIC data, backend and
+    evo availability);
+  - P132: raw-vs-masked backend smoke run on the existing
+    `dynamic_slam_backend_input_pack`;
+  - P133: ATE/RPE evaluation for raw vs. masked trajectories;
+  - P134: bounded window expansion on local data and GPU;
+  - P135: paper/README/evidence integration with honest claim boundaries.
+- Claim boundary until those phases complete: dynamic masks and backend input
+  packs are ready, but raw-vs-masked SLAM trajectories, ATE/RPE, map-quality
+  gains, and navigation gains are not yet established.
+
+## 2026-05-09 P129 evaluation tightening — consolidated quant bundle v1
+
+- 3 new quantitative tables from existing evidence:
+  - Table 1: Consolidated Comparison (4 protocols: Aisle ladder 203/11/5→240/10/5→297/14/7 + Hallway 537/16/9 + Historical 172/15/5)
+  - Table 2: Baseline Framing (4-way comparison: richer ladder vs historical fallback vs naive retention vs confidence-only; delta: retention +16.7pp, dynamic reject +31.4pp)
+  - Table 3: Appendix Closure (25 total rejections: 16 forklift-dynamic / 9 nonpersistent; 26 total retained: 12 barrier + 8 work_table + 6 warehouse_rack; 0 forklifts retained)
+- EN thick draft: Table anchors [Table 1-3] added to Results/Discussion/Evidence Ladder
+- EN thick draft: Table Captions section with full descriptions
+- ZH thick draft: Table anchors synced
+- Audit: projects/industrial-semantic-slam/artifacts/p129-evaluation-tightening-audit-2026-05-09.md
+- Artifacts: torwic_p129_consolidated_comparison_table_v1.{json,md}, torwic_p129_baseline_framing_table_v1.{json,md}, torwic_p129_appendix_closure_v1.{json,md}
+- Bundle v34: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v34.md

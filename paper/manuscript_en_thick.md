@@ -277,7 +277,7 @@ The current evidence differs from standard dynamic-SLAM benchmarks in two import
 
 ### VIII.A. Why Not Just Filter by Detection Confidence?
 
-A natural baseline — consistent with standard object-level SLAM practice [3][4] — would be: retain objects with high average detection confidence, reject the rest. This fails for two reasons demonstrated by our evidence:
+A natural baseline — consistent with standard object-level SLAM practice [3][4] — would be: retain objects with high average detection confidence, reject the rest. [Table 2] This fails for two reasons demonstrated by our evidence:
 
 1. **Forklifts are detected with high confidence.** The detector is working correctly — it identifies forklifts. In our Aisle protocols (§VII.A), forklift-like clusters have average detection confidence comparable to retained infrastructure objects, yet all 16 are correctly rejected as dynamic contamination by the admission criteria (§V.E, §VII.D). High detection confidence does not distinguish between "this is a real forklift" and "this is a map-worthy static landmark."
 
@@ -295,7 +295,7 @@ We describe the maintenance layer as "lightweight" because it operates on top of
 
 ### VIII.D. Aisle vs. Hallway — Separate Roles
 
-The Aisle ladder (§VII.A) is the primary evidence ladder for the systems contribution. The Hallway branch (§VII.C) is a secondary broader-validation branch demonstrating scene transfer. These two roles are intentionally kept separate: **we do not merge Aisle and Hallway results** into a single aggregate number. Merging would conflate the controlled aisle protocol with the scene-transfer experiment and dilute the interpretability of both. The Hallway rejection profile (§VII.D) qualitatively matches the Aisle protocols, but the absolute retention ratios differ (9/16 vs 5/11, 5/10, 7/14), reinforcing the need for separate reporting.
+The Aisle ladder (§VII.A) is the primary evidence ladder for the systems contribution. The Hallway branch (§VII.C) is a secondary broader-validation branch demonstrating scene transfer. These two roles are intentionally kept separate: **we do not merge Aisle and Hallway results** into a single aggregate number [Table 2]. Merging would conflate the controlled aisle protocol with the scene-transfer experiment and dilute the interpretability of both. The Hallway rejection profile (§VII.D) qualitatively matches the Aisle protocols, but the absolute retention ratios differ (9/16 vs 5/11, 5/10, 7/14), reinforcing the need for separate reporting.
 
 ---
 
@@ -343,6 +343,19 @@ The current P108-P119 + P125 audit chain (see closure bundle v30) is metadata-ve
 
 ---
 
+
+
+## Table Captions
+
+**Table 1 — Consolidated Quantitative Comparison**
+All four protocols (Same-Day Aisle, Cross-Day Aisle, Cross-Month Aisle, Hallway) with observations/candidate-clusters/retained/rejected/retention-rate/dynamic-rejection-pct/stable-subset-composition. See `/home/rui/slam/outputs/torwic_p129_consolidated_comparison_table_v1.md`.
+
+**Table 2 — Baseline Framing**
+Comparison matrix: Richer Aisle Ladder vs Historical Fallback (172/15/5) vs Naive Retention Baseline vs Confidence-Only Baseline. See `/home/rui/slam/outputs/torwic_p129_baseline_framing_table_v1.md`.
+
+**Table 3 — Appendix Closure: Rejection Taxonomy + Stable-Subset Composition**
+Rejection breakdown by protocol: 25 total rejections across 4 protocols (16 forklift-dynamic / 9 nonpersistent). Stable-subset composition: 26 retained objects (12 barrier + 8 work_table + 6 warehouse_rack). 0 forklifts retained. See `/home/rui/slam/outputs/torwic_p129_appendix_closure_v1.md`.
+
 ## Figure Captions
 
 **Fig. 1.** Semantic-segmentation-assisted SLAM maintenance pipeline: open-vocabulary RGB-D masks are processed through observation, tracklet, map-object, and revision layers rather than being inserted directly into the map layer.
@@ -353,7 +366,7 @@ The current P108-P119 + P125 audit chain (see closure bundle v30) is metadata-ve
 
 ---
 
-## Evidence Ladder Summary
+## Evidence Ladder Summary  [Table 1]
 
 | Protocol | Observations | Clusters | Retained | Aisle/Hallway | Ladder Position |
 |---|---|---|---|---|---|
