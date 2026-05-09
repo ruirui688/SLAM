@@ -130,3 +130,9 @@ summary and local paths here, then commit and push the repository.
 
 - Produced P117 package consistency pass and closure bundle v27; ignored/generated artifacts.
 - Evidence summary: all cross-refs verified (P114-P117 artifacts in draft/manifest/bundle). Bundle chain v18-v27 intact (10 bundles). Appendices A-W present. Evidence anchors consistent. 0 citation placeholders.
+
+## 2026-05-09 P118 failure-case mix quantitative breakdown
+
+- Produced P118 failure-case mix breakdown and closure bundle v28.
+- Evidence: per-protocol rejection breakdown (same-day/cross-day/cross-month/Hallway), dynamic-like rejection share 50.0%-71.4%, rejection reason taxonomy (16 forklift dynamic-like, 13 low-session, 3 label fragmentation, 2 low support), cluster-ID-level detail for all four protocols. Data sourced from selection_v5.json rejected arrays.
+- Policy: existing-data-only; no new experiments.
