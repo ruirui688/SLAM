@@ -101,6 +101,15 @@ gdino_checkpoints/
 progress_contact_sheet.png
 !examples/dynamic_slam_frontend_example/dynamic_mask.png
 
+# LaTeX build intermediates
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+
 # Local agent scratch
 .codex
 .codex/
