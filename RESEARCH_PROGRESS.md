@@ -1071,3 +1071,20 @@ summary and local paths here, then commit and push the repository.
 - main.tex: 319→420 lines, all LaTeX environments balanced (303/303 braces), zero TBD/stub text in sections
 - Remaining PLACEHOLDERs: 3 figure stubs (expected — figures not generated in text-only phases)
 - Verified: no structural regressions, all cross-references preserved
+
+## 2026-05-09 P171 evo Metrics for All Existing DROID-SLAM Configs
+
+- Ran `evo_ape` + `evo_rpe` (translation part, SE(3) Umeyama) on ALL 12 existing DROID-SLAM config output directories
+- **Critical finding: Previous claim "10 configs all |ΔATE| < 0.1 mm" was based on visual trajectory overlay and is INCORRECT when evo metrics are computed**
+- **Corrected finding (2 groups):**
+  - **Group 1 — Trajectory-Neutral (7/12):** P132 (+0.006mm), P134 (0.000), P134-GBA (−0.001), P135 (−0.001), P142-T4 (−0.002), P142-T8 (−0.001), P142-T16 (+0.001). All |ΔAPE| ≤ 0.006 mm.
+  - **Group 2 — Perturbed (5/12):** P136/P137 temporal/flow stress (+7.517mm each), P138 first-8 (+0.922), P139 first-16 (+0.921), P140 first-32 (+0.920). Aggressive masks degrade DROID-SLAM.
+- **Interpretation:** Mask selectivity is a necessary condition for trajectory-neutrality. Semantic frontend masks (P135) perform identically to oracle concentrated masks (P142). Aggressive propagation or blind frame masking depletes DROID-SLAM bundle adjustment.
+- **Paper updates:**
+  - main.tex §VII.F: rewritten with two-group analysis + evo-measured ΔAPE values
+  - main.tex §II (Contributions) item 6: updated from "10 configs all <0.1mm" → two-group finding
+  - main.tex §IX (Limitations) item 5: updated dynamic boundary with mask selectivity condition
+  - main.tex §X (Conclusion): updated
+  - EDITOR_SUMMARY.md: all 3 mentions updated ("10-config" → "12-config", "all trajectory-neutral" → "two-group")
+- Outputs: `paper/evidence/dynamic_slam_backend_metrics_p171.json` (30KB), `paper/export/dynamic_slam_backend_metrics_p171.md` (7KB)
+- All 12 configs share single-session input (Jun 15 Aisle_CW_Run_1, 64-frame window)

@@ -99,7 +99,7 @@ We deliberately limit the contribution to stable-object retention, dynamic-conta
   
   \item \textbf{Per-category retention and rejection analysis} (Section~\ref{sec:results_defense}): forklift rejection is universal (0/4 retained), infrastructure retention is selective and interpretable---barriers 40\%, work tables 50\%, racks 33\%---with each rejection attributable to one or more documented criteria.
   
-  \item \textbf{A quantified negative-result study} (Section~\ref{sec:results_dynamic_chain}): 10 DROID-SLAM dynamic masking configurations all produce trajectory-neutral results ($|\Delta\text{ATE}| < 0.1~\text{mm}$), establishing a reproducible boundary condition ($<2\%$ dynamic frame coverage) under which pixel-level dynamic masking does not measurably affect visual odometry in this environment.
+  \item \textbf{A dynamic masking trajectory analysis} (Section~\ref{sec:results_dynamic_chain}): 12 DROID-SLAM configurations reveal two groups: selective semantic frontend masks and concentrated forklift masks produce trajectory-neutral results ($|\Delta\text{APE}| \leq 0.006~\text{mm}$, 7/12 configs), while aggressive mask strategies (temporal/flow propagation, uniform first-N masks) introduce measurable trajectory perturbations ($0.92$--$7.52~\text{mm}$, 5/12 configs), establishing that mask selectivity is a necessary condition for trajectory-neutrality in DROID-SLAM.
   
   \item \textbf{An open-source release} of the maintenance layer with TorWIC protocol configuration and invariant selection criteria, to be released upon acceptance.
 \end{enumerate}
@@ -307,24 +307,26 @@ All results are reported with invariant selection criteria: \texttt{min\_session
 \subsection{Dynamic SLAM Backend: Motivation and Negative-Result Study}
 \label{sec:results_dynamic_motivation}
 
-% === VII.F Dynamic SLAM: 10-Configuration Evidence Chain ===
-\subsection{Dynamic SLAM: Complete Evidence Chain}
+% === VII.F Dynamic SLAM: Configuration Evidence Chain ===
+\subsection{Dynamic SLAM: Mask Coverage and Trajectory Analysis}
 \label{sec:results_dynamic_chain}
 
-% FIGURE ALLOCATION NOTE (per ROUND1_REVIEW Risk #4):
-% Main body: 1 summary figure (raw vs masked overlay) + 1 summary table (10-config metrics).
-% Supplementary: all per-config diagnostic figures (mask coverage, temporal/flow propagation,
-%   first-N real-mask diagnostics, concentrated vs uniform comparison).
-% Rationale: the negative result is scientifically honest but 15 figures worth of
-%   detailed diagnostics are disproportionate to the conclusion.
+We evaluate 12 DROID-SLAM configurations on a single 64-frame TorWIC window (Jun~15 Aisle\_CW\_Run\_1), comparing raw RGB against masked RGB inputs. The ground-truth trajectory (TUM format) is from the TorWIC dataset; all metrics are computed with \texttt{evo\_ape} and \texttt{evo\_rpe} (translation part, SE(3) Umeyama alignment). The results reveal two distinct groups:
 
-% --- Fig 4: DROID-SLAM raw-vs-masked trajectory overlay (main body) ---
-% PLACEHOLDER: \begin{figure} \centering \includegraphics[width=\columnwidth]{figures/torwic_dynamic_slam_backend_p134.png} \caption{... Fig. 4 ...} \label{fig:dynamic_summary} \end{figure}
+\textbf{Group~1: Trajectory-Neutral (7/12 configs).} Configurations using no masking (P132, P134), our semantic frontend masks (P135), or concentrated forklift-only masks (P142-T4/T8/T16) all produce $|\Delta\text{APE}| \leq 0.006~\text{mm}$, effectively tied with the raw baseline (APE RMSE $=$ 0.109855~m for 64-frame GBA, 0.001428~m for 8-frame P132). RPE is similarly invariant ($|\Delta\text{RPE}| \leq 0.027~\text{mm}$). P135 (semantic masks) performs identically to P142 (oracle concentrated masks), validating that our frontend produces sufficiently selective forklift masks.
 
-% --- Table 6: 10-configuration evidence chain summary (main body) ---
-% PLACEHOLDER for complete metrics table
+\textbf{Group~2: Perturbed (5/12 configs).} Configurations using aggressive mask strategies produce measurable trajectory perturbations:
+\begin{itemize}
+  \item P136 (temporal propagation stress) and P137 (flow propagation stress): $\Delta\text{APE} = +7.517~\text{mm}$. Propagation masks extend beyond actual forklift frames, removing visual features from frames that DROID-SLAM requires for bundle adjustment. The identical magnitude across both propagation methods ($\pm 0~\text{mm}$) suggests mask \textit{strategy} (which frames are masked) determines perturbation magnitude, not the propagation \textit{method}.
+  \item P138--P140 (first-8/16/32 uniform masks): $\Delta\text{APE} \approx +0.92~\text{mm}$. Blindly masking the first $N$ frames depletes DROID-SLAM's initialization window. The magnitude plateaus after 8 frames ($0.922 \rightarrow 0.921 \rightarrow 0.920~\text{mm}$ for 8/16/32 frames), confirming that initialization, not cumulative frame masking, is the vulnerable phase.
+\end{itemize}
 
-% --- Supplementary-only diagnostics (Figs S2-S8): mask coverage, propagation, first-N real mask, window selection ---
+These results establish two findings. First, semantic frontend masks that are selective (only actual forklift frames) are trajectory-neutral for DROID-SLAM bundle adjustment---our method achieves this condition. Second, mask selectivity is a non-trivial requirement: aggressive mask strategies that propagate beyond true dynamic regions or blindly mask initialization frames introduce measurable trajectory degradation. The detailed per-config metrics are provided in the supplementary material (Table~S4).
+
+% Fig 4: DROID-SLAM raw-vs-masked overlay for P135 (semantic masks)
+% PLACEHOLDER: \begin{figure} \centering \includegraphics[width=\columnwidth]{figures/torwic_dynamic_slam_backend_p134.png} \caption{Trajectory comparison: raw RGB (baseline) vs semantic-masked RGB (P135). Both trajectories are visually and metrically indistinguishable.} \label{fig:dynamic_summary} \end{figure}
+
+% Table 6: Summary of key config pairs (Group 1 + representative Group 2)
 
 % === VII.G Admission Criteria Defense ===
 \subsection{Admission Criteria Defense: Ablation, Baseline Comparison, and Per-Category Analysis}
@@ -385,7 +387,7 @@ The current evidence is limited to a single warehouse site (TorWIC). While the A
   \item \textbf{Dynamic ratio may depend on frontend.} The dynamic ratio is computed from the detector's state classifier (static / candidate / dynamic\_agent). The observed bimodality (0.00 vs $\geq$0.83) may partially reflect the classifier's decision boundary rather than purely physical separation. The insensitivity of max\_dynamic\_ratio to threshold choice is demonstrated through ablation but the bimodality's dependence on frontend behavior is a caveat.
   \item \textbf{No comparison against published map-management policies.} The baseline comparison (naive-all-admit, purity/support heuristic) uses deliberately simple policies to isolate the contribution of individual signals. Comparison against map-management policies in published SLAM systems (e.g., RTAB-Map's memory management, ORB-SLAM3's map-point culling) is deferred to future work.
   \item \textbf{Single-session infrastructure loss.} Infrastructure appearing in only one session cannot be verified for cross-session persistence and is conservatively rejected. This is a design choice---precision over recall for map entries---but entails genuine infrastructure omission.
-  \item \textbf{Dynamic SLAM boundary.} Forklifts in TorWIC warehouse aisles occupy at most 1.39\% of the image frame. 10 DROID-SLAM configurations all produce $|\Delta\text{ATE}| < 0.1~\text{mm}$, confirming that at this coverage level pixel-level dynamic masking is trajectory-neutral. The $\sim$5\% figure cited in literature as a heuristic threshold for observable trajectory effects is a contextual reference; our measured bound is $<$~2\%. Richer dynamic scenarios with higher per-frame coverage may produce different outcomes.
+  \item \textbf{Dynamic SLAM boundary.} Forklifts in TorWIC warehouse aisles occupy at most 1.39\% of the image frame. evo APE evaluation across 12 DROID-SLAM configurations reveals that selective semantic frontend masks are trajectory-neutral ($|\Delta\text{APE}| \leq 0.006~\text{mm}$, 7/12 configs), but aggressive mask strategies (temporal/flow propagation, uniform first-N masks) introduce measurable perturbations ($0.92$--$7.52~\text{mm}$, 5/12 configs). Mask selectivity is a necessary condition for trajectory-neutrality. The $\sim$5\% figure cited in literature as a heuristic threshold for observable trajectory effects is a contextual reference; our measured bound is $<$~2\%. Richer dynamic scenarios with higher per-frame coverage may produce different outcomes.
   \item \textbf{Single VO backend.} Only DROID-SLAM was tested as the visual odometry backend. ORB-SLAM3 and other backends may exhibit different sensitivity to dynamic content masking.
   \item \textbf{Ground-truth object annotations.} TorWIC provides ground-truth object IDs; we use them for protocol configuration but the framework itself operates without ground truth.
 \end{enumerate}
@@ -400,7 +402,7 @@ This paper presents a systematic, evidence-backed approach to session-level map 
 
 Current TorWIC evidence documents a reproducible evidence chain across same-day, cross-day, and cross-month Aisle protocols, with Hallway retained as a separate scene-transfer branch. Forklift-like evidence is consistently rejected as dynamic contamination (50\%--71\% rejection share), while barriers, work tables, and warehouse racks are selectively retained based on multi-session evidence, label consistency, and static dominance.
 
-The dynamic SLAM backend evaluation provides a quantified boundary condition: 10 DROID-SLAM configurations all produce trajectory-neutral results ($|\Delta\text{ATE}| < 0.1~\text{mm}$) when dynamic frame coverage is below $\sim$2\%, establishing reproducibility for the negative result rather than leaving it as a speculative future-work item. The admission criteria are validated through parameter ablation across 27 parameter combinations, baseline comparison (demonstrating that purity/support heuristics fail to reject any forklift), and per-category retention/rejection analysis.
+The dynamic SLAM backend evaluation identifies a necessary condition: selective semantic frontend masks produce trajectory-neutral DROID-SLAM results ($|\Delta\text{APE}| \leq 0.006~\text{mm}$, 7/12 configs), while aggressive mask strategies (propagation, uniform first-N) introduce measurable perturbations ($0.92$--$7.52~\text{mm}$, 5/12 configs). Mask selectivity matters for bundle adjustment when dynamic frame coverage is below $\sim$2\%, establishing an evidence-backed boundary condition rather than leaving it as a speculative future-work item. The admission criteria are validated through parameter ablation across 27 parameter combinations, baseline comparison (demonstrating that purity/support heuristics fail to reject any forklift), and per-category retention/rejection analysis.
 
 The contribution is bounded: not a lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim. It is a systematic map maintenance methodology --- five boolean criteria with per-object provenance at every layer --- supported by reproducible evidence and a complete supplementary evidence package that enables per-cluster auditability of all admission and rejection decisions.
 
