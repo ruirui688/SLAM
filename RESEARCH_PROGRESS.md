@@ -656,3 +656,17 @@ summary and local paths here, then commit and push the repository.
 - Updated: paper/manuscript_en_thick.md (§VII.F expanded + updated Limitation §1), README.md,
   paper/evidence/dynamic_slam_backend_metrics.json (3 new entries).
 - Next: P143 cross-window dynamic content audit — find TorWIC segments where forklift >5% of frame.
+
+## 2026-05-09 P143 cross-window dynamic content audit
+
+- Screened all locally-available TorWIC Aisle sequences for forklift coverage >5% frame area.
+- Jun 23 Aisle_CW_Run_1: 143 annotated frames, max combined-frame forklift coverage 1.39% (frame 14).
+- Jun 15 Aisle_CW_Run_1: 8 annotated frames, max coverage 0.37%.
+- All other Aisle sequences: first-8 frames only, zero forklift detections.
+- Conclusion: No TorWIC segment exists with forklift >1.39% coverage.
+  Coverage gap 1.39% → 5% requires forklift ~1.9× closer to camera — unlikely in standard warehouse aisles.
+- This is a quantified data constraint, not a method failure.
+- P135-P143 now forms a complete negative-result study (10 configuration experiments + cross-window audit).
+- Produced `outputs/torwic_p143_cross_window_dynamic_audit_v1.{json,md}`.
+- Updated: paper/manuscript_en_thick.md (§VII.F P143 note + updated Limitation), README.md.
+- Next: P144 paper integration — integrate full dynamic SLAM evidence chain as self-contained negative-result study.
