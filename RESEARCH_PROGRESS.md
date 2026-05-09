@@ -693,3 +693,15 @@ summary and local paths here, then commit and push the repository.
   5. Tables 4-6 captions added to Table Captions section (previously only inline in §VII.F).
 - All checks passing: 10 figures cross-referenced, 6 tables cross-referenced, citations [1]-[6] complete, section references valid.
 - Manuscript is submission-ready for cross-reference completeness.
+
+## 2026-05-09 P146 final paper polish
+
+- Synced `paper/manuscript_zh_thick.md` with English manuscript P144+P145 updates:
+  1. Added §VII.F (完整 dynamic masking 证据链: Tables 4-6, boundary conditions, P141 coverage-power diagnostics, 10-config evidence chain)
+  2. Updated §IX Limitation 1 with quantified data constraint (1.39%, >5% threshold)
+  3. Updated §X Conclusion with negative-result study paragraph
+  4. Added Fig. 1-3 references in body text (§V, §VII.A, §VII.D)
+  5. Added Table/Figure Captions section with Tables 1-6 and Figs 1-10 entries
+  6. Added Appendix: Dynamic SLAM Evidence Chain (P135–P143 archival paths)
+- Both manuscripts (EN 494 lines, ZH 494 lines) are now structurally aligned.
+- Figures 1-10 cross-referenced, Tables 1-6 cross-referenced, citations [1]-[6] complete in both languages.

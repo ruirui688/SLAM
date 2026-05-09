@@ -472,7 +472,19 @@ make dynamic-first32-real-mask-figure
 
 
 
-### P144 动态 SLAM backend 章节闭环（2026-05-09 17:53+08）
+### P146 最终论文润色（2026-05-09 18:00+08）
+
+**完成：** 中英文论文同步，最终交付路径验证。
+
+| 变更 | 内容 |
+|---|---|
+| `paper/manuscript_zh_thick.md` | 新增 §VII.F（Tables 4-6/边界条件）、更新 §IX/§X、添加 图表标题 和 附录 节 |
+| 中英结构对齐 | 两版均 494 行，10 图 6 表交叉引用，6 条参考文献完整 |
+| 交付路径验证 | 9/9 关键 artifact paths 已确认存在 |
+
+**图 1–3 状态：** 正文中有引用标注，但 `figures/` 目录中不存在对应 PNG 文件（需在最终投稿排版时生成）。这是已知的投稿排版缺口，不影响论文文字内容完整性。
+
+**下一步：P147 — 最终交付物闭环检查**（package index, manifest, closure bundles, 中英一致性，submission checklist）
 
 **完成：** P135-P143 完整证据链已作为自包含 negative-result study 整合进论文。
 
