@@ -356,3 +356,17 @@ summary and local paths here, then commit and push the repository.
 - EN thick draft: Table Captions updated with definitive v8 references.
 - Audit: projects/industrial-semantic-slam/artifacts/p130-submission-ready-closure-audit-2026-05-09.md
 - Bundle v35: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v35.md
+
+## 2026-05-09 P131 dynamic SLAM backend environment probe
+
+- GPU/CUDA/PyTorch/TorWIC data/SLAM backends probed.
+- GPU: RTX 3060 12GB ✅, driver 580, CUDA 11.8 toolkit available.
+- PyTorch: NOT installed ❌ (BLK-001). cuDNN: NOT found ❌ (BLK-002).
+- DROID-SLAM: source at /home/rui/tram/thirdparty/DROID-SLAM, needs build.
+- Grounding DINO + SAM2: source only, no model weights.
+- evo: not installed. ORB-SLAM: not found. OpenCLIP: not found.
+- TorWIC raw images/GT: not on disk.
+- 2 critical blockers, 4 recommended actions documented.
+- Artifacts: torwic_p131_backend_environment_probe_v1.{json,md}
+- Audit: projects/industrial-semantic-slam/artifacts/p131-backend-environment-probe-audit-2026-05-09.md
+- Bundle v36: /home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v36.md
