@@ -259,7 +259,7 @@ We use the \textbf{TorWIC dataset} from the POV-SLAM release~\cite{barath2023pov
 
 We define four protocols spanning increasing temporal gaps and a scene-transfer branch:
 
-\textbf{Primary Aisle Ladder.} Three protocols using a ``richer'' bundle configuration covering a specific aisle section:
+\textbf{Primary Aisle Ladder.} Three protocols using a high-fidelity Aisle protocol bundle covering a specific aisle section:
 \begin{itemize}
   \item \textbf{Same-day:} 4 sessions (Jun~15 Aisle CW/CCW runs), 203 observations, 11 candidate clusters, 5 retained MapObjects. Tests same-day viewpoint variation.
   \item \textbf{Cross-day:} 4 sessions (Jun~15 + Jun~23), 240 observations, 10 clusters, 5 retained. Tests 8-day revisit with lighting change.
@@ -369,14 +369,14 @@ All results are reported with invariant selection criteria: \texttt{min\_session
 \end{table}
 
 % === VII.C Hallway Scene-Transfer ===
-\subsection{Hallway Scene-Transfer Evidence}
+\subsection{Hallway Within-Site Scene Variation}
 \label{sec:results_hallway}
 
 % --- Figure 3: Hallway composite (double-col) ---
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{../figures/torwic_hallway_composite.png}
-  \caption{Hallway scene-transfer evidence: 10 sessions across 3 dates, 537 observations, 16 clusters, 9 retained (4 $\times$ barrier, 4 $\times$ work table, 1 $\times$ warehouse rack). The Hallway environment serves as a within-site negative control---no forklifts operate in this scene, and the admission framework correctly rejects all dynamic candidates.}
+  \caption{Hallway within-site scene variation: 10 sessions across 3 dates, 537 observations, 16 clusters, 9 retained. The Hallway is a different floor plan within the same TorWIC warehouse, serving as a within-site negative control---no forklifts operate in this scene, and the admission framework correctly rejects all dynamic candidates.}
   \label{fig:hallway_composite}
 \end{figure*}
 
@@ -405,8 +405,10 @@ All results are reported with invariant selection criteria: \texttt{min\_session
 % --- See Figure~\ref{fig:protocol_overview} for rejection overview; see §S2-S6 for per-cluster detail ---
 
 % === VII.E Dynamic SLAM Backend: Motivation ===
-\subsection{Dynamic SLAM Backend: Motivation and Negative-Result Study}
+\subsection{Dynamic SLAM Backend: Boundary Condition Study}
 \label{sec:results_dynamic_motivation}
+
+We evaluate short-window bundle-adjustment perturbation under different masking conditions to establish whether semantic masking---as used in the admission-control pipeline---perturbs visual odometry. This is a boundary-condition study, not the core contribution: a map-maintenance policy that improves semantic map fidelity but degrades pose estimation would be self-undercutting. All experiments use a 64-frame TorWIC snippet; full-sequence DROID-SLAM runs require GPU resources beyond this study's compute environment.\footnote{The 64-frame limit is an experimental constraint of DROID-SLAM's memory requirements on the available hardware, not a claim that 64 frames constitute a full SLAM evaluation.}
 
 % --- Table 5: DROID-SLAM Backend Configuration Survey ---
 \begin{table}[t]
@@ -438,10 +440,10 @@ All results are reported with invariant selection criteria: \texttt{min\_session
 \end{table}
 
 % === VII.F Dynamic SLAM: Configuration Evidence Chain ===
-\subsection{Dynamic SLAM: Mask Coverage and Trajectory Analysis}
+\subsection{Mask Coverage and Trajectory Analysis}
 \label{sec:results_dynamic_chain}
 
-We evaluate 12 DROID-SLAM configurations on a single 64-frame TorWIC window (Jun~15 Aisle\_CW\_Run\_1), comparing raw RGB against masked RGB inputs. The ground-truth trajectory (TUM format) is from the TorWIC dataset; all metrics are computed with \texttt{evo\_ape} and \texttt{evo\_rpe} (translation part, SE(3) Umeyama alignment). The results reveal two distinct groups:
+We evaluate 12 masking configurations on a single 64-frame TorWIC window (Jun~15 Aisle\_CW\_Run\_1), comparing raw RGB against masked RGB inputs. The ground-truth trajectory (TUM format) is from the TorWIC dataset; all metrics are computed with \texttt{evo\_ape} and \texttt{evo\_rpe} (translation part, SE(3) Umeyama alignment). This is a short-window BA perturbation analysis, not a full-sequence SLAM evaluation; full-sequence runs are noted as future work. The results reveal two distinct groups:
 
 \textbf{Group~1: Trajectory-Neutral (7/12 configs).} Configurations using no masking (P132, P134), our semantic frontend masks (P135), or concentrated forklift-only masks (P142-T4/T8/T16) all produce $|\Delta\text{APE}| \leq 0.006~\text{mm}$, effectively tied with the raw baseline (APE RMSE $=$ 0.109855~m for 64-frame GBA, 0.001428~m for 8-frame P132). RPE is similarly invariant ($|\Delta\text{RPE}| \leq 0.027~\text{mm}$). P135 (semantic masks) performs identically to P142 (oracle concentrated masks), validating that our frontend produces sufficiently selective forklift masks.
 

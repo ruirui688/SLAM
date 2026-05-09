@@ -12,12 +12,21 @@ summary and local paths here, then commit and push the repository.
   - **P178 LaTeX build:** CONDITIONALLY BUILD-READY → verified by P180 real compilation.
   - **P180 compile:** ✅ PDF generated (14 pages, 3.09 MB) via Tectonic 0.16.9 (conda, user-level, no sudo). 0 errors, 26 warnings (all hbox, 2×80pt overfull in Related Work — cosmetic).
   - **P181 packaging:** ✅ Complete — 18 figures at 300 DPI + metadata stripped; III.B/III.C paragraph fixes; PDF metadata verified double-anonymous. Submission-ready PDF.
+  - **P183 hostile review:** ✅ Complete — 3 reject-level simulations (12 major, 12 minor), 3 text fixes applied, rebuttal templates prepared. Risk estimate: 60-70% chance first-round reject with major revision.
   - **P182 layout audit:** ✅ PASS — 15 pages, page-by-page verdict, reference section restored to final position after pending floats (`\clearpage` + `\balance`), 6 overfull hboxes (all cosmetic).
+  - **P181 packaging:** ✅ Complete — 18 figures at 300 DPI + metadata stripped; III.B/III.C paragraph fixes; PDF metadata verified double-anonymous. Submission-ready PDF.
   - **P179 quality gate:** PASS — 3 text fixes applied, 0 overclaims, T-RO-submission recommended.
-- **Active:** Manuscript production closure. Remaining: optional human visual spot-check of float-heavy pages 9, 12, and 13.
+- **Active:** Manuscript production closure. Paper faces 3 HIGH risks from hostile reviewer simulation (heuristics framing, n=20 scale, short DROID-SLAM window) — all documented with rebuttal templates in REVIEWER_ATTACKS_P183.md.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
 
-## 2026-05-10 P182 — PDF visual/layout audit
+## 2026-05-10 P183 — Hostile reviewer simulation
+
+- **Goal:** Simulate 3 hostile T-RO/IJRR reviewers, map to specific paper locations, prepare rebuttal-ready responses.
+- **Result: COMPLETE.** Reviewers: A (methodology, 4 major/3 minor), B (statistics, 4 major/3 minor), C (systems/clarity, 5 major/4 minor).
+- **Aggregate risk:** 60-70% first-round reject with major revision. 3 HIGH risks: heuristics-not-method (A-M1/A-M4), n=20 too small (B-M1), short DROID-SLAM window (C-M2).
+- **Text fixes (3):** removed "richer" label, reframed DROID-SLAM as "BA perturbation study," changed "Scene-Transfer" → "Within-Site Scene Variation."
+- **Rebuttal templates:** 4 major defense templates in P183 report.
+- **Outputs:** `REVIEWER_ATTACKS_P183.md`.
 
 - **Goal:** Page-level visual/layout audit of compiled T-RO PDF; fix or document actual submission risks.
 - **Result: PASS.** 15-page PDF audited page-by-page (pdfinfo, pdftotext, pdftoppm).
