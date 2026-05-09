@@ -1157,3 +1157,18 @@ summary and local paths here, then commit and push the repository.
   - `paper/evidence/dynamic_slam_high_coverage_p173.json`
   - `paper/export/dynamic_slam_high_coverage_p173.md`
 - Updated `paper/tro_submission/main.tex` and `EDITOR_SUMMARY.md` to avoid overclaiming universal trajectory-neutrality.
+
+## 2026-05-09 P173 stage-2 dynamic SLAM coverage scan
+
+- Scanned 5 TorWIC sessions for stage-2 dynamic SLAM readiness:
+  1. Jun23 Aisle_CW_Run_2 (1059 frames, 5 forklift mask frames, GT available)
+  2. Oct12 Aisle_CW (1092 frames, 3 forklift mask frames, GT available, P172 backend done)
+  3. Jun15 Aisle_CCW_Run_1 (1136 frames, 5 forklift mask frames, GT available)
+  4. Oct12 Aisle_CCW (915 frames, 3 forklift mask frames, GT available)
+  5. Jun15 Hallway_Full_CW (2511 frames, 5 forklift mask frames, GT available)
+- All sessions use Oct12 calibrations.txt Azure Kinect defaults (fx=621.4, fy=620.6, cx=649.6, cy=367.9).
+- Frontend forklift masks available from existing TorWIC bundles (first-8 frames per session).
+- Oct12 Aisle_CW already has P172 backend run (2 masks, raw ATE 0.049081 → masked 0.049081).
+- Remaining 4 sessions ready for forklift-masked DROID-SLAM global BA input packs.
+- Deliverables: paper/evidence/dynamic_slam_stage2_p173_coverage_scan.json, paper/export/dynamic_slam_stage2_p173_coverage_scan.md.
+- Policy: no data download, no DROID/GPU run.

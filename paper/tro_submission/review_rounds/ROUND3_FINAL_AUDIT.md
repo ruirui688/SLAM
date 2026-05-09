@@ -4,7 +4,7 @@
 
 **Date:** 2026-05-09
 
-**Last Updated:** 2026-05-09 23:30 (P167 ROUND3 update — P171/P172 evidence)
+**Last Updated:** 2026-05-09 23:50 (P167 ROUND3 R2 update — P172 Stage 2 cross-month + Hallway evo evidence)
 
 **Scope:** Cross-reference consistency check of all 13 submission-package files
 
@@ -26,13 +26,13 @@
 | D4 | Number: 20 clusters | Consistent across main.tex, EDITOR_SUMMARY | **PASS** | main.tex Limitations item #1 + EDITOR_SUMMARY §1 both state 20 |
 | D5 | Number: 35 sessions | Consistent across main.tex, EDITOR_SUMMARY | **PASS** | Both state 35 TorWIC sessions |
 | D6 | Number: 27 parameter combinations | Consistent across main.tex, EDITOR_SUMMARY, COVER_LETTER | **PASS** | All three state 27-combination ablation |
-| D7 | Number: 14 DROID-SLAM configurations (3 sessions) | Consistent across all files | **PASS (UPDATED)** | P171: 12 configs on Jun15 Run1; P172: 2 configs on Jun15 Run2 + Jun23 Run1. Total 14 across 3 sessions. 9/14 trajectory-neutral, 5/14 perturbed. Updated from original 10-config claim. |
+| D7 | Number: 16 DROID-SLAM configurations (5 sessions, 2 scenes) | Consistent across all files | **PASS (UPDATED)** | P171: 12 configs on Jun15 Run1; P172 S1: 2 sessions (Jun15 Run2, Jun23 Run1); P172 S2: 2 sessions (Oct12 Aisle_CW cross-month, Oct12 Hallway scene-transfer). Total 16 across 5 sessions, 2 scene types (Aisle+Hallway). 11/16 trajectory-neutral, 5/16 perturbed. |
 | D8 | Number: 3 baselines | Consistent across files | **PASS** | B0 (naive-all-admit), B1 (purity/support), B2 (full policy) |
-| D9 | Dynamic boundary claim | Two-group analysis consistent across all files | **PASS (UPDATED)** | P171: 7/12 configs trajectory-neutral (|ΔAPE|≤0.006mm) with selective masks; 5/12 perturbed (0.92-7.52mm) with aggressive masks. P172: 2/2 replicated neutral across sessions. Mask selectivity = necessary condition. Measured max coverage ≤1.49%. Literature `~5%` referenced as context. |
+| D9 | Dynamic boundary claim | Two-group analysis consistent across all files | **PASS (UPDATED)** | P171: 7/12 neutral (|ΔAPE|≤0.006mm) with selective masks; 5/12 perturbed (0.92–7.52mm) with aggressive masks. P172 S1: 2/2 replicated neutral. P172 S2: 2/2 replicated neutral (cross-month + Hallway scene-transfer). 11/16 neutral across 5 sessions. Mask selectivity = universal invariant (not scene-type or temporal-separation dependent). Max coverage ≤4.89%. Literature `~5%` referenced as context. |
 | D10 | Claim: "principled" eliminated | Zero residual in all files | **PASS** | 0 finds in main.tex, EDITOR_SUMMARY, COVER_LETTER |
 | D11 | Claim: "auditable" scoped | All instances qualified | **PASS** | All instances now read "architecturally auditable", "per-object provenance", or "per-object provenance-traceable" |
 | D12 | Double-anonymous | Author block, self-citations, acknowledgments | **PASS** | `\author{}` empty, `pdfauthor={}`, self-refs in 3rd person, acknowledgment removed, EXIF strip noted as pending human action |
-| D13 | Dynamic SLAM claims | No "improves ATE/RPE" language; evidence-backed two-group narrative | **PASS (UPGRADED)** | All files: "does not improve", "trajectory-neutral", "negative result", "does not measurably affect". P171/P172 added evo-quantified two-group boundary: selective masks = safe, aggressive masks = degradation. This strengthens the negative-result claim with evidence rather than weakening it. |
+| D13 | Dynamic SLAM claims | No "improves ATE/RPE" language; evidence-backed two-group narrative | **PASS (UPGRADED)** | All files: "does not improve", "trajectory-neutral", "negative result". P171/P172 added evo-quantified two-group boundary: selective masks = safe, aggressive masks = degradation. P172 S2 extended to cross-month + Hallway scene-transfer (5 sessions, 2 scene types). Strengthens the negative-result claim with multi-scene evidence. |
 | D14 | Supplement cross-refs | § references match between supplement.md and main.tex | **PASS** | supplement.md §S1→§VII.G.1, §S4→§VII.E–F, etc. |
 | D15 | Contribution count | Consistent between main.tex contributions list and abstract | **PASS** | 7 contributions in §II, 7 elements summarized in Abstract |
 
@@ -89,7 +89,7 @@
 
 **Blocking score: 75/75 points after resolving the prior B1 failure; residual WARN items remain.**
 
-**Score history:** 62 (original P167) → **75 blocking-score** (P167 ROUND3 update: B1 content resolved by P170; D7/D9/D13 upgraded by P171/P172 evo evidence; new "no-evo" gap now closed)
+**Score history:** 62 (original P167) → 75 (P167 R1: B1 resolved, D7/D9/D13 upgraded by P171/P172 S1) → **75 blocking-score** (P167 R2: P172 S2 cross-month + Hallway scene-transfer added; D7 14→16 configs, 3→5 sessions, 2 scene types). All 30 PASS. 0 FAIL, 2 deferred B2/B3, 3 WARN.
 
 | Category | Pass | Warn | Fail |
 |---|---|---|---|
@@ -186,4 +186,4 @@ paper/tro_submission/
 
 ---
 
-*Audit completed at 2026-05-09 22:12 GMT+8. ROUND3 update at 2026-05-09 23:30: B1 (content) resolved by P170 (commit f87afff); D7/D9/D13 upgraded with P171 evo metrics (12 configs → 14 across 3 sessions); blocking score 62→75. Two blockers remain (B2 Hallway sessions 9–10, B3 statistical formalization), and three WARN items remain. The package is internally consistent with all content sections populated, but still needs the remaining evidence/statistics work before a final submission decision.*
+*Audit completed 2026-05-09 22:12 GMT+8. R1 update 2026-05-09 23:30: B1 resolved by P170; D7/D9/D13 upgraded with P171+P172 S1 evo (14 configs/3 sessions); score 62→75. R2 update 2026-05-09 23:50: P172 S2 (Oct12 Aisle_CW cross-month + Oct12 Hallway scene-transfer, ΔAPE=0.000mm both) upgraded D7→16 configs/5 sessions/2 scene types; D9 cross-scene universal; D13 multi-scene evidence. Two blockers remain (B2 Hallway sessions 9–10, B3 statistical formalization), three WARN items remain. P173 ORB-SLAM3 cross-check blocked pending backend download. The package is internally consistent with all content sections populated and 5-session multi-scene dynamic SLAM evidence, but still needs the remaining statistics work before a final submission decision.*
