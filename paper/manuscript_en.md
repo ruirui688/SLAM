@@ -173,7 +173,7 @@ map-admission view.
 | Same-day Aisle | 203 | 11 | 5 | 6 | 3 | 97.5% |
 | Cross-day Aisle | 240 | 10 | 5 | 5 | 3 | 97.9% |
 | Cross-month Aisle | 297 | 14 | 7 | 7 | 5 | 97.6% |
-| Hallway broader validation | 537 | 16 | 9 | 7 | 5 | 98.3% |
+| Hallway broader validation | 537 | 16 | 9 | 7 | 4 | 98.3% |
 
 Across the three primary Aisle protocols, the stable-landmark retention rate
 stays in the 45.5%-50.0% cluster range rather than monotonically accumulating

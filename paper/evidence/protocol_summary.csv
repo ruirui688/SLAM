@@ -1,0 +1,5 @@
+name,role,sessions,frame_level_objects,cross_session_clusters,retained_stable_objects,rejected_clusters,dynamic_rejected_clusters
+Same-day Aisle,Primary Aisle ladder,4,203,11,5,6,3
+Cross-day Aisle,Primary Aisle ladder,4,240,10,5,5,3
+Cross-month Aisle,Primary Aisle ladder,6,297,14,7,7,5
+Hallway broader validation,Secondary scene-transfer validation,10,537,16,9,7,4

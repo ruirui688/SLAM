@@ -224,3 +224,22 @@ summary and local paths here, then commit and push the repository.
 - Verification: ran `python tools/build_semantic_example_panel.py`; regenerated
   `examples/semantic_segmentation_example/semantic-segmentation-result.png`,
   `yellow-barrier-annotated.png`, and `forklift-annotated.png`.
+
+## 2026-05-09 paper evidence pack and SLAM boundary clarification
+
+- Added a Git-tracked evidence digest under `paper/evidence/`, regenerated from
+  ignored JSON artifacts in `outputs/`.
+- New command: `make evidence-pack`, backed by
+  `tools/build_paper_evidence_pack.py`.
+- Evidence pack includes protocol summary, retained cluster traceability,
+  rejected cluster traceability, rejection reason totals, and source artifact
+  paths.
+- Corrected manuscript evidence drift:
+  - same-day Aisle has 4 sessions, not 3;
+  - Hallway dynamic-contamination rejected clusters are 4/7, not 5/7;
+  - Hallway retained composition is 4 barriers, 4 work tables, and 1 warehouse
+    rack.
+- Clarified engineering status in the README: semantic segmentation to
+  object-map admission and dynamic-object filtering is connected; a full
+  visual-SLAM backend with ATE/RPE or map-quality improvements is not yet
+  claimed.

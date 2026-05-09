@@ -1,0 +1,26 @@
+protocol,cluster_id,canonical_label,support_count,session_count,frame_count,dynamic_ratio,label_purity,reject_reasons
+Same-day Aisle,cluster_0004,forklift,37,3,37,0.946,0.946,dynamic_contamination
+Same-day Aisle,cluster_0007,forklift,12,3,12,1.000,1.000,dynamic_contamination
+Same-day Aisle,cluster_0009,forklift,12,2,12,0.667,0.667,dynamic_contamination;label_fragmentation
+Same-day Aisle,cluster_0008,work table,8,1,8,0.000,1.000,single_session_or_low_session_support
+Same-day Aisle,cluster_0010,warehouse rack,2,1,2,0.000,1.000,single_session_or_low_session_support;insufficient_frame_support;low_support
+Same-day Aisle,cluster_0011,warehouse rack,1,1,1,0.000,1.000,single_session_or_low_session_support;insufficient_frame_support;low_support
+Cross-day Aisle,cluster_0004,forklift,59,4,61,0.915,0.915,dynamic_contamination
+Cross-day Aisle,cluster_0003,barrier,8,1,8,0.000,1.000,single_session_or_low_session_support
+Cross-day Aisle,cluster_0009,forklift,6,1,6,0.833,0.833,single_session_or_low_session_support;dynamic_contamination
+Cross-day Aisle,cluster_0010,work table,3,1,3,0.000,1.000,single_session_or_low_session_support;insufficient_frame_support;low_support
+Cross-day Aisle,cluster_0007,forklift,1,1,1,1.000,1.000,single_session_or_low_session_support;insufficient_frame_support;low_support;dynamic_contamination
+Cross-month Aisle,cluster_0004,forklift,59,4,61,0.915,0.915,dynamic_contamination
+Cross-month Aisle,cluster_0011,forklift,13,2,13,1.000,1.000,dynamic_contamination
+Cross-month Aisle,cluster_0012,forklift,9,2,9,0.778,0.778,dynamic_contamination
+Cross-month Aisle,cluster_0007,forklift,8,2,8,0.750,0.750,dynamic_contamination
+Cross-month Aisle,cluster_0009,forklift,8,2,8,0.875,0.875,dynamic_contamination
+Cross-month Aisle,cluster_0003,barrier,8,1,8,0.000,1.000,single_session_or_low_session_support
+Cross-month Aisle,cluster_0010,work table,3,1,3,0.000,1.000,single_session_or_low_session_support;insufficient_frame_support;low_support
+Hallway broader validation,cluster_0002,forklift,109,8,109,0.945,0.945,dynamic_contamination
+Hallway broader validation,cluster_0004,warehouse rack,39,5,39,0.000,0.590,label_fragmentation
+Hallway broader validation,cluster_0003,forklift,38,4,38,0.974,0.974,dynamic_contamination
+Hallway broader validation,cluster_0011,forklift,11,2,11,0.909,0.909,dynamic_contamination
+Hallway broader validation,cluster_0014,warehouse rack,11,1,11,0.000,0.545,single_session_or_low_session_support;label_fragmentation
+Hallway broader validation,cluster_0016,forklift,7,1,7,1.000,1.000,single_session_or_low_session_support;dynamic_contamination
+Hallway broader validation,cluster_0010,rack forklift,1,1,1,0.000,1.000,single_session_or_low_session_support;insufficient_frame_support;low_support

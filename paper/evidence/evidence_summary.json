@@ -1,0 +1,154 @@
+{
+  "protocols": [
+    {
+      "key": "same_day_aisle",
+      "name": "Same-day Aisle",
+      "role": "Primary Aisle ladder",
+      "sessions": 4,
+      "frame_level_objects": 203,
+      "cross_session_clusters": 11,
+      "retained_stable_objects": 5,
+      "rejected_clusters": 6,
+      "dynamic_rejected_clusters": 3,
+      "retained_labels": {
+        "barrier": 3,
+        "work table": 1,
+        "warehouse rack": 1
+      },
+      "rejected_labels": {
+        "forklift": 3,
+        "work table": 1,
+        "warehouse rack": 2
+      },
+      "rejection_reasons": {
+        "dynamic_contamination": 3,
+        "label_fragmentation": 1,
+        "single_session_or_low_session_support": 3,
+        "insufficient_frame_support": 2,
+        "low_support": 2
+      },
+      "criteria": {
+        "min_sessions": 2,
+        "min_frames": 4,
+        "min_support": 6,
+        "max_dynamic_ratio": 0.2,
+        "min_label_purity": 0.7
+      },
+      "source_summary": "outputs/same_day_richer__recomputed_summary.json",
+      "source_selection": "outputs/same_day_richer__recomputed_selection_v5.json",
+      "source_subset": "outputs/same_day_richer__recomputed_subset.json"
+    },
+    {
+      "key": "cross_day_aisle",
+      "name": "Cross-day Aisle",
+      "role": "Primary Aisle ladder",
+      "sessions": 4,
+      "frame_level_objects": 240,
+      "cross_session_clusters": 10,
+      "retained_stable_objects": 5,
+      "rejected_clusters": 5,
+      "dynamic_rejected_clusters": 3,
+      "retained_labels": {
+        "work table": 1,
+        "barrier": 2,
+        "warehouse rack": 2
+      },
+      "rejected_labels": {
+        "forklift": 3,
+        "barrier": 1,
+        "work table": 1
+      },
+      "rejection_reasons": {
+        "dynamic_contamination": 3,
+        "single_session_or_low_session_support": 4,
+        "insufficient_frame_support": 2,
+        "low_support": 2
+      },
+      "criteria": {
+        "min_sessions": 2,
+        "min_frames": 4,
+        "min_support": 6,
+        "max_dynamic_ratio": 0.2,
+        "min_label_purity": 0.7
+      },
+      "source_summary": "outputs/cross_day_richer__recomputed_summary.json",
+      "source_selection": "outputs/cross_day_richer__recomputed_selection_v5.json",
+      "source_subset": "outputs/cross_day_richer__recomputed_subset.json"
+    },
+    {
+      "key": "cross_month_aisle",
+      "name": "Cross-month Aisle",
+      "role": "Primary Aisle ladder",
+      "sessions": 6,
+      "frame_level_objects": 297,
+      "cross_session_clusters": 14,
+      "retained_stable_objects": 7,
+      "rejected_clusters": 7,
+      "dynamic_rejected_clusters": 5,
+      "retained_labels": {
+        "work table": 2,
+        "barrier": 3,
+        "warehouse rack": 2
+      },
+      "rejected_labels": {
+        "forklift": 5,
+        "barrier": 1,
+        "work table": 1
+      },
+      "rejection_reasons": {
+        "dynamic_contamination": 5,
+        "single_session_or_low_session_support": 2,
+        "insufficient_frame_support": 1,
+        "low_support": 1
+      },
+      "criteria": {
+        "min_sessions": 2,
+        "min_frames": 4,
+        "min_support": 6,
+        "max_dynamic_ratio": 0.2,
+        "min_label_purity": 0.7
+      },
+      "source_summary": "outputs/cross_month_richer__recomputed_summary.json",
+      "source_selection": "outputs/cross_month_richer__recomputed_selection_v5.json",
+      "source_subset": "outputs/cross_month_richer__recomputed_subset.json"
+    },
+    {
+      "key": "hallway_broader_validation",
+      "name": "Hallway broader validation",
+      "role": "Secondary scene-transfer validation",
+      "sessions": 10,
+      "frame_level_objects": 537,
+      "cross_session_clusters": 16,
+      "retained_stable_objects": 9,
+      "rejected_clusters": 7,
+      "dynamic_rejected_clusters": 4,
+      "retained_labels": {
+        "barrier": 4,
+        "work table": 4,
+        "warehouse rack": 1
+      },
+      "rejected_labels": {
+        "forklift": 4,
+        "warehouse rack": 2,
+        "rack forklift": 1
+      },
+      "rejection_reasons": {
+        "dynamic_contamination": 4,
+        "label_fragmentation": 2,
+        "single_session_or_low_session_support": 3,
+        "insufficient_frame_support": 1,
+        "low_support": 1
+      },
+      "criteria": {
+        "min_sessions": 2,
+        "min_frames": 4,
+        "min_support": 6,
+        "max_dynamic_ratio": 0.2,
+        "min_label_purity": 0.7
+      },
+      "source_summary": "outputs/torwic_hallway_protocol_current_summary_v1.json",
+      "source_selection": "outputs/torwic_hallway_protocol_current_selection_v5.json",
+      "source_subset": "outputs/torwic_hallway_protocol_current_subset.json"
+    }
+  ]
+}
