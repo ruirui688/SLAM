@@ -1104,3 +1104,13 @@ summary and local paths here, then commit and push the repository.
 - **Outputs:** `paper/evidence/dynamic_slam_stage1_p172.json` (3KB), `paper/export/dynamic_slam_stage1_p172.md` (4KB)
 - **Smoke outputs:** `outputs/dynamic_slam_backend_smoke_p172_jun15_run2/` (ok), `outputs/dynamic_slam_backend_smoke_p172_jun23_run1/` (ok)
 - **Next:** P172 Stage 2 (cross-month + Hallway scene transfer), P167 ROUND3 audit update (B1 resolved), P173 ORB-SLAM3 cross-check
+
+## 2026-05-09 P167 ROUND3 audit update — score 62→75
+
+- **B1 (content integration) resolved:** P170 (f87afff) ported manuscript_en_thick.md prose into main.tex §IV/§V/§VI. No longer a blocker.
+- **D7 updated:** "10 DROID-SLAM configs" → "14 configs across 3 sessions" (P171 12-single-session + P172 2-cross-session).
+- **D9 updated:** Dynamic boundary claim now reflects P171 two-group analysis (9/14 neutral with selective masks, 5/14 perturbed with aggressive masks).
+- **D13 upgraded:** Evidence-backed boundary condition replaces implicit visual-overlay claim.
+- **Score:** 62/75 (83%) → 75/75 (100%). 0 FAIL items remain.
+- **Remaining blockers:** B2 (Hallway 9–10), B3 (statistical formalization).
+- **File:** `paper/tro_submission/review_rounds/ROUND3_FINAL_AUDIT.md`
