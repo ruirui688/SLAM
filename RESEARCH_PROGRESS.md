@@ -1060,3 +1060,14 @@ summary and local paths here, then commit and push the repository.
 - Batch manifest draft for Stage 1: mask coverage scan → input pack → DROID → evo → summary
 - Recommendation: A (evo 11 configs) → B (Stage 1, 2 sessions) → assess → decide on C/D
 - Output: `paper/export/full_dataset_dynamic_slam_followup_plan_p168b.md` (17KB)
+
+## 2026-05-09 P170 Content Integration: manuscript_en_thick.md → main.tex
+
+- Ported content from `paper/manuscript_en_thick.md` into `paper/tro_submission/main.tex`:
+  - **§IV Problem Formulation**: Formal mathematical statement (4 map-admission desiderata: stability, consistency, completeness, admission control) + key distinction from standard SLAM (detection→observation→tracklet→map-object→revisioned update layer chain)
+  - **§V Method (6 subsections)**: Observation layer (Grounding DINO + SAM2 + OpenCLIP pipeline), Tracklet layer (aggregation + dynamic ratio), Map-Object layer (cross-session IoU matching), Trust-score formulation (Eq. 1: α=0.4, β=0.3, γ=0.5 with semantic justification), Admission criteria (5 boolean gates), Revision layer (confirm/add/reject lifecycle)
+  - **§VI Experimental Protocol**: Dataset provenance (20 sessions, 32,743 frames, 3 dates), Primary Aisle Ladder (same-day/cross-day/cross-month with obs/clusters/retained counts), Hallway scene-transfer branch, invariant selection criteria (5 constants)
+  - **§VIII Discussion**: 4 subsections — Why boolean criteria (traceability, transfer, domain-informed weights), Dynamic-ratio bimodality (real separation but possibly frontend-influenced), Relationship to classical SLAM landmark selection (EKF-SLAM, ORB-SLAM culling analogue), Single-site limitation and cross-site validation requirements
+- main.tex: 319→420 lines, all LaTeX environments balanced (303/303 braces), zero TBD/stub text in sections
+- Remaining PLACEHOLDERs: 3 figure stubs (expected — figures not generated in text-only phases)
+- Verified: no structural regressions, all cross-references preserved

@@ -150,7 +150,23 @@ Recent advances in vision foundation models enable extracting semantically label
 \section{Problem Formulation}
 \label{sec:problem}
 
-% TBD: Mathematical formulation of session-level map admission
+\subsection{Formal Statement}
+\label{sec:problem_formal}
+
+Let a SLAM session $S_k$ produce a sequence of RGB-D frames $\{F_{k,1}, \ldots, F_{k,N_k}\}$. For each frame, an open-vocabulary detection-segmentation-labeling pipeline outputs a set of candidate object instances $\{o_{k,i}^{(j)}\}$, each with a bounding box, a segmentation mask, a canonical label, and a confidence score.
+
+The \textbf{map-admission problem} (motivated by the dynamic-contamination gap identified in \S\ref{sec:admission_gap}) is: given candidate observations across one or more sessions, produce a map $\mathcal{M}$ consisting of durable object entities $\{e_1, \ldots, e_M\}$ such that:
+\begin{enumerate}
+  \item \textbf{Stability:} Each $e_m$ corresponds to a physically persistent object in the environment (not a transient or dynamic agent).
+  \item \textbf{Consistency:} The label and spatial extent of $e_m$ are consistent across revisits.
+  \item \textbf{Completeness:} No persistent object that appears across multiple sessions with sufficient evidence is omitted.
+  \item \textbf{Admission control:} Dynamic agents (forklifts, carts) and transient objects are explicitly rejected rather than silently suppressed.
+\end{enumerate}
+
+\subsection{Key Distinction from Standard SLAM}
+\label{sec:problem_distinction}
+
+Standard SLAM treats map updates as: detection $\rightarrow$ geometric verification $\rightarrow$ map insertion~\cite{cadena2016past}. Our framework inserts an intermediate maintenance layer: detection $\rightarrow$ observation (\S\ref{sec:observation}) $\rightarrow$ tracklet within-session (\S\ref{sec:tracklet}) $\rightarrow$ map-object cross-session (\S\ref{sec:map_object}) $\rightarrow$ revisioned map update (\S\ref{sec:revision}). Each transition applies criteria that filter, aggregate, and score candidate evidence before map insertion. This architecture separates the perception question (``what is detected?'') from the maintenance question (``what deserves a durable slot in the semantic map?'').
 
 % ============================================================================
 % V. METHOD
@@ -158,35 +174,100 @@ Recent advances in vision foundation models enable extracting semantically label
 \section{Method: Session-Level Map Admission Control}
 \label{sec:method}
 
+Fig.~1 illustrates the full pipeline: open-vocabulary RGB-D masks flow through observation, tracklet, map-object, and revision layers rather than being inserted directly into the map.
+
 % === V.A Observation Layer ===
 \subsection{Observation Layer}
 \label{sec:observation}
 
-% === V.B Tracklet Layer ===  
+For each RGB-D frame, we apply an open-vocabulary detection pipeline:
+\begin{enumerate}
+  \item \textbf{Grounding DINO}~\cite{liu2024grounding} proposes bounding boxes from text prompts corresponding to common industrial object categories (barrier, forklift, work table, warehouse rack, cart, pallet, pillar).
+  \item \textbf{SAM~2}~\cite{ravi2024sam2} generates instance masks from the proposed boxes.
+  \item \textbf{OpenCLIP}~\cite{cherti2023reproducible} reranks and resolves label assignments by comparing mask crops to text embeddings of the target category set.
+\end{enumerate}
+Each resulting candidate becomes an \textbf{ObjectObservation} with frame ID, session ID, bounding box, mask polygon, canonical label, confidence score, and detection timestamp. The detection pipeline is used as a black-box front end; our contribution begins at the observation layer (\S\ref{sec:scope}).
+
+% === V.B Tracklet Layer ===
 \subsection{Tracklet Layer}
 \label{sec:tracklet}
+
+Within a single session $S_k$, observations with the same canonical label and overlapping spatial extent are grouped into \textbf{tracklets}. A tracklet $T$ aggregates: session ID and temporal extent (first/last frame), observation count and spatial extent statistics, label histogram (raw detector outputs before canonicalization), state histogram (detector-reported state: \texttt{static}, \texttt{candidate}, \texttt{dynamic\_agent}), and dynamic ratio $\rho_T$ (fraction of observations with state $=$ \texttt{dynamic\_agent}). Tracklets are the within-session evidence unit; multiple tracklets with the same label from different sessions are candidates for cross-session merging.
 
 % === V.C Map-Object Layer ===
 \subsection{Map-Object Layer}
 \label{sec:map_object}
 
+Tracklets from different sessions are matched by spatial overlap and canonical label consistency to form \textbf{MapObjects}. A MapObject $O$ aggregates: session support (number of distinct sessions), total observations and total tracklets, dominant label and label purity (fraction of observations with the dominant label), dominant state, spatial stability (variance of mean center across sessions), and meta-evidence (session lists, frame counts, support counts). The cross-session matching uses a spatial IoU threshold (0.1) with canonical label agreement. Objects appearing in only one session with low support are candidates for rejection.
+
 % === V.D Trust Score Formulation ===
 \subsection{Trust-Score Formulation}
 \label{sec:trust_score}
+
+Each MapObject $O$ receives a \textbf{trust score} $\tau(O)$ defined as:
+\begin{equation}
+\tau(O) = \alpha \cdot s_{\text{session}}(O) + \beta \cdot s_{\text{support}}(O) - \gamma \cdot s_{\text{dynamic}}(O)
+\label{eq:trust_score}
+\end{equation}
+where $s_{\text{session}}(O)$ is normalized session count (min~0, max~1 at $\geq$3 sessions), $s_{\text{support}}(O)$ is normalized observation support (min~0, max~1 at $\geq$20 observations), $s_{\text{dynamic}}(O) = \rho_O$ is the dynamic ratio (0 for fully static, 1 for fully dynamic), and $\alpha = 0.4$, $\beta = 0.3$, $\gamma = 0.5$ (configurable, not optimized; see \S\ref{sec:protocol_criteria} for protocol-wide consistency).
+
+This score is \textbf{not} presented as an optimal estimator. It is a transparent, auditable formulation designed to be inspectable: each component has a clear semantic interpretation, and the weights can be adjusted per deployment domain. The score is used as an auxiliary signal; the primary map-admission gate is the boolean criteria set in \S\ref{sec:admission_criteria}. In practice, across the TorWIC protocols reported in \S\ref{sec:results}, all retained MapObjects satisfy $\tau(O) \geq 0.4$ and all rejected objects fall below $\tau(O) \leq 0.15$.
 
 % === V.E Admission Criteria ===
 \subsection{Admission Criteria}
 \label{sec:admission_criteria}
 
+A MapObject $O$ is admitted to the durable map $\mathcal{M}$ if and only if it satisfies \textbf{all} five criteria:
+\begin{itemize}
+  \item \textbf{Multi-session presence} ($\geq$ 2 sessions): single-session observations may be transient.
+  \item \textbf{Minimum support} ($\geq$ 6 observations): low-support objects are likely spurious.
+  \item \textbf{Label consistency} (label purity $\geq$ 0.7): mixed-label objects indicate detector ambiguity.
+  \item \textbf{Static dominance} (dynamic ratio $\leq$ 0.2): dynamic agents should not enter the map.
+  \item \textbf{Minimum frames} ($\geq$ 4 frames): objects seen in only 1--2 frames are likely detection noise.
+\end{itemize}
+These criteria are the primary admission-control mechanism. Objects that fail any criterion are recorded as \textbf{rejected} with specific rejection reasons, providing auditable traceability (see \S\ref{sec:results_defense} for ablation and baseline comparison).
+
 % === V.F Revision Layer ===
 \subsection{Revision Layer}
 \label{sec:revision}
+
+When a new session revisits the environment, its tracklets are matched against existing MapObjects in $\mathcal{M}$. Three outcomes are possible:
+\begin{enumerate}
+  \item \textbf{Confirm:} A tracklet matches an existing MapObject within spatial and label thresholds $\rightarrow$ increment session/support/observation counters, update statistics.
+  \item \textbf{Add:} A tracklet forms a new candidate MapObject that passes admission criteria after sufficient session evidence $\rightarrow$ admit.
+  \item \textbf{Reject:} A tracklet does not match any existing object and fails admission criteria $\rightarrow$ record as rejected with reasons.
+\end{enumerate}
+The map $\mathcal{M}$ is thus \textbf{revisioned} rather than rebuilt: stable objects accumulate confirming evidence across revisits, while new candidates are admitted only after meeting the multi-session threshold.
 
 % ============================================================================
 % VI. EXPERIMENTAL PROTOCOL
 % ============================================================================
 \section{Experimental Protocol}
 \label{sec:protocol}
+
+\subsection{Dataset and Provenance}
+\label{sec:protocol_dataset}
+
+We use the \textbf{TorWIC dataset} from the POV-SLAM release~\cite{barath2023povslam}, which provides RGB-D sequences of industrial warehouse aisles with revisits under varying conditions. The dataset contains 20 sessions across 3 dates (Jun~15, Jun~23, Oct~12, 2022), totaling 32,743 RGB frames, with ground-truth camera trajectories and object annotations. The dataset provenance is explicitly tied to POV-SLAM's object-aware semantic SLAM evaluation setup.
+
+\subsection{Protocol Design}
+\label{sec:protocol_design}
+
+We define four protocols spanning increasing temporal gaps and a scene-transfer branch:
+
+\textbf{Primary Aisle Ladder.} Three protocols using a ``richer'' bundle configuration covering a specific aisle section:
+\begin{itemize}
+  \item \textbf{Same-day:} 3 sessions (Jun~15, runs 1--3), 203 observations, 11 candidate clusters, 5 retained MapObjects. Tests same-day viewpoint variation.
+  \item \textbf{Cross-day:} 4 sessions (Jun~15 + Jun~23), 240 observations, 10 clusters, 5 retained. Tests 8-day revisit with lighting change.
+  \item \textbf{Cross-month:} 4 sessions (Jun~15, Jun~23, Oct~12), 297 observations, 14 clusters, 7 retained. Tests 4-month gap with seasonal variation.
+\end{itemize}
+
+\textbf{Hallway Scene-Transfer Branch.} 10 sessions across all 3 dates, 537 observations, 16 clusters, 9 retained. Tests whether the admission-control framework transfers to a scene without forklifts (Hallway serve as a negative-control environment).
+
+\subsection{Selection Criteria (Constant Across All Protocols)}
+\label{sec:protocol_criteria}
+
+All results are reported with invariant selection criteria: \texttt{min\_sessions}=2, \texttt{min\_frames}=4, \texttt{min\_support}=6, \texttt{max\_dynamic\_ratio}=0.2, \texttt{min\_label\_purity}=0.7. These values are fixed before evaluation and not tuned per protocol. Parameter sensitivity is explored through ablation across 27 combinations (\S\ref{sec:results_defense}).
 
 % ============================================================================
 % VII. RESULTS
@@ -261,15 +342,35 @@ Recent advances in vision foundation models enable extracting semantically label
 \section{Discussion}
 \label{sec:discussion}
 
-% EXTENDED DISCUSSION PLACEHOLDER — content to be populated from manuscript_en_thick.md §VIII
-% Key points the Discussion must cover (per ROUND1_REVIEW.md Risks R2.6, R2.7, R2.9):
-% 1. Why boolean criteria (not learned): traceability, cross-scene transfer, debuggability
-% 2. Why the trust-score weights (0.4/0.3/0.5) reflect domain-informed priorities rather than optimization
-% 3. Dynamic-ratio bimodality: separation visible in data but may partially reflect frontend classifier behavior
-% 4. How this compares conceptually to published map management (RTAB-Map memory, ORB-SLAM3 culling)
-% 5. Single-site limitation and what would be needed for cross-site transfer
+% ===== Discussion content ported from manuscript_en_thick.md §VIII =====
 
-This section will draw on the thick manuscript Discussion (manuscript\_en\_thick.md §VIII) to address the Round~1 critique: (a)~justifying the deliberate use of boolean criteria over learned alternatives, (b)~contextualizing the observed data bimodality as real but possibly frontend-influenced, (c)~relating the admission-control problem to landmark-selection paradigms in classical SLAM, and (d)~discussing what a multi-site validation would require.
+\subsection{Why Boolean Criteria (Not Learned)}
+\label{sec:disc_boolean}
+
+The five admission criteria (\S\ref{sec:admission_criteria}) are deliberately boolean rather than learned. Three considerations motivate this choice.
+
+\textbf{Traceability.} Every admission or rejection decision maps to a specific criterion violation, enabling per-object provenance auditable without model introspection. Learned classifiers (e.g., a neural admission gate trained on object features) would obscure the decision boundary.
+
+\textbf{Cross-scene transfer.} Boolean thresholds on session count, label purity, and dynamic ratio transfer across the Aisle and Hallway protocols without retraining. A learned gate trained on Aisle data might specialize to forklift-rich scenes and fail on the Hallway negative-control environment.
+
+\textbf{Domain-informed priorities.} The weights in the trust score (\ref{eq:trust_score}) reflect domain priorities---session count ($\alpha{=}0.4$) is weighted more heavily than observation support ($\beta{=}0.3$) because cross-session persistence is a stronger indicator of infrastructure than repeated detection within a single session---rather than being optimized on a validation set. The dynamic-ratio weight ($\gamma{=}0.5$) intentionally penalizes dynamic contamination to produce a clean floor: $\tau(O) \leq 0.15$ for forklifts, $\tau(O) \geq 0.4$ for infrastructure.
+
+\subsection{Dynamic-Ratio Bimodality}
+\label{sec:disc_bimodality}
+
+The observed separation---infrastructure clusters at dynamic ratio $=$ 0.00, forklifts at $\geq$0.83, with no clusters in the intermediate range (0.01--0.82)---is a striking feature of the data. This bimodality justifies the insensitivity of \texttt{max\_dynamic\_ratio} across a wide range (0.10--0.30) shown in the parameter ablation (\S\ref{sec:results_defense}).
+
+However, this bimodality may partially reflect the frontend state classifier's decision boundary rather than purely physical separation. The detector reports three states (\texttt{static}, \texttt{candidate}, \texttt{dynamic\_agent}); if the classifier assigns \texttt{dynamic\_agent} conservatively, dynamic objects receive consistently high ratios while static objects receive zero. This caveat is noted as a limitation (\S\ref{sec:limitations}, item 4): the bimodality is real in the data but its sharpness may be frontend-dependent. Multi-frontend ablation would be needed to quantify this dependence.
+
+\subsection{Relationship to Landmark Selection in Classical SLAM}
+\label{sec:disc_landmark}
+
+The admission-control problem has conceptual precursors in classical SLAM. EKF-SLAM feature management, PTAM map-point culling, and ORB-SLAM's map-point policies all implement observation-quality thresholds for geometric landmarks. ORB-SLAM3's map-merging capability further introduces cross-session geometric verification. Our admission criteria carry this principle into the semantic domain: just as ORB-SLAM culls map points with low observation count or high reprojection error, our framework culls semantic objects with low session support or high dynamic ratio. The key difference is that semantic admission requires reasoning about object identity persistence rather than geometric reprojection error, and the criteria must distinguish between static infrastructure and structurally similar dynamic agents (forklifts that look geometrically stable but are semantically inadmissible). RTAB-Map's memory management similarly filters based on retrieval frequency; our session-count criterion is a semantic analogue.
+
+\subsection{Single-Site Limitation and Cross-Site Validation}
+\label{sec:disc_cross_site}
+
+The current evidence is limited to a single warehouse site (TorWIC). While the Aisle and Hallway protocols provide within-site protocol-level diversity, external validation at other industrial sites (different warehouse layouts, lighting conditions, object categories) is deferred. A multi-site validation would require: (1)~a multi-site industrial SLAM dataset with ground-truth object annotations across revisits (no such public dataset exists to our knowledge); (2)~recalibration of the detection prompt set for site-specific object categories; and (3)~verification that the admission thresholds (\texttt{min\_sessions}{=}2, \texttt{max\_dynamic\_ratio}{=}0.2) transfer without retuning. Until such data is available, the current evidence is bounded to the TorWIC environment, as noted among the limitations (\S\ref{sec:limitations}, items~1--2).
 
 % ============================================================================
 % IX. LIMITATIONS
