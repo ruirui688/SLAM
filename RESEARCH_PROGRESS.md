@@ -894,3 +894,33 @@ summary and local paths here, then commit and push the repository.
   - robust evo reference check for IEEE-style `M. Grupp`
 - Final audit result: **100/100 checks passed**.
 - Dynamic SLAM boundary still preserved: DROID-SLAM raw-vs-masked remains trajectory-neutral; no ATE/RPE improvement claim was introduced.
+
+## 2026-05-09 P160 T-RO/IJRR submission strategy pack
+
+- Created `paper/export/tro_ijrr_submission_strategy_p160.md` (27 KB).
+- Contents:
+  1. **T-RO vs IJRR vs RSS fit matrix** with explicit anti-water (拒绝水刊) declaration —
+     T-RO primary recommendation (40-55% current, 55-70% after P161-P163),
+     IJRR strong alternative (30-45% current, 40-55% after P161-P163).
+     CVPR/ECCV/NeurIPS/waters explicitly excluded.
+  2. **Current P159 package state**: 100/100 final audit, EN/ZH PDF+HTML built,
+     16 figures, P154-P157 defense evidence, 10 formal citations + evo.
+  3. **Main/appendix/supplement organization** for T-RO (18pp two-column),
+     IJRR (25pp), and RSS (8pp): §VII.E-F dynamic SLAM → T-RO supplementary,
+     §VII.G admission defense → main body, P156/P157 figures → appendix.
+  4. **Reviewer attack → rebuttal-ready defense table**: 10 attack vectors
+     (3 critical, 2 high, 5 medium) with pre-written defenses, severity ratings,
+     and evidence locations. All critical attacks (A1 no algorithm, A6 arbitrary
+     thresholds, A7 no baseline) fully mitigated by P154-P157 evidence.
+  5. **DROID-SLAM raw vs masked explicit declaration**: all 10 configurations
+     produce |ΔATE| < 0.1mm. No ATE/RPE improvement claimed. Boundary condition
+     >5% dynamic target coverage for observable effect. Quantified data
+     constraint: max forklift coverage 1.39% in TorWIC.
+  6. **P161-P165 executable backlog**: P161 T-RO template conversion →
+     P162 supplementary evidence package → P163 cover letter → P164 code/arXiv
+     checklist → P165 advisor decision pack. P161–P163 are must-have before
+     submission; P164–P165 should-complete.
+- Policy: existing-data-only; no new experiments; no manuscript modification;
+  no citation polish; no P158; no new phase.
+- Evidence: the strategy pack references all P135-P159 artifacts, all 16 figures,
+  all 6 tables, and the complete 100/100 P159 audit.
