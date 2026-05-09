@@ -62,6 +62,13 @@ summary and local paths here, then commit and push the repository.
 - Evidence summary: synchronized Appendix Q into both OpenClaw paper drafts. Fixed Section III.A narrative redundancy (merged near-duplicate "candidate evidence" sentences). Tightened Section II item 4, Section VI, and Fig. A1 caption to explicitly block Hallway-to-Aisle promotion or merge. Verified terminology consistency, contribution boundary, Aisle/Hallway roles, and figure captions remain bounded.
 - Policy: existing-data-only; no new dataset download; no larger-window/full-trajectory protocol; no generated `outputs/` artifacts committed to Git.
 
+## 2026-05-09 autonomous owner Telegram reporting
+
+- Operational fix: host-side research owner delivery is enabled by default and points to the research Telegram topic.
+- Owner-loop policy: future non-trivial progress reports must include changed artifacts, verification, Git commit hash, commit subject, push status, and next active phase/step.
+- Added repository-visible operating note: `AUTONOMOUS_RESEARCH_OWNER.md`.
+- Policy: pure hosted autonomy remains bounded by approval gates for new data downloads, larger-window/full-trajectory protocols, downstream navigation/planning claims, destructive Git actions, credential/delivery-target changes, and venue-specific house style decisions.
+
 ## 2026-05-09 P111 submission package consistency
 
 - Produced P111 audit and closure bundle v21; ignored/generated artifacts: `/home/rui/slam/outputs/torwic_submission_ready_closure_bundle_v21.md`.
