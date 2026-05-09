@@ -1,10 +1,16 @@
 # Round 3 Final Consistency Audit — T-RO Submission Package
 
-**Audit Phase:** P167 (review-round-3-final-consistency-audit)  
-**Date:** 2026-05-09  
-**Scope:** Cross-reference consistency check of all 13 submission-package files  
-**Method:** 18-dimension automated grep + manual cross-reading  
-**Verdict:** CONDITIONAL PASS — 3 minor fixes applied; 3 blockers deferred
+**Audit Phase:** P167 (review-round-3-final-consistency-audit)
+
+**Date:** 2026-05-09
+
+**Last Updated:** 2026-05-09 23:30 (P167 ROUND3 update — P171/P172 evidence)
+
+**Scope:** Cross-reference consistency check of all 13 submission-package files
+
+**Method:** 18-dimension automated grep + manual cross-reading
+
+**Verdict:** CONDITIONAL PASS — 3 minor fixes applied; 2 blockers deferred (B1 §IV-VI content resolved by P170; B1 dynamic-SLAM-evo resolved by P171/P172)
 
 ---
 
@@ -20,13 +26,13 @@
 | D4 | Number: 20 clusters | Consistent across main.tex, EDITOR_SUMMARY | **PASS** | main.tex Limitations item #1 + EDITOR_SUMMARY §1 both state 20 |
 | D5 | Number: 35 sessions | Consistent across main.tex, EDITOR_SUMMARY | **PASS** | Both state 35 TorWIC sessions |
 | D6 | Number: 27 parameter combinations | Consistent across main.tex, EDITOR_SUMMARY, COVER_LETTER | **PASS** | All three state 27-combination ablation |
-| D7 | Number: 10 DROID-SLAM configurations | Consistent across all files | **PASS** | main.tex, EDITOR_SUMMARY, COVER_LETTER all state 10 |
+| D7 | Number: 14 DROID-SLAM configurations (3 sessions) | Consistent across all files | **PASS (UPDATED)** | P171: 12 configs on Jun15 Run1; P172: 2 configs on Jun15 Run2 + Jun23 Run1. Total 14 across 3 sessions. 9/14 trajectory-neutral, 5/14 perturbed. Updated from original 10-config claim. |
 | D8 | Number: 3 baselines | Consistent across files | **PASS** | B0 (naive-all-admit), B1 (purity/support), B2 (full policy) |
-| D9 | Dynamic boundary | `<2%` / `1.39%` consistent across all files | **PASS** | FIXED in this audit: EDITOR_SUMMARY §3.1 was `~5%` → now `~2%` with context. Limitations was `~5%` threshold → now distinguishes measured bound from literature reference. |
+| D9 | Dynamic boundary claim | Two-group analysis consistent across all files | **PASS (UPDATED)** | P171: 7/12 configs trajectory-neutral (|ΔAPE|≤0.006mm) with selective masks; 5/12 perturbed (0.92-7.52mm) with aggressive masks. P172: 2/2 replicated neutral across sessions. Mask selectivity = necessary condition. Measured max coverage ≤1.49%. Literature `~5%` referenced as context. |
 | D10 | Claim: "principled" eliminated | Zero residual in all files | **PASS** | 0 finds in main.tex, EDITOR_SUMMARY, COVER_LETTER |
 | D11 | Claim: "auditable" scoped | All instances qualified | **PASS** | All instances now read "architecturally auditable", "per-object provenance", or "per-object provenance-traceable" |
 | D12 | Double-anonymous | Author block, self-citations, acknowledgments | **PASS** | `\author{}` empty, `pdfauthor={}`, self-refs in 3rd person, acknowledgment removed, EXIF strip noted as pending human action |
-| D13 | Dynamic SLAM claims | No "improves ATE/RPE" language | **PASS** | All files: "does not improve", "trajectory-neutral", "negative result", "does not measurably affect" |
+| D13 | Dynamic SLAM claims | No "improves ATE/RPE" language; evidence-backed two-group narrative | **PASS (UPGRADED)** | All files: "does not improve", "trajectory-neutral", "negative result", "does not measurably affect". P171/P172 added evo-quantified two-group boundary: selective masks = safe, aggressive masks = degradation. This strengthens the negative-result claim with evidence rather than weakening it. |
 | D14 | Supplement cross-refs | § references match between supplement.md and main.tex | **PASS** | supplement.md §S1→§VII.G.1, §S4→§VII.E–F, etc. |
 | D15 | Contribution count | Consistent between main.tex contributions list and abstract | **PASS** | 7 contributions in §II, 7 elements summarized in Abstract |
 
@@ -141,7 +147,7 @@
 | 20 clusters | L281 | §1 | — | §S1 | R3 | R3: MITIGATED |
 | 35 sessions | L281 | §1 | — | §S8 | — | — |
 | 27 param combos | L98, L302 | §1 | L18 | §S1 | — | — |
-| 10 DROID configs | L102, L287, L302 | §1, §3.1 | L18, L20 | §S4 | R4 | R4: FIXED |
+| 14 DROID configs, 3 sessions | L102, L287, L302 | §1, §3.1 | L18, L20 | §S4 | R4 | R4: FIXED; P171/P172 expanded from 10→14 |
 | 3 baselines | §VII.G | §2.2 | L18 | §S2 | — | — |
 | 4 forklifts | §II #5, §X | §1 | — | §S6 | — | — |
 | barriers 40% | L100 | — | — | §S7 | — | — |
