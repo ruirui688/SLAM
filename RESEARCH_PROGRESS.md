@@ -897,30 +897,25 @@ summary and local paths here, then commit and push the repository.
 
 ## 2026-05-09 P160 T-RO/IJRR submission strategy pack
 
-- Created `paper/export/tro_ijrr_submission_strategy_p160.md` (27 KB).
-- Contents:
-  1. **T-RO vs IJRR vs RSS fit matrix** with explicit anti-water (拒绝水刊) declaration —
-     T-RO primary recommendation (40-55% current, 55-70% after P161-P163),
-     IJRR strong alternative (30-45% current, 40-55% after P161-P163).
-     CVPR/ECCV/NeurIPS/waters explicitly excluded.
-  2. **Current P159 package state**: 100/100 final audit, EN/ZH PDF+HTML built,
-     16 figures, P154-P157 defense evidence, 10 formal citations + evo.
-  3. **Main/appendix/supplement organization** for T-RO (18pp two-column),
-     IJRR (25pp), and RSS (8pp): §VII.E-F dynamic SLAM → T-RO supplementary,
-     §VII.G admission defense → main body, P156/P157 figures → appendix.
-  4. **Reviewer attack → rebuttal-ready defense table**: 10 attack vectors
-     (3 critical, 2 high, 5 medium) with pre-written defenses, severity ratings,
-     and evidence locations. All critical attacks (A1 no algorithm, A6 arbitrary
-     thresholds, A7 no baseline) fully mitigated by P154-P157 evidence.
-  5. **DROID-SLAM raw vs masked explicit declaration**: all 10 configurations
-     produce |ΔATE| < 0.1mm. No ATE/RPE improvement claimed. Boundary condition
-     >5% dynamic target coverage for observable effect. Quantified data
-     constraint: max forklift coverage 1.39% in TorWIC.
-  6. **P161-P165 executable backlog**: P161 T-RO template conversion →
-     P162 supplementary evidence package → P163 cover letter → P164 code/arXiv
-     checklist → P165 advisor decision pack. P161–P163 are must-have before
-     submission; P164–P165 should-complete.
-- Policy: existing-data-only; no new experiments; no manuscript modification;
-  no citation polish; no P158; no new phase.
-- Evidence: the strategy pack references all P135-P159 artifacts, all 16 figures,
-  all 6 tables, and the complete 100/100 P159 audit.
+- Generated comprehensive submission strategy: T-RO vs IJRR fit matrix (T-RO 42 vs IJRR 33, T-RO recommended primary)
+- Manuscript fit assessment: current ~9,400 words slightly lean for T-RO (~12,000 target), 11 refs needs expansion to 30-40
+- P154-P157 evidence placement recommendations for T-RO:
+  - P154 ablation summary → main body §VII.G.1; full sweep tables → supplement
+  - P155 baseline comparison → main body §VII.G.2; per-cluster detail → supplement  
+  - P156 Figs 11+13 → main body; Fig 12 lifecycle → supplement
+  - P157 category×reason matrix → main body §VII.G.3; per-cluster profiles → supplement
+- 6 reviewer attack points identified with rebuttal-ready defenses:
+  1. "No new algorithm" — TR-O systems contribution taxonomy, P155 B1 vs B2 quantification
+  2. "Only one dataset" — TorWIC is only multi-session industrial dataset, Hallway provides scene transfer
+  3. "Dynamic masking shows no effect" — Boundary condition quantified (1.39% << 5% threshold), 10-config systematic study
+  4. "Admission criteria arbitrary" — P154 ablation confirms bimodality, not hyperparameter tuning
+  5. "No dynamic SLAM baseline" — Category error rebuttal; B0/B1 are the correct baselines
+  6. "Too many contributions" — All 7 items serve unified methodology
+- P161-P165 executable roadmap:
+  - P161: T-RO LaTeX template conversion
+  - P162: Cover letter with reviewer suggestions
+  - P163: Supplementary material package
+  - P164: Related work expansion (11→30-40 refs)
+  - P165: arXiv/code release checklist
+- Submission timeline: 10-16 hours effort, 2-4 weeks with advisor review
+- Output: paper/export/tro_ijrr_submission_strategy_p160.md
