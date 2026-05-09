@@ -53,7 +53,7 @@ Comparable systems/methodology papers accepted at T-RO:
 
 ### 3.1 Dynamic SLAM: No ATE/RPE Improvement
 
-**Statement:** Dynamic pixel masking in the TorWIC warehouse environment does not improve visual odometry accuracy. 10 DROID-SLAM configurations with varying mask strategies produce |ΔATE| < 0.1 mm relative to unmasked input. This is a negative result, quantified as a boundary condition: when dynamic content occupies < ~5% of frame area, DROID-SLAM's bundle adjustment is empirically robust to occlusion.
+**Statement:** Dynamic pixel masking in the TorWIC warehouse environment does not improve visual odometry accuracy. 10 DROID-SLAM configurations with varying mask strategies produce |ΔATE| < 0.1 mm relative to unmasked input. This is a negative result, quantified as a boundary condition: when dynamic content occupies <~2% of frame area (maximum observed: 1.39%), DROID-SLAM's bundle adjustment is empirically robust to occlusion. The ~5% literature heuristic for observable trajectory effects is cited as a contextual reference, not our measured bound.
 
 **Why this is included (not hidden):** A reviewer would naturally ask "does dynamic masking help?" If we excluded this experiment, the gap would be conspicuous. Including it with quantitative boundary conditions is more scientifically honest than omitting it.
 

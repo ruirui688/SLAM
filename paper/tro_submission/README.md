@@ -25,7 +25,7 @@ paper/tro_submission/
 - [ ] `main.tex` scaffold with correct \documentclass and all sections
 - [ ] All 10 core figures placed (Figs 1-10 in Results; Figs 11,13 in §VII.G; Figs 12,14-16 in supplement)
 - [ ] 6 table floats placed (Tables 1-6)
-- [ ] All 11 references in references.bib (BibTeX format, DOI-verified)
+- [ ] All 35 references in references.bib (BibTeX format, DOI-verified; 7 supplementary-only)
 - [ ] Double-anonymous: \author{} block stripped, self-citations anonymized
 - [ ] Overlength page-count audit (target ≤18 pages)
 - [ ] Figure/table/equation cross-references using \label/\ref
