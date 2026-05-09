@@ -22,7 +22,7 @@
 ## Interpretation
 
 - **APE ~4–5 cm** on a ~1.2s keyframe window: consistent with monocular SLAM in a texture-challenged corridor, but based on very few poses.
-- **Masked > Raw**: Masked variant edges out raw variant by ~0.5 cm in both APE and RPE, consistent with expectation that dynamic-object suppression improves feature matching.
+- **Raw vs masked**: The masked variant is numerically lower by ~0.5 cm in this short keyframe subset, but the sample is too small to infer an odometry improvement or a feature-matching mechanism.
 - **RPE ~2 cm** per keyframe step: reflects local drift between consecutive keyframes (irregular intervals).
 - **Scale**: ORB-SLAM3 monotonic scale was not explicitly corrected; SE(3) alignment includes implicit rotation+translation only.
 
@@ -35,7 +35,7 @@
 
 ## No Improvement Claim
 
-These numbers **do not** constitute a claim of improvement over any baseline SLAM system. They merely document that ORB-SLAM3 initialized and tracked briefly on the TorWIC Jun15 Run1 scene, and that dynamic-object masking produced marginally better keyframe poses during the short tracking window.
+These numbers **do not** constitute a claim of improvement over any baseline SLAM system. They merely document that ORB-SLAM3 initialized and tracked briefly on the TorWIC Jun15 Run1 scene, and that the masked trajectory had slightly lower sparse-keyframe error inside that short window.
 
 ## Full Results
 

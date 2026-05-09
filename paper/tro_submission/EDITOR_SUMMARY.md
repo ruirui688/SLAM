@@ -78,7 +78,7 @@ Only DROID-SLAM was tested (16 configurations, 5 TorWIC sessions, Aisle + Hallwa
 | Raw | 10 | 0.052 | 0.044 | 0.024 |
 | Masked | 12 | 0.048 | 0.041 | 0.020 |
 
-**Interpretation:** Metrics are mathematically valid but have low statistical power (N=10–12 KFs, not dense per-frame poses). The masked variant edges out raw by ~0.5 cm in APE/RPE, consistent with the expectation that dynamic-object masking aids feature matching, but this does not constitute a claim of system-level improvement. ORB-SLAM3 remains unsuitable as a full-trajectory evaluation backend on this short, texture-challenged sequence. Evidence: `paper/evidence/orb_slam3_cross_check_p173_metrics.json`, report: `paper/export/orb_slam3_cross_check_p173_metrics.md`.
+**Interpretation:** Metrics are mathematically valid but have low statistical power (N=10–12 KFs, not dense per-frame poses). The masked variant is numerically lower by ~0.5 cm in APE/RPE within this short keyframe subset, but this is not enough to infer a feature-matching mechanism or claim system-level improvement. ORB-SLAM3 remains unsuitable as a full-trajectory evaluation backend on this short, texture-challenged sequence. Evidence: `paper/evidence/orb_slam3_cross_check_p173_metrics.json`, report: `paper/export/orb_slam3_cross_check_p173_metrics.md`.
 
 ### 3.5 Single-Session Infrastructure Loss
 
