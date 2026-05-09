@@ -332,6 +332,46 @@ make dynamic-slam-backend-64
 
 当前解释：64 帧后端链路已经可执行，raw/masked 仍基本持平；由于当前动态 mask 只作用于第 `000002` 帧，不能据此主张 masked input 带来轨迹收益。
 
+P135 继续推进到已有语义 frontend masks：从
+`outputs/torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1/frontend_output`
+读取真实 forklift mask summary，按 `rgb_path` 合并到 64 帧后端输入包。
+
+```bash
+make dynamic-slam-backend-semantic-masks
+make dynamic-mask-coverage-figure
+```
+
+结果诊断：
+
+| 输入 | APE RMSE (m) | RPE RMSE (m) |
+|---|---:|---:|
+| raw RGB | 0.051135 | 0.032713 |
+| semantic masked RGB | 0.051135 | 0.032713 |
+
+![真实语义 mask 覆盖率诊断](paper/figures/torwic_dynamic_mask_coverage_p135.png)
+
+当前解释：已有真实语义 mask 已接入后端，但只覆盖 64 帧中的 `000004`、`000005`、`000007`，64 帧平均覆盖率约 `0.026%`。这个结果不是失败，而是定位出下一步研究瓶颈：需要跨更多帧生成/传播动态 mask，才有可能观察到动态 masking 对轨迹的影响。
+
+P136 做一个诚实的时序传播压力测试：把已有真实 forklift masks 按最近帧传播到
+`±8` 帧，并做 `4 px` 膨胀。它不是新的 detector 输出，而是用来回答一个研究问题：
+“如果覆盖率提高，后端指标是否开始对动态 masking 敏感？”
+
+```bash
+make dynamic-slam-backend-temporal-mask-stress
+make dynamic-temporal-mask-stress-figure
+```
+
+结果：
+
+| 输入 | APE RMSE (m) | RPE RMSE (m) |
+|---|---:|---:|
+| raw RGB | 0.051135 | 0.032713 |
+| temporal propagated masked RGB | 0.051222 | 0.032710 |
+
+![时序传播 mask 压力测试](paper/figures/torwic_dynamic_mask_temporal_stress_p136.png)
+
+当前解释：mask 覆盖从 P135 的 `3/64` 帧、均值 `0.025750%` 提高到 `16/64` 帧、均值 `0.267154%`，但 APE/RPE 仍基本持平。这说明简单最近帧传播还不足以形成可靠轨迹收益；下一步应做真正的逐帧动态 mask 生成或基于光流/视频分割的时序跟踪，而不是继续只扩大 SLAM 后端窗口。
+
 ## 2. 论文稿件
 
 | 稿件 | 路径 | 用途 |
@@ -376,6 +416,8 @@ make dynamic-slam-backend-64
 | [`tools/build_dynamic_slam_backend_input_pack.py`](./tools/build_dynamic_slam_backend_input_pack.py) | raw-vs-masked 后端输入包生成入口 |
 | [`tools/check_dynamic_slam_backend_env.py`](./tools/check_dynamic_slam_backend_env.py) | 本机 `tram` GPU/DROID/evo 后端环境复查 |
 | [`tools/run_dynamic_slam_backend_smoke.py`](./tools/run_dynamic_slam_backend_smoke.py) | DROID-SLAM raw-vs-masked smoke run |
+| [`tools/evaluate_dynamic_slam_metrics.py`](./tools/evaluate_dynamic_slam_metrics.py) | 统一生成 raw-vs-masked evo APE/RPE JSON/Markdown 指标 |
+| [`tools/plot_dynamic_mask_coverage_diagnostic.py`](./tools/plot_dynamic_mask_coverage_diagnostic.py) | 生成动态 mask 覆盖率和后端指标论文图 |
 | [`paper/`](./paper/) | 中英文论文稿 |
 | [`paper/evidence/`](./paper/evidence/) | Git 可见的实验结果证据包，由 `make evidence-pack` 从 ignored `outputs/` 生成 |
 | [`RESEARCH_PROGRESS.md`](./RESEARCH_PROGRESS.md) | 研究机器人和论文进度日志 |

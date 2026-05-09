@@ -30,12 +30,23 @@ make evidence-pack
 | `low_support` | 6 |
 | `single_session_or_low_session_support` | 12 |
 
+## Dynamic SLAM Backend Metrics
+
+| Experiment | Raw APE | Masked APE | Raw RPE | Masked RPE | Mask coverage |
+|---|---:|---:|---:|---:|---:|
+| P132/P133 8-frame DROID-SLAM smoke | 0.001242 | 0.001243 | 0.00225 | 0.002255 |  |
+| P134 64-frame DROID-SLAM global BA | 0.051135 | 0.051136 | 0.032713 | 0.032713 |  |
+| P135 existing semantic masks | 0.051135 | 0.051135 | 0.032713 | 0.032713 | 3/64 (0.025750%) |
+| P136 temporal mask stress test | 0.051135 | 0.051222 | 0.032713 | 0.03271 | 16/64 (0.267154%) |
+
 ## Tracked Files
 
 - `protocol_summary.csv`: compact table for paper/result table reuse.
 - `retained_clusters.csv`: retained cluster-level traceability.
 - `rejected_clusters.csv`: rejected cluster-level traceability.
 - `evidence_summary.json`: full digest with source artifact paths.
+- `dynamic_slam_backend_metrics.csv`: compact APE/RPE backend table.
+- `dynamic_slam_backend_metrics.json`: full backend metric digest.
 
 ## Source Artifact Policy
 

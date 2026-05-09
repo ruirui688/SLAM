@@ -14,7 +14,7 @@ import json
 import shutil
 from pathlib import Path
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,6 +58,55 @@ def load_trajectory(sequence_dir: Path, count: int) -> list[list[float]]:
     return rows
 
 
+def load_dynamic_masks_from_summaries(summary_dir: Path | None, label_prefix: str) -> dict[int, list[Path]]:
+    if summary_dir is None:
+        return {}
+    masks_by_frame: dict[int, list[Path]] = {}
+    for summary_path in sorted(summary_dir.glob(f"{label_prefix}*_summary.json")):
+        payload = json.loads(summary_path.read_text(encoding="utf-8"))
+        rgb_path = Path(payload["rgb_path"])
+        try:
+            frame_index = int(rgb_path.stem)
+        except ValueError:
+            continue
+        mask_path = Path(payload["outputs"]["mask"])
+        if mask_path.exists():
+            masks_by_frame.setdefault(frame_index, []).append(mask_path)
+    return masks_by_frame
+
+
+def combine_masks(mask_paths: list[Path], size: tuple[int, int]) -> Image.Image:
+    combined = Image.new("L", size, 0)
+    for mask_path in mask_paths:
+        mask = Image.open(mask_path).convert("L")
+        if mask.size != size:
+            mask = mask.resize(size, Image.Resampling.NEAREST)
+        combined = ImageChops.lighter(combined, mask)
+    return combined
+
+
+def nearest_mask_frame(frame_index: int, masks_by_frame: dict[int, list[Path]], radius: int) -> int | None:
+    if radius <= 0 or not masks_by_frame:
+        return None
+    candidates = [
+        (abs(frame_index - candidate), candidate)
+        for candidate in masks_by_frame
+        if 0 < abs(frame_index - candidate) <= radius
+    ]
+    if not candidates:
+        return None
+    return min(candidates)[1]
+
+
+def dilate_mask(mask: Image.Image, pixels: int) -> Image.Image:
+    if pixels <= 0:
+        return mask
+    kernel = pixels * 2 + 1
+    if kernel % 2 == 0:
+        kernel += 1
+    return mask.filter(ImageFilter.MaxFilter(kernel))
+
+
 def mask_dynamic_pixels(rgb: Image.Image, mask: Image.Image) -> Image.Image:
     mask_l = mask.convert("L")
     masked = rgb.copy()
@@ -84,7 +133,15 @@ def write_groundtruth(path: Path, trajectory_rows: list[list[float]]) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def build_pack(sequence_dir: Path, output_dir: Path, frame_count: int) -> dict:
+def build_pack(
+    sequence_dir: Path,
+    output_dir: Path,
+    frame_count: int,
+    dynamic_mask_summary_dir: Path | None = None,
+    dynamic_label_prefix: str = "forklift",
+    temporal_propagation_radius: int = 0,
+    dynamic_mask_dilation_px: int = 0,
+) -> dict:
     image_dir = sequence_dir / "image_left"
     raw_dir = output_dir / "raw" / "image_left"
     masked_dir = output_dir / "masked" / "image_left"
@@ -95,6 +152,7 @@ def build_pack(sequence_dir: Path, output_dir: Path, frame_count: int) -> dict:
     timestamps = load_times(sequence_dir, frame_count)
     trajectory_rows = load_trajectory(sequence_dir, frame_count)
     source_mask = Image.open(SEGMENTATION_DIR / "forklift-mask.png").convert("L")
+    dynamic_masks_by_frame = load_dynamic_masks_from_summaries(dynamic_mask_summary_dir, dynamic_label_prefix)
 
     raw_paths: list[Path] = []
     masked_paths: list[Path] = []
@@ -112,16 +170,35 @@ def build_pack(sequence_dir: Path, output_dir: Path, frame_count: int) -> dict:
         shutil.copy2(source_rgb, raw_path)
 
         rgb = Image.open(source_rgb).convert("RGB")
-        if frame_index == DYNAMIC_FRAME:
+        propagated_from: int | None = None
+        if frame_index in dynamic_masks_by_frame:
+            mask = combine_masks(dynamic_masks_by_frame[frame_index], rgb.size)
+            dynamic_source = "existing semantic frontend masks"
+        elif dynamic_mask_summary_dir is not None:
+            propagated_from = nearest_mask_frame(frame_index, dynamic_masks_by_frame, temporal_propagation_radius)
+            if propagated_from is not None:
+                mask = combine_masks(dynamic_masks_by_frame[propagated_from], rgb.size)
+                dynamic_source = f"temporal propagation from frame {propagated_from:06d}"
+            else:
+                mask = Image.new("L", rgb.size, 0)
+                masked = rgb
+                mask_pixels = 0
+                dynamic_source = "empty"
+        elif dynamic_mask_summary_dir is None and frame_index == DYNAMIC_FRAME:
             mask = source_mask
             if mask.size != rgb.size:
                 mask = mask.resize(rgb.size, Image.Resampling.NEAREST)
-            masked = mask_dynamic_pixels(rgb, mask)
-            mask_pixels = sum(1 for value in mask.getdata() if value > 0)
+            dynamic_source = "forklift semantic example"
         else:
             mask = Image.new("L", rgb.size, 0)
             masked = rgb
             mask_pixels = 0
+            dynamic_source = "empty"
+
+        if dynamic_source != "empty":
+            mask = dilate_mask(mask, dynamic_mask_dilation_px)
+            masked = mask_dynamic_pixels(rgb, mask)
+            mask_pixels = sum(1 for value in mask.getdata() if value > 0)
 
         mask.save(mask_path)
         masked.save(masked_path, quality=95)
@@ -135,7 +212,14 @@ def build_pack(sequence_dir: Path, output_dir: Path, frame_count: int) -> dict:
                 "raw_rgb": rel(raw_path),
                 "masked_rgb": rel(masked_path),
                 "dynamic_mask": rel(mask_path),
-                "dynamic_mask_source": "forklift semantic example" if frame_index == DYNAMIC_FRAME else "empty",
+                "dynamic_mask_source": dynamic_source,
+                "dynamic_mask_inputs": [
+                    rel(path) for path in dynamic_masks_by_frame.get(
+                        frame_index if propagated_from is None else propagated_from,
+                        [],
+                    )
+                ],
+                "propagated_from_frame": propagated_from,
                 "mask_pixels": mask_pixels,
                 "coverage_ratio": mask_pixels / max(rgb.width * rgb.height, 1),
             }
@@ -154,7 +238,13 @@ def build_pack(sequence_dir: Path, output_dir: Path, frame_count: int) -> dict:
         "claim_boundary": "Prepares raw/masked RGB inputs and ground-truth snippet; does not run SLAM or report ATE/RPE.",
         "sequence": rel(sequence_dir),
         "frame_count": frame_count,
-        "dynamic_mask_policy": "Only frame 000002 uses the tracked forklift semantic mask; other frames use empty masks.",
+        "dynamic_mask_policy": (
+            f"Use existing {dynamic_label_prefix} semantic frontend masks when --dynamic-mask-summary-dir is provided; "
+            "otherwise only frame 000002 uses the repository forklift semantic example mask."
+        ),
+        "dynamic_mask_summary_dir": rel(dynamic_mask_summary_dir) if dynamic_mask_summary_dir else None,
+        "temporal_propagation_radius": temporal_propagation_radius,
+        "dynamic_mask_dilation_px": dynamic_mask_dilation_px,
         "raw_rgb_list": rel(raw_rgb_list),
         "masked_rgb_list": rel(masked_rgb_list),
         "groundtruth_tum": rel(groundtruth),
@@ -176,12 +266,29 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sequence-dir", type=Path, default=DEFAULT_SEQUENCE)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--frame-count", type=int, default=8)
+    parser.add_argument("--dynamic-mask-summary-dir", type=Path, default=None)
+    parser.add_argument("--dynamic-label-prefix", default="forklift")
+    parser.add_argument(
+        "--temporal-propagation-radius",
+        type=int,
+        default=0,
+        help="Copy the nearest available semantic mask to neighboring frames within this radius. Use as a diagnostic stress test, not as a true detector output.",
+    )
+    parser.add_argument("--dynamic-mask-dilation-px", type=int, default=0)
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    manifest = build_pack(args.sequence_dir, args.output_dir, args.frame_count)
+    manifest = build_pack(
+        args.sequence_dir,
+        args.output_dir,
+        args.frame_count,
+        args.dynamic_mask_summary_dir,
+        args.dynamic_label_prefix,
+        args.temporal_propagation_radius,
+        args.dynamic_mask_dilation_px,
+    )
     print(json.dumps(manifest, indent=2, ensure_ascii=False))
 
 

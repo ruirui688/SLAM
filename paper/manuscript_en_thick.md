@@ -275,6 +275,14 @@ Post-package engineering smoke evidence now additionally verifies the raw-vs-mas
 
 ![Fig. 4. Bounded DROID-SLAM 64-frame global-BA raw-vs-masked backend result.](figures/torwic_dynamic_slam_backend_p134.png)
 
+We then replace the single demonstration mask with all existing forklift masks already produced by the semantic frontend for this TorWIC Aisle sequence. This connects real semantic outputs to the backend rather than relying on a hand-selected frame. The result remains neutral: the semantic-masked run has the same APE/RPE RMSE as the raw run at the reported precision (Fig. 5). The diagnostic explains why: the available semantic masks cover only frames 000004, 000005, and 000007, with a 64-frame average coverage of only 0.026%. This turns the negative result into an actionable research finding: the next gain-oriented experiment should improve dynamic-mask temporal coverage, not merely rerun the SLAM backend.
+
+![Fig. 5. P135 dynamic-mask coverage diagnostic.](figures/torwic_dynamic_mask_coverage_p135.png)
+
+We also run a bounded temporal-propagation stress test (Fig. 6). Existing forklift masks are copied from the nearest available semantic-mask frame within an eight-frame radius and dilated by four pixels. This is deliberately labeled as a diagnostic stress test rather than a true detector output. It raises mask coverage from 3/64 frames with 0.026% mean coverage to 16/64 frames with 0.267% mean coverage. The backend remains effectively tied: APE RMSE changes from 0.051135 m to 0.051222 m, while RPE RMSE changes from 0.032713 m to 0.032710 m. The result narrows the next research step: simple nearest-frame propagation is not sufficient; gain-oriented dynamic SLAM evidence needs real per-frame dynamic masks or flow/video-segmentation-based temporal tracking.
+
+![Fig. 6. P136 temporal-mask propagation stress test.](figures/torwic_dynamic_mask_temporal_stress_p136.png)
+
 ---
 
 ## VIII. Discussion
@@ -371,6 +379,10 @@ Per-protocol rejection taxonomy, per-protocol stable-subset composition, deferre
 **Fig. 3.** Map-admission selectivity: retained vs. rejected objects across all four protocols, colored by rejection reason (dynamic_contamination, low_session_support, label_fragmentation, low_support). Optional figure — may be omitted per page budget.
 
 **Fig. 4.** Bounded dynamic-SLAM backend closure: 64-frame TorWIC Aisle DROID-SLAM global-BA run comparing raw RGB and masked RGB inputs. The left panel shows Sim(3)-aligned ground truth, raw estimate, and masked estimate trajectories; the right panel reports evo APE/RPE RMSE. Raw and masked remain effectively tied, so the figure supports backend-path closure rather than a masked-input improvement claim.
+
+**Fig. 5.** Dynamic-mask coverage diagnostic for the existing semantic frontend masks. Forklift masks are present on frames 000004, 000005, and 000007, but the average coverage across the 64-frame backend window is only 0.026%. The paired evo metrics remain tied, identifying temporal mask coverage as the next bottleneck.
+
+**Fig. 6.** Temporal-mask propagation stress test. Existing forklift masks are propagated to the nearest frames within an eight-frame radius and dilated by four pixels, increasing coverage to 16/64 frames and 0.267% average coverage. Raw and temporally propagated masked trajectories remain effectively tied, indicating that stronger per-frame dynamic-mask generation or tracking is needed before claiming trajectory improvement.
 
 ---
 

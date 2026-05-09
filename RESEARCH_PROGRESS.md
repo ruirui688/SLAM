@@ -458,3 +458,55 @@ summary and local paths here, then commit and push the repository.
 - Claim boundary preserved: the figure demonstrates backend closure and a
   publishable negative/neutral result; it does not claim masked input improves
   trajectory accuracy under the current single-frame mask coverage.
+
+## 2026-05-09 P135 existing semantic mask coverage diagnosis
+
+- Extended `tools/build_dynamic_slam_backend_input_pack.py` with
+  `--dynamic-mask-summary-dir` so existing semantic frontend masks can be
+  grouped by `rgb_path` and merged into the backend masked RGB sequence.
+- Added `make dynamic-slam-backend-semantic-masks`.
+- Built `outputs/dynamic_slam_backend_input_pack_64_semantic_masks` from
+  existing forklift masks in
+  `outputs/torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1/frontend_output`.
+- Mask coverage:
+  - frame `000004`: `0.274%`;
+  - frame `000005`: `0.270%`;
+  - frame `000007`: `1.104%`;
+  - 64-frame average: `0.026%`.
+- Ran DROID-SLAM 64-frame global BA on raw vs semantic-masked inputs:
+  - raw: APE RMSE `0.051135 m`, RPE RMSE `0.032713 m`;
+  - semantic masked: APE RMSE `0.051135 m`, RPE RMSE `0.032713 m`.
+- Added `tools/plot_dynamic_mask_coverage_diagnostic.py`,
+  `make dynamic-mask-coverage-figure`, and
+  `paper/figures/torwic_dynamic_mask_coverage_p135.png`.
+- Paper update completed in EN/ZH thick drafts as Fig. 5. Interpretation:
+  backend masking now uses real existing semantic outputs, but temporal mask
+  coverage is still too sparse to affect trajectory metrics. Next research
+  step should focus on generating/tracking dynamic masks across more frames.
+
+## 2026-05-09 P136 temporal mask propagation stress test
+
+- Extended `tools/build_dynamic_slam_backend_input_pack.py` with:
+  - `--temporal-propagation-radius`;
+  - `--dynamic-mask-dilation-px`.
+- Added `tools/evaluate_dynamic_slam_metrics.py` so evo APE/RPE metrics are
+  generated reproducibly as JSON/Markdown instead of hand-transcribed.
+- Added `make dynamic-slam-backend-temporal-mask-stress` and
+  `make dynamic-temporal-mask-stress-figure`.
+- Built `outputs/dynamic_slam_backend_input_pack_64_temporal_mask_stress` by
+  propagating existing forklift semantic masks to the nearest neighboring
+  frames within `±8` frames and applying `4 px` dilation.
+- Mask coverage improved from P135 `3/64` frames and `0.025750%` average
+  coverage to `16/64` frames and `0.267154%` average coverage.
+- Ran DROID-SLAM 64-frame global BA on raw vs temporal-propagated masked
+  inputs:
+  - raw: APE RMSE `0.051135 m`, RPE RMSE `0.032713 m`;
+  - temporal-propagated masked: APE RMSE `0.051222 m`, RPE RMSE `0.032710 m`;
+  - delta masked-minus-raw: APE RMSE `+0.000087 m`, RPE RMSE `-0.000003 m`.
+- Generated
+  `paper/figures/torwic_dynamic_mask_temporal_stress_p136.png` and integrated
+  it into README plus EN/ZH thick drafts as Fig. 6.
+- Interpretation: this is a diagnostic stress test, not true detector output.
+  Simple nearest-frame propagation increases coverage but does not produce a
+  reliable trajectory gain. The next research step is real per-frame dynamic
+  mask generation or flow/video-segmentation-based temporal tracking.

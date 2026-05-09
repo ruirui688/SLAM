@@ -1,0 +1,5 @@
+name,raw_ape_rmse_m,masked_ape_rmse_m,delta_ape_rmse_m,raw_rpe_rmse_m,masked_rpe_rmse_m,delta_rpe_rmse_m,masked_frames,total_frames,mean_mask_coverage_percent,source
+P132/P133 8-frame DROID-SLAM smoke,0.001242,0.001243,1e-06,0.00225,0.002255,5e-06,,,,outputs/dynamic_slam_backend_smoke_p132/p132_p133_raw_vs_masked_metrics.json
+P134 64-frame DROID-SLAM global BA,0.051135,0.051136,1e-06,0.032713,0.032713,0.0,,,,outputs/dynamic_slam_backend_smoke_p134_64_global_ba/p134_64_frame_global_ba_metrics.json
+P135 existing semantic masks,0.051135,0.051135,0.0,0.032713,0.032713,0.0,3,64,0.02575,outputs/dynamic_slam_backend_smoke_p135_64_semantic_masks_global_ba/p135_semantic_mask_metrics.json
+P136 temporal mask stress test,0.051135,0.051222,8.69999999999968e-05,0.032713,0.03271,-2.9999999999960614e-06,16,64,0.267154,outputs/dynamic_slam_backend_smoke_p136_64_temporal_mask_stress_global_ba/p136_temporal_mask_stress_metrics.json

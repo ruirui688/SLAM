@@ -275,6 +275,14 @@ DynaSLAM[2]证明在动态场景中屏蔽动态物体（人、车辆）可以改
 
 ![图4. 有界 DROID-SLAM 64 帧 global-BA raw-vs-masked 后端结果。](figures/torwic_dynamic_slam_backend_p134.png)
 
+随后，我们用该 TorWIC 过道序列中已有的语义 frontend forklift masks 替换单帧示例 mask，将真实语义输出接入后端，而不是依赖手工挑选帧。结果仍为中性：semantic-masked run 与 raw run 在报告精度下具有相同的 APE/RPE RMSE（图5）。诊断结果解释了原因：当前可用语义 mask 只覆盖帧 000004、000005 和 000007，64 帧平均覆盖率仅为 0.026%。这将负/中性结果转化为可执行的研究发现：下一步不应只是重复运行 SLAM 后端，而应提升动态 mask 的时间覆盖率。
+
+![图5. P135 动态 mask 覆盖率诊断。](figures/torwic_dynamic_mask_coverage_p135.png)
+
+我们进一步运行一个有边界的时序传播压力测试（图6）：将已有 forklift masks 传播到八帧半径内最近的相邻帧，并做 4 像素膨胀。该实验被明确标注为诊断性 stress test，而不是真实 detector 输出。它将 mask 覆盖从 3/64 帧、0.026% 平均覆盖率提高到 16/64 帧、0.267% 平均覆盖率。后端结果仍基本持平：APE RMSE 从 0.051135 m 变为 0.051222 m，RPE RMSE 从 0.032713 m 变为 0.032710 m。这个结果把下一步研究范围进一步缩小：简单最近帧传播不足以形成可靠收益，真正的动态 SLAM 增益证据需要逐帧动态 mask 生成，或基于光流/视频分割的时序跟踪。
+
+![图6. P136 时序传播 mask 压力测试。](figures/torwic_dynamic_mask_temporal_stress_p136.png)
+
 ---
 
 ## 八、讨论

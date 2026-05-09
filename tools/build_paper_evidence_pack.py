@@ -50,6 +50,35 @@ PROTOCOLS = [
     },
 ]
 
+BACKEND_METRICS = [
+    {
+        "key": "p132_p133_8_frame_smoke",
+        "name": "P132/P133 8-frame DROID-SLAM smoke",
+        "path": OUTPUTS / "dynamic_slam_backend_smoke_p132" / "p132_p133_raw_vs_masked_metrics.json",
+    },
+    {
+        "key": "p134_64_frame_global_ba",
+        "name": "P134 64-frame DROID-SLAM global BA",
+        "path": OUTPUTS
+        / "dynamic_slam_backend_smoke_p134_64_global_ba"
+        / "p134_64_frame_global_ba_metrics.json",
+    },
+    {
+        "key": "p135_semantic_masks",
+        "name": "P135 existing semantic masks",
+        "path": OUTPUTS
+        / "dynamic_slam_backend_smoke_p135_64_semantic_masks_global_ba"
+        / "p135_semantic_mask_metrics.json",
+    },
+    {
+        "key": "p136_temporal_mask_stress",
+        "name": "P136 temporal mask stress test",
+        "path": OUTPUTS
+        / "dynamic_slam_backend_smoke_p136_64_temporal_mask_stress_global_ba"
+        / "p136_temporal_mask_stress_metrics.json",
+    },
+]
+
 
 def read_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as f:
@@ -118,6 +147,71 @@ def write_csv(rows: list[dict[str, Any]]) -> None:
             writer.writerow({field: row[field] for field in fields})
 
 
+def normalize_backend_metrics(payload: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    metrics = payload.get("metrics", {})
+    raw = metrics.get("raw") or metrics.get("raw RGB")
+    masked = (
+        metrics.get("masked")
+        or metrics.get("semantic_masked")
+        or metrics.get("semantic masked RGB")
+        or metrics.get("temporal propagated masked RGB")
+        or next((value for key, value in metrics.items() if key != "raw RGB" and key != "raw"), None)
+    )
+    return raw or {}, masked
+
+
+def backend_row_for_metric(metric: dict[str, Any]) -> dict[str, Any] | None:
+    path = metric["path"]
+    if not path.exists():
+        return None
+    payload = read_json(path)
+    raw, masked = normalize_backend_metrics(payload)
+    coverage = payload.get("mask_coverage", {})
+    delta = payload.get("delta_masked_minus_raw") or payload.get("metrics", {}).get("delta_masked_minus_raw", {})
+    return {
+        "key": metric["key"],
+        "name": metric["name"],
+        "source": str(path.relative_to(ROOT)),
+        "scope": payload.get("scope", ""),
+        "raw_ape_rmse_m": raw.get("ape_rmse_m"),
+        "raw_rpe_rmse_m": raw.get("rpe_rmse_m"),
+        "masked_ape_rmse_m": masked.get("ape_rmse_m") if masked else None,
+        "masked_rpe_rmse_m": masked.get("rpe_rmse_m") if masked else None,
+        "delta_ape_rmse_m": delta.get("ape_rmse_m"),
+        "delta_rpe_rmse_m": delta.get("rpe_rmse_m"),
+        "masked_frames": coverage.get("masked_frame_count"),
+        "total_frames": coverage.get("total_frames"),
+        "mean_mask_coverage_percent": coverage.get("mean_coverage_percent")
+        or coverage.get("mean_coverage_over_64_frames_percent"),
+        "claim_boundary": payload.get("claim_boundary", ""),
+        "interpretation": payload.get("interpretation", ""),
+    }
+
+
+def write_backend_metrics(rows: list[dict[str, Any]]) -> None:
+    json_path = EVIDENCE_DIR / "dynamic_slam_backend_metrics.json"
+    csv_path = EVIDENCE_DIR / "dynamic_slam_backend_metrics.csv"
+    json_path.write_text(json.dumps({"backend_metrics": rows}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    fields = [
+        "name",
+        "raw_ape_rmse_m",
+        "masked_ape_rmse_m",
+        "delta_ape_rmse_m",
+        "raw_rpe_rmse_m",
+        "masked_rpe_rmse_m",
+        "delta_rpe_rmse_m",
+        "masked_frames",
+        "total_frames",
+        "mean_mask_coverage_percent",
+        "source",
+    ]
+    with csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
+        writer.writeheader()
+        for row in rows:
+            writer.writerow({field: row.get(field) for field in fields})
+
+
 def write_cluster_csv(rows: list[dict[str, Any]], selected: bool) -> None:
     path = EVIDENCE_DIR / ("retained_clusters.csv" if selected else "rejected_clusters.csv")
     fields = [
@@ -167,7 +261,7 @@ def markdown_table(rows: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
-def write_readme(rows: list[dict[str, Any]]) -> None:
+def write_readme(rows: list[dict[str, Any]], backend_rows: list[dict[str, Any]]) -> None:
     aggregate_reasons: Counter[str] = Counter()
     for row in rows:
         aggregate_reasons.update(row["rejection_reasons"])
@@ -197,6 +291,27 @@ def write_readme(rows: list[dict[str, Any]]) -> None:
     ]
     for reason, count in sorted(aggregate_reasons.items()):
         lines.append(f"| `{reason}` | {count} |")
+    if backend_rows:
+        lines.extend(
+            [
+                "",
+                "## Dynamic SLAM Backend Metrics",
+                "",
+                "| Experiment | Raw APE | Masked APE | Raw RPE | Masked RPE | Mask coverage |",
+                "|---|---:|---:|---:|---:|---:|",
+            ]
+        )
+        for row in backend_rows:
+            coverage = ""
+            if row.get("masked_frames") is not None and row.get("total_frames") is not None:
+                coverage = f"{row['masked_frames']}/{row['total_frames']}"
+            if row.get("mean_mask_coverage_percent") is not None:
+                coverage = f"{coverage} ({row['mean_mask_coverage_percent']:.6f}%)" if coverage else f"{row['mean_mask_coverage_percent']:.6f}%"
+            lines.append(
+                f"| {row['name']} | {row.get('raw_ape_rmse_m', '')} | "
+                f"{row.get('masked_ape_rmse_m', '')} | {row.get('raw_rpe_rmse_m', '')} | "
+                f"{row.get('masked_rpe_rmse_m', '')} | {coverage} |"
+            )
     lines.extend(
         [
             "",
@@ -206,6 +321,8 @@ def write_readme(rows: list[dict[str, Any]]) -> None:
             "- `retained_clusters.csv`: retained cluster-level traceability.",
             "- `rejected_clusters.csv`: rejected cluster-level traceability.",
             "- `evidence_summary.json`: full digest with source artifact paths.",
+            "- `dynamic_slam_backend_metrics.csv`: compact APE/RPE backend table.",
+            "- `dynamic_slam_backend_metrics.json`: full backend metric digest.",
             "",
             "## Source Artifact Policy",
             "",
@@ -221,14 +338,16 @@ def write_readme(rows: list[dict[str, Any]]) -> None:
 def main() -> None:
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     rows = [row_for_protocol(protocol) for protocol in PROTOCOLS]
+    backend_rows = [row for metric in BACKEND_METRICS if (row := backend_row_for_metric(metric)) is not None]
     write_csv(rows)
     write_cluster_csv(rows, selected=True)
     write_cluster_csv(rows, selected=False)
+    write_backend_metrics(backend_rows)
     (EVIDENCE_DIR / "evidence_summary.json").write_text(
         json.dumps({"protocols": rows}, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-    write_readme(rows)
+    write_readme(rows, backend_rows)
     print(f"Wrote evidence pack to {EVIDENCE_DIR}")
 
 

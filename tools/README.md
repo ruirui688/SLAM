@@ -110,6 +110,33 @@ make dynamic-slam-backend-smoke
 当前边界：8 帧 smoke 只证明 raw-vs-masked 后端和 evo ATE/RPE 路径可执行。
 它不是 full-trajectory benchmark，不能证明 masked input 改善建图或导航。
 
+`build_dynamic_slam_backend_input_pack.py --dynamic-mask-summary-dir ...` 可以
+把已有语义 frontend 产物中的 forklift masks 按 `rgb_path` 合并到后端输入包，
+用于测试真实语义输出覆盖率是否足以影响 DROID-SLAM 轨迹。
+
+```bash
+make dynamic-slam-backend-semantic-masks
+make dynamic-mask-coverage-figure
+```
+
+当前边界：该入口使用已有语义输出，不重新下载模型或重新跑 Grounding DINO/SAM2。
+如果 mask 只覆盖少数帧，ATE/RPE 不变化本身就是有效诊断结果。
+
+`evaluate_dynamic_slam_metrics.py` 统一用 evo 复算 raw-vs-masked APE/RPE，并写出
+JSON/Markdown 指标文件，避免论文结果靠手工抄表。
+
+`build_dynamic_slam_backend_input_pack.py --temporal-propagation-radius ...`
+支持把已有语义 mask 传播到邻近帧，用于诊断“提高时序覆盖后，后端指标是否变得
+敏感”。该模式必须作为 stress test 解读，不是真实检测输出。
+
+```bash
+make dynamic-slam-backend-temporal-mask-stress
+make dynamic-temporal-mask-stress-figure
+```
+
+当前边界：P136 传播实验把覆盖提高到 16/64 帧，但 APE/RPE 仍基本持平；
+下一步应接入逐帧动态 mask 生成、光流传播或视频分割跟踪。
+
 ### 半监督 VOS 推理
 
 The `vos_inference.py` script can be used to generate predictions for semi-supervised video object segmentation (VOS) evaluation on datasets such as [DAVIS](https://davischallenge.org/index.html), [MOSE](https://henghuiding.github.io/MOSE/) or the SA-V dataset.
