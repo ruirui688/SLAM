@@ -1,0 +1,16 @@
+{
+  "projectId": "industrial-semantic-slam",
+  "phaseId": "P185-inline-citation-threading",
+  "createdAt": "2026-05-10T04:44:32.583129Z",
+  "verdict": "PASS",
+  "scope": "ORB-SLAM3 sparse-keyframe caveat citation/evidence threading",
+  "checkedFiles": [
+    "paper/export/claim_boundary_package_consistency_p184.md",
+    "paper/export/orb_slam3_cross_check_p173_metrics.md",
+    "paper/tro_submission/main.tex",
+    "paper/tro_submission/references.bib",
+    "paper/tro_submission/ANONYMIZATION_CHECKLIST.md"
+  ],
+  "finding": "ORB-SLAM3 caveat is consistently bounded; no ORB-SLAM3-specific edit required.",
+  "nextStep": "pre-submission anonymization and metadata/package consistency cleanup"
+}

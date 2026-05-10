@@ -1349,3 +1349,12 @@ summary and local paths here, then commit and push the repository.
   - `paper/export/dynamic_slam_stage2_p173_metrics.md`
   - corrected `paper/evidence/dynamic_slam_stage2_p173_coverage_scan.json`
   - corrected `paper/export/dynamic_slam_stage2_p173_coverage_scan.md`
+
+## 2026-05-10 — P185 Inline-Citation Threading
+
+Persisted the DeepSeek worker verification for the ORB-SLAM3 sparse-keyframe caveat. Result: PASS. The P173/P184/main.tex wording consistently treats ORB-SLAM3 as a low-power backend-risk check and does not claim raw-vs-masked improvement, trajectory-neutrality generalization, or cross-backend performance. Evidence artifacts:
+
+- `paper/export/inline_citation_threading_p185.md`
+- `paper/evidence/inline_citation_threading_p185.json`
+
+Next owner-loop step: broader pre-submission anonymization and metadata/package consistency cleanup (EXIF/PDF metadata/path-string/supplementary package checks).
