@@ -291,7 +291,7 @@ def p193_plan() -> dict[str, Any]:
             ],
             "label_strategy": "inherit weak labels by joining frame instances to selected/rejected cluster ids when available; separate uncertain/unmatched examples for review rather than training as negatives",
             "expected_scale": "hundreds to low-thousands of frame/object examples from already materialized TorWIC outputs, depending on join strictness",
-            "p193_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/build_admission_frame_dataset_p193.py --outputs-root outputs --cluster-labels paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_frame_dataset_p193.json --output-csv paper/evidence/admission_frame_dataset_p193.csv",
+            "p193_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram python tools/build_admission_frame_dataset_p193.py --outputs-root outputs --cluster-labels paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_frame_dataset_p193.json --output-csv paper/evidence/admission_frame_dataset_p193.csv",
         },
         "pairwise_association_expansion": {
             "source_globs": [
@@ -309,7 +309,7 @@ def p193_plan() -> dict[str, Any]:
             ],
             "label_strategy": "positive if pair belongs to the same retained map-object/cluster lineage; hard negative if same semantic label but rejected or spatially incompatible; keep ambiguous pairs for human review",
             "expected_scale": "O(n^2) pair candidates per protocol before pruning; likely more useful than 51 cluster labels for a learned association scorer",
-            "p193_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/build_association_pair_dataset_p193.py --outputs-root outputs --selection-glob 'outputs/torwic_*selection_v5.json' --output-json paper/evidence/association_pair_dataset_p193.json --output-csv paper/evidence/association_pair_dataset_p193.csv",
+            "p193_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram python tools/build_association_pair_dataset_p193.py --outputs-root outputs --selection-glob 'outputs/torwic_*selection_v5.json' --output-json paper/evidence/association_pair_dataset_p193.json --output-csv paper/evidence/association_pair_dataset_p193.csv",
         },
         "recommended_p193_first_step": "Implement the frame-level dataset builder first because manifests already exist and it expands admission supervision without changing the model target; then build pairwise association labels as P194 if admission still underfits.",
     }
@@ -320,15 +320,16 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
     mlp = payload["models"]["mlp"]
     logistic = payload["models"]["logistic"]
     p191 = payload.get("p191_comparison") or {}
+    p192 = payload.get("p192_cluster_gpu_comparison") or {}
     lines = [
-        "# P192 GPU Admission-Scorer Training Smoke",
+        f"# {payload['report_title']}",
         "",
         "**Status:** CUDA-only PyTorch smoke completed. This run used GPU and would fail rather than falling back to CPU if CUDA were unavailable.",
         f"**Environment basis:** {payload['environment_basis']}",
         f"**Actual command:** `{payload['actual_training_command']}`",
         f"**Python executable:** `{payload['python_executable']}`",
         f"**Torch:** `{gpu['torch_version']}`; CUDA runtime `{gpu['torch_cuda_version']}`; device `{gpu['device']}`; GPU `{gpu['gpu_name']}`.",
-        f"**Dataset:** `{payload['dataset']}` ({payload['n_samples']} cluster samples).",
+        f"**Dataset:** `{payload['dataset']}` ({payload['n_samples']} samples; dataset kind `{payload['dataset_kind']}`).",
         "",
         "## GPU Evidence",
         "",
@@ -361,10 +362,20 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             cpu = p191["metrics"][split]["learned"]
             m = mlp["metrics"][split]
             lines.append(
-                f"- {split}: P191 CPU all-features acc/F1={cpu['accuracy']:.4f}/{cpu['f1_admit']:.4f}; P192 GPU MLP acc/F1={m['accuracy']:.4f}/{m['f1_admit']:.4f}."
+                f"- {split}: P191 CPU all-features acc/F1={cpu['accuracy']:.4f}/{cpu['f1_admit']:.4f}; current GPU MLP acc/F1={m['accuracy']:.4f}/{m['f1_admit']:.4f}."
             )
     else:
         lines.append("- P191 JSON not found; comparison skipped.")
+    lines += ["", "## P192 51-Cluster GPU Baseline Comparison", ""]
+    if p192:
+        for split in SPLITS:
+            base = p192["models"]["mlp"]["metrics"][split]
+            m = mlp["metrics"][split]
+            lines.append(
+                f"- {split}: P192 cluster GPU MLP acc/F1={base['accuracy']:.4f}/{base['f1_admit']:.4f}; current GPU MLP acc/F1={m['accuracy']:.4f}/{m['f1_admit']:.4f}."
+            )
+    else:
+        lines.append("- P192 GPU JSON not found; comparison skipped.")
     lines += [
         "",
         "## Training Runtime",
@@ -374,7 +385,7 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
         "",
         "## Risk / Interpretation",
         "",
-        "- This really used CUDA, but it remains a pipeline validation step: 51 cluster samples are too few for a publishable GPU model claim.",
+        f"- This really used CUDA, but remains a bounded experiment: dataset kind `{payload['dataset_kind']}` and labels are still weak labels unless independently reviewed.",
         "- Rule baseline remains artificially strong because P190 labels are weak labels derived from the same rule gate.",
         "- Dynamic ratio, label purity, and label/category flags may leak the rule decision; do not claim learned superiority until independent labels exist.",
         "- The right next step is larger real-data dataset construction from existing TorWIC manifests/tracklets/map objects, not more epochs on 51 clusters.",
@@ -399,8 +410,13 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", default="paper/evidence/admission_scorer_dataset_p190.csv")
     parser.add_argument("--p191-json", default="paper/evidence/admission_scorer_smoke_p191.json")
+    parser.add_argument("--p192-json", default="paper/evidence/admission_scorer_gpu_p192.json")
     parser.add_argument("--output-json", default="paper/evidence/admission_scorer_gpu_p192.json")
     parser.add_argument("--output-md", default="paper/export/admission_scorer_gpu_p192.md")
+    parser.add_argument("--phase", default="P192-gpu-admission-scorer-training")
+    parser.add_argument("--report-title", default="P192 GPU Admission-Scorer Training Smoke")
+    parser.add_argument("--dataset-kind", default="cluster-level")
+    parser.add_argument("--actual-command", default="")
     parser.add_argument("--epochs", type=int, default=800)
     parser.add_argument("--lr", type=float, default=0.01)
     parser.add_argument("--weight-decay", type=float, default=0.001)
@@ -447,10 +463,14 @@ def main() -> int:
     memory_peak = gpu_memory(device)
 
     p191 = load_p191(Path(args.p191_json))
+    p192 = load_p191(Path(args.p192_json)) if Path(args.p192_json).resolve() != Path(args.output_json).resolve() else None
+    default_command = "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram python tools/train_admission_scorer_gpu_p192.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --p191-json paper/evidence/admission_scorer_smoke_p191.json --output-json paper/evidence/admission_scorer_gpu_p192.json --output-md paper/export/admission_scorer_gpu_p192.md"
     payload: dict[str, Any] = {
-        "phase": "P192-gpu-admission-scorer-training",
-        "environment_basis": "README.md §0.3: use LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram <command>",
-        "actual_training_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/train_admission_scorer_gpu_p192.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --p191-json paper/evidence/admission_scorer_smoke_p191.json --output-json paper/evidence/admission_scorer_gpu_p192.json --output-md paper/export/admission_scorer_gpu_p192.md",
+        "phase": args.phase,
+        "report_title": args.report_title,
+        "dataset_kind": args.dataset_kind,
+        "environment_basis": "README.md §0.3: use LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram <command>",
+        "actual_training_command": args.actual_command or default_command,
         "python_executable": sys.executable,
         "platform": platform.platform(),
         "dataset": str(dataset_path),
@@ -482,6 +502,7 @@ def main() -> int:
         },
         "rule_baseline_metrics": rule_baseline_metrics(rows_by_split),
         "p191_comparison": p191,
+        "p192_cluster_gpu_comparison": p192,
         "interpretation": [
             "P192 corrects the environment: this validated the real-model path on CUDA using the README §0.3 tram environment; there is no CPU fallback in this script.",
             "Because the dataset has only 51 rule-derived cluster labels, the GPU model is a pipeline check and not the terminal research result.",

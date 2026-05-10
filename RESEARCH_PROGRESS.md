@@ -490,7 +490,7 @@ summary and local paths here, then commit and push the repository.
 - Rechecked P131 outside the sandboxed probe context and confirmed the machine
   does have a usable dynamic SLAM runtime.
 - Verified runtime command shape:
-  `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram ...`.
+  `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram ...`.
 - Verified components:
   - PyTorch `2.4.0+cu118`, CUDA available on RTX 3060, device count 1;
   - cuDNN available, version `90100`;
@@ -1402,12 +1402,23 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 
 ## 2026-05-10 — P192 GPU Admission-Scorer Training Smoke
 
-- **Correction:** the earlier non-tram P192 run is superseded. Per `README.md` §0.3, sustained local research execution uses the existing `tram` environment via `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram <command>`.
+- **Correction:** the earlier non-tram P192 run is superseded. Per `README.md` §0.3, sustained local research execution uses the existing `tram` environment via `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram <command>`.
 - **GPU environment:** `tram` Python `/home/rui/miniconda3/envs/tram/bin/python`, PyTorch `2.4.0+cu118`, CUDA runtime `11.8`, cuDNN `90100`, device `cuda`, GPU `NVIDIA GeForce RTX 3060`.
-- **Actual training command:** `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/train_admission_scorer_gpu_p192.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --p191-json paper/evidence/admission_scorer_smoke_p191.json --output-json paper/evidence/admission_scorer_gpu_p192.json --output-md paper/export/admission_scorer_gpu_p192.md`.
+- **Actual training command:** `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram python tools/train_admission_scorer_gpu_p192.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --p191-json paper/evidence/admission_scorer_smoke_p191.json --output-json paper/evidence/admission_scorer_gpu_p192.json --output-md paper/export/admission_scorer_gpu_p192.md`.
 - **Training smoke:** `tools/train_admission_scorer_gpu_p192.py` is CUDA-only and asserts `torch.cuda.is_available()`; it refuses CPU fallback. It trains both a small MLP and logistic baseline on the P190 51-cluster dataset.
 - **GPU evidence:** smoke run recorded `cuda_available=True`; memory before `0/0` allocated/reserved bytes, after `17043968/23068672`, peak `18105344/23068672`; GPU MLP training time about `0.296s`, logistic about `0.256s`.
 - **Metrics:** GPU MLP train accuracy/F1 `1.000/1.000`, validation `0.857/0.833`, Hallway test `0.688/0.737`; GPU logistic Hallway test `0.625/0.667`; rule baseline remains `1.000` by construction from weak labels.
 - **Interpretation:** this is a real CUDA training run in the project-approved `tram` environment, but still only pipeline validation because 51 rule-derived cluster labels are too small and leak rule proxies. The next phase must expand samples from existing TorWIC manifests/observations/tracklets/map objects.
 - **Artifacts:** `tools/train_admission_scorer_gpu_p192.py`, `paper/evidence/admission_scorer_gpu_p192.json`, `paper/export/admission_scorer_gpu_p192.md`.
-- **P193 next command:** `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/build_admission_frame_dataset_p193.py --outputs-root outputs --cluster-labels paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_frame_dataset_p193.json --output-csv paper/evidence/admission_frame_dataset_p193.csv`.
+- **P193 next command:** `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram python tools/build_admission_frame_dataset_p193.py --outputs-root outputs --cluster-labels paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_frame_dataset_p193.json --output-csv paper/evidence/admission_frame_dataset_p193.csv`.
+
+## 2026-05-10 — P193 Frame-Level Dataset Expansion + tram CUDA Rerun
+
+- **Environment:** continued under README §0.3 `tram` only. Recorded commands use `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram <command>`; no downloads, no CPU fallback, no SAM2 full training, no submission/PDF work.
+- **Dataset builder:** added `tools/build_admission_frame_dataset_p193.py` and built `paper/evidence/admission_frame_dataset_p193.json/csv` plus raw joined CSV. It scanned 83 observation-index files, inventoried 20 backend input manifests, retained 24 TorWIC protocol source files, saw 163 target-protocol observations, joined 154, and deduplicated to 110 frame/observation-level samples.
+- **Deduplicated split:** train 42 (28 admit / 14 reject), val 8 (4 / 4), test 60 (37 / 23). Dedup key is `physical_session(session_id)::frame_index::object_name`; 44 duplicate physical keys removed; cross-split duplicate overlap after dedup is 0.
+- **GPU rerun:** reused CUDA-only trainer on `paper/evidence/admission_frame_dataset_p193.csv`, producing `paper/evidence/admission_scorer_frame_gpu_p193.json` and `paper/export/admission_scorer_frame_gpu_p193.md`.
+- **GPU evidence:** tram Python `/home/rui/miniconda3/envs/tram/bin/python`, PyTorch `2.4.0+cu118`, CUDA `11.8`, GPU `NVIDIA GeForce RTX 3060`; memory before `0/0`, after `17046528/23068672`, peak `18110976/23068672`; GPU MLP training time about `0.340s`, logistic about `0.238s`.
+- **Metrics:** GPU MLP train accuracy/F1 `1.000/1.000`, val `1.000/1.000` on only 8 samples, Hallway test `0.950/0.961`; GPU logistic Hallway test `0.950/0.961`.
+- **Risk/blocker:** P193 expanded real samples beyond 51 clusters, but labels are still weak labels inherited from `selection_v5`, validation is tiny after de-duplication, and forklift/category features can leak the target. Do not claim learned contribution yet.
+- **P194:** build independent supervision: human boundary-label sheet for false admits/false rejects/near-threshold observations and/or pairwise cross-session association labels from tracklet/map-object lineage.

@@ -1,7 +1,7 @@
 {
   "phase": "P192-gpu-admission-scorer-training",
-  "environment_basis": "README.md §0.3: use LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram <command>",
-  "actual_training_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/train_admission_scorer_gpu_p192.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --p191-json paper/evidence/admission_scorer_smoke_p191.json --output-json paper/evidence/admission_scorer_gpu_p192.json --output-md paper/export/admission_scorer_gpu_p192.md",
+  "environment_basis": "README.md §0.3: use LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram <command>",
+  "actual_training_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram python tools/train_admission_scorer_gpu_p192.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --p191-json paper/evidence/admission_scorer_smoke_p191.json --output-json paper/evidence/admission_scorer_gpu_p192.json --output-md paper/export/admission_scorer_gpu_p192.md",
   "python_executable": "/home/rui/miniconda3/envs/tram/bin/python",
   "platform": "Linux-6.8.0-110-generic-x86_64-with-glibc2.35",
   "dataset": "paper/evidence/admission_scorer_dataset_p190.csv",
@@ -2728,7 +2728,7 @@
       ],
       "label_strategy": "inherit weak labels by joining frame instances to selected/rejected cluster ids when available; separate uncertain/unmatched examples for review rather than training as negatives",
       "expected_scale": "hundreds to low-thousands of frame/object examples from already materialized TorWIC outputs, depending on join strictness",
-      "p193_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/build_admission_frame_dataset_p193.py --outputs-root outputs --cluster-labels paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_frame_dataset_p193.json --output-csv paper/evidence/admission_frame_dataset_p193.csv"
+      "p193_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram python tools/build_admission_frame_dataset_p193.py --outputs-root outputs --cluster-labels paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_frame_dataset_p193.json --output-csv paper/evidence/admission_frame_dataset_p193.csv"
     },
     "pairwise_association_expansion": {
       "source_globs": [
@@ -2746,7 +2746,7 @@
       ],
       "label_strategy": "positive if pair belongs to the same retained map-object/cluster lineage; hard negative if same semantic label but rejected or spatially incompatible; keep ambiguous pairs for human review",
       "expected_scale": "O(n^2) pair candidates per protocol before pruning; likely more useful than 51 cluster labels for a learned association scorer",
-      "p193_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/build_association_pair_dataset_p193.py --outputs-root outputs --selection-glob 'outputs/torwic_*selection_v5.json' --output-json paper/evidence/association_pair_dataset_p193.json --output-csv paper/evidence/association_pair_dataset_p193.csv"
+      "p193_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram python tools/build_association_pair_dataset_p193.py --outputs-root outputs --selection-glob 'outputs/torwic_*selection_v5.json' --output-json paper/evidence/association_pair_dataset_p193.json --output-csv paper/evidence/association_pair_dataset_p193.csv"
     },
     "recommended_p193_first_step": "Implement the frame-level dataset builder first because manifests already exist and it expands admission supervision without changing the model target; then build pairwise association labels as P194 if admission still underfits."
   },
