@@ -1,0 +1,512 @@
+{
+  "artifact_count": 22,
+  "artifacts": [
+    {
+      "artifact_type": "script",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "P203 raw segmentation evidence index"
+      ],
+      "generated_phase": "P206",
+      "mtime_utc": "2026-05-10T11:34:14.963865+00:00",
+      "path": "tools/build_diverse_raw_evidence_packet_p206.py",
+      "role": "producer_script",
+      "row_count": null,
+      "sha256": "b52c55517a39c294d5dd31e648181dbf045a7fdd0ed82ef359b0f7662086ec84",
+      "size_bytes": 27694
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_segmentation_evidence_index_p203.json"
+      ],
+      "generated_phase": "P206",
+      "mtime_utc": "2026-05-10T11:37:14.127162+00:00",
+      "path": "paper/evidence/raw_evidence_diverse_packet_p206.json",
+      "role": "diverse_packet_json",
+      "row_count": 32,
+      "sha256": "263bb6ac743fcd57adc3eeb67bc27fb913cb8231ddbe4b590e40262504b3d70e",
+      "size_bytes": 68011
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_segmentation_evidence_index_p203.csv"
+      ],
+      "generated_phase": "P206",
+      "mtime_utc": "2026-05-10T11:37:14.127162+00:00",
+      "path": "paper/evidence/raw_evidence_diverse_packet_p206.csv",
+      "role": "diverse_packet_csv",
+      "row_count": 32,
+      "sha256": "8db7e9de20e2dd048c14b458407a082428e0d97ab0044ec3aafe559886b89b7e",
+      "size_bytes": 39637
+    },
+    {
+      "artifact_type": "report",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_diverse_packet_p206.json"
+      ],
+      "generated_phase": "P206",
+      "mtime_utc": "2026-05-10T11:37:14.127162+00:00",
+      "path": "paper/export/raw_evidence_diverse_packet_p206.md",
+      "role": "diverse_packet_report",
+      "row_count": null,
+      "sha256": "5476e92cbdcef3fe26d83dec2078e2fed4c81a140e9c4b5dcc61348ae100444e",
+      "size_bytes": 10393
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_diverse_packet_p206.json"
+      ],
+      "generated_phase": "P206",
+      "mtime_utc": "2026-05-10T11:37:51.047234+00:00",
+      "path": "paper/evidence/raw_evidence_diverse_packet_triage_p206.json",
+      "role": "triage_json",
+      "row_count": 32,
+      "sha256": "589bd599e8e475f6994d0fd55a2d720cd42fca774560a175480fc692f66f8d70",
+      "size_bytes": 191331
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_diverse_packet_p206.csv"
+      ],
+      "generated_phase": "P206",
+      "mtime_utc": "2026-05-10T11:37:51.047234+00:00",
+      "path": "paper/evidence/raw_evidence_diverse_packet_triage_p206.csv",
+      "role": "triage_csv",
+      "row_count": 32,
+      "sha256": "49c4b09c206ab51e3bee74225db4496a8cf7ee88ef01ba76319331a091c67586",
+      "size_bytes": 12507
+    },
+    {
+      "artifact_type": "report",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_diverse_packet_triage_p206.json"
+      ],
+      "generated_phase": "P206",
+      "mtime_utc": "2026-05-10T11:37:51.048234+00:00",
+      "path": "paper/export/raw_evidence_diverse_packet_triage_p206.md",
+      "role": "triage_report",
+      "row_count": null,
+      "sha256": "6858cc21b4de05c329f58c78a0e5e05de16eca3ec56815997377bee7930c4e76",
+      "size_bytes": 2652
+    },
+    {
+      "artifact_type": "script",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "P206 diverse packet"
+      ],
+      "generated_phase": "P207",
+      "mtime_utc": "2026-05-10T11:41:39.134736+00:00",
+      "path": "tools/build_evidence_quality_notes_p207.py",
+      "role": "producer_and_validator_script",
+      "row_count": null,
+      "sha256": "fb018520a3f1d8943f35ba9adbc141ec8f8556794812d85a832f03a587ed2059",
+      "size_bytes": 20026
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_diverse_packet_p206.json"
+      ],
+      "generated_phase": "P207",
+      "mtime_utc": "2026-05-10T11:41:43.532747+00:00",
+      "path": "paper/evidence/raw_evidence_quality_notes_p207.json",
+      "role": "blank_quality_notes_json",
+      "row_count": 32,
+      "sha256": "20ae5ff77e97917173ad78edb7616239819234213b61f3912c0e10934f0a48bd",
+      "size_bytes": 61818
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_diverse_packet_p206.csv"
+      ],
+      "generated_phase": "P207",
+      "mtime_utc": "2026-05-10T11:41:43.531746+00:00",
+      "path": "paper/evidence/raw_evidence_quality_notes_p207.csv",
+      "role": "blank_quality_notes_csv",
+      "row_count": 32,
+      "sha256": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+      "size_bytes": 32942
+    },
+    {
+      "artifact_type": "report",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_quality_notes_p207.json"
+      ],
+      "generated_phase": "P207",
+      "mtime_utc": "2026-05-10T11:41:43.532747+00:00",
+      "path": "paper/export/raw_evidence_quality_notes_protocol_p207.md",
+      "role": "quality_notes_protocol",
+      "row_count": null,
+      "sha256": "d27aaebf27c4f921ba711346f27ed26635647692903d690f9c6b34ca777a9ca8",
+      "size_bytes": 3068
+    },
+    {
+      "artifact_type": "script",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "P207 notes"
+      ],
+      "generated_phase": "P208",
+      "mtime_utc": "2026-05-10T11:47:14.193599+00:00",
+      "path": "tools/summarize_evidence_quality_notes_p208.py",
+      "role": "summary_script",
+      "row_count": null,
+      "sha256": "5455bea07835b1ab0b58a274df6be4872132f27193eed7f15f76ad6a1114dc3b",
+      "size_bytes": 17495
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_quality_notes_p207.csv"
+      ],
+      "generated_phase": "P208",
+      "mtime_utc": "2026-05-10T11:47:19.920615+00:00",
+      "path": "paper/evidence/evidence_quality_notes_summary_p208.json",
+      "role": "quality_notes_summary_json",
+      "row_count": 0,
+      "sha256": "9caeabde44d1eaad37aea0f2e1a944b8dbbc41ea74eda5b3d015deed03aafe2a",
+      "size_bytes": 14506
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_quality_notes_p207.csv"
+      ],
+      "generated_phase": "P208",
+      "mtime_utc": "2026-05-10T11:47:19.920615+00:00",
+      "path": "paper/evidence/evidence_quality_notes_blockers_p208.csv",
+      "role": "quality_blockers_csv",
+      "row_count": 0,
+      "sha256": "fb8c22a24adc08c091b35bd0c727a676e06d63590dae1d3e9118aa6fdb0a4eb8",
+      "size_bytes": 186
+    },
+    {
+      "artifact_type": "report",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/evidence_quality_notes_summary_p208.json"
+      ],
+      "generated_phase": "P208",
+      "mtime_utc": "2026-05-10T11:47:19.920615+00:00",
+      "path": "paper/export/evidence_quality_notes_summary_p208.md",
+      "role": "quality_notes_summary_report",
+      "row_count": null,
+      "sha256": "e60619251eeced0399c7299e6f50e7535b00743d742912f06b857f7fc4ed311b",
+      "size_bytes": 3974
+    },
+    {
+      "artifact_type": "script",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "P207 notes",
+        "P208 summary behavior"
+      ],
+      "generated_phase": "P209",
+      "mtime_utc": "2026-05-10T11:51:05.399248+00:00",
+      "path": "tools/test_evidence_quality_safety_p209.py",
+      "role": "safety_test_script",
+      "row_count": null,
+      "sha256": "c9c546f42478d6a0e382c873c1924599205cc9196f5e08273550a108733fd32a",
+      "size_bytes": 17823
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "tools/test_evidence_quality_safety_p209.py",
+        "paper/evidence/raw_evidence_quality_notes_p207.csv"
+      ],
+      "generated_phase": "P209",
+      "mtime_utc": "2026-05-10T12:03:58.480866+00:00",
+      "path": "paper/evidence/evidence_quality_safety_tests_p209.json",
+      "role": "safety_test_report_json",
+      "row_count": 6,
+      "sha256": "2539ceb7b482c30becf85f7619bd5e0e844a62bade86906446f4fcd83cbc29e5",
+      "size_bytes": 16232
+    },
+    {
+      "artifact_type": "report",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/evidence_quality_safety_tests_p209.json"
+      ],
+      "generated_phase": "P209",
+      "mtime_utc": "2026-05-10T12:03:58.480866+00:00",
+      "path": "paper/export/evidence_quality_safety_tests_p209.md",
+      "role": "safety_test_report_md",
+      "row_count": null,
+      "sha256": "48a8ffcde06a9b13f9df85a07eb2c123c3012e97cb33aa388f9ee7683d642e64",
+      "size_bytes": 1970
+    },
+    {
+      "artifact_type": "script",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "P207 notes",
+        "P208 validation"
+      ],
+      "generated_phase": "P210",
+      "mtime_utc": "2026-05-10T11:56:21.878174+00:00",
+      "path": "tools/audit_evidence_note_ingestion_p210.py",
+      "role": "ingestion_audit_script",
+      "row_count": null,
+      "sha256": "204399892a2d1a81a642eaa14b308f608e08b7c05a5201562bfc34735230434f",
+      "size_bytes": 22433
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_quality_notes_p207.csv"
+      ],
+      "generated_phase": "P210",
+      "mtime_utc": "2026-05-10T11:57:48.325432+00:00",
+      "path": "paper/evidence/evidence_note_ingestion_audit_p210.json",
+      "role": "ingestion_audit_json",
+      "row_count": 32,
+      "sha256": "38610f1c901201f30b7692ed9b9e87b4b57f135fd10fb9eb48e4b92b548bd630",
+      "size_bytes": 17021
+    },
+    {
+      "artifact_type": "evidence",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/raw_evidence_quality_notes_p207.csv"
+      ],
+      "generated_phase": "P210",
+      "mtime_utc": "2026-05-10T11:57:48.325432+00:00",
+      "path": "paper/evidence/evidence_note_ingestion_manifest_p210.csv",
+      "role": "quality_only_ingestion_manifest",
+      "row_count": 32,
+      "sha256": "ba94d197f611396080218c8424ccec3023dee3678cd6c4d1b030be42717fdd09",
+      "size_bytes": 31852
+    },
+    {
+      "artifact_type": "report",
+      "exists": true,
+      "expected_upstream_dependencies": [
+        "paper/evidence/evidence_note_ingestion_audit_p210.json"
+      ],
+      "generated_phase": "P210",
+      "mtime_utc": "2026-05-10T11:57:48.325432+00:00",
+      "path": "paper/export/evidence_note_ingestion_audit_p210.md",
+      "role": "ingestion_audit_report",
+      "row_count": null,
+      "sha256": "403b81a6d21dc0eb7a1b7603451078dbfa6f41f4d6c03e77108bc92fbd24c51d",
+      "size_bytes": 2278
+    }
+  ],
+  "constraints_observed": {
+    "admission_or_same_object_labels_inferred": false,
+    "admission_or_semantic_stability_training_performed": false,
+    "downloads_performed": false,
+    "human_admit_label_created_or_filled": false,
+    "human_same_object_label_created_or_filled": false,
+    "real_notes_or_raw_data_modified": false
+  },
+  "generated_at_utc": "2026-05-10T12:04:04.752814+00:00",
+  "outputs": {
+    "csv": "paper/evidence/cross_phase_evidence_index_p211.csv",
+    "json": "paper/evidence/cross_phase_evidence_index_p211.json",
+    "markdown": "paper/export/cross_phase_evidence_index_p211.md"
+  },
+  "p195_status": "BLOCKED",
+  "p212_recommendation": "Keep P195 blocked until independent human admission/same-object labels exist. If staying no-label, add a read-only release-style governance summary that compares artifact hashes across commits and flags drift before paper export.",
+  "phase": "P211-cross-phase-evidence-index",
+  "scientific_boundary": "Artifact governance for the no-label P206-P210 evidence QA stack only. P211 creates no admission or same-object labels, does not train, does not modify notes/raw data, and does not support admission-control claims.",
+  "staleness": {
+    "checks": [
+      {
+        "details": "All required P206-P210 artifacts exist.",
+        "evidence": {
+          "missing": []
+        },
+        "name": "required_artifacts_exist",
+        "status": "PASS"
+      },
+      {
+        "details": "P206 triage reports zero issue counts and all packet rows OK.",
+        "evidence": {
+          "issue_counts": {},
+          "packet_rows": 32,
+          "rows_by_issue_level": {
+            "OK": 32
+          }
+        },
+        "name": "p206_triage_has_zero_issues",
+        "status": "PASS"
+      },
+      {
+        "details": "P207 notes preserve P206 packet row identities in order.",
+        "evidence": {
+          "fields_compared": [
+            "audit_sample_id",
+            "p203_index_row_id",
+            "p202_audit_row_id",
+            "row_source",
+            "row_role",
+            "sample_id",
+            "observation_id",
+            "source",
+            "session_id",
+            "frame_index",
+            "tracklet_id",
+            "physical_key"
+          ],
+          "left_only_count": 0,
+          "left_rows": 32,
+          "right_only_count": 0,
+          "right_rows": 32
+        },
+        "name": "p207_notes_match_p206_packet_row_ids",
+        "status": "PASS"
+      },
+      {
+        "details": "P207 notes validate and all evidence-quality note fields remain blank.",
+        "evidence": {
+          "csv_rows": 32,
+          "json_rows": 32,
+          "note_blank_counts": {
+            "blur_level": 32,
+            "depth_quality": 32,
+            "mask_alignment_quality": 32,
+            "occlusion_level": 32,
+            "quality_blocker": 32,
+            "reviewer_note": 32,
+            "visibility_quality": 32
+          },
+          "validation_status": "PASS"
+        },
+        "name": "p207_notes_current_and_blank",
+        "status": "PASS"
+      },
+      {
+        "details": "P208 summary row counts, blank counts, and blocker rows match current P207 notes. P208 stores no source hash, so this uses content-derived counts instead of timestamp ordering.",
+        "evidence": {
+          "current_p207_rows": 32,
+          "current_quality_blocker_yes_rows": 0,
+          "hash_available_in_p208": false,
+          "p208_blocker_rows": 0,
+          "p208_rows": 32,
+          "p208_status": "PASS",
+          "p208_validation_status": "PASS"
+        },
+        "name": "p208_summary_matches_current_p207_notes",
+        "status": "PASS"
+      },
+      {
+        "details": "P209 safety tests pass and recorded P207 notes hashes match the current notes CSV.",
+        "evidence": {
+          "case_count": 6,
+          "current_p207_sha256": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+          "passed_case_count": 6,
+          "recorded_sha256_after": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+          "recorded_sha256_before": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+          "status": "PASS"
+        },
+        "name": "p209_safety_tests_pass_against_current_p207_hash",
+        "status": "PASS"
+      },
+      {
+        "details": "P210 audit is READY_EMPTY, hash-compatible with current P207 notes, and self-test passed.",
+        "evidence": {
+          "current_p207_sha256": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+          "readiness": "READY_EMPTY",
+          "recorded_sha256_after": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+          "recorded_sha256_before": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+          "self_test_cases": "5/5",
+          "self_test_status": "PASS",
+          "status": "PASS"
+        },
+        "name": "p210_ingestion_audit_matches_current_p207_hash",
+        "status": "PASS"
+      },
+      {
+        "details": "P210 manifest matches current P207 rows for quality-only fields and excludes blocked decision/proxy fields plus canonical category names.",
+        "evidence": {
+          "blocked_fields_present": [],
+          "contains_canonical_category_field": false,
+          "fields_compared": [
+            "audit_sample_id",
+            "p203_index_row_id",
+            "p202_audit_row_id",
+            "sample_id",
+            "observation_id",
+            "source",
+            "session_id",
+            "frame_index",
+            "tracklet_id",
+            "physical_key",
+            "raw_segmentation_color_left_path",
+            "raw_segmentation_greyscale_left_path",
+            "raw_segmentation_color_right_path",
+            "raw_segmentation_greyscale_right_path",
+            "raw_rgb_left_path",
+            "raw_depth_left_path",
+            "visibility_quality",
+            "mask_alignment_quality",
+            "depth_quality",
+            "occlusion_level",
+            "blur_level",
+            "reviewer_note",
+            "quality_blocker"
+          ],
+          "left_only_count": 0,
+          "left_rows": 32,
+          "right_only_count": 0,
+          "right_rows": 32
+        },
+        "name": "p210_manifest_is_quality_only_and_matches_p207_notes",
+        "status": "PASS"
+      },
+      {
+        "details": "P211 artifact-level CSV schema contains no row-level decision/proxy fields. Source artifacts are scanned separately for governance visibility.",
+        "evidence": {
+          "p211_csv_blocked_fields": [],
+          "source_artifact_blocked_fields": {
+            "p206_packet_csv": [],
+            "p207_notes_csv": [],
+            "p208_blockers_csv": [],
+            "p210_manifest_csv": []
+          }
+        },
+        "name": "generated_index_has_no_row_level_decision_or_proxy_columns",
+        "status": "PASS"
+      },
+      {
+        "details": "All indexed P206-P210 governance artifacts keep P195 BLOCKED.",
+        "evidence": {
+          "p206_packet": "BLOCKED",
+          "p206_triage": "BLOCKED",
+          "p207": "BLOCKED",
+          "p208": "BLOCKED",
+          "p209": "BLOCKED",
+          "p210": "BLOCKED"
+        },
+        "name": "p195_remains_blocked_across_stack",
+        "status": "PASS"
+      }
+    ],
+    "fail_count": 0,
+    "status": "PASS",
+    "warning_count": 0
+  },
+  "status": "PASS"
+}
