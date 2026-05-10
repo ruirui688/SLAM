@@ -86,6 +86,16 @@ summary and local paths here, then commit and push the repository.
 - **Verification:** `python3 tools/build_raw_evidence_audit_packet_p204.py`; `python3 -m py_compile tools/build_raw_evidence_audit_packet_p204.py tools/prepare_independent_supervision_p195.py`; CSV/JSON sanity confirms 32 rows, no prohibited label/proxy columns, blank non-label note fields, and zero missing referenced paths; `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED` with `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`.
 - **P205 recommendation:** Use the packet for raw-evidence inspection and issue triage only. Keep P195 blocked until independent human admission and same-object labels exist; if review comments are collected, route them through a separate labeling protocol before any label-bearing artifact is created.
 
+## 2026-05-10 P205 — Raw evidence issue triage
+
+- **Goal:** Triage the P204 raw evidence packet for file/readability/shape/non-empty evidence issues only, without creating labels, inferring admission/same-object status, or training models.
+- **Result: TRIAGE COMPLETE, P195 still BLOCKED.** Added a deterministic Pillow/NumPy triage script for the 32-sample P204 packet. It checks local path existence/readability, RGB/depth/segmentation image dimensions, segmentation non-triviality, depth nonzero statistics, and packet diversity flags.
+- **Evidence QA:** `192/192` referenced paths exist and are readable as images; all 32 rows have internally consistent `1280x720` dimensions; all 4 segmentation images per row are non-trivial; depth images are readable with nonzero pixels. There are `0` error-level file/readability/dimension/non-empty issues.
+- **Diversity warnings:** No duplicate nonblank physical keys (`18/18` unique), but the packet has repeated raw-frame evidence: 9 duplicate session/frame groups affecting 23 rows and 7 duplicate sample-id groups affecting 15 rows. These are packet-diversity warnings only, not semantic/admission labels.
+- **Outputs:** `tools/triage_raw_evidence_packet_p205.py`, `paper/evidence/raw_evidence_issue_triage_p205.json`, `paper/evidence/raw_evidence_issue_triage_p205.csv`, `paper/export/raw_evidence_issue_triage_p205.md`.
+- **Verification:** `python3 tools/triage_raw_evidence_packet_p205.py`; `python3 -m py_compile tools/triage_raw_evidence_packet_p205.py tools/prepare_independent_supervision_p195.py`; `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED` with `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`; P196 human label/note fields remain blank.
+- **P206 recommendation:** Use P205 as the raw-evidence QA baseline. If more review is needed, create a separate no-training visual inspection protocol that records evidence-quality notes only; keep admission/same-object labels behind the independent human-label workflow.
+
 ## 2026-05-10 P198 — Safe review-label sync gate
 
 - **Goal:** Add a reproducible validation-first bridge from P197 semantic review CSVs back to the P194 source CSVs that P195 reads, without creating or inferring any labels.
