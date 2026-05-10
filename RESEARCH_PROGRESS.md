@@ -1374,3 +1374,11 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 - **Build:** Recompiled with existing user-level Tectonic into `paper/tro_submission/build_p186_final/main.pdf` (15 pages). Compile succeeded with cosmetic underfull/overfull hbox warnings; no fatal TeX errors. Copied the final PDF to `paper/tro_submission/main.pdf`.
 - **Updated surfaces:** `main.tex`, `abstract.tex`, `EDITOR_SUMMARY.md`, `COVER_LETTER_DRAFT.md`, `FIGURE_PLAN.md`, `supplementary/supplement.md`, `supplementary/SUPPLEMENT_FIGURE_PLAN.md`, final PDF/build log.
 - **Remaining human items:** final visual skim of figures/pages before upload; optional anonymous code mirror only if code is uploaded during double-anonymous review.
+
+## 2026-05-10 — P188 Final Visual Check
+
+- **Goal:** Resolve final machine-skim PDF WARN items before human upload: Table III right-edge truncation, VII-G title-only risk, page 9 blank false-positive, and pages 10–14 figure clipping concerns.
+- **Result: PASS after fixes.** Table III truncation was real and fixed by resizing wide selection tables; VII-G title-only risk was real and fixed by adding a body paragraph; page 9 was a text-extraction false positive; pages 10–14 figures render and are not clipped.
+- **Build:** Recompiled with existing Tectonic into `paper/tro_submission/build_p188/main.pdf` (15 pages). Compile exit code 0; warnings are hbox/vbox layout warnings only. Final PDF copied to `paper/tro_submission/main.pdf`.
+- **Outputs:** `paper/tro_submission/P188_FINAL_VISUAL_CHECK.md`, `paper/tro_submission/P188_FINAL_VISUAL_CHECK.json`, `paper/tro_submission/build_p188/main.pdf`, `paper/tro_submission/build_p188/tectonic_compile_log_p188.txt`.
+- **Remaining:** final human visual skim before upload; anonymous code mirror only if code is included in double-anonymous review.

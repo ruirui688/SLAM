@@ -1,0 +1,82 @@
+{
+  "generated_at": "2026-05-10T13:40+08",
+  "project": "industrial-semantic-slam",
+  "phase": "P188-human-upload-final-check",
+  "inputs": [
+    "paper/tro_submission/main.pdf",
+    "paper/tro_submission/main.tex",
+    "paper/tro_submission/build_p186_final/tectonic_compile_log_p186_final.txt",
+    "paper/tro_submission/build_p188/tectonic_compile_log_p188.txt"
+  ],
+  "warnings_reviewed": {
+    "page5_table_iii_possible_right_truncation": {
+      "initial_verdict": "real",
+      "evidence": "pre-fix pdftotext showed Table III header/rightmost cells truncated as Deci/Reta and rendered non-white bbox touched the right page edge (right margin 0 px).",
+      "fix": "Wrapped Table II and Table III tabulars in resizebox(columnwidth).",
+      "post_fix_verdict": "fixed",
+      "post_fix_evidence": "post-fix pdftotext shows full Decision/Retain/Reject cells; rendered page 5 bbox right margin is 109 px."
+    },
+    "page6_vii_g_title_only": {
+      "initial_verdict": "real structural weakness",
+      "evidence": "VII-G was followed primarily by floats and immediately by Discussion in text extraction.",
+      "fix": "Added a short body paragraph after the VII-G heading explaining ablation, baseline, and category-analysis roles.",
+      "post_fix_verdict": "fixed",
+      "post_fix_evidence": "post-fix page 6 text extraction contains the VII-G heading plus the new body paragraph."
+    },
+    "page9_suspected_blank": {
+      "initial_verdict": "false_positive",
+      "evidence": "pdftotext extracts only page number because the page is image/table heavy; rendered page 9 has non-white bbox covering 76.38% of page area and visual inspection confirms visible content.",
+      "fix": "none_needed"
+    },
+    "pages10_to_14_figure_visibility": {
+      "initial_verdict": "needs_confirmation",
+      "post_fix_verdict": "pass",
+      "evidence": "Rendered pages 10-14 have non-white bboxes with >48% page coverage and margins away from page edges; visual inspection confirms figures 2,3,4-10,11,12 are visible and not clipped."
+    },
+    "page6_top_tables_crowding": {
+      "initial_verdict": "minor_real_layout_risk_after_first_fix",
+      "fix": "Shortened Table VII caption and wrapped Table V in resizebox(columnwidth).",
+      "post_fix_verdict": "acceptable",
+      "post_fix_evidence": "post-fix rendered page 6 stays within page margins; remaining warnings are hbox/cosmetic, not fatal."
+    }
+  },
+  "compile": {
+    "tool": "/home/rui/miniconda3/bin/tectonic",
+    "command": "tectonic --reruns 2 main.tex --outdir build_p188",
+    "exit_code": 0,
+    "pdf_pages": 15,
+    "pdfinfo_head": [
+      "Title:           Session-Level Map Admission Control for Semantic-Segmentation-Assisted SLAM in Dynamic Industrial Environments",
+      "Subject:         Robotics, SLAM, Semantic Mapping",
+      "Keywords:        SLAM, semantic segmentation, dynamic object filtering, object-level mapping, map maintenance, industrial robotics, open-vocabulary perception, long-term autonomy",
+      "Creator:         LaTeX with hyperref",
+      "Producer:        xdvipdfmx (0.1)",
+      "CreationDate:    Sun May 10 13:37:16 2026 CST",
+      "Custom Metadata: no",
+      "Metadata Stream: no",
+      "Tagged:          no",
+      "UserProperties:  no",
+      "Suspects:        no",
+      "Form:            none",
+      "JavaScript:      no",
+      "Pages:           15",
+      "Encrypted:       no",
+      "Page size:       612 x 792 pts (letter)",
+      "Page rot:        0",
+      "File size:       3092255 bytes"
+    ],
+    "warnings_summary": "compile succeeded; remaining warnings are underfull/overfull hbox/vbox only, no fatal TeX error."
+  },
+  "outputs": [
+    "paper/tro_submission/P188_FINAL_VISUAL_CHECK.md",
+    "paper/tro_submission/P188_FINAL_VISUAL_CHECK.json",
+    "paper/tro_submission/build_p188/main.pdf",
+    "paper/tro_submission/build_p188/tectonic_compile_log_p188.txt",
+    "paper/tro_submission/main.pdf"
+  ],
+  "remaining_human_items": [
+    "final human visual skim before upload",
+    "optional anonymous code mirror only if code is uploaded for double-anonymous review"
+  ],
+  "verdict": "PASS after fixes"
+}

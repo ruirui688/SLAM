@@ -324,6 +324,7 @@ All results are reported with invariant selection criteria: \texttt{min\_session
   \centering
   \caption{Same-Day Aisle Selection Analysis (5/11 retained).}
   \label{tab:same_day_selection}
+  \resizebox{\columnwidth}{!}{%
   \begin{tabular}{lcccccc}
     \toprule
     Cluster & Label & Sessions & Frames & Purity & Dyn Ratio & Decision \\
@@ -341,7 +342,8 @@ All results are reported with invariant selection criteria: \texttt{min\_session
     cluster\_0006 & warehouse rack & 1 & 7 & 1.000 & 0.000 & Reject (session) \\
     cluster\_0011 & barrier & 1 & 3 & 1.000 & 0.000 & Reject (session) \\
     \bottomrule
-  \end{tabular}
+  \end{tabular}%
+  }
 \end{table}
 
 % --- Table 3: Cross-Day Aisle Selection Analysis ---
@@ -349,6 +351,7 @@ All results are reported with invariant selection criteria: \texttt{min\_session
   \centering
   \caption{Cross-Day Aisle Selection Analysis (5/10 retained).}
   \label{tab:cross_day_selection}
+  \resizebox{\columnwidth}{!}{%
   \begin{tabular}{lcccccc}
     \toprule
     Cluster & Label & Sessions & Frames & Purity & Dyn Ratio & Decision \\
@@ -365,7 +368,8 @@ All results are reported with invariant selection criteria: \texttt{min\_session
     cluster\_0009 & barrier & 1 & 7 & 0.857 & 0.000 & Reject (session) \\
     cluster\_0010 & warehouse rack & 1 & 5 & 0.800 & 0.000 & Reject (session) \\
     \bottomrule
-  \end{tabular}
+  \end{tabular}%
+  }
 \end{table}
 
 % === VII.C Hallway Within-Site Variation ===
@@ -415,6 +419,7 @@ We evaluate short-window bundle-adjustment perturbation under different masking 
   \centering
   \caption{DROID-SLAM Backend Configuration Survey (16 configs across 5 sessions, 2 scene types).}
   \label{tab:backend_survey}
+  \resizebox{\columnwidth}{!}{%
   \begin{tabular}{lclcc}
     \toprule
     Config & Mask Strategy & $\Delta$APE (mm) & Neutral? & Scene \\
@@ -436,7 +441,8 @@ We evaluate short-window bundle-adjustment perturbation under different masking 
     P172-S2-A & Oct12 Aisle CW selective & 0.000 & $\checkmark$ & Aisle \\
     P172-S2-H & Oct12 Hallway CW selective & 0.000 & $\checkmark$ & Hallway \\
     \bottomrule
-  \end{tabular}
+  \end{tabular}%
+  }
 \end{table}
 
 % === VII.F Dynamic SLAM: Configuration Evidence Chain ===
@@ -535,10 +541,12 @@ Stage~1 replication on two additional TorWIC Aisle sessions confirms cross-sessi
 \subsection{Admission Criteria Defense: Ablation, Baseline Comparison, and Per-Category Analysis}
 \label{sec:results_defense}
 
+This subsection tests whether the five-criterion admission policy is doing substantive work beyond simple detection confidence or support counts. The ablation isolates which thresholds matter, the baseline comparison shows why purity/support heuristics admit forklifts, and the per-category analysis checks that the final map composition remains interpretable rather than merely smaller.
+
 % --- Table 7: Parameter Ablation Summary (P154) ---
 \begin{table}[t]
   \centering
-  \caption{Parameter Ablation Summary (P154). Each row varies one criterion while holding the others at the default configuration (`min\_sessions=2`, `min\_frames=4`, `max\_dynamic\_ratio=0.20`, `min\_support=6`, `min\_label\_purity=0.70`).}
+  \caption{Parameter Ablation Summary (P154; default: min\_sessions=2, min\_frames=4, max\_dynamic\_ratio=0.20, min\_support=6, min\_label\_purity=0.70).}
   \label{tab:ablation}
   \begin{tabular}{lccc}
     \toprule
