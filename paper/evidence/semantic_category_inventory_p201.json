@@ -1,0 +1,2028 @@
+{
+  "annotated_semantic_zip": {
+    "archive_members": 4276,
+    "categories": {
+      "cart_pallet_jack": {
+        "colors": [
+          "#95f942",
+          "#99d207",
+          "#bde07d",
+          "#d2f53c"
+        ],
+        "image_count": 123,
+        "indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          47,
+          48,
+          49
+        ],
+        "instance_count": 223,
+        "positive_pixels_max_per_image": 148657,
+        "positive_pixels_median_per_image": 6558,
+        "positive_pixels_total": 1852422
+      },
+      "ceiling": {
+        "colors": [
+          "#3cb44b"
+        ],
+        "image_count": 88,
+        "indices": [
+          2
+        ],
+        "instance_count": 88,
+        "positive_pixels_max_per_image": 161302,
+        "positive_pixels_median_per_image": 15722,
+        "positive_pixels_total": 2965902
+      },
+      "driveable_ground": {
+        "colors": [
+          "#e6194b"
+        ],
+        "image_count": 230,
+        "indices": [
+          1
+        ],
+        "instance_count": 230,
+        "positive_pixels_max_per_image": 480101,
+        "positive_pixels_median_per_image": 147749,
+        "positive_pixels_total": 38647675
+      },
+      "ego_vehicle": {
+        "colors": [
+          "#ffe119"
+        ],
+        "image_count": 64,
+        "indices": [
+          3
+        ],
+        "instance_count": 64,
+        "positive_pixels_max_per_image": 5440,
+        "positive_pixels_median_per_image": 3794,
+        "positive_pixels_total": 211098
+      },
+      "fixed_machinery": {
+        "colors": [
+          "#f032e6"
+        ],
+        "image_count": 41,
+        "indices": [
+          8
+        ],
+        "instance_count": 41,
+        "positive_pixels_max_per_image": 22314,
+        "positive_pixels_median_per_image": 2126,
+        "positive_pixels_total": 151683
+      },
+      "fork_truck": {
+        "colors": [
+          "#e5cf95",
+          "#f5ea84",
+          "#fffac8"
+        ],
+        "image_count": 59,
+        "indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          27,
+          28,
+          29,
+          30,
+          32,
+          35,
+          36,
+          38,
+          41,
+          44,
+          45,
+          47,
+          49,
+          54
+        ],
+        "instance_count": 75,
+        "positive_pixels_max_per_image": 403792,
+        "positive_pixels_median_per_image": 11493,
+        "positive_pixels_total": 2839080
+      },
+      "goods_material": {
+        "colors": [
+          "#46f0f0"
+        ],
+        "image_count": 219,
+        "indices": [
+          7
+        ],
+        "instance_count": 219,
+        "positive_pixels_max_per_image": 908326,
+        "positive_pixels_median_per_image": 87835,
+        "positive_pixels_total": 33527507
+      },
+      "misc_dynamic_feature": {
+        "colors": [
+          "#800000",
+          "#863e27",
+          "#9e1d2b",
+          "#b01705"
+        ],
+        "image_count": 137,
+        "indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          38,
+          39,
+          44,
+          47,
+          48,
+          51,
+          62
+        ],
+        "instance_count": 342,
+        "positive_pixels_max_per_image": 339941,
+        "positive_pixels_median_per_image": 10504,
+        "positive_pixels_total": 4778550
+      },
+      "misc_non_static_feature": {
+        "colors": [
+          "#bf9fce",
+          "#c7bee0",
+          "#e1bbd8",
+          "#e6beff"
+        ],
+        "image_count": 189,
+        "indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          50,
+          51,
+          52,
+          53,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          63
+        ],
+        "instance_count": 786,
+        "positive_pixels_max_per_image": 300718,
+        "positive_pixels_median_per_image": 8613,
+        "positive_pixels_total": 5329549
+      },
+      "misc_static_feature": {
+        "colors": [
+          "#f58230"
+        ],
+        "image_count": 215,
+        "indices": [
+          5
+        ],
+        "instance_count": 215,
+        "positive_pixels_max_per_image": 292525,
+        "positive_pixels_median_per_image": 20266,
+        "positive_pixels_total": 7523500
+      },
+      "person": {
+        "colors": [
+          "#aa6e28",
+          "#ba805a",
+          "#cf6422",
+          "#d67f24"
+        ],
+        "image_count": 56,
+        "indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          33,
+          35,
+          37,
+          39,
+          40,
+          42
+        ],
+        "instance_count": 90,
+        "positive_pixels_max_per_image": 265940,
+        "positive_pixels_median_per_image": 16908,
+        "positive_pixels_total": 2398912
+      },
+      "pylon_cone": {
+        "colors": [
+          "#c9adad",
+          "#da979e",
+          "#dba592",
+          "#fabebe"
+        ],
+        "image_count": 48,
+        "indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          34,
+          38,
+          43,
+          54,
+          55
+        ],
+        "instance_count": 128,
+        "positive_pixels_max_per_image": 93865,
+        "positive_pixels_median_per_image": 1463,
+        "positive_pixels_total": 580464
+      },
+      "rack_shelf": {
+        "colors": [
+          "#911eb4"
+        ],
+        "image_count": 119,
+        "indices": [
+          6
+        ],
+        "instance_count": 119,
+        "positive_pixels_max_per_image": 333412,
+        "positive_pixels_median_per_image": 5311,
+        "positive_pixels_total": 2786781
+      },
+      "text_region": {
+        "colors": [
+          "#008080",
+          "#459a91",
+          "#588078"
+        ],
+        "image_count": 35,
+        "indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          20,
+          21,
+          22,
+          23,
+          24,
+          26,
+          28,
+          34,
+          35,
+          38,
+          44
+        ],
+        "instance_count": 41,
+        "positive_pixels_max_per_image": 16671,
+        "positive_pixels_median_per_image": 870,
+        "positive_pixels_total": 73206
+      },
+      "wall_fence_pillar": {
+        "colors": [
+          "#0082c8"
+        ],
+        "image_count": 234,
+        "indices": [
+          4
+        ],
+        "instance_count": 234,
+        "positive_pixels_max_per_image": 811340,
+        "positive_pixels_median_per_image": 113936,
+        "positive_pixels_total": 33450697
+      }
+    },
+    "labeled_roots": {
+      "000000285": 3,
+      "000000286": 3,
+      "000000895": 3,
+      "000000896": 3,
+      "000000897": 3,
+      "000000898": 3,
+      "000000900": 3,
+      "000000901": 3,
+      "000000902": 3,
+      "000000903": 3,
+      "000000904": 3,
+      "000000905": 3,
+      "000000906": 3,
+      "000000907": 3,
+      "000000908": 3,
+      "000000909": 3,
+      "000000910": 3,
+      "000000911": 3,
+      "000000912": 3,
+      "000000913": 3,
+      "000000914": 3,
+      "000001637": 3,
+      "000001638": 3,
+      "000001639": 3,
+      "000001640": 3,
+      "000001644": 3,
+      "000001645": 3,
+      "000001680": 3,
+      "000001685": 3,
+      "000001686": 3,
+      "000001687": 3,
+      "000001688": 3,
+      "000001690": 3,
+      "000001691": 3,
+      "000001692": 3,
+      "000001693": 3,
+      "000001696": 3,
+      "000001698": 3,
+      "000001699": 3,
+      "000001700": 3,
+      "000001703": 3,
+      "000001715": 3,
+      "000001716": 3,
+      "000001751": 3,
+      "000001752": 3,
+      "000001753": 3,
+      "000001754": 3,
+      "000001755": 3,
+      "000001783": 3,
+      "000001784": 3,
+      "000001785": 3,
+      "000001786": 3,
+      "000001787": 3,
+      "000001788": 3,
+      "000001789": 3,
+      "000001790": 3,
+      "000001791": 3,
+      "000001792": 3,
+      "000001793": 3,
+      "000001794": 3,
+      "000001795": 3,
+      "000001796": 3,
+      "000001797": 3,
+      "000001798": 3,
+      "000001799": 3,
+      "000001802": 3,
+      "000001804": 3,
+      "000001805": 3,
+      "000001806": 3,
+      "000001807": 3,
+      "000001836": 3,
+      "000001837": 3,
+      "000001838": 3,
+      "000001859": 3,
+      "000001860": 3,
+      "000001861": 3,
+      "000001863": 3,
+      "000001864": 3,
+      "000001869": 3
+    },
+    "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip",
+    "raw_json_count": 237,
+    "status": "ok"
+  },
+  "category_policy": {
+    "context_only_categories": [
+      "ceiling",
+      "driveable_ground",
+      "ego_vehicle",
+      "text_region",
+      "unlabeled",
+      "wall_fence_pillar"
+    ],
+    "dynamic_or_non_static_object_categories": [
+      "cart_pallet_jack",
+      "fork_truck",
+      "goods_material",
+      "misc_dynamic_feature",
+      "misc_non_static_feature",
+      "person",
+      "pylon_cone"
+    ],
+    "open_vocab_to_torwic_mapping": {
+      "##lift": [
+        "fork_truck"
+      ],
+      "barrier": [
+        "misc_static_feature",
+        "pylon_cone"
+      ],
+      "fork": [
+        "fork_truck"
+      ],
+      "forklift": [
+        "fork_truck"
+      ],
+      "rack": [
+        "rack_shelf"
+      ],
+      "rack forklift": [
+        "fork_truck",
+        "rack_shelf"
+      ],
+      "table": [
+        "misc_static_feature",
+        "fixed_machinery"
+      ],
+      "warehouse rack": [
+        "rack_shelf"
+      ],
+      "work": [
+        "misc_static_feature",
+        "fixed_machinery"
+      ],
+      "work table": [
+        "misc_static_feature",
+        "fixed_machinery"
+      ],
+      "yellow barrier": [
+        "misc_static_feature",
+        "pylon_cone"
+      ]
+    },
+    "static_context_categories": [
+      "ceiling",
+      "driveable_ground",
+      "wall_fence_pillar"
+    ],
+    "static_like_object_categories": [
+      "fixed_machinery",
+      "misc_static_feature",
+      "rack_shelf"
+    ]
+  },
+  "category_rows": [
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "present in raw annotation inventory but absent from existing object observation manifests",
+      "map_object_role": "map_object_candidate",
+      "raw_annotated_image_count": 123,
+      "raw_annotated_instance_count": 223,
+      "raw_label_colors": "#95f942;#99d207;#bde07d;#d2f53c",
+      "raw_label_indices": "9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;34;35;47;48;49",
+      "raw_positive_pixels_max_per_image": 148657,
+      "raw_positive_pixels_median_per_image": 6558,
+      "raw_positive_pixels_total": 1852422,
+      "semantic_category": "cart_pallet_jack",
+      "stability_policy": "dynamic_or_non_static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "context-only category; useful as environment context but not an object admission sample",
+      "map_object_role": "context_only_not_admission_object",
+      "raw_annotated_image_count": 88,
+      "raw_annotated_instance_count": 88,
+      "raw_label_colors": "#3cb44b",
+      "raw_label_indices": "2",
+      "raw_positive_pixels_max_per_image": 161302,
+      "raw_positive_pixels_median_per_image": 15722,
+      "raw_positive_pixels_total": 2965902,
+      "semantic_category": "ceiling",
+      "stability_policy": "static_context_only"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "context-only category; useful as environment context but not an object admission sample",
+      "map_object_role": "context_only_not_admission_object",
+      "raw_annotated_image_count": 230,
+      "raw_annotated_instance_count": 230,
+      "raw_label_colors": "#e6194b",
+      "raw_label_indices": "1",
+      "raw_positive_pixels_max_per_image": 480101,
+      "raw_positive_pixels_median_per_image": 147749,
+      "raw_positive_pixels_total": 38647675,
+      "semantic_category": "driveable_ground",
+      "stability_policy": "static_context_only"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "context-only category; useful as environment context but not an object admission sample",
+      "map_object_role": "context_only_not_admission_object",
+      "raw_annotated_image_count": 64,
+      "raw_annotated_instance_count": 64,
+      "raw_label_colors": "#ffe119",
+      "raw_label_indices": "3",
+      "raw_positive_pixels_max_per_image": 5440,
+      "raw_positive_pixels_median_per_image": 3794,
+      "raw_positive_pixels_total": 211098,
+      "semantic_category": "ego_vehicle",
+      "stability_policy": "exclude_or_unknown"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "yes",
+      "existing_manifest_instance_count": 98,
+      "existing_observation_count": 99,
+      "expansion_blocker": "",
+      "map_object_role": "map_object_candidate",
+      "raw_annotated_image_count": 41,
+      "raw_annotated_instance_count": 41,
+      "raw_label_colors": "#f032e6",
+      "raw_label_indices": "8",
+      "raw_positive_pixels_max_per_image": 22314,
+      "raw_positive_pixels_median_per_image": 2126,
+      "raw_positive_pixels_total": 151683,
+      "semantic_category": "fixed_machinery",
+      "stability_policy": "static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "yes",
+      "existing_manifest_instance_count": 204,
+      "existing_observation_count": 204,
+      "expansion_blocker": "",
+      "map_object_role": "map_object_candidate",
+      "raw_annotated_image_count": 59,
+      "raw_annotated_instance_count": 75,
+      "raw_label_colors": "#e5cf95;#f5ea84;#fffac8",
+      "raw_label_indices": "9;10;11;12;13;14;15;16;17;18;19;20;21;22;24;25;27;28;29;30;32;35;36;38;41;44;45;47;49;54",
+      "raw_positive_pixels_max_per_image": 403792,
+      "raw_positive_pixels_median_per_image": 11493,
+      "raw_positive_pixels_total": 2839080,
+      "semantic_category": "fork_truck",
+      "stability_policy": "dynamic_or_non_static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "present in raw annotation inventory but absent from existing object observation manifests",
+      "map_object_role": "movable_clutter_candidate",
+      "raw_annotated_image_count": 219,
+      "raw_annotated_instance_count": 219,
+      "raw_label_colors": "#46f0f0",
+      "raw_label_indices": "7",
+      "raw_positive_pixels_max_per_image": 908326,
+      "raw_positive_pixels_median_per_image": 87835,
+      "raw_positive_pixels_total": 33527507,
+      "semantic_category": "goods_material",
+      "stability_policy": "dynamic_or_non_static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "present in raw annotation inventory but absent from existing object observation manifests",
+      "map_object_role": "map_object_candidate",
+      "raw_annotated_image_count": 137,
+      "raw_annotated_instance_count": 342,
+      "raw_label_colors": "#800000;#863e27;#9e1d2b;#b01705",
+      "raw_label_indices": "9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;34;35;36;38;39;44;47;48;51;62",
+      "raw_positive_pixels_max_per_image": 339941,
+      "raw_positive_pixels_median_per_image": 10504,
+      "raw_positive_pixels_total": 4778550,
+      "semantic_category": "misc_dynamic_feature",
+      "stability_policy": "dynamic_or_non_static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "present in raw annotation inventory but absent from existing object observation manifests",
+      "map_object_role": "map_object_candidate",
+      "raw_annotated_image_count": 189,
+      "raw_annotated_instance_count": 786,
+      "raw_label_colors": "#bf9fce;#c7bee0;#e1bbd8;#e6beff",
+      "raw_label_indices": "9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;34;35;36;37;38;39;40;41;42;43;44;45;46;47;48;50;51;52;53;56;57;58;59;60;61;63",
+      "raw_positive_pixels_max_per_image": 300718,
+      "raw_positive_pixels_median_per_image": 8613,
+      "raw_positive_pixels_total": 5329549,
+      "semantic_category": "misc_non_static_feature",
+      "stability_policy": "dynamic_or_non_static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 228,
+      "existing_observation_count": 229,
+      "expansion_blocker": "currently appears through barrier/yellow-barrier labels that map to both static and non-static categories",
+      "map_object_role": "map_object_candidate",
+      "raw_annotated_image_count": 215,
+      "raw_annotated_instance_count": 215,
+      "raw_label_colors": "#f58230",
+      "raw_label_indices": "5",
+      "raw_positive_pixels_max_per_image": 292525,
+      "raw_positive_pixels_median_per_image": 20266,
+      "raw_positive_pixels_total": 7523500,
+      "semantic_category": "misc_static_feature",
+      "stability_policy": "static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "present in raw annotation inventory but absent from existing object observation manifests",
+      "map_object_role": "map_object_candidate",
+      "raw_annotated_image_count": 56,
+      "raw_annotated_instance_count": 90,
+      "raw_label_colors": "#aa6e28;#ba805a;#cf6422;#d67f24",
+      "raw_label_indices": "9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;33;35;37;39;40;42",
+      "raw_positive_pixels_max_per_image": 265940,
+      "raw_positive_pixels_median_per_image": 16908,
+      "raw_positive_pixels_total": 2398912,
+      "semantic_category": "person",
+      "stability_policy": "dynamic_or_non_static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 130,
+      "existing_observation_count": 130,
+      "expansion_blocker": "currently appears through barrier/yellow-barrier labels that map to both static and non-static categories",
+      "map_object_role": "map_object_candidate",
+      "raw_annotated_image_count": 48,
+      "raw_annotated_instance_count": 128,
+      "raw_label_colors": "#c9adad;#da979e;#dba592;#fabebe",
+      "raw_label_indices": "9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;34;38;43;54;55",
+      "raw_positive_pixels_max_per_image": 93865,
+      "raw_positive_pixels_median_per_image": 1463,
+      "raw_positive_pixels_total": 580464,
+      "semantic_category": "pylon_cone",
+      "stability_policy": "dynamic_or_non_static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "yes",
+      "existing_manifest_instance_count": 72,
+      "existing_observation_count": 72,
+      "expansion_blocker": "",
+      "map_object_role": "map_object_candidate",
+      "raw_annotated_image_count": 119,
+      "raw_annotated_instance_count": 119,
+      "raw_label_colors": "#911eb4",
+      "raw_label_indices": "6",
+      "raw_positive_pixels_max_per_image": 333412,
+      "raw_positive_pixels_median_per_image": 5311,
+      "raw_positive_pixels_total": 2786781,
+      "semantic_category": "rack_shelf",
+      "stability_policy": "static_like"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "context-only category; useful as environment context but not an object admission sample",
+      "map_object_role": "context_only_not_admission_object",
+      "raw_annotated_image_count": 35,
+      "raw_annotated_instance_count": 41,
+      "raw_label_colors": "#008080;#459a91;#588078",
+      "raw_label_indices": "9;10;11;12;13;14;15;16;17;18;20;21;22;23;24;26;28;34;35;38;44",
+      "raw_positive_pixels_max_per_image": 16671,
+      "raw_positive_pixels_median_per_image": 870,
+      "raw_positive_pixels_total": 73206,
+      "semantic_category": "text_region",
+      "stability_policy": "exclude_or_unknown"
+    },
+    {
+      "candidate_for_auxiliary_expansion": "inventory_only",
+      "existing_manifest_instance_count": 0,
+      "existing_observation_count": 0,
+      "expansion_blocker": "context-only category; useful as environment context but not an object admission sample",
+      "map_object_role": "context_only_not_admission_object",
+      "raw_annotated_image_count": 234,
+      "raw_annotated_instance_count": 234,
+      "raw_label_colors": "#0082c8",
+      "raw_label_indices": "4",
+      "raw_positive_pixels_max_per_image": 811340,
+      "raw_positive_pixels_median_per_image": 113936,
+      "raw_positive_pixels_total": 33450697,
+      "semantic_category": "wall_fence_pillar",
+      "stability_policy": "static_context_only"
+    }
+  ],
+  "counts": {
+    "extracted_segmentation_directory_count": 88,
+    "extracted_segmentation_png_count": 144620,
+    "manifest_file_count": 94,
+    "observation_index_file_count": 93,
+    "raw_candidate_category_count": 10,
+    "raw_categories_with_positive_pixels": 15
+  },
+  "existing_outputs_and_manifests": {
+    "instance_label_counts": {
+      "##lift": 1,
+      "barrier": 84,
+      "bed": 6,
+      "car": 7,
+      "fork": 11,
+      "forklift": 191,
+      "rack": 9,
+      "rack forklift": 1,
+      "table": 3,
+      "tire": 6,
+      "warehouse rack": 62,
+      "work": 1,
+      "work table": 94,
+      "yellow barrier": 46
+    },
+    "manifest_file_count": 94,
+    "manifest_paths_sample": [
+      "outputs/cars_demo/all_instances_manifest.json",
+      "outputs/cars_unified_demo/frontend_output/all_instances_manifest.json",
+      "outputs/gpu_offline_cache_smoke__2022-06-15__Hallway_Full_CW/frontend_output/all_instances_manifest.json",
+      "outputs/gpu_smoke__2022-06-15__Hallway_Full_CW/frontend_output/all_instances_manifest.json",
+      "outputs/repo_local_demo_unified/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_1/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_day_available_v1__2022-06-15__Aisle_CW_Run_1/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_day_available_v1__2022-06-23__Aisle_CW_Run_1/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_day_v1__2022-06-15__Aisle_CW_Run_1/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_day_v1__2022-06-23__Aisle_CW_Run_1/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_1/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-10-12__Aisle_CCW/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-10-12__Aisle_CW/frontend_output/all_instances_manifest.json",
+      "outputs/torwic_cross_month_v1__2022-06-15__Aisle_CW_Run_1/frontend_output/all_instances_manifest.json"
+    ],
+    "mapped_torwic_semantic_instance_counts": {
+      "fixed_machinery": 98,
+      "fork_truck": 204,
+      "misc_static_feature": 228,
+      "pylon_cone": 130,
+      "rack_shelf": 72
+    },
+    "observation_index_file_count": 93,
+    "observation_index_paths_sample": [
+      "outputs/cars_unified_demo/observation_output/observations_index.json",
+      "outputs/gpu_offline_cache_smoke__2022-06-15__Hallway_Full_CW/observation_output/observations_index.json",
+      "outputs/gpu_smoke__2022-06-15__Hallway_Full_CW/observation_output/observations_index.json",
+      "outputs/repo_local_demo_unified/observation_output/observations_index.json",
+      "outputs/torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_1/observation_output/observations_index.json",
+      "outputs/torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2/observation_output/observations_index.json",
+      "outputs/torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1/observation_output/observations_index.json",
+      "outputs/torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2/observation_output/observations_index.json",
+      "outputs/torwic_cross_day_available_v1__2022-06-15__Aisle_CW_Run_1/observation_output/observations_index.json",
+      "outputs/torwic_cross_day_available_v1__2022-06-23__Aisle_CW_Run_1/observation_output/observations_index.json",
+      "outputs/torwic_cross_day_v1__2022-06-15__Aisle_CW_Run_1/observation_output/observations_index.json",
+      "outputs/torwic_cross_day_v1__2022-06-23__Aisle_CW_Run_1/observation_output/observations_index.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_1/observation_output/observations_index.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2/observation_output/observations_index.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1/observation_output/observations_index.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2/observation_output/observations_index.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-10-12__Aisle_CCW/observation_output/observations_index.json",
+      "outputs/torwic_cross_month_aisle_bundle_v1__2022-10-12__Aisle_CW/observation_output/observations_index.json",
+      "outputs/torwic_cross_month_v1__2022-06-15__Aisle_CW_Run_1/observation_output/observations_index.json",
+      "outputs/torwic_cross_month_v1__2022-06-23__Aisle_CW_Run_1/observation_output/observations_index.json"
+    ],
+    "observation_label_counts": {
+      "##lift": 1,
+      "barrier": 84,
+      "bed": 8,
+      "car": 4,
+      "fork": 11,
+      "forklift": 191,
+      "rack": 9,
+      "rack forklift": 1,
+      "table": 3,
+      "tire": 3,
+      "warehouse rack": 62,
+      "work": 1,
+      "work table": 95,
+      "yellow barrier": 46
+    },
+    "target_label_counts": {
+      "##lift": 1,
+      "barrier": 39,
+      "bed": 3,
+      "car": 5,
+      "fork": 11,
+      "forklift": 84,
+      "rack": 9,
+      "rack forklift": 1,
+      "table": 3,
+      "tire": 2,
+      "warehouse rack": 32,
+      "work": 1,
+      "work table": 59,
+      "yellow barrier": 25
+    }
+  },
+  "extracted_sequence_segmentation": {
+    "by_kind": {
+      "segmentation_color_left": 36155,
+      "segmentation_color_right": 36155,
+      "segmentation_greyscale_left": 36155,
+      "segmentation_greyscale_right": 36155
+    },
+    "by_sequence": {
+      "Jun. 15, 2022/Aisle_CCW_Run_1": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_greyscale_right"
+        ],
+        "png_count": 4544
+      },
+      "Jun. 15, 2022/Aisle_CCW_Run_2": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_greyscale_right"
+        ],
+        "png_count": 4952
+      },
+      "Jun. 15, 2022/Aisle_CW_Run_1": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_greyscale_right"
+        ],
+        "png_count": 4456
+      },
+      "Jun. 15, 2022/Aisle_CW_Run_2": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_right"
+        ],
+        "png_count": 4496
+      },
+      "Jun. 15, 2022/Hallway_Full_CCW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_greyscale_right"
+        ],
+        "png_count": 10156
+      },
+      "Jun. 15, 2022/Hallway_Full_CW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_greyscale_right"
+        ],
+        "png_count": 10044
+      },
+      "Jun. 15, 2022/Hallway_Straight_CCW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_right"
+        ],
+        "png_count": 8788
+      },
+      "Jun. 23, 2022/Aisle_CCW_Run_1": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_greyscale_right"
+        ],
+        "png_count": 4264
+      },
+      "Jun. 23, 2022/Aisle_CCW_Run_2": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_greyscale_right"
+        ],
+        "png_count": 4624
+      },
+      "Jun. 23, 2022/Aisle_CW_Run_1": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_greyscale_right"
+        ],
+        "png_count": 4148
+      },
+      "Jun. 23, 2022/Aisle_CW_Run_2": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_right"
+        ],
+        "png_count": 4236
+      },
+      "Jun. 23, 2022/Hallway_Full_CW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_greyscale_right"
+        ],
+        "png_count": 9280
+      },
+      "Jun. 23, 2022/Hallway_Straight_CCW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_right"
+        ],
+        "png_count": 7888
+      },
+      "Jun. 23, 2022/Hallway_Straight_CW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_greyscale_right"
+        ],
+        "png_count": 7744
+      },
+      "Oct. 12, 2022/Aisle_CCW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW/Aisle_CCW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW/Aisle_CCW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW/Aisle_CCW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW/Aisle_CCW/segmentation_greyscale_right"
+        ],
+        "png_count": 3660
+      },
+      "Oct. 12, 2022/Aisle_CW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/Aisle_CW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/Aisle_CW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/Aisle_CW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/Aisle_CW/segmentation_greyscale_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/segmentation_greyscale_right"
+        ],
+        "png_count": 8736
+      },
+      "Oct. 12, 2022/Hallway_Full_CW_Run_1": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_greyscale_right"
+        ],
+        "png_count": 9272
+      },
+      "Oct. 12, 2022/Hallway_Full_CW_Run_2": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/Hallway_Full_CW_Run_2/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/Hallway_Full_CW_Run_2/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/Hallway_Full_CW_Run_2/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/Hallway_Full_CW_Run_2/segmentation_greyscale_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/segmentation_greyscale_right"
+        ],
+        "png_count": 18560
+      },
+      "Oct. 12, 2022/Hallway_Straight_CCW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_right"
+        ],
+        "png_count": 7532
+      },
+      "Oct. 12, 2022/Hallway_Straight_CW": {
+        "directories": [
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_color_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_color_right",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_greyscale_left",
+          "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_greyscale_right"
+        ],
+        "png_count": 7240
+      }
+    },
+    "category_mapping_status": "blocked: extracted sequence masks have color/greyscale pixels but no per-frame raw_labels_2d.json metadata in the extracted directories; category counts require either zip-side metadata or a trusted color/index map.",
+    "directories": [
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_color_left",
+        "png_count": 1136,
+        "sequence": "Aisle_CCW_Run_1"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_color_right",
+        "png_count": 1136,
+        "sequence": "Aisle_CCW_Run_1"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_greyscale_left",
+        "png_count": 1136,
+        "sequence": "Aisle_CCW_Run_1"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_greyscale_right",
+        "png_count": 1136,
+        "sequence": "Aisle_CCW_Run_1"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_color_left",
+        "png_count": 1238,
+        "sequence": "Aisle_CCW_Run_2"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_color_right",
+        "png_count": 1238,
+        "sequence": "Aisle_CCW_Run_2"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_greyscale_left",
+        "png_count": 1238,
+        "sequence": "Aisle_CCW_Run_2"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_greyscale_right",
+        "png_count": 1238,
+        "sequence": "Aisle_CCW_Run_2"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_color_left",
+        "png_count": 1114,
+        "sequence": "Aisle_CW_Run_1"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_color_right",
+        "png_count": 1114,
+        "sequence": "Aisle_CW_Run_1"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_greyscale_left",
+        "png_count": 1114,
+        "sequence": "Aisle_CW_Run_1"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_greyscale_right",
+        "png_count": 1114,
+        "sequence": "Aisle_CW_Run_1"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_left",
+        "png_count": 1124,
+        "sequence": "Aisle_CW_Run_2"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_right",
+        "png_count": 1124,
+        "sequence": "Aisle_CW_Run_2"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_left",
+        "png_count": 1124,
+        "sequence": "Aisle_CW_Run_2"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_right",
+        "png_count": 1124,
+        "sequence": "Aisle_CW_Run_2"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_color_left",
+        "png_count": 2539,
+        "sequence": "Hallway_Full_CCW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_color_right",
+        "png_count": 2539,
+        "sequence": "Hallway_Full_CCW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_greyscale_left",
+        "png_count": 2539,
+        "sequence": "Hallway_Full_CCW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_greyscale_right",
+        "png_count": 2539,
+        "sequence": "Hallway_Full_CCW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_color_left",
+        "png_count": 2511,
+        "sequence": "Hallway_Full_CW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_color_right",
+        "png_count": 2511,
+        "sequence": "Hallway_Full_CW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_greyscale_left",
+        "png_count": 2511,
+        "sequence": "Hallway_Full_CW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_greyscale_right",
+        "png_count": 2511,
+        "sequence": "Hallway_Full_CW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_left",
+        "png_count": 2197,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_right",
+        "png_count": 2197,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_left",
+        "png_count": 2197,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Jun. 15, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_right",
+        "png_count": 2197,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_color_left",
+        "png_count": 1066,
+        "sequence": "Aisle_CCW_Run_1"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_color_right",
+        "png_count": 1066,
+        "sequence": "Aisle_CCW_Run_1"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_greyscale_left",
+        "png_count": 1066,
+        "sequence": "Aisle_CCW_Run_1"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1/segmentation_greyscale_right",
+        "png_count": 1066,
+        "sequence": "Aisle_CCW_Run_1"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_color_left",
+        "png_count": 1156,
+        "sequence": "Aisle_CCW_Run_2"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_color_right",
+        "png_count": 1156,
+        "sequence": "Aisle_CCW_Run_2"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_greyscale_left",
+        "png_count": 1156,
+        "sequence": "Aisle_CCW_Run_2"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2/segmentation_greyscale_right",
+        "png_count": 1156,
+        "sequence": "Aisle_CCW_Run_2"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_color_left",
+        "png_count": 1037,
+        "sequence": "Aisle_CW_Run_1"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_color_right",
+        "png_count": 1037,
+        "sequence": "Aisle_CW_Run_1"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_greyscale_left",
+        "png_count": 1037,
+        "sequence": "Aisle_CW_Run_1"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1/segmentation_greyscale_right",
+        "png_count": 1037,
+        "sequence": "Aisle_CW_Run_1"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_left",
+        "png_count": 1059,
+        "sequence": "Aisle_CW_Run_2"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_right",
+        "png_count": 1059,
+        "sequence": "Aisle_CW_Run_2"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_left",
+        "png_count": 1059,
+        "sequence": "Aisle_CW_Run_2"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_right",
+        "png_count": 1059,
+        "sequence": "Aisle_CW_Run_2"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_color_left",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_color_right",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_greyscale_left",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Full_CW/Hallway_Full_CW/segmentation_greyscale_right",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_left",
+        "png_count": 1972,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_right",
+        "png_count": 1972,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_left",
+        "png_count": 1972,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_right",
+        "png_count": 1972,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_color_left",
+        "png_count": 1936,
+        "sequence": "Hallway_Straight_CW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_color_right",
+        "png_count": 1936,
+        "sequence": "Hallway_Straight_CW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_greyscale_left",
+        "png_count": 1936,
+        "sequence": "Hallway_Straight_CW"
+      },
+      {
+        "date": "Jun. 23, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_greyscale_right",
+        "png_count": 1936,
+        "sequence": "Hallway_Straight_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW/Aisle_CCW/segmentation_color_left",
+        "png_count": 915,
+        "sequence": "Aisle_CCW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW/Aisle_CCW/segmentation_color_right",
+        "png_count": 915,
+        "sequence": "Aisle_CCW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW/Aisle_CCW/segmentation_greyscale_left",
+        "png_count": 915,
+        "sequence": "Aisle_CCW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW/Aisle_CCW/segmentation_greyscale_right",
+        "png_count": 915,
+        "sequence": "Aisle_CCW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/Aisle_CW/segmentation_color_left",
+        "png_count": 1092,
+        "sequence": "Aisle_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/Aisle_CW/segmentation_color_right",
+        "png_count": 1092,
+        "sequence": "Aisle_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/Aisle_CW/segmentation_greyscale_left",
+        "png_count": 1092,
+        "sequence": "Aisle_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/Aisle_CW/segmentation_greyscale_right",
+        "png_count": 1092,
+        "sequence": "Aisle_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/segmentation_color_left",
+        "png_count": 1092,
+        "sequence": "Aisle_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/segmentation_color_right",
+        "png_count": 1092,
+        "sequence": "Aisle_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/segmentation_greyscale_left",
+        "png_count": 1092,
+        "sequence": "Aisle_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW/segmentation_greyscale_right",
+        "png_count": 1092,
+        "sequence": "Aisle_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_color_left",
+        "png_count": 2318,
+        "sequence": "Hallway_Full_CW_Run_1"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_color_right",
+        "png_count": 2318,
+        "sequence": "Hallway_Full_CW_Run_1"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_greyscale_left",
+        "png_count": 2318,
+        "sequence": "Hallway_Full_CW_Run_1"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_greyscale_right",
+        "png_count": 2318,
+        "sequence": "Hallway_Full_CW_Run_1"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/Hallway_Full_CW_Run_2/segmentation_color_left",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW_Run_2"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/Hallway_Full_CW_Run_2/segmentation_color_right",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW_Run_2"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/Hallway_Full_CW_Run_2/segmentation_greyscale_left",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW_Run_2"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/Hallway_Full_CW_Run_2/segmentation_greyscale_right",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW_Run_2"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/segmentation_color_left",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW_Run_2"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/segmentation_color_right",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW_Run_2"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/segmentation_greyscale_left",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW_Run_2"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2/segmentation_greyscale_right",
+        "png_count": 2320,
+        "sequence": "Hallway_Full_CW_Run_2"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_left",
+        "png_count": 1883,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_right",
+        "png_count": 1883,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_left",
+        "png_count": 1883,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_right",
+        "png_count": 1883,
+        "sequence": "Hallway_Straight_CCW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_color_left",
+        "png_count": 1810,
+        "sequence": "Hallway_Straight_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_color_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_color_right",
+        "png_count": 1810,
+        "sequence": "Hallway_Straight_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_left",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_greyscale_left",
+        "png_count": 1810,
+        "sequence": "Hallway_Straight_CW"
+      },
+      {
+        "date": "Oct. 12, 2022",
+        "kind": "segmentation_greyscale_right",
+        "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CW/Hallway_Straight_CW/segmentation_greyscale_right",
+        "png_count": 1810,
+        "sequence": "Hallway_Straight_CW"
+      }
+    ],
+    "directory_count": 88,
+    "png_count": 144620
+  },
+  "feasibility": {
+    "additional_raw_candidate_categories_beyond_p199": [
+      "cart_pallet_jack",
+      "goods_material",
+      "misc_dynamic_feature",
+      "misc_non_static_feature",
+      "person"
+    ],
+    "additional_safe_manifest_categories_beyond_p199": [],
+    "answer": "no",
+    "can_break_category_target_degeneracy_with_current_local_data": false,
+    "current_blockers": [
+      "Existing object observations/front-end manifests are still prompt-limited mostly to forklift, rack, work table, and barrier/yellow barrier.",
+      "The richer AnnotatedSemanticSet_Finetuning.zip categories have frame/image IDs and mask pixels, but no local join to observation_id, tracklet_id, physical_key, or cross-session object clusters.",
+      "Extracted sequence segmentation_color/greyscale directories do not include per-frame raw_labels_2d.json metadata in the extracted folders, and raw category masks are not connected to current observation manifests.",
+      "Using P193 target_admit/current_weak_label/selection_v5/model predictions would create prohibited target leakage, so those fields are not used."
+    ],
+    "decision": "Do not materialize an expanded semantic-stability training dataset from current local assets. The raw ontology is broader, but the missing raw-mask-to-observation/tracklet/physical-key join would force guessing labels.",
+    "raw_candidate_categories": [
+      "cart_pallet_jack",
+      "fixed_machinery",
+      "fork_truck",
+      "goods_material",
+      "misc_dynamic_feature",
+      "misc_non_static_feature",
+      "misc_static_feature",
+      "person",
+      "pylon_cone",
+      "rack_shelf"
+    ],
+    "raw_candidate_category_count": 10,
+    "safe_manifest_join_candidate_categories": [
+      "fixed_machinery",
+      "fork_truck",
+      "rack_shelf"
+    ],
+    "safe_manifest_join_candidate_category_count": 3,
+    "target_policy_if_future_join_exists": "category-derived static_like versus dynamic_or_non_static_like auxiliary target only; context-only categories excluded from object admission rows; no admit/reject labels."
+  },
+  "generated_at_utc": "2026-05-10T09:14:38.221295+00:00",
+  "human_label_blank_audit": {
+    "boundary_p194": {
+      "blank": 32,
+      "column": "human_admit_label",
+      "nonblank": 0,
+      "path": "paper/evidence/admission_boundary_label_sheet_p194.csv",
+      "rows": 32
+    },
+    "boundary_p197": {
+      "blank": 32,
+      "column": "human_admit_label",
+      "nonblank": 0,
+      "path": "paper/evidence/admission_boundary_label_sheet_p197_semantic_review.csv",
+      "rows": 32
+    },
+    "pairs_p194": {
+      "blank": 160,
+      "column": "human_same_object_label",
+      "nonblank": 0,
+      "path": "paper/evidence/association_pair_candidates_p194.csv",
+      "rows": 160
+    },
+    "pairs_p197": {
+      "blank": 160,
+      "column": "human_same_object_label",
+      "nonblank": 0,
+      "path": "paper/evidence/association_pair_candidates_p197_semantic_review.csv",
+      "rows": 160
+    }
+  },
+  "inputs": {
+    "annotated_zip": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip",
+    "data_root": "data/TorWIC_SLAM_Dataset",
+    "p199_report": "paper/export/semantic_stability_dataset_p199.md",
+    "p200_report": "paper/export/semantic_stability_audit_p200.md"
+  },
+  "outputs": {
+    "csv": "paper/evidence/semantic_category_inventory_p201.csv",
+    "json": "paper/evidence/semantic_category_inventory_p201.json",
+    "markdown": "paper/export/semantic_category_inventory_p201.md"
+  },
+  "p195_status": "BLOCKED",
+  "p202_recommendation": "Build a safe raw-segmentation-to-observation join first: map raw sequence/date/frame/camera/category masks to observation_id/tracklet/physical_key and then rerun a no-label auxiliary dataset build. Keep P195 blocked until independent human labels exist.",
+  "scientific_boundary": "P201 inventories no-human-label semantic assets only. It does not create human labels, does not use P193/P197 weak admission targets/model predictions as target labels, and does not claim admission control.",
+  "sequence_zip_segmentation_counts": {
+    "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1136,
+        "segmentation_color_right": 1136,
+        "segmentation_greyscale_left": 1136,
+        "segmentation_greyscale_right": 1136
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1238,
+        "segmentation_color_right": 1238,
+        "segmentation_greyscale_left": 1238,
+        "segmentation_greyscale_right": 1238
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1114,
+        "segmentation_color_right": 1114,
+        "segmentation_greyscale_left": 1114,
+        "segmentation_greyscale_right": 1114
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1124,
+        "segmentation_color_right": 1124,
+        "segmentation_greyscale_left": 1124,
+        "segmentation_greyscale_right": 1124
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 2539,
+        "segmentation_color_right": 2539,
+        "segmentation_greyscale_left": 2539,
+        "segmentation_greyscale_right": 2539
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 2511,
+        "segmentation_color_right": 2511,
+        "segmentation_greyscale_left": 2511,
+        "segmentation_greyscale_right": 2511
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 2197,
+        "segmentation_color_right": 2197,
+        "segmentation_greyscale_left": 2197,
+        "segmentation_greyscale_right": 2197
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1066,
+        "segmentation_color_right": 1066,
+        "segmentation_greyscale_left": 1066,
+        "segmentation_greyscale_right": 1066
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_2.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1156,
+        "segmentation_color_right": 1156,
+        "segmentation_greyscale_left": 1156,
+        "segmentation_greyscale_right": 1156
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1037,
+        "segmentation_color_right": 1037,
+        "segmentation_greyscale_left": 1037,
+        "segmentation_greyscale_right": 1037
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1059,
+        "segmentation_color_right": 1059,
+        "segmentation_greyscale_left": 1059,
+        "segmentation_greyscale_right": 1059
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Full_CW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 2320,
+        "segmentation_color_right": 2320,
+        "segmentation_greyscale_left": 2320,
+        "segmentation_greyscale_right": 2320
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1972,
+        "segmentation_color_right": 1972,
+        "segmentation_greyscale_left": 1972,
+        "segmentation_greyscale_right": 1972
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1936,
+        "segmentation_color_right": 1936,
+        "segmentation_greyscale_left": 1936,
+        "segmentation_greyscale_right": 1936
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 915,
+        "segmentation_color_right": 915,
+        "segmentation_greyscale_left": 915,
+        "segmentation_greyscale_right": 915
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1092,
+        "segmentation_color_right": 1092,
+        "segmentation_greyscale_left": 1092,
+        "segmentation_greyscale_right": 1092
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 2318,
+        "segmentation_color_right": 2318,
+        "segmentation_greyscale_left": 2318,
+        "segmentation_greyscale_right": 2318
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_2.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 2320,
+        "segmentation_color_right": 2320,
+        "segmentation_greyscale_left": 2320,
+        "segmentation_greyscale_right": 2320
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CCW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1883,
+        "segmentation_color_right": 1883,
+        "segmentation_greyscale_left": 1883,
+        "segmentation_greyscale_right": 1883
+      },
+      "status": "ok"
+    },
+    "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Straight_CW.zip": {
+      "segmentation_png_counts": {
+        "segmentation_color_left": 1810,
+        "segmentation_color_right": 1810,
+        "segmentation_greyscale_left": 1810,
+        "segmentation_greyscale_right": 1810
+      },
+      "status": "ok"
+    }
+  },
+  "status": "INVENTORY_COMPLETE_EXPANSION_BLOCKED_BY_MISSING_SAFE_JOIN"
+}
