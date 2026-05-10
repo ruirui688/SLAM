@@ -1,0 +1,696 @@
+{
+  "phase": "P191-admission-scorer-smoke",
+  "dataset": "paper/evidence/admission_scorer_dataset_p190.csv",
+  "model": "pure_python_logistic_regression",
+  "epochs": 4000,
+  "lr": 0.08,
+  "l2": 0.001,
+  "features": [
+    "session_count",
+    "frame_count",
+    "support_count",
+    "dynamic_ratio",
+    "label_purity",
+    "mean_center_x",
+    "mean_center_y",
+    "mean_size_x",
+    "mean_size_y",
+    "is_forklift_like",
+    "is_infrastructure_like"
+  ],
+  "standardization": {
+    "session_count": {
+      "mean": 2.5238095238095237,
+      "std": 1.2580804584402767
+    },
+    "frame_count": {
+      "mean": 21.19047619047619,
+      "std": 16.675099907229935
+    },
+    "support_count": {
+      "mean": 21.095238095238095,
+      "std": 16.451674576525093
+    },
+    "dynamic_ratio": {
+      "mean": 0.25529524682067056,
+      "std": 0.4084059614543549
+    },
+    "label_purity": {
+      "mean": 0.9440644427426369,
+      "std": 0.0838610694291393
+    },
+    "mean_center_x": {
+      "mean": 619.383191128471,
+      "std": 390.89436063364985
+    },
+    "mean_center_y": {
+      "mean": 363.9972699989876,
+      "std": 74.49920977567646
+    },
+    "mean_size_x": {
+      "mean": 272.2745268844895,
+      "std": 262.5569293971612
+    },
+    "mean_size_y": {
+      "mean": 138.0127556545101,
+      "std": 104.06332117425582
+    },
+    "is_forklift_like": {
+      "mean": 0.2857142857142857,
+      "std": 0.45175395145262565
+    },
+    "is_infrastructure_like": {
+      "mean": 0.7142857142857143,
+      "std": 0.45175395145262565
+    }
+  },
+  "training_history": [
+    {
+      "epoch": 1,
+      "loss": 0.693149
+    },
+    {
+      "epoch": 10,
+      "loss": 0.440671
+    },
+    {
+      "epoch": 100,
+      "loss": 0.133084
+    },
+    {
+      "epoch": 500,
+      "loss": 0.046841
+    },
+    {
+      "epoch": 1000,
+      "loss": 0.032671
+    },
+    {
+      "epoch": 4000,
+      "loss": 0.024058
+    }
+  ],
+  "bias": -0.556512,
+  "coefficients": [
+    {
+      "feature": "session_count",
+      "coefficient": 2.498824
+    },
+    {
+      "feature": "dynamic_ratio",
+      "coefficient": -2.00897
+    },
+    {
+      "feature": "is_forklift_like",
+      "coefficient": -1.994768
+    },
+    {
+      "feature": "is_infrastructure_like",
+      "coefficient": 1.994768
+    },
+    {
+      "feature": "label_purity",
+      "coefficient": -1.648838
+    },
+    {
+      "feature": "mean_size_x",
+      "coefficient": 1.262075
+    },
+    {
+      "feature": "support_count",
+      "coefficient": 1.193199
+    },
+    {
+      "feature": "frame_count",
+      "coefficient": 1.083902
+    },
+    {
+      "feature": "mean_center_y",
+      "coefficient": 1.083703
+    },
+    {
+      "feature": "mean_size_y",
+      "coefficient": 0.718526
+    },
+    {
+      "feature": "mean_center_x",
+      "coefficient": 0.515498
+    }
+  ],
+  "metrics": {
+    "train": {
+      "learned": {
+        "n": 21,
+        "tp": 10,
+        "tn": 11,
+        "fp": 0,
+        "fn": 0,
+        "accuracy": 1.0,
+        "precision_admit": 1.0,
+        "recall_admit": 1.0,
+        "f1_admit": 1.0,
+        "false_admit_forklift_like": [],
+        "false_reject_infrastructure_like": []
+      },
+      "rule_baseline": {
+        "n": 21,
+        "tp": 10,
+        "tn": 11,
+        "fp": 0,
+        "fn": 0,
+        "accuracy": 1.0,
+        "precision_admit": 1.0,
+        "recall_admit": 1.0,
+        "f1_admit": 1.0,
+        "false_admit_forklift_like": [],
+        "false_reject_infrastructure_like": []
+      }
+    },
+    "val": {
+      "learned": {
+        "n": 14,
+        "tp": 5,
+        "tn": 7,
+        "fp": 0,
+        "fn": 2,
+        "accuracy": 0.8571,
+        "precision_admit": 1.0,
+        "recall_admit": 0.7143,
+        "f1_admit": 0.8333,
+        "false_admit_forklift_like": [],
+        "false_reject_infrastructure_like": [
+          "cross_month:cluster_0013",
+          "cross_month:cluster_0014"
+        ]
+      },
+      "rule_baseline": {
+        "n": 14,
+        "tp": 7,
+        "tn": 7,
+        "fp": 0,
+        "fn": 0,
+        "accuracy": 1.0,
+        "precision_admit": 1.0,
+        "recall_admit": 1.0,
+        "f1_admit": 1.0,
+        "false_admit_forklift_like": [],
+        "false_reject_infrastructure_like": []
+      }
+    },
+    "test": {
+      "learned": {
+        "n": 16,
+        "tp": 7,
+        "tn": 4,
+        "fp": 3,
+        "fn": 2,
+        "accuracy": 0.6875,
+        "precision_admit": 0.7,
+        "recall_admit": 0.7778,
+        "f1_admit": 0.7368,
+        "false_admit_forklift_like": [
+          "hallway:cluster_0002"
+        ],
+        "false_reject_infrastructure_like": [
+          "hallway:cluster_0015",
+          "hallway:cluster_0008"
+        ]
+      },
+      "rule_baseline": {
+        "n": 16,
+        "tp": 9,
+        "tn": 7,
+        "fp": 0,
+        "fn": 0,
+        "accuracy": 1.0,
+        "precision_admit": 1.0,
+        "recall_admit": 1.0,
+        "f1_admit": 1.0,
+        "false_admit_forklift_like": [],
+        "false_reject_infrastructure_like": []
+      }
+    }
+  },
+  "interpretation": "Feasibility smoke only: labels are weak labels from the current rule gate, so matching the rule baseline is expected and not evidence of a stronger learned method.",
+  "predictions": [
+    {
+      "sample_id": "same_day:cluster_0001",
+      "split": "train",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.998812,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "same_day:cluster_0002",
+      "split": "train",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.999958,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "same_day:cluster_0005",
+      "split": "train",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.981879,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "same_day:cluster_0003",
+      "split": "train",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.964863,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "same_day:cluster_0006",
+      "split": "train",
+      "canonical_label": "warehouse rack",
+      "target_admit": 1,
+      "learned_probability": 0.996409,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "same_day:cluster_0004",
+      "split": "train",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 5e-05,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "same_day:cluster_0007",
+      "split": "train",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.000265,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "same_day:cluster_0009",
+      "split": "train",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.000861,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "same_day:cluster_0008",
+      "split": "train",
+      "canonical_label": "work table",
+      "target_admit": 0,
+      "learned_probability": 0.004577,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "same_day:cluster_0010",
+      "split": "train",
+      "canonical_label": "warehouse rack",
+      "target_admit": 0,
+      "learned_probability": 0.013669,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "same_day:cluster_0011",
+      "split": "train",
+      "canonical_label": "warehouse rack",
+      "target_admit": 0,
+      "learned_probability": 0.010838,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_day:cluster_0005",
+      "split": "train",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.999701,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_day:cluster_0001",
+      "split": "train",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.99883,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_day:cluster_0002",
+      "split": "train",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.99997,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_day:cluster_0006",
+      "split": "train",
+      "canonical_label": "warehouse rack",
+      "target_admit": 1,
+      "learned_probability": 0.999939,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_day:cluster_0008",
+      "split": "train",
+      "canonical_label": "warehouse rack",
+      "target_admit": 1,
+      "learned_probability": 0.956004,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_day:cluster_0004",
+      "split": "train",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.027145,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_day:cluster_0003",
+      "split": "train",
+      "canonical_label": "barrier",
+      "target_admit": 0,
+      "learned_probability": 0.050677,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_day:cluster_0009",
+      "split": "train",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.0,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_day:cluster_0010",
+      "split": "train",
+      "canonical_label": "work table",
+      "target_admit": 0,
+      "learned_probability": 0.005189,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_day:cluster_0007",
+      "split": "train",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 1e-06,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_month:cluster_0005",
+      "split": "val",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.999987,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_month:cluster_0001",
+      "split": "val",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.99883,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_month:cluster_0002",
+      "split": "val",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.99997,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_month:cluster_0006",
+      "split": "val",
+      "canonical_label": "warehouse rack",
+      "target_admit": 1,
+      "learned_probability": 0.999939,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_month:cluster_0008",
+      "split": "val",
+      "canonical_label": "warehouse rack",
+      "target_admit": 1,
+      "learned_probability": 0.997688,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_month:cluster_0013",
+      "split": "val",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.229534,
+      "learned_pred": 0,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_month:cluster_0014",
+      "split": "val",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.088188,
+      "learned_pred": 0,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_month:cluster_0004",
+      "split": "val",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.027145,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_month:cluster_0011",
+      "split": "val",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 1e-06,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_month:cluster_0012",
+      "split": "val",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.000103,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_month:cluster_0007",
+      "split": "val",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.000451,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_month:cluster_0009",
+      "split": "val",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 1e-06,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_month:cluster_0003",
+      "split": "val",
+      "canonical_label": "barrier",
+      "target_admit": 0,
+      "learned_probability": 0.050677,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_month:cluster_0010",
+      "split": "val",
+      "canonical_label": "work table",
+      "target_admit": 0,
+      "learned_probability": 0.005189,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "hallway:cluster_0001",
+      "split": "test",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 1.0,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0007",
+      "split": "test",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 1.0,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0012",
+      "split": "test",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 1.0,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0005",
+      "split": "test",
+      "canonical_label": "warehouse rack",
+      "target_admit": 1,
+      "learned_probability": 0.999999,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0009",
+      "split": "test",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.995443,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0013",
+      "split": "test",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.97076,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0006",
+      "split": "test",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.52983,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0015",
+      "split": "test",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.379285,
+      "learned_pred": 0,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0008",
+      "split": "test",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.13374,
+      "learned_pred": 0,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0002",
+      "split": "test",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.999972,
+      "learned_pred": 1,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "hallway:cluster_0004",
+      "split": "test",
+      "canonical_label": "warehouse rack",
+      "target_admit": 0,
+      "learned_probability": 1.0,
+      "learned_pred": 1,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "hallway:cluster_0003",
+      "split": "test",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.002483,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "hallway:cluster_0011",
+      "split": "test",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 3e-06,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "hallway:cluster_0014",
+      "split": "test",
+      "canonical_label": "warehouse rack",
+      "target_admit": 0,
+      "learned_probability": 0.996465,
+      "learned_pred": 1,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "hallway:cluster_0016",
+      "split": "test",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.0,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "hallway:cluster_0010",
+      "split": "test",
+      "canonical_label": "rack forklift",
+      "target_admit": 0,
+      "learned_probability": 3e-06,
+      "learned_pred": 0,
+      "rule_pred": 0
+    }
+  ]
+}

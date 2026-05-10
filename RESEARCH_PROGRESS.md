@@ -1391,3 +1391,10 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 - **Artifacts:** `paper/export/real_model_mainline_p190.md`, `paper/evidence/real_model_mainline_p190.json`, `paper/evidence/admission_scorer_dataset_p190.json`, `paper/evidence/admission_scorer_dataset_p190.csv`, `tools/prepare_admission_scorer_dataset_p190.py`.
 - **Smoke status:** dataset-prep smoke passed with the transparent rule baseline reproducing weak labels on train/val/test. This is expected and is not a learned-model claim; P191 must train/evaluate a learned admission scorer against this rule baseline.
 - **Next command:** `python3 tools/train_admission_scorer_p191.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_scorer_smoke_p191.json --output-md paper/export/admission_scorer_smoke_p191.md`.
+
+## 2026-05-10 — P191 Admission-Scorer Learned Smoke
+
+- **Training smoke:** added `tools/train_admission_scorer_p191.py`, a pure-Python CPU-only logistic-regression smoke using the P190 admission-scorer dataset.
+- **Result:** train matched weak labels (accuracy/F1 1.000), but cross-month validation dropped to accuracy 0.857 / F1 0.833 and Hallway test dropped to accuracy 0.688 / F1 0.737, while the transparent rule baseline remains 1.000 by construction.
+- **Interpretation:** the learned scorer is feasible but currently underperforms the handcrafted gate out-of-distribution because labels are weak/rule-derived and sample size is only 51 clusters. This is useful: it proves the training/evaluation path and exposes the next scientific requirement—independent boundary labels or pairwise association supervision, not SAM2 finetuning.
+- **Artifacts:** `paper/evidence/admission_scorer_smoke_p191.json`, `paper/export/admission_scorer_smoke_p191.md`.
