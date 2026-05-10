@@ -1,0 +1,2164 @@
+{
+  "actual_training_command": "LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH /home/rui/miniconda3/bin/conda run -n tram python tools/train_semantic_stability_scorer_p199.py",
+  "baselines": {
+    "category_definition_oracle": {
+      "description": "Reconstruct the semantic category definition. This is perfect by construction and is not a learned baseline.",
+      "metrics": {
+        "test": {
+          "accuracy": 1.0,
+          "errors": [],
+          "f1_static_like": 1.0,
+          "fn_static_predicted_dynamic": 0,
+          "fp_dynamic_predicted_static": 0,
+          "n": 42,
+          "precision_static_like": 1.0,
+          "recall_static_like": 1.0,
+          "tn_dynamic_or_non_static_like": 20,
+          "tp_static_like": 22
+        },
+        "train": {
+          "accuracy": 1.0,
+          "errors": [],
+          "f1_static_like": 1.0,
+          "fn_static_predicted_dynamic": 0,
+          "fp_dynamic_predicted_static": 0,
+          "n": 27,
+          "precision_static_like": 1.0,
+          "recall_static_like": 1.0,
+          "tn_dynamic_or_non_static_like": 12,
+          "tp_static_like": 15
+        },
+        "val": {
+          "accuracy": 1.0,
+          "errors": [],
+          "f1_static_like": 1.0,
+          "fn_static_predicted_dynamic": 0,
+          "fp_dynamic_predicted_static": 0,
+          "n": 6,
+          "precision_static_like": 1.0,
+          "recall_static_like": 1.0,
+          "tn_dynamic_or_non_static_like": 4,
+          "tp_static_like": 2
+        }
+      }
+    },
+    "geometry_area_rule": {
+      "description": "Threshold mask/support area using train split class means.",
+      "metrics": {
+        "test": {
+          "accuracy": 0.4762,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00001"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00005"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00008"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00016"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00017"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00020"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00022"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00027"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00032"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00036"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00037"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00038"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00039"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00042"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00045"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00047"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00048"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00051"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00052"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00054"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00055"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00057"
+            }
+          ],
+          "f1_static_like": 0.6071,
+          "fn_static_predicted_dynamic": 5,
+          "fp_dynamic_predicted_static": 17,
+          "n": 42,
+          "precision_static_like": 0.5,
+          "recall_static_like": 0.7727,
+          "tn_dynamic_or_non_static_like": 3,
+          "tp_static_like": 17
+        },
+        "train": {
+          "accuracy": 0.5185,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00061"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00068"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00070"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00072"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00076"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00077"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00082"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00083"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00084"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00085"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00087"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00091"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00098"
+            }
+          ],
+          "f1_static_like": 0.6486,
+          "fn_static_predicted_dynamic": 3,
+          "fp_dynamic_predicted_static": 10,
+          "n": 27,
+          "precision_static_like": 0.5455,
+          "recall_static_like": 0.8,
+          "tn_dynamic_or_non_static_like": 2,
+          "tp_static_like": 12
+        },
+        "val": {
+          "accuracy": 0.6667,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00104"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00105"
+            }
+          ],
+          "f1_static_like": 0.6667,
+          "fn_static_predicted_dynamic": 0,
+          "fp_dynamic_predicted_static": 2,
+          "n": 6,
+          "precision_static_like": 0.5,
+          "recall_static_like": 1.0,
+          "tn_dynamic_or_non_static_like": 2,
+          "tp_static_like": 2
+        }
+      },
+      "static_larger_than_dynamic": false,
+      "threshold": 24155.516667
+    },
+    "majority_static_like": {
+      "description": "Predict the train-set majority class for every row.",
+      "metrics": {
+        "test": {
+          "accuracy": 0.5238,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00001"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00002"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00005"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00022"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00032"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00036"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00037"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00038"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00039"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00042"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00045"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00047"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00048"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00051"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00052"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00054"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00055"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00056"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00057"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00058"
+            }
+          ],
+          "f1_static_like": 0.6875,
+          "fn_static_predicted_dynamic": 0,
+          "fp_dynamic_predicted_static": 20,
+          "n": 42,
+          "precision_static_like": 0.5238,
+          "recall_static_like": 1.0,
+          "tn_dynamic_or_non_static_like": 0,
+          "tp_static_like": 22
+        },
+        "train": {
+          "accuracy": 0.5556,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00061"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00072"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00076"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00077"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00082"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00083"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00084"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00085"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00087"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00097"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00098"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00100"
+            }
+          ],
+          "f1_static_like": 0.7143,
+          "fn_static_predicted_dynamic": 0,
+          "fp_dynamic_predicted_static": 12,
+          "n": 27,
+          "precision_static_like": 0.5556,
+          "recall_static_like": 1.0,
+          "tn_dynamic_or_non_static_like": 0,
+          "tp_static_like": 15
+        },
+        "val": {
+          "accuracy": 0.3333,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00103"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00104"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00105"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00108"
+            }
+          ],
+          "f1_static_like": 0.5,
+          "fn_static_predicted_dynamic": 0,
+          "fp_dynamic_predicted_static": 4,
+          "n": 6,
+          "precision_static_like": 0.3333,
+          "recall_static_like": 1.0,
+          "tn_dynamic_or_non_static_like": 0,
+          "tp_static_like": 2
+        }
+      }
+    }
+  },
+  "constraints_observed": {
+    "admission_target_trained": false,
+    "downloads_performed": false,
+    "human_admit_label_filled": false,
+    "human_same_object_label_filled": false,
+    "model_prediction_used_as_target": false,
+    "p193_target_admit_used": false,
+    "selection_v5_or_current_weak_label_used_as_target": false
+  },
+  "dataset": "paper/evidence/semantic_stability_dataset_p199.csv",
+  "environment_basis": "README.md \u00a70.3 tram environment; CUDA smoke refuses CPU fallback.",
+  "excluded_rows": {
+    "ambiguous": 35,
+    "unknown": 0
+  },
+  "features": [
+    "mean_center_x",
+    "mean_center_y",
+    "mean_size_x",
+    "mean_size_y",
+    "support_count",
+    "mask_area_px",
+    "bbox_width",
+    "bbox_height",
+    "semantic_gate_score"
+  ],
+  "generated_at_utc": "2026-05-10T09:00:12.142463+00:00",
+  "gpu": {
+    "cuda_available": true,
+    "device": "cuda",
+    "device_count": 1,
+    "gpu_name": "NVIDIA GeForce RTX 3060",
+    "memory_after": {
+      "allocated_bytes": 17043968,
+      "max_allocated_bytes": 18103296,
+      "max_reserved_bytes": 23068672,
+      "reserved_bytes": 23068672
+    },
+    "memory_before": {
+      "allocated_bytes": 0,
+      "max_allocated_bytes": 0,
+      "max_reserved_bytes": 0,
+      "reserved_bytes": 0
+    },
+    "memory_peak": {
+      "allocated_bytes": 17043968,
+      "max_allocated_bytes": 18103296,
+      "max_reserved_bytes": 23068672,
+      "reserved_bytes": 23068672
+    },
+    "torch_cuda_version": "11.8",
+    "torch_version": "2.4.0+cu118"
+  },
+  "limitations": [
+    "Category-derived target, not independent ground truth.",
+    "Category-definition baseline is perfect by construction.",
+    "Ambiguous barrier rows excluded from training.",
+    "No claim of persistent-map admission control is supported."
+  ],
+  "models": {
+    "logistic": {
+      "architecture": "LogisticSemanticStabilityNet(\n  (linear): Linear(in_features=9, out_features=1, bias=True)\n)",
+      "epochs": 300,
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 0.756376,
+          "val_loss": 0.957765
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.682862,
+          "val_loss": 0.92668
+        },
+        {
+          "epoch": 50,
+          "train_loss": 0.511089,
+          "val_loss": 0.738201
+        },
+        {
+          "epoch": 100,
+          "train_loss": 0.437454,
+          "val_loss": 0.717287
+        },
+        {
+          "epoch": 200,
+          "train_loss": 0.366346,
+          "val_loss": 0.855401
+        },
+        {
+          "epoch": 300,
+          "train_loss": 0.330055,
+          "val_loss": 0.934311
+        }
+      ],
+      "lr": 0.01,
+      "metrics": {
+        "test": {
+          "accuracy": 0.8333,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00001"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00003"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00005"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00047"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00048"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00055"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00057"
+            }
+          ],
+          "f1_static_like": 0.8571,
+          "fn_static_predicted_dynamic": 1,
+          "fp_dynamic_predicted_static": 6,
+          "n": 42,
+          "precision_static_like": 0.7778,
+          "recall_static_like": 0.9545,
+          "tn_dynamic_or_non_static_like": 14,
+          "tp_static_like": 21
+        },
+        "train": {
+          "accuracy": 0.8889,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00061"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00087"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00091"
+            }
+          ],
+          "f1_static_like": 0.9032,
+          "fn_static_predicted_dynamic": 1,
+          "fp_dynamic_predicted_static": 2,
+          "n": 27,
+          "precision_static_like": 0.875,
+          "recall_static_like": 0.9333,
+          "tn_dynamic_or_non_static_like": 10,
+          "tp_static_like": 14
+        },
+        "val": {
+          "accuracy": 0.5,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00104"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00105"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00109"
+            }
+          ],
+          "f1_static_like": 0.4,
+          "fn_static_predicted_dynamic": 1,
+          "fp_dynamic_predicted_static": 2,
+          "n": 6,
+          "precision_static_like": 0.3333,
+          "recall_static_like": 0.5,
+          "tn_dynamic_or_non_static_like": 2,
+          "tp_static_like": 1
+        }
+      },
+      "name": "logistic_semantic_stability",
+      "predictions": [
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00061",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.785361,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00067",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.807918,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00068",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.946726,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00069",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.840721,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00070",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.960593,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00071",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.769548,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00072",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.195004,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00074",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.974777,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00076",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.028596,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00077",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.3345,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00078",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.60298,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00079",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.696736,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00080",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.965511,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00082",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.057964,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00083",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.161697,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00084",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.381629,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00085",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.066432,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00086",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.58483,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00087",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.524672,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00089",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.905953,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00090",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.887101,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00091",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.323537,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00092",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.575495,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00094",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.856601,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00097",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.41031,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00098",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.024387,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00100",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.312816,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00103",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.122025,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "val"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00104",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.848114,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "val"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00105",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.931584,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "val"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00106",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.981482,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "val"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00108",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.147309,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "val"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00109",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.481474,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "val"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00001",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.970463,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00002",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.082594,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00003",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.452531,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00004",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.864652,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00005",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.882772,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00006",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.878315,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00007",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.878315,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00008",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.972855,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00012",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.923243,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00013",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.923243,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00014",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.681035,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00015",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.930187,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00016",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.951471,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00017",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.951471,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00020",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.959944,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00021",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.7319,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00022",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.118451,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00025",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.571505,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00026",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.786848,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00027",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.981796,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00031",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.681715,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00032",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.125202,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00033",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.968198,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00034",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.968198,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00036",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.456185,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00037",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.456185,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00038",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.035449,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00039",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.293457,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00041",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.916045,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00042",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.025132,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00043",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.90159,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00045",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.153807,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00047",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.509061,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00048",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.509061,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00051",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.29985,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00052",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.456758,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00053",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.713497,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00054",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.179379,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00055",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.836693,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00056",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.128045,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00057",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.77521,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00058",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.097366,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        }
+      ],
+      "training_time_seconds": 0.133529,
+      "weight_decay": 0.001
+    },
+    "mlp": {
+      "architecture": "MLPSemanticStabilityNet(\n  (net): Sequential(\n    (0): Linear(in_features=9, out_features=12, bias=True)\n    (1): ReLU()\n    (2): Dropout(p=0.05, inplace=False)\n    (3): Linear(in_features=12, out_features=1, bias=True)\n  )\n)",
+      "epochs": 300,
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 0.709995,
+          "val_loss": 0.611309
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.607677,
+          "val_loss": 0.58178
+        },
+        {
+          "epoch": 50,
+          "train_loss": 0.310009,
+          "val_loss": 0.849165
+        },
+        {
+          "epoch": 100,
+          "train_loss": 0.200097,
+          "val_loss": 0.931238
+        },
+        {
+          "epoch": 200,
+          "train_loss": 0.108181,
+          "val_loss": 0.705025
+        },
+        {
+          "epoch": 300,
+          "train_loss": 0.07488,
+          "val_loss": 1.081658
+        }
+      ],
+      "lr": 0.01,
+      "metrics": {
+        "test": {
+          "accuracy": 0.8333,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00001"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00003"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00005"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00036"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00037"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00051"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00055"
+            }
+          ],
+          "f1_static_like": 0.8571,
+          "fn_static_predicted_dynamic": 1,
+          "fp_dynamic_predicted_static": 6,
+          "n": 42,
+          "precision_static_like": 0.7778,
+          "recall_static_like": 0.9545,
+          "tn_dynamic_or_non_static_like": 14,
+          "tp_static_like": 21
+        },
+        "train": {
+          "accuracy": 1.0,
+          "errors": [],
+          "f1_static_like": 1.0,
+          "fn_static_predicted_dynamic": 0,
+          "fp_dynamic_predicted_static": 0,
+          "n": 27,
+          "precision_static_like": 1.0,
+          "recall_static_like": 1.0,
+          "tn_dynamic_or_non_static_like": 12,
+          "tp_static_like": 15
+        },
+        "val": {
+          "accuracy": 0.5,
+          "errors": [
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00104"
+            },
+            {
+              "error": "dynamic_predicted_static",
+              "p199_sample_id": "p199_semantic_00105"
+            },
+            {
+              "error": "static_predicted_dynamic",
+              "p199_sample_id": "p199_semantic_00109"
+            }
+          ],
+          "f1_static_like": 0.4,
+          "fn_static_predicted_dynamic": 1,
+          "fp_dynamic_predicted_static": 2,
+          "n": 6,
+          "precision_static_like": 0.3333,
+          "recall_static_like": 0.5,
+          "tn_dynamic_or_non_static_like": 2,
+          "tp_static_like": 1
+        }
+      },
+      "name": "mlp_semantic_stability",
+      "predictions": [
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00061",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.254334,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00067",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999448,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00068",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999878,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00069",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999999,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00070",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999995,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00071",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.982148,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00072",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.000177,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00074",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999912,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00076",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 6.4e-05,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00077",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.049855,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00078",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.975063,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00079",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.993982,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00080",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 1.0,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00082",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 3.3e-05,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00083",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.006936,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00084",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.064874,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00085",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.0,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00086",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.80729,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00087",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.064863,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00089",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.996583,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00090",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.946629,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00091",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.539444,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00092",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.970161,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00094",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 1.0,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00097",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.019853,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00098",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 2e-06,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00100",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.420616,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "train"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00103",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.000134,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "val"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00104",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.510126,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "val"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00105",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.970626,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "val"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00106",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 1.0,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "val"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00108",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.002231,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "val"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00109",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.105786,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "val"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00001",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999813,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00002",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.000172,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00003",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.495436,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00004",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.853714,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00005",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999717,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00006",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.920547,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00007",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.920547,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00008",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999995,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00012",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 1.0,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00013",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 1.0,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00014",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.535006,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00015",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 1.0,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00016",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999868,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00017",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999868,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00020",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999974,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00021",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.95514,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00022",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.000321,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00025",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.767225,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00026",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.957331,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00027",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999999,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00031",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.88077,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00032",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.000155,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00033",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999645,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "warehouse rack",
+          "p199_sample_id": "p199_semantic_00034",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999645,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00036",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.536201,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00037",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.536201,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00038",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 1e-06,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00039",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.075115,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00041",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999999,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00042",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 1e-06,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00043",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.99752,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00045",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.250247,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00047",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.141062,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00048",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.141062,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00051",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.772348,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00052",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.028433,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "work table",
+          "p199_sample_id": "p199_semantic_00053",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.999693,
+          "semantic_stability_target": "static_like",
+          "semantic_static_like": 1,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00054",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.003222,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00055",
+          "semantic_stability_pred_static_like": 1,
+          "semantic_stability_probability_static_like": 0.939821,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00056",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.000145,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00057",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.231458,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        },
+        {
+          "canonical_label": "forklift",
+          "p199_sample_id": "p199_semantic_00058",
+          "semantic_stability_pred_static_like": 0,
+          "semantic_stability_probability_static_like": 0.001318,
+          "semantic_stability_target": "dynamic_or_non_static_like",
+          "semantic_static_like": 0,
+          "split": "test"
+        }
+      ],
+      "training_time_seconds": 0.141162,
+      "weight_decay": 0.001
+    }
+  },
+  "n_total_rows": 110,
+  "n_training_rows": 75,
+  "phase": "P199-no-human-semantic-stability-scorer-cuda-smoke",
+  "platform": "Linux-6.8.0-110-generic-x86_64-with-glibc2.35",
+  "python_executable": "/home/rui/miniconda3/envs/tram/bin/python",
+  "scientific_boundary": "P199 is a no-human-label auxiliary semantic stability scorer. It predicts a semantic/static-vs-dynamic category prior derived from semantic categories, not persistent-map admission. It does not replace independent labels, does not unblock P195, and does not support learned admission-control claims.",
+  "split_counts": {
+    "test": {
+      "dynamic_or_non_static_like": 20,
+      "n": 42,
+      "static_like": 22
+    },
+    "train": {
+      "dynamic_or_non_static_like": 12,
+      "n": 27,
+      "static_like": 15
+    },
+    "val": {
+      "dynamic_or_non_static_like": 4,
+      "n": 6,
+      "static_like": 2
+    }
+  },
+  "standardization": {
+    "bbox_height": {
+      "mean": 101.66666412353516,
+      "std": 95.59172821044922
+    },
+    "bbox_width": {
+      "mean": 213.59259033203125,
+      "std": 254.96873474121094
+    },
+    "mask_area_px": {
+      "mean": 23632.22265625,
+      "std": 47038.2890625
+    },
+    "mean_center_x": {
+      "mean": 370.7214050292969,
+      "std": 289.6517639160156
+    },
+    "mean_center_y": {
+      "mean": 333.8719482421875,
+      "std": 27.099889755249023
+    },
+    "mean_size_x": {
+      "mean": 213.59259033203125,
+      "std": 254.96873474121094
+    },
+    "mean_size_y": {
+      "mean": 101.66666412353516,
+      "std": 95.59172821044922
+    },
+    "semantic_gate_score": {
+      "mean": 0.3553188443183899,
+      "std": 0.10910610109567642
+    },
+    "support_count": {
+      "mean": 23632.22265625,
+      "std": 47038.2890625
+    }
+  },
+  "status": "CUDA_SMOKE_COMPLETED",
+  "target": {
+    "field": "semantic_static_like",
+    "negative_class": "dynamic_or_non_static_like semantic category",
+    "not_admission_control": true,
+    "positive_class": "static_like semantic category"
+  }
+}

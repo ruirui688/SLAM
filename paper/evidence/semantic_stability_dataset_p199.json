@@ -1,0 +1,134 @@
+{
+  "constraints_observed": {
+    "downloads_performed": false,
+    "human_admit_label_filled": false,
+    "human_same_object_label_filled": false,
+    "model_prediction_used_as_target": false,
+    "p193_target_admit_used_as_target": false,
+    "selection_v5_or_current_weak_label_used_as_target": false
+  },
+  "counts": {
+    "ambiguous_rows": 35,
+    "by_canonical_label": {
+      "barrier": 35,
+      "forklift": 36,
+      "warehouse rack": 16,
+      "work table": 23
+    },
+    "by_semantic_evidence_status": {
+      "": 78,
+      "matched_torwic_segmentation": 32
+    },
+    "by_semantic_stability_target": {
+      "ambiguous_static_and_dynamic": 35,
+      "dynamic_or_non_static_like": 36,
+      "static_like": 39
+    },
+    "by_split_and_target": {
+      "test": {
+        "dynamic_or_non_static_like": 20,
+        "static_like": 22
+      },
+      "train": {
+        "dynamic_or_non_static_like": 12,
+        "static_like": 15
+      },
+      "val": {
+        "dynamic_or_non_static_like": 4,
+        "static_like": 2
+      }
+    },
+    "by_target_source": {
+      "canonical_label_to_p197_ontology_mapping": 78,
+      "p197_semantic_hint_categories": 32
+    },
+    "non_ambiguous_rows": 75,
+    "total_rows": 110,
+    "unknown_rows": 0
+  },
+  "generated_at_utc": "2026-05-10T08:59:57.560406+00:00",
+  "human_label_audit": {
+    "human_admit_label": {
+      "blank": 32,
+      "nonblank": 0
+    },
+    "human_label_confidence": {
+      "blank": 32,
+      "nonblank": 0
+    },
+    "human_notes": {
+      "blank": 32,
+      "nonblank": 0
+    }
+  },
+  "inputs": {
+    "p193_csv": "paper/evidence/admission_frame_dataset_p193.csv",
+    "p197_boundary_csv": "paper/evidence/admission_boundary_label_sheet_p197_semantic_review.csv"
+  },
+  "outputs": {
+    "csv": "paper/evidence/semantic_stability_dataset_p199.csv",
+    "json": "paper/evidence/semantic_stability_dataset_p199.json",
+    "md": "paper/export/semantic_stability_dataset_p199.md"
+  },
+  "phase": "P199-no-human-semantic-stability-auxiliary-dataset",
+  "recommendation": "Use the non-ambiguous subset only for a bounded semantic/static-dynamic smoke. Keep P195 blocked until real human admission and same-object labels exist.",
+  "scientific_boundary": "P199 is a no-human-label auxiliary semantic stability dataset. It can support semantic/static-vs-dynamic prior experiments, but it does not replace independent admission labels, does not unblock P195, and does not justify learned admission-control claims.",
+  "semantic_hint_sets": {
+    "canonical_mapping": {
+      "barrier": [
+        "misc_static_feature",
+        "pylon_cone"
+      ],
+      "fork": [
+        "fork_truck"
+      ],
+      "forklift": [
+        "fork_truck"
+      ],
+      "rack": [
+        "rack_shelf"
+      ],
+      "rack forklift": [
+        "fork_truck",
+        "rack_shelf"
+      ],
+      "warehouse rack": [
+        "rack_shelf"
+      ],
+      "work": [
+        "misc_static_feature",
+        "fixed_machinery"
+      ],
+      "work table": [
+        "misc_static_feature",
+        "fixed_machinery"
+      ]
+    },
+    "dynamic_or_non_static_like": [
+      "cart_pallet_jack",
+      "fork_truck",
+      "misc_dynamic_feature",
+      "misc_non_static_feature",
+      "person",
+      "pylon_cone"
+    ],
+    "static_like": [
+      "ceiling",
+      "fixed_machinery",
+      "misc_static_feature",
+      "rack_shelf",
+      "wall_fence_pillar"
+    ]
+  },
+  "status": "BUILT",
+  "target_definition": {
+    "excluded_default_training_statuses": [
+      "ambiguous",
+      "unknown"
+    ],
+    "field": "semantic_static_like",
+    "negative_class": "dynamic_or_non_static_like semantic category",
+    "not_admission_control": true,
+    "positive_class": "static_like semantic category"
+  }
+}

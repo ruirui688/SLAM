@@ -21,6 +21,16 @@ summary and local paths here, then commit and push the repository.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
 
 
+## 2026-05-10 P199 — No-human semantic-stability auxiliary branch
+
+- **Goal:** Continue without manual labels while preserving the P195 independent-label gate and avoiding admission-control overclaims.
+- **Result: CUDA smoke completed, P195 still BLOCKED.** Added a no-human-label auxiliary dataset and scorer for semantic/static-vs-dynamic stability priors. This branch uses P193 observation rows for geometry/provenance but does not use P193 `target_admit`, `current_weak_label`, `selection_v5`, or model predictions as targets.
+- **Dataset:** 110 rows total; 75 non-ambiguous rows used for the default smoke (36 `dynamic_or_non_static_like`, 39 `static_like`); 35 barrier rows retained as ambiguous audit rows because P197 maps barrier to both `misc_static_feature` and `pylon_cone`.
+- **Training smoke:** ran in the README `tram` CUDA environment on NVIDIA GeForce RTX 3060. Non-ambiguous split counts: train 27, val 6, test 42. MLP/logistic test accuracy/F1(static-like) = `0.8333/0.8571`; val accuracy/F1 = `0.5000/0.4000`. Category-definition baseline is `1.0000` by construction, so learned metrics are only a bounded pipeline check.
+- **Scientific boundary:** P199 is a no-human-label auxiliary semantic stability scorer. It can support dynamic-scene SLAM research and reviewer evidence, but it does not replace independent admission labels, does not unblock P195, and does not justify learned admission-control claims.
+- **Outputs:** `tools/build_semantic_stability_dataset_p199.py`, `tools/train_semantic_stability_scorer_p199.py`, `paper/evidence/semantic_stability_dataset_p199.csv`, `paper/evidence/semantic_stability_dataset_p199.json`, `paper/export/semantic_stability_dataset_p199.md`, `paper/evidence/semantic_stability_scorer_p199.json`, `paper/export/semantic_stability_scorer_p199.md`.
+- **Verification:** dataset script runs; `python3 -m py_compile tools/build_semantic_stability_dataset_p199.py tools/train_semantic_stability_scorer_p199.py`; CUDA smoke runs with `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH /home/rui/miniconda3/bin/conda run -n tram ...`; P195 gate remains `BLOCKED` with `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`; P194/P197 human label columns remain blank.
+
 ## 2026-05-10 P198 — Safe review-label sync gate
 
 - **Goal:** Add a reproducible validation-first bridge from P197 semantic review CSVs back to the P194 source CSVs that P195 reads, without creating or inferring any labels.
