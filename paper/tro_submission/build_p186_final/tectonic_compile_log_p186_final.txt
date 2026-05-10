@@ -1,0 +1,80 @@
+note: Running TeX ...
+warning: main.tex:78: Underfull \hbox (badness 1484) in paragraph at lines 77--78
+warning: main.tex:99: Underfull \hbox (badness 3068) in paragraph at lines 98--99
+warning: main.tex:105: Underfull \hbox (badness 10000) in paragraph at lines 104--105
+warning: main.tex:105: Underfull \hbox (badness 10000) in paragraph at lines 104--105
+warning: main.tex:105: Underfull \hbox (badness 10000) in paragraph at lines 104--105
+warning: main.tex:105: Underfull \hbox (badness 4291) in paragraph at lines 104--105
+warning: main.tex:118: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:138: Underfull \hbox (badness 7576) in paragraph at lines 137--138
+warning: main.tex:148: Underfull \hbox (badness 1838) in paragraph at lines 147--148
+warning: main.tex:148: Underfull \hbox (badness 1997) in paragraph at lines 147--148
+warning: main.tex:275: Underfull \hbox (badness 1609) in paragraph at lines 274--275
+warning: main.tex:275: Underfull \hbox (badness 10000) in paragraph at lines 274--275
+warning: main.tex:310: Overfull \hbox (16.74991pt too wide) in paragraph at lines 299--310
+warning: main.tex:345: Overfull \hbox (80.28554pt too wide) in paragraph at lines 327--345
+warning: main.tex:369: Overfull \hbox (80.28554pt too wide) in paragraph at lines 352--369
+warning: main.tex:440: Overfull \hbox (40.27364pt too wide) in paragraph at lines 418--440
+warning: main.tex:459: Underfull \hbox (badness 1983) in paragraph at lines 458--459
+warning: main.tex:459: Underfull \hbox (badness 5105) in paragraph at lines 458--459
+warning: main.tex:532: Overfull \hbox (29.35144pt too wide) in paragraph at lines 521--532
+warning: main.tex:572: Overfull \hbox (35.98213pt too wide) in paragraph at lines 559--572
+warning: main.tex:659: Underfull \hbox (badness 7468) in paragraph at lines 658--659
+warning: main.tex:659: Underfull \hbox (badness 1502) in paragraph at lines 658--659
+warning: main.tex:673: Underfull \hbox (badness 2922) in paragraph at lines 672--673
+note: Running BibTeX on main.aux ...
+note: Rerunning TeX because I was told to ...
+warning: main.tex:78: Underfull \hbox (badness 1484) in paragraph at lines 77--78
+warning: main.tex:103: Underfull \hbox (badness 5036) in paragraph at lines 102--103
+warning: main.tex:105: Underfull \hbox (badness 10000) in paragraph at lines 104--105
+warning: main.tex:105: Underfull \hbox (badness 10000) in paragraph at lines 104--105
+warning: main.tex:105: Underfull \hbox (badness 10000) in paragraph at lines 104--105
+warning: main.tex:105: Underfull \hbox (badness 4291) in paragraph at lines 104--105
+warning: main.tex:118: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:138: Underfull \hbox (badness 7576) in paragraph at lines 137--138
+warning: main.tex:148: Underfull \hbox (badness 1838) in paragraph at lines 147--148
+warning: main.tex:148: Underfull \hbox (badness 1997) in paragraph at lines 147--148
+warning: main.tex:275: Underfull \hbox (badness 1609) in paragraph at lines 274--275
+warning: main.tex:275: Underfull \hbox (badness 10000) in paragraph at lines 274--275
+warning: main.tex:310: Overfull \hbox (16.74991pt too wide) in paragraph at lines 299--310
+warning: main.tex:345: Overfull \hbox (80.28554pt too wide) in paragraph at lines 327--345
+warning: main.tex:369: Overfull \hbox (80.28554pt too wide) in paragraph at lines 352--369
+warning: main.tex:440: Overfull \hbox (40.27364pt too wide) in paragraph at lines 418--440
+warning: main.tex:459: Underfull \hbox (badness 1983) in paragraph at lines 458--459
+warning: main.tex:459: Underfull \hbox (badness 5105) in paragraph at lines 458--459
+warning: main.tex:532: Overfull \hbox (29.35144pt too wide) in paragraph at lines 521--532
+warning: main.tex:572: Overfull \hbox (35.98213pt too wide) in paragraph at lines 559--572
+warning: main.tex:659: Underfull \hbox (badness 7468) in paragraph at lines 658--659
+warning: main.tex:659: Underfull \hbox (badness 1502) in paragraph at lines 658--659
+warning: main.tex:673: Underfull \hbox (badness 2922) in paragraph at lines 672--673
+warning: main.bbl:103: Underfull \hbox (badness 1728) in paragraph at lines 100--103
+note: Rerunning TeX because I was told to ...
+warning: main.tex:78: Underfull \hbox (badness 1484) in paragraph at lines 77--78
+warning: main.tex:103: Underfull \hbox (badness 5036) in paragraph at lines 102--103
+warning: main.tex:105: Underfull \hbox (badness 10000) in paragraph at lines 104--105
+warning: main.tex:105: Underfull \hbox (badness 10000) in paragraph at lines 104--105
+warning: main.tex:105: Underfull \hbox (badness 10000) in paragraph at lines 104--105
+warning: main.tex:105: Underfull \hbox (badness 4291) in paragraph at lines 104--105
+warning: main.tex:118: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:130: Underfull \hbox (badness 6859) in paragraph at lines 129--130
+warning: main.tex:138: Underfull \hbox (badness 7576) in paragraph at lines 137--138
+warning: main.tex:148: Underfull \hbox (badness 1838) in paragraph at lines 147--148
+warning: main.tex:148: Underfull \hbox (badness 1997) in paragraph at lines 147--148
+warning: main.tex:275: Underfull \hbox (badness 1609) in paragraph at lines 274--275
+warning: main.tex:275: Underfull \hbox (badness 10000) in paragraph at lines 274--275
+warning: main.tex:310: Overfull \hbox (16.74991pt too wide) in paragraph at lines 299--310
+warning: main.tex:345: Overfull \hbox (80.28554pt too wide) in paragraph at lines 327--345
+warning: main.tex:369: Overfull \hbox (80.28554pt too wide) in paragraph at lines 352--369
+warning: main.tex:440: Overfull \hbox (40.27364pt too wide) in paragraph at lines 418--440
+warning: main.tex:459: Underfull \hbox (badness 1983) in paragraph at lines 458--459
+warning: main.tex:459: Underfull \hbox (badness 5105) in paragraph at lines 458--459
+warning: main.tex:532: Overfull \hbox (29.35144pt too wide) in paragraph at lines 521--532
+warning: main.tex:572: Overfull \hbox (35.98213pt too wide) in paragraph at lines 559--572
+warning: main.tex:659: Underfull \hbox (badness 7468) in paragraph at lines 658--659
+warning: main.tex:659: Underfull \hbox (badness 1502) in paragraph at lines 658--659
+warning: main.tex:673: Underfull \hbox (badness 2922) in paragraph at lines 672--673
+warning: main.bbl:103: Underfull \hbox (badness 1728) in paragraph at lines 100--103
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `build_p186_final/main.pdf` (2.9490222930908203 MiB)
+note: Skipped writing 3 intermediate files (use --keep-intermediates to keep them)

@@ -31,7 +31,7 @@
 | ST5 | Per-cluster admission matrix (single-session) | §S2.2 |
 | ST6 | Per-cluster admission matrix (low-frame) | §S2.2 |
 | ST7 | Baseline comparison summary | §S2.3 |
-| ST8 | Complete 10-configuration DROID-SLAM results | §S4.2 |
+| ST8 | Complete 16-configuration DROID-SLAM evidence-chain summary | §S4.2 |
 | ST9 | Per-cluster rejection profiles | §S6.2 |
 | ST10 | Reason co-occurrence matrix | §S6.3 |
 | ST11 | Evidence file index | §S8 |

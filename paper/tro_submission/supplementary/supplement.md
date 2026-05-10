@@ -1,8 +1,8 @@
 # T-RO Supplementary Material
 
-**Manuscript:** Session-Level Map Admission Control for Semantic-Segmentation-Assisted SLAM in Dynamic Industrial Environments  
-**Target:** IEEE Transactions on Robotics, Regular Paper  
-**Date:** 2026-05-09  
+**Manuscript:** Session-Level Map Admission Control for Semantic-Segmentation-Assisted SLAM in Dynamic Industrial Environments
+**Target:** IEEE Transactions on Robotics, Regular Paper
+**Date:** 2026-05-09
 **Status:** Supplementary package (P163)
 
 ---
@@ -16,7 +16,7 @@ This supplementary document provides expanded evidence, detailed tables, and ful
 | S1 | Admission Criteria: Full Parameter Ablation Sweep | §VII.G.1 |
 | S2 | Baseline Comparison: Per-Cluster Detail | §VII.G.2 |
 | S3 | Object Lifecycle Visualization | §VII.G.2 (Fig 12) |
-| S4 | Dynamic SLAM: Complete 10-Configuration Evidence Chain | §VII.E–F |
+| S4 | Dynamic SLAM: Complete 16-Configuration Evidence Chain | §VII.E–F |
 | S5 | Dynamic Mask Coverage Analysis | §VII.F |
 | S6 | Category Retention and Rejection: Per-Cluster Profiles | §VII.G.3 |
 | S7 | Per-Category Retention/Rejection Figures | §VII.G.3 (Figs 14–16) |
@@ -99,7 +99,7 @@ The `max_dynamic_ratio` insensitivity is not a parameter-tuning artifact—it is
 |---|---|---|
 | B0 (Naive) | Admit all detected objects | None—no filter |
 | B1 (Purity/Support proxy) | Admit if label_purity ≥ 0.85 AND support ≥ 10 | 2 of 5 (purity, support) |
-| B2 (Richer—Ours) | Five-criteria cross-session admission | 5 of 5 (purity, support, stability, persistence, dynamicity) |
+| B2 (Full Admission Control—Ours) | Five-criteria cross-session admission | 5 of 5 (purity, support, stability, persistence, dynamicity) |
 
 ### S2.2 Per-Cluster Admission Matrix
 
@@ -151,7 +151,7 @@ Detailed per-cluster table below. Clusters are numbered 1–20 (combined Aisle+H
 
 ### S2.3 Baseline Comparison Summary
 
-| Metric | B0 (Naive) | B1 (Purity/Support) | B2 (Richer) |
+| Metric | B0 (Naive) | B1 (Purity/Support) | B2 (Full Control) |
 |---|---|---|---|
 | Total admitted | 20 / 20 | 13 / 20 | 5 / 20 |
 | Forklift admitted | 4 / 4 | 4 / 4 | 0 / 4 |
@@ -162,7 +162,7 @@ Detailed per-cluster table below. Clusters are numbered 1–20 (combined Aisle+H
 
 *Phantom risk denominator excludes clusters admitted on any basis; B1 denominator is 19 because one cluster (LF-05) is rejected by purity threshold.
 
-**Key finding:** B1 (purity/support) eliminates 7 weak clusters but admits all 4 forklifts because forklift detections have high label purity (0.82–0.91) and high observation counts (15–28). The richer policy's dynamicity criterion is the critical filter that B1 lacks. B1's phantom risk (21.1%) is actually worse than B0 (20.0%) because the denominator shrinks while the numerator stays constant.
+**Key finding:** B1 (purity/support) eliminates 7 weak clusters but admits all 4 forklifts because forklift detections have high label purity (0.82–0.91) and high observation counts (15–28). The full admission-control policy's dynamicity criterion is the critical filter that B1 lacks. B1's phantom risk (21.1%) is actually worse than B0 (20.0%) because the denominator shrinks while the numerator stays constant.
 
 ---
 
@@ -178,55 +178,43 @@ Detailed per-cluster table below. Clusters are numbered 1–20 (combined Aisle+H
 
 ---
 
-## S4. Dynamic SLAM: Complete 10-Configuration Evidence Chain
+## S4. Dynamic SLAM: Complete 16-Configuration Evidence Chain
 
-*Main-text reference: §VII.E–F. The main manuscript presents the summary Table 6 and boundary condition analysis. This section provides the complete raw-vs-masked comparison across all configurations.*
+*Main-text reference: §VII.E–F. The main manuscript presents the summary Table 6 and boundary-condition analysis. This section summarizes the full 16-configuration evidence chain and preserves the claim boundary: dynamic masking is evaluated as a perturbation check, not as an accuracy-improvement claim.*
 
 ### S4.1 Experimental Setup
 
-**VO Backend:** DROID-SLAM [30]  
-**Test Session:** TorWIC Aisle_CW_Run_1 (Jun 2023, 64 frames)  
-**Mask Generation Strategies:** 4 variants
+**VO Backend:** DROID-SLAM [30]
+**Primary Window:** TorWIC Aisle_CW_Run_1, 64 frames
+**Replication Sessions:** Jun15 Aisle_CW_Run_2, Jun23 Aisle_CW_Run_1, Oct12 Aisle_CW, Oct12 Hallway_Full_CW_Run_2
+**Metric:** evo APE/RPE on raw-vs-masked trajectories with SE(3) alignment.
 
-| Strategy | Description | Config IDs |
-|---|---|---|
-| M0 | No masking (baseline) | C0 |
-| M1 | Real masks (Grounding DINO + SAM2) | C1–C3 |
-| M2 | Dilated real masks | C4–C6 |
-| M3 | Full-segment masks | C7–C9 |
+### S4.2 Complete 16-Configuration Summary
 
-### S4.2 Complete 10-Configuration Results
-
-| Config | Strategy | Mask Type | ATE (mm) | ΔATE vs C0 (mm) | Mask Coverage (%) | Masked Frames |
-|---|---|---|---|---|---|---|
-| C0 | — | None (raw) | 12.34 | 0.00 | 0.00 | 0/64 |
-| C1 | M1 | Real | 12.35 | +0.01 | 0.87 | 18/64 |
-| C2 | M1 | Real (thresholded) | 12.33 | −0.01 | 0.92 | 19/64 |
-| C3 | M1 | Real (conservative) | 12.36 | +0.02 | 0.81 | 16/64 |
-| C4 | M2 | Dilated | 12.34 | 0.00 | 1.12 | 22/64 |
-| C5 | M2 | Dilated (thresholded) | 12.35 | +0.01 | 1.18 | 23/64 |
-| C6 | M2 | Dilated (conservative) | 12.33 | −0.01 | 1.05 | 20/64 |
-| C7 | M3 | Full-segment | 12.38 | +0.04 | 1.39 | 26/64 |
-| C8 | M3 | Full-segment (thresholded) | 12.37 | +0.03 | 1.42 | 27/64 |
-| C9 | M3 | Full-segment (conservative) | 12.36 | +0.02 | 1.33 | 24/64 |
+| Evidence tier | Configs | Sessions | Result | Claim boundary |
+|---|---:|---|---|---|
+| Core boundary sweep | 12 | Jun15 Aisle_CW_Run_1 | 7/12 neutral, 5/12 perturbed | Selective/concentrated masks are neutral; propagated/uniform masks perturb BA |
+| Stage 1 replication | 2 | Jun15 Aisle_CW_Run_2; Jun23 Aisle_CW_Run_1 | 2/2 neutral | Same-day and cross-day selective masks remain neutral |
+| Stage 2 replication | 2 | Oct12 Aisle_CW; Oct12 Hallway_Full_CW_Run_2 | 2/2 neutral | Cross-month and Hallway within-site variation remain neutral |
+| Total | 16 | 5 TorWIC sessions | 11/16 neutral (68.8%, bootstrap 95% CI 43.8–87.5%) | Bounded to TorWIC short-window DROID-SLAM evidence |
 
 ### S4.3 Key Observations
 
-1. **All 10 configurations produce trajectory-neutral results.** The maximum |ΔATE| = 0.04 mm, far below the TUM RGB-D ATE resolution (~1 mm at 640×480).
+1. **Selective masks are trajectory-neutral or near-neutral in the tested DROID-SLAM windows.** The neutral group is defined by $|\Delta\text{APE}| \leq 0.006$ mm across 11/16 configurations.
 
-2. **No consistent directional trend.** 5 configurations show ΔATE > 0, 3 show ΔATE < 0, 2 show ΔATE = 0. This is consistent with random minor variation in bundle adjustment, not systematic improvement or degradation.
+2. **Aggressive masks perturb bundle adjustment.** Temporal propagation, optical-flow propagation, and uniform first-N frame masks produce $0.92$--$7.52$ mm perturbations.
 
-3. **Mask coverage ceiling at 1.42%.** Even the most aggressive strategy (M3, full-segment with thresholding) only masks 1.42% of the image area. This is the key structural constraint.
+3. **Coverage magnitude matters.** A high-coverage selective-mask pressure test on Jun15 Aisle_CCW_Run_1 reaches 17.32% max per-frame coverage and produces a small but nonzero $+0.114$ mm APE shift. Selectivity is therefore necessary, but not sufficient by itself.
 
-4. **Boundary condition quantified.** DROID-SLAM's bundle adjustment is empirically robust to <5% dynamic content occlusion. The TorWIC warehouse environment naturally produces at most ~1.4% dynamic coverage per frame. Any masking strategy operating below this boundary will produce trajectory-neutral results.
+4. **No trajectory-improvement claim.** We do not claim that masking improves ATE/RPE or downstream navigation. The result is a quantified boundary condition for whether semantic masking damages the visual odometry backend.
 
-5. **No claim of ATE/RPE improvement.** We explicitly do not claim that dynamic masking improves trajectory accuracy. The finding is a quantitative boundary condition, not a performance gain.
+5. **No cross-site generalization claim.** Hallway is a different floor plan within the same TorWIC warehouse. It supports within-site variation only.
 
 ### S4.4 Mask Coverage Per-Frame Distribution
 
 *See Supplementary Fig. S2 (mask coverage diagnostic figure from P135):* `figures/torwic_dynamic_mask_coverage_p135.png`
 
-The per-frame coverage distribution confirms that forklift pixels occupy a small, localized fraction of each image. Coverage exceeds 2.0% in only 3 out of 64 frames, and never exceeds 4.0%.
+The per-frame coverage distribution confirms that forklift pixels occupy a small, localized fraction of each image under selective masks. The high-coverage P173 pressure test is retained as a boundary case rather than promoted as an improvement.
 
 ### S4.5 Raw vs Masked Trajectory Overlays
 
@@ -234,7 +222,7 @@ The per-frame coverage distribution confirms that forklift pixels occupy a small
 
 | Figure | Content | Source |
 |---|---|---|
-| S3 | DROID-SLAM raw-vs-masked trajectories, 10-config overlay | `figures/torwic_dynamic_slam_backend_p134.png` |
+| S3 | DROID-SLAM raw-vs-masked trajectories, core boundary overlay | `figures/torwic_dynamic_slam_backend_p134.png` |
 | S4 | First-8 real mask diagnostic | `figures/torwic_dynamic_mask_first8_real_p138.png` |
 | S5 | First-16 real mask diagnostic | `figures/torwic_dynamic_mask_first16_real_p139.png` |
 | S6 | First-32 real mask diagnostic | `figures/torwic_dynamic_mask_first32_real_p140.png` |
@@ -248,7 +236,7 @@ The per-frame coverage distribution confirms that forklift pixels occupy a small
 | S7 | Temporal propagation stress test | `figures/torwic_dynamic_mask_temporal_stress_p136.png` |
 | S8 | Optical-flow propagation stress test | `figures/torwic_dynamic_mask_flow_stress_p137.png` |
 
-These diagnostics confirm that mask propagation across frames does not introduce spurious coverage expansion—the coverage remains bounded across all propagation modes.
+These diagnostics confirm that masks that propagate beyond true dynamic frames are the failure mode; selective masks remain within the trajectory-neutral regime for the tested TorWIC windows.
 
 ---
 

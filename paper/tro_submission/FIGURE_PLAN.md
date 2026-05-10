@@ -2,7 +2,7 @@
 
 **Template:** IEEEtran, two-column  
 **Figure width target:** \columnwidth (3.5 in / 89 mm) for single-column, \textwidth (7.16 in / 182 mm) for double-column (spanning) floats  
-**Resolution:** 300 dpi recommended for TR-O (current figures at 150 dpi — acceptable, but regenerate at 300 dpi for final submission)
+**Resolution:** 300 dpi recommended for T-RO. P181/P186 verified the current reviewer-facing PNG set has stripped text/EXIF metadata; final visual/DPI review remains a human upload check.
 
 ## Main-Body Figures (12 figures)
 
@@ -10,7 +10,7 @@
 |-----|------|-------|---------|-----------------|
 | 1 | `figures/torwic_paper_result_overview.png` | double-col | §VII.A | Full pipeline: perception → maintenance → map |
 | 2 | `figures/torwic_real_session_overlays.png` | double-col | §VII.D | Four-protocol rejection-ratio overview |
-| 3 | `figures/torwic_hallway_composite.png` | double-col | §VII.C | Hallway scene-transfer evidence |
+| 3 | `figures/torwic_hallway_composite.png` | double-col | §VII.C | Hallway within-site variation evidence |
 | 4 | `figures/torwic_dynamic_slam_backend_p134.png` | single-col | §VII.E | DROID-SLAM raw-vs-masked trajectories |
 | 5 | `figures/torwic_dynamic_mask_coverage_p135.png` | single-col | §VII.F | Dynamic mask coverage per config |
 | 6 | `figures/torwic_dynamic_mask_temporal_stress_p136.png` | single-col | §VII.F | Temporal propagation stress test |

@@ -1366,3 +1366,11 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 - **Machine checks:** 18/18 current `paper/figures/*.png` have 0 PNG text/EXIF chunks and 0 identity/path string hits; text/data scan has 0 Linux-user-home, project-GitHub-username, Windows-user-path, or credential-marker hits; `pdfinfo` shows no Author field and no custom metadata in current PDFs.
 - **Outputs:** `paper/export/pre_submission_anonymization_audit_p186.md`, `paper/evidence/pre_submission_anonymization_audit_p186.json`.
 - **Remaining:** final human visual skim of figures before upload; anonymous code mirror only if code is included in double-anonymous review.
+
+## 2026-05-10 — P187 Submission-Ready Final Closure
+
+- **Goal:** Close the final reviewer-upload package after P184/P185/P186 without new data, training, or long GPU runs.
+- **Result: COMPLETE with human-upload caveat.** Synchronized stale submission surfaces to the current claim boundary: Hallway is now consistently framed as within-site variation, not scene transfer; dynamic-SLAM evidence is consistently 16 configurations / 5 sessions with 11/16 neutral and explicit coverage-boundary caveat; B2 terminology is `Full Admission Control` rather than `Richer`.
+- **Build:** Recompiled with existing user-level Tectonic into `paper/tro_submission/build_p186_final/main.pdf` (15 pages). Compile succeeded with cosmetic underfull/overfull hbox warnings; no fatal TeX errors. Copied the final PDF to `paper/tro_submission/main.pdf`.
+- **Updated surfaces:** `main.tex`, `abstract.tex`, `EDITOR_SUMMARY.md`, `COVER_LETTER_DRAFT.md`, `FIGURE_PLAN.md`, `supplementary/supplement.md`, `supplementary/SUPPLEMENT_FIGURE_PLAN.md`, final PDF/build log.
+- **Remaining human items:** final visual skim of figures/pages before upload; optional anonymous code mirror only if code is uploaded during double-anonymous review.
