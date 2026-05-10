@@ -1,0 +1,2813 @@
+{
+  "baselines": {
+    "original_split": {
+      "test": {
+        "category_definition": {
+          "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+          "metrics": {
+            "accuracy": 1.0,
+            "f1_static_like": 1.0,
+            "fn_static_predicted_dynamic": 0,
+            "fp_dynamic_predicted_static": 0,
+            "n": 42,
+            "precision_static_like": 1.0,
+            "recall_static_like": 1.0,
+            "tn_dynamic_or_non_static_like": 20,
+            "tp_static_like": 22
+          }
+        },
+        "geometry_threshold": {
+          "dynamic_mean": 28865.166667,
+          "metrics": {
+            "accuracy": 0.4762,
+            "f1_static_like": 0.6071,
+            "fn_static_predicted_dynamic": 5,
+            "fp_dynamic_predicted_static": 17,
+            "n": 42,
+            "precision_static_like": 0.5,
+            "recall_static_like": 0.7727,
+            "tn_dynamic_or_non_static_like": 3,
+            "tp_static_like": 17
+          },
+          "static_larger_than_dynamic": false,
+          "static_mean": 19445.866667,
+          "status": "fit",
+          "threshold": 24155.516667
+        },
+        "majority": {
+          "metrics": {
+            "accuracy": 0.5238,
+            "f1_static_like": 0.6875,
+            "fn_static_predicted_dynamic": 0,
+            "fp_dynamic_predicted_static": 20,
+            "n": 42,
+            "precision_static_like": 0.5238,
+            "recall_static_like": 1.0,
+            "tn_dynamic_or_non_static_like": 0,
+            "tp_static_like": 22
+          },
+          "prediction": 1,
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          }
+        }
+      },
+      "train": {
+        "category_definition": {
+          "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+          "metrics": {
+            "accuracy": 1.0,
+            "f1_static_like": 1.0,
+            "fn_static_predicted_dynamic": 0,
+            "fp_dynamic_predicted_static": 0,
+            "n": 27,
+            "precision_static_like": 1.0,
+            "recall_static_like": 1.0,
+            "tn_dynamic_or_non_static_like": 12,
+            "tp_static_like": 15
+          }
+        },
+        "geometry_threshold": {
+          "dynamic_mean": 28865.166667,
+          "metrics": {
+            "accuracy": 0.5185,
+            "f1_static_like": 0.6486,
+            "fn_static_predicted_dynamic": 3,
+            "fp_dynamic_predicted_static": 10,
+            "n": 27,
+            "precision_static_like": 0.5455,
+            "recall_static_like": 0.8,
+            "tn_dynamic_or_non_static_like": 2,
+            "tp_static_like": 12
+          },
+          "static_larger_than_dynamic": false,
+          "static_mean": 19445.866667,
+          "status": "fit",
+          "threshold": 24155.516667
+        },
+        "majority": {
+          "metrics": {
+            "accuracy": 0.5556,
+            "f1_static_like": 0.7143,
+            "fn_static_predicted_dynamic": 0,
+            "fp_dynamic_predicted_static": 12,
+            "n": 27,
+            "precision_static_like": 0.5556,
+            "recall_static_like": 1.0,
+            "tn_dynamic_or_non_static_like": 0,
+            "tp_static_like": 15
+          },
+          "prediction": 1,
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          }
+        }
+      },
+      "val": {
+        "category_definition": {
+          "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+          "metrics": {
+            "accuracy": 1.0,
+            "f1_static_like": 1.0,
+            "fn_static_predicted_dynamic": 0,
+            "fp_dynamic_predicted_static": 0,
+            "n": 6,
+            "precision_static_like": 1.0,
+            "recall_static_like": 1.0,
+            "tn_dynamic_or_non_static_like": 4,
+            "tp_static_like": 2
+          }
+        },
+        "geometry_threshold": {
+          "dynamic_mean": 28865.166667,
+          "metrics": {
+            "accuracy": 0.6667,
+            "f1_static_like": 0.6667,
+            "fn_static_predicted_dynamic": 0,
+            "fp_dynamic_predicted_static": 2,
+            "n": 6,
+            "precision_static_like": 0.5,
+            "recall_static_like": 1.0,
+            "tn_dynamic_or_non_static_like": 2,
+            "tp_static_like": 2
+          },
+          "static_larger_than_dynamic": false,
+          "static_mean": 19445.866667,
+          "status": "fit",
+          "threshold": 24155.516667
+        },
+        "majority": {
+          "metrics": {
+            "accuracy": 0.3333,
+            "f1_static_like": 0.5,
+            "fn_static_predicted_dynamic": 0,
+            "fp_dynamic_predicted_static": 4,
+            "n": 6,
+            "precision_static_like": 0.3333,
+            "recall_static_like": 1.0,
+            "tn_dynamic_or_non_static_like": 0,
+            "tp_static_like": 2
+          },
+          "prediction": 1,
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          }
+        }
+      }
+    }
+  },
+  "constraints_observed": {
+    "admission_target_trained": false,
+    "category_labels_used_as_learned_features": false,
+    "current_weak_label_used_as_target": false,
+    "downloads_performed": false,
+    "human_admit_label_filled": false,
+    "human_same_object_label_filled": false,
+    "p193_target_admit_used": false,
+    "selection_v5_or_current_weak_label_used_as_target": false
+  },
+  "dataset": {
+    "ambiguous_rows": 35,
+    "by_category_and_target": {
+      "forklift|0": 36,
+      "warehouse rack|1": 16,
+      "work table|1": 23
+    },
+    "by_source_and_target": {
+      "cross_day|0": 9,
+      "cross_day|1": 13,
+      "cross_month|0": 4,
+      "cross_month|1": 2,
+      "hallway|0": 20,
+      "hallway|1": 22,
+      "same_day|0": 3,
+      "same_day|1": 2
+    },
+    "by_source_family_and_target": {
+      "aisle|0": 16,
+      "aisle|1": 17,
+      "hallway|0": 20,
+      "hallway|1": 22
+    },
+    "by_split_and_target": {
+      "test": {
+        "dynamic_or_non_static_like": 20,
+        "static_like": 22
+      },
+      "train": {
+        "dynamic_or_non_static_like": 12,
+        "static_like": 15
+      },
+      "val": {
+        "dynamic_or_non_static_like": 4,
+        "static_like": 2
+      }
+    },
+    "non_ambiguous_rows": 75,
+    "path": "paper/evidence/semantic_stability_dataset_p199.csv",
+    "total_rows": 110
+  },
+  "generated_at_utc": "2026-05-10T09:06:20.562224+00:00",
+  "human_label_audit": {
+    "boundary_p194": {
+      "blank": 32,
+      "column": "human_admit_label",
+      "nonblank": 0,
+      "path": "paper/evidence/admission_boundary_label_sheet_p194.csv",
+      "status": "checked",
+      "total": 32
+    },
+    "boundary_p197": {
+      "blank": 32,
+      "column": "human_admit_label",
+      "nonblank": 0,
+      "path": "paper/evidence/admission_boundary_label_sheet_p197_semantic_review.csv",
+      "status": "checked",
+      "total": 32
+    },
+    "pairs_p194": {
+      "blank": 160,
+      "column": "human_same_object_label",
+      "nonblank": 0,
+      "path": "paper/evidence/association_pair_candidates_p194.csv",
+      "status": "checked",
+      "total": 160
+    },
+    "pairs_p197": {
+      "blank": 160,
+      "column": "human_same_object_label",
+      "nonblank": 0,
+      "path": "paper/evidence/association_pair_candidates_p197_semantic_review.csv",
+      "status": "checked",
+      "total": 160
+    }
+  },
+  "hyperparameters": {
+    "epochs": 1200,
+    "l2": 0.001,
+    "lr": 0.05
+  },
+  "interpretation": "The audit supports a skeptical reading: the P199 target is deterministic from non-ambiguous semantic category labels, while geometry/area/session-only stress tests are unstable and do not establish category-independent semantic-stability learning. The P199 CUDA result remains a bounded pipeline smoke/evidence artifact, not an admission-control result.",
+  "limitations": [
+    "No independent human labels are present.",
+    "Category-definition baseline is perfect by construction.",
+    "Leave-category-out is degenerate because each non-ambiguous category has one target class.",
+    "Small split sizes, especially validation and cross-month/same-day source subsets, make learned metrics low power.",
+    "No CUDA rerun is included; the audit is deterministic NumPy stress evaluation only."
+  ],
+  "p195_status": {
+    "block_reasons": [],
+    "decision": "do not train or claim learned admission control until human labels are collected",
+    "label_audit": {
+      "boundary": {
+        "blank": 32,
+        "invalid": 0,
+        "total": 32,
+        "valid": 0
+      },
+      "pairs": {
+        "blank": 160,
+        "invalid": 0,
+        "total": 160,
+        "valid": 0
+      }
+    },
+    "path": "paper/evidence/independent_supervision_gate_p195.json",
+    "status": "BLOCKED"
+  },
+  "p199_reported_model": {
+    "category_definition_baseline": {
+      "test": {
+        "accuracy": 1.0,
+        "errors": [],
+        "f1_static_like": 1.0,
+        "fn_static_predicted_dynamic": 0,
+        "fp_dynamic_predicted_static": 0,
+        "n": 42,
+        "precision_static_like": 1.0,
+        "recall_static_like": 1.0,
+        "tn_dynamic_or_non_static_like": 20,
+        "tp_static_like": 22
+      },
+      "train": {
+        "accuracy": 1.0,
+        "errors": [],
+        "f1_static_like": 1.0,
+        "fn_static_predicted_dynamic": 0,
+        "fp_dynamic_predicted_static": 0,
+        "n": 27,
+        "precision_static_like": 1.0,
+        "recall_static_like": 1.0,
+        "tn_dynamic_or_non_static_like": 12,
+        "tp_static_like": 15
+      },
+      "val": {
+        "accuracy": 1.0,
+        "errors": [],
+        "f1_static_like": 1.0,
+        "fn_static_predicted_dynamic": 0,
+        "fp_dynamic_predicted_static": 0,
+        "n": 6,
+        "precision_static_like": 1.0,
+        "recall_static_like": 1.0,
+        "tn_dynamic_or_non_static_like": 4,
+        "tp_static_like": 2
+      }
+    },
+    "logistic_metrics": {
+      "test": {
+        "accuracy": 0.8333,
+        "errors": [
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00001"
+          },
+          {
+            "error": "static_predicted_dynamic",
+            "p199_sample_id": "p199_semantic_00003"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00005"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00047"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00048"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00055"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00057"
+          }
+        ],
+        "f1_static_like": 0.8571,
+        "fn_static_predicted_dynamic": 1,
+        "fp_dynamic_predicted_static": 6,
+        "n": 42,
+        "precision_static_like": 0.7778,
+        "recall_static_like": 0.9545,
+        "tn_dynamic_or_non_static_like": 14,
+        "tp_static_like": 21
+      },
+      "train": {
+        "accuracy": 0.8889,
+        "errors": [
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00061"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00087"
+          },
+          {
+            "error": "static_predicted_dynamic",
+            "p199_sample_id": "p199_semantic_00091"
+          }
+        ],
+        "f1_static_like": 0.9032,
+        "fn_static_predicted_dynamic": 1,
+        "fp_dynamic_predicted_static": 2,
+        "n": 27,
+        "precision_static_like": 0.875,
+        "recall_static_like": 0.9333,
+        "tn_dynamic_or_non_static_like": 10,
+        "tp_static_like": 14
+      },
+      "val": {
+        "accuracy": 0.5,
+        "errors": [
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00104"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00105"
+          },
+          {
+            "error": "static_predicted_dynamic",
+            "p199_sample_id": "p199_semantic_00109"
+          }
+        ],
+        "f1_static_like": 0.4,
+        "fn_static_predicted_dynamic": 1,
+        "fp_dynamic_predicted_static": 2,
+        "n": 6,
+        "precision_static_like": 0.3333,
+        "recall_static_like": 0.5,
+        "tn_dynamic_or_non_static_like": 2,
+        "tp_static_like": 1
+      }
+    },
+    "mlp_metrics": {
+      "test": {
+        "accuracy": 0.8333,
+        "errors": [
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00001"
+          },
+          {
+            "error": "static_predicted_dynamic",
+            "p199_sample_id": "p199_semantic_00003"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00005"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00036"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00037"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00051"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00055"
+          }
+        ],
+        "f1_static_like": 0.8571,
+        "fn_static_predicted_dynamic": 1,
+        "fp_dynamic_predicted_static": 6,
+        "n": 42,
+        "precision_static_like": 0.7778,
+        "recall_static_like": 0.9545,
+        "tn_dynamic_or_non_static_like": 14,
+        "tp_static_like": 21
+      },
+      "train": {
+        "accuracy": 1.0,
+        "errors": [],
+        "f1_static_like": 1.0,
+        "fn_static_predicted_dynamic": 0,
+        "fp_dynamic_predicted_static": 0,
+        "n": 27,
+        "precision_static_like": 1.0,
+        "recall_static_like": 1.0,
+        "tn_dynamic_or_non_static_like": 12,
+        "tp_static_like": 15
+      },
+      "val": {
+        "accuracy": 0.5,
+        "errors": [
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00104"
+          },
+          {
+            "error": "dynamic_predicted_static",
+            "p199_sample_id": "p199_semantic_00105"
+          },
+          {
+            "error": "static_predicted_dynamic",
+            "p199_sample_id": "p199_semantic_00109"
+          }
+        ],
+        "f1_static_like": 0.4,
+        "fn_static_predicted_dynamic": 1,
+        "fp_dynamic_predicted_static": 2,
+        "n": 6,
+        "precision_static_like": 0.3333,
+        "recall_static_like": 0.5,
+        "tn_dynamic_or_non_static_like": 2,
+        "tp_static_like": 1
+      }
+    },
+    "path": "paper/evidence/semantic_stability_scorer_p199.json",
+    "status": "CUDA_SMOKE_COMPLETED"
+  },
+  "p201_recommendation": "For P201, prioritize collecting or importing independent human admission/same-object labels and rerun the P195 gate. If staying no-label, treat semantic stability only as an ontology/category prior and add new non-ambiguous categories where each semantic category is represented across multiple geometry and source regimes before claiming learned generalization.",
+  "phase": "P200-semantic-stability-no-label-audit",
+  "scientific_boundary": "P200 audits the no-human-label P199 semantic-stability branch only. The target is semantic/static-like category evidence, not admission control. P200 does not create human labels, does not train admit/reject from P193/P194/P195 labels, and does not unblock P195.",
+  "status": "AUDIT_COMPLETED",
+  "stress_tests": {
+    "leave_category_out": {
+      "forklift": {
+        "baselines": {
+          "category_definition": {
+            "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+            "metrics": {
+              "accuracy": 1.0,
+              "f1_static_like": 0.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 0,
+              "n": 36,
+              "precision_static_like": 0.0,
+              "recall_static_like": 0.0,
+              "tn_dynamic_or_non_static_like": 36,
+              "tp_static_like": 0
+            }
+          },
+          "geometry_threshold": {
+            "status": "infeasible_single_class_train"
+          },
+          "majority": {
+            "metrics": {
+              "accuracy": 0.0,
+              "f1_static_like": 0.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 36,
+              "n": 36,
+              "precision_static_like": 0.0,
+              "recall_static_like": 0.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 0
+            },
+            "prediction": 1,
+            "train_class_counts": {
+              "0": 0,
+              "1": 39
+            }
+          }
+        },
+        "eval_class_counts": {
+          "0": 36,
+          "1": 0
+        },
+        "model": {
+          "eval_class_counts": {
+            "0": 36,
+            "1": 0
+          },
+          "status": "infeasible_single_class_train",
+          "train_class_counts": {
+            "0": 0,
+            "1": 39
+          }
+        },
+        "n_eval": 36,
+        "n_train": 39,
+        "status_notes": [
+          "train split is single-class",
+          "held-out split is single-class; binary generalization metric is degenerate"
+        ],
+        "train_class_counts": {
+          "0": 0,
+          "1": 39
+        }
+      },
+      "warehouse rack": {
+        "baselines": {
+          "category_definition": {
+            "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+            "metrics": {
+              "accuracy": 1.0,
+              "f1_static_like": 1.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 0,
+              "n": 16,
+              "precision_static_like": 1.0,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 16
+            }
+          },
+          "geometry_threshold": {
+            "dynamic_mean": 18300.388889,
+            "metrics": {
+              "accuracy": 0.3125,
+              "f1_static_like": 0.4762,
+              "fn_static_predicted_dynamic": 11,
+              "fp_dynamic_predicted_static": 0,
+              "n": 16,
+              "precision_static_like": 1.0,
+              "recall_static_like": 0.3125,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 5
+            },
+            "static_larger_than_dynamic": false,
+            "static_mean": 5034.173913,
+            "status": "fit",
+            "threshold": 11667.281401
+          },
+          "majority": {
+            "metrics": {
+              "accuracy": 0.0,
+              "f1_static_like": 0.0,
+              "fn_static_predicted_dynamic": 16,
+              "fp_dynamic_predicted_static": 0,
+              "n": 16,
+              "precision_static_like": 0.0,
+              "recall_static_like": 0.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 0
+            },
+            "prediction": 0,
+            "train_class_counts": {
+              "0": 36,
+              "1": 23
+            }
+          }
+        },
+        "eval_class_counts": {
+          "0": 0,
+          "1": 16
+        },
+        "model": {
+          "eval_class_counts": {
+            "0": 0,
+            "1": 16
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.9375,
+              "f1_static_like": 0.9677,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 0,
+              "n": 16,
+              "precision_static_like": 1.0,
+              "recall_static_like": 0.9375,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 15
+            },
+            "train": {
+              "accuracy": 0.8136,
+              "f1_static_like": 0.7442,
+              "fn_static_predicted_dynamic": 7,
+              "fp_dynamic_predicted_static": 4,
+              "n": 59,
+              "precision_static_like": 0.8,
+              "recall_static_like": 0.6957,
+              "tn_dynamic_or_non_static_like": 32,
+              "tp_static_like": 16
+            }
+          },
+          "standardization": {
+            "mean": [
+              409.060519,
+              326.787033,
+              168.898305,
+              105.457627,
+              13128.813559,
+              13128.813559,
+              168.898305,
+              105.457627,
+              0.373687
+            ],
+            "std": [
+              351.77933,
+              35.626126,
+              154.729802,
+              84.81152,
+              27011.902249,
+              27011.902249,
+              154.729802,
+              84.81152,
+              0.114113
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 36,
+            "1": 23
+          },
+          "weights": [
+            -1.155219,
+            1.600057,
+            -0.492723,
+            0.317025,
+            -1.755458,
+            -0.368657,
+            -0.368657,
+            0.317025,
+            -1.755458,
+            0.54433
+          ]
+        },
+        "n_eval": 16,
+        "n_train": 59,
+        "status_notes": [
+          "held-out split is single-class; binary generalization metric is degenerate"
+        ],
+        "train_class_counts": {
+          "0": 36,
+          "1": 23
+        }
+      },
+      "work table": {
+        "baselines": {
+          "category_definition": {
+            "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+            "metrics": {
+              "accuracy": 1.0,
+              "f1_static_like": 1.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 0,
+              "n": 23,
+              "precision_static_like": 1.0,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 23
+            }
+          },
+          "geometry_threshold": {
+            "dynamic_mean": 18300.388889,
+            "metrics": {
+              "accuracy": 0.0,
+              "f1_static_like": 0.0,
+              "fn_static_predicted_dynamic": 23,
+              "fp_dynamic_predicted_static": 0,
+              "n": 23,
+              "precision_static_like": 0.0,
+              "recall_static_like": 0.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 0
+            },
+            "static_larger_than_dynamic": true,
+            "static_mean": 32375.0625,
+            "status": "fit",
+            "threshold": 25337.725694
+          },
+          "majority": {
+            "metrics": {
+              "accuracy": 0.0,
+              "f1_static_like": 0.0,
+              "fn_static_predicted_dynamic": 23,
+              "fp_dynamic_predicted_static": 0,
+              "n": 23,
+              "precision_static_like": 0.0,
+              "recall_static_like": 0.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 0
+            },
+            "prediction": 0,
+            "train_class_counts": {
+              "0": 36,
+              "1": 16
+            }
+          }
+        },
+        "eval_class_counts": {
+          "0": 0,
+          "1": 23
+        },
+        "model": {
+          "eval_class_counts": {
+            "0": 0,
+            "1": 23
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.087,
+              "f1_static_like": 0.16,
+              "fn_static_predicted_dynamic": 21,
+              "fp_dynamic_predicted_static": 0,
+              "n": 23,
+              "precision_static_like": 1.0,
+              "recall_static_like": 0.087,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 2
+            },
+            "train": {
+              "accuracy": 0.8654,
+              "f1_static_like": 0.7407,
+              "fn_static_predicted_dynamic": 6,
+              "fp_dynamic_predicted_static": 1,
+              "n": 52,
+              "precision_static_like": 0.9091,
+              "recall_static_like": 0.625,
+              "tn_dynamic_or_non_static_like": 35,
+              "tp_static_like": 10
+            }
+          },
+          "standardization": {
+            "mean": [
+              540.155866,
+              324.308204,
+              228.230769,
+              130.057692,
+              22631.057692,
+              22631.057692,
+              228.230769,
+              130.057692,
+              0.337816
+            ],
+            "std": [
+              396.47285,
+              34.286301,
+              190.944174,
+              85.340588,
+              34663.557421,
+              34663.557421,
+              190.944174,
+              85.340588,
+              0.071981
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 36,
+            "1": 16
+          },
+          "weights": [
+            -1.833189,
+            2.242326,
+            0.684478,
+            0.624811,
+            -1.368925,
+            0.444534,
+            0.444534,
+            0.624811,
+            -1.368925,
+            -0.401627
+          ]
+        },
+        "n_eval": 23,
+        "n_train": 52,
+        "status_notes": [
+          "held-out split is single-class; binary generalization metric is degenerate"
+        ],
+        "train_class_counts": {
+          "0": 36,
+          "1": 16
+        }
+      }
+    },
+    "leave_source_family_out": {
+      "aisle": {
+        "baselines": {
+          "category_definition": {
+            "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+            "metrics": {
+              "accuracy": 1.0,
+              "f1_static_like": 1.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 0,
+              "n": 33,
+              "precision_static_like": 1.0,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 16,
+              "tp_static_like": 17
+            }
+          },
+          "geometry_threshold": {
+            "dynamic_mean": 10892.45,
+            "metrics": {
+              "accuracy": 0.4242,
+              "f1_static_like": 0.2963,
+              "fn_static_predicted_dynamic": 13,
+              "fp_dynamic_predicted_static": 6,
+              "n": 33,
+              "precision_static_like": 0.4,
+              "recall_static_like": 0.2353,
+              "tn_dynamic_or_non_static_like": 10,
+              "tp_static_like": 4
+            },
+            "static_larger_than_dynamic": true,
+            "static_mean": 14765.545455,
+            "status": "fit",
+            "threshold": 12828.997727
+          },
+          "majority": {
+            "metrics": {
+              "accuracy": 0.5152,
+              "f1_static_like": 0.68,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 16,
+              "n": 33,
+              "precision_static_like": 0.5152,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 17
+            },
+            "prediction": 1,
+            "train_class_counts": {
+              "0": 20,
+              "1": 22
+            }
+          }
+        },
+        "eval_class_counts": {
+          "0": 16,
+          "1": 17
+        },
+        "model": {
+          "eval_class_counts": {
+            "0": 16,
+            "1": 17
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.8182,
+              "f1_static_like": 0.8125,
+              "fn_static_predicted_dynamic": 4,
+              "fp_dynamic_predicted_static": 2,
+              "n": 33,
+              "precision_static_like": 0.8667,
+              "recall_static_like": 0.7647,
+              "tn_dynamic_or_non_static_like": 14,
+              "tp_static_like": 13
+            },
+            "train": {
+              "accuracy": 0.9048,
+              "f1_static_like": 0.913,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 3,
+              "n": 42,
+              "precision_static_like": 0.875,
+              "recall_static_like": 0.9545,
+              "tn_dynamic_or_non_static_like": 17,
+              "tp_static_like": 21
+            }
+          },
+          "standardization": {
+            "mean": [
+              530.991723,
+              330.102387,
+              183.309524,
+              101.97619,
+              12921.214286,
+              12921.214286,
+              183.309524,
+              101.97619,
+              0.364508
+            ],
+            "std": [
+              369.104958,
+              31.99183,
+              98.020282,
+              65.344322,
+              11667.808283,
+              11667.808283,
+              98.020282,
+              65.344322,
+              0.099805
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 20,
+            "1": 22
+          },
+          "weights": [
+            -0.092096,
+            2.190392,
+            -0.258076,
+            0.452778,
+            -1.445062,
+            -0.155565,
+            -0.155565,
+            0.452778,
+            -1.445062,
+            0.311752
+          ]
+        },
+        "n_eval": 33,
+        "n_train": 42,
+        "status_notes": [],
+        "train_class_counts": {
+          "0": 20,
+          "1": 22
+        }
+      },
+      "hallway": {
+        "baselines": {
+          "category_definition": {
+            "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+            "metrics": {
+              "accuracy": 1.0,
+              "f1_static_like": 1.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 0,
+              "n": 42,
+              "precision_static_like": 1.0,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 20,
+              "tp_static_like": 22
+            }
+          },
+          "geometry_threshold": {
+            "dynamic_mean": 27560.3125,
+            "metrics": {
+              "accuracy": 0.4762,
+              "f1_static_like": 0.6071,
+              "fn_static_predicted_dynamic": 5,
+              "fp_dynamic_predicted_static": 17,
+              "n": 42,
+              "precision_static_like": 0.5,
+              "recall_static_like": 0.7727,
+              "tn_dynamic_or_non_static_like": 3,
+              "tp_static_like": 17
+            },
+            "static_larger_than_dynamic": false,
+            "static_mean": 18173.235294,
+            "status": "fit",
+            "threshold": 22866.773897
+          },
+          "majority": {
+            "metrics": {
+              "accuracy": 0.5238,
+              "f1_static_like": 0.6875,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 20,
+              "n": 42,
+              "precision_static_like": 0.5238,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 22
+            },
+            "prediction": 1,
+            "train_class_counts": {
+              "0": 16,
+              "1": 17
+            }
+          }
+        },
+        "eval_class_counts": {
+          "0": 20,
+          "1": 22
+        },
+        "model": {
+          "eval_class_counts": {
+            "0": 20,
+            "1": 22
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.8095,
+              "f1_static_like": 0.8333,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 6,
+              "n": 42,
+              "precision_static_like": 0.7692,
+              "recall_static_like": 0.9091,
+              "tn_dynamic_or_non_static_like": 14,
+              "tp_static_like": 20
+            },
+            "train": {
+              "accuracy": 0.9091,
+              "f1_static_like": 0.9143,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 2,
+              "n": 33,
+              "precision_static_like": 0.8889,
+              "recall_static_like": 0.9412,
+              "tn_dynamic_or_non_static_like": 14,
+              "tp_static_like": 16
+            }
+          },
+          "standardization": {
+            "mean": [
+              463.181828,
+              327.409072,
+              217.242424,
+              115.242424,
+              22724.545455,
+              22724.545455,
+              217.242424,
+              115.242424,
+              0.357431
+            ],
+            "std": [
+              355.716567,
+              32.104252,
+              232.973666,
+              97.646868,
+              42825.938378,
+              42825.938378,
+              232.973666,
+              97.646868,
+              0.112292
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 16,
+            "1": 17
+          },
+          "weights": [
+            -0.113333,
+            1.313821,
+            0.126769,
+            0.443204,
+            -1.955105,
+            0.940699,
+            0.940699,
+            0.443204,
+            -1.955105,
+            0.527475
+          ]
+        },
+        "n_eval": 42,
+        "n_train": 33,
+        "status_notes": [],
+        "train_class_counts": {
+          "0": 16,
+          "1": 17
+        }
+      }
+    },
+    "leave_source_out": {
+      "cross_day": {
+        "baselines": {
+          "category_definition": {
+            "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+            "metrics": {
+              "accuracy": 1.0,
+              "f1_static_like": 1.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 0,
+              "n": 22,
+              "precision_static_like": 1.0,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 9,
+              "tp_static_like": 13
+            }
+          },
+          "geometry_threshold": {
+            "dynamic_mean": 23010.222222,
+            "metrics": {
+              "accuracy": 0.4091,
+              "f1_static_like": 0.5806,
+              "fn_static_predicted_dynamic": 4,
+              "fp_dynamic_predicted_static": 9,
+              "n": 22,
+              "precision_static_like": 0.5,
+              "recall_static_like": 0.6923,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 9
+            },
+            "static_larger_than_dynamic": false,
+            "static_mean": 13282.423077,
+            "status": "fit",
+            "threshold": 18146.32265
+          },
+          "majority": {
+            "metrics": {
+              "accuracy": 0.4091,
+              "f1_static_like": 0.0,
+              "fn_static_predicted_dynamic": 13,
+              "fp_dynamic_predicted_static": 0,
+              "n": 22,
+              "precision_static_like": 0.0,
+              "recall_static_like": 0.0,
+              "tn_dynamic_or_non_static_like": 9,
+              "tp_static_like": 0
+            },
+            "prediction": 0,
+            "train_class_counts": {
+              "0": 27,
+              "1": 26
+            }
+          }
+        },
+        "eval_class_counts": {
+          "0": 9,
+          "1": 13
+        },
+        "model": {
+          "eval_class_counts": {
+            "0": 9,
+            "1": 13
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.8182,
+              "f1_static_like": 0.8462,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 2,
+              "n": 22,
+              "precision_static_like": 0.8462,
+              "recall_static_like": 0.8462,
+              "tn_dynamic_or_non_static_like": 7,
+              "tp_static_like": 11
+            },
+            "train": {
+              "accuracy": 0.8302,
+              "f1_static_like": 0.8364,
+              "fn_static_predicted_dynamic": 3,
+              "fp_dynamic_predicted_static": 6,
+              "n": 53,
+              "precision_static_like": 0.7931,
+              "recall_static_like": 0.8846,
+              "tn_dynamic_or_non_static_like": 21,
+              "tp_static_like": 23
+            }
+          },
+          "standardization": {
+            "mean": [
+              551.340793,
+              326.010567,
+              208.584906,
+              117.735849,
+              18238.09434,
+              18238.09434,
+              208.584906,
+              117.735849,
+              0.366164
+            ],
+            "std": [
+              378.628623,
+              33.147779,
+              163.030549,
+              83.164114,
+              28448.568826,
+              28448.568826,
+              163.030549,
+              83.164114,
+              0.100839
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 27,
+            "1": 26
+          },
+          "weights": [
+            -0.388279,
+            1.727787,
+            -0.210151,
+            0.669079,
+            -1.783284,
+            -0.087274,
+            -0.087274,
+            0.669079,
+            -1.783284,
+            0.359911
+          ]
+        },
+        "n_eval": 22,
+        "n_train": 53,
+        "status_notes": [],
+        "train_class_counts": {
+          "0": 27,
+          "1": 26
+        }
+      },
+      "cross_month": {
+        "baselines": {
+          "category_definition": {
+            "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+            "metrics": {
+              "accuracy": 1.0,
+              "f1_static_like": 1.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 0,
+              "n": 6,
+              "precision_static_like": 1.0,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 4,
+              "tp_static_like": 2
+            }
+          },
+          "geometry_threshold": {
+            "dynamic_mean": 17632.21875,
+            "metrics": {
+              "accuracy": 0.6667,
+              "f1_static_like": 0.6667,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 2,
+              "n": 6,
+              "precision_static_like": 0.5,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 2
+            },
+            "static_larger_than_dynamic": false,
+            "static_mean": 16662.972973,
+            "status": "fit",
+            "threshold": 17147.595861
+          },
+          "majority": {
+            "metrics": {
+              "accuracy": 0.3333,
+              "f1_static_like": 0.5,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 4,
+              "n": 6,
+              "precision_static_like": 0.3333,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 2
+            },
+            "prediction": 1,
+            "train_class_counts": {
+              "0": 32,
+              "1": 37
+            }
+          }
+        },
+        "eval_class_counts": {
+          "0": 4,
+          "1": 2
+        },
+        "model": {
+          "eval_class_counts": {
+            "0": 4,
+            "1": 2
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.5,
+              "f1_static_like": 0.4,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 2,
+              "n": 6,
+              "precision_static_like": 0.3333,
+              "recall_static_like": 0.5,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 1
+            },
+            "train": {
+              "accuracy": 0.8841,
+              "f1_static_like": 0.8919,
+              "fn_static_predicted_dynamic": 4,
+              "fp_dynamic_predicted_static": 4,
+              "n": 69,
+              "precision_static_like": 0.8919,
+              "recall_static_like": 0.8919,
+              "tn_dynamic_or_non_static_like": 28,
+              "tp_static_like": 33
+            }
+          },
+          "standardization": {
+            "mean": [
+              468.277246,
+              331.577448,
+              195.15942,
+              101.855072,
+              17112.478261,
+              17112.478261,
+              195.15942,
+              101.855072,
+              0.360913
+            ],
+            "std": [
+              349.106918,
+              30.228235,
+              177.496734,
+              78.579467,
+              31240.881324,
+              31240.881324,
+              177.496734,
+              78.579467,
+              0.103641
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 32,
+            "1": 37
+          },
+          "weights": [
+            0.145606,
+            1.929256,
+            -0.089754,
+            0.304981,
+            -1.52926,
+            0.617221,
+            0.617221,
+            0.304981,
+            -1.52926,
+            0.356147
+          ]
+        },
+        "n_eval": 6,
+        "n_train": 69,
+        "status_notes": [],
+        "train_class_counts": {
+          "0": 32,
+          "1": 37
+        }
+      },
+      "hallway": {
+        "baselines": {
+          "category_definition": {
+            "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+            "metrics": {
+              "accuracy": 1.0,
+              "f1_static_like": 1.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 0,
+              "n": 42,
+              "precision_static_like": 1.0,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 20,
+              "tp_static_like": 22
+            }
+          },
+          "geometry_threshold": {
+            "dynamic_mean": 27560.3125,
+            "metrics": {
+              "accuracy": 0.4762,
+              "f1_static_like": 0.6071,
+              "fn_static_predicted_dynamic": 5,
+              "fp_dynamic_predicted_static": 17,
+              "n": 42,
+              "precision_static_like": 0.5,
+              "recall_static_like": 0.7727,
+              "tn_dynamic_or_non_static_like": 3,
+              "tp_static_like": 17
+            },
+            "static_larger_than_dynamic": false,
+            "static_mean": 18173.235294,
+            "status": "fit",
+            "threshold": 22866.773897
+          },
+          "majority": {
+            "metrics": {
+              "accuracy": 0.5238,
+              "f1_static_like": 0.6875,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 20,
+              "n": 42,
+              "precision_static_like": 0.5238,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 22
+            },
+            "prediction": 1,
+            "train_class_counts": {
+              "0": 16,
+              "1": 17
+            }
+          }
+        },
+        "eval_class_counts": {
+          "0": 20,
+          "1": 22
+        },
+        "model": {
+          "eval_class_counts": {
+            "0": 20,
+            "1": 22
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.8095,
+              "f1_static_like": 0.8333,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 6,
+              "n": 42,
+              "precision_static_like": 0.7692,
+              "recall_static_like": 0.9091,
+              "tn_dynamic_or_non_static_like": 14,
+              "tp_static_like": 20
+            },
+            "train": {
+              "accuracy": 0.9091,
+              "f1_static_like": 0.9143,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 2,
+              "n": 33,
+              "precision_static_like": 0.8889,
+              "recall_static_like": 0.9412,
+              "tn_dynamic_or_non_static_like": 14,
+              "tp_static_like": 16
+            }
+          },
+          "standardization": {
+            "mean": [
+              463.181828,
+              327.409072,
+              217.242424,
+              115.242424,
+              22724.545455,
+              22724.545455,
+              217.242424,
+              115.242424,
+              0.357431
+            ],
+            "std": [
+              355.716567,
+              32.104252,
+              232.973666,
+              97.646868,
+              42825.938378,
+              42825.938378,
+              232.973666,
+              97.646868,
+              0.112292
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 16,
+            "1": 17
+          },
+          "weights": [
+            -0.113333,
+            1.313821,
+            0.126769,
+            0.443204,
+            -1.955105,
+            0.940699,
+            0.940699,
+            0.443204,
+            -1.955105,
+            0.527475
+          ]
+        },
+        "n_eval": 42,
+        "n_train": 33,
+        "status_notes": [],
+        "train_class_counts": {
+          "0": 16,
+          "1": 17
+        }
+      },
+      "same_day": {
+        "baselines": {
+          "category_definition": {
+            "description": "Uses the target-defining semantic category mapping; perfect by construction, not learned.",
+            "metrics": {
+              "accuracy": 1.0,
+              "f1_static_like": 1.0,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 0,
+              "n": 5,
+              "precision_static_like": 1.0,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 3,
+              "tp_static_like": 2
+            }
+          },
+          "geometry_threshold": {
+            "dynamic_mean": 10605.151515,
+            "metrics": {
+              "accuracy": 0.2,
+              "f1_static_like": 0.0,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 2,
+              "n": 5,
+              "precision_static_like": 0.0,
+              "recall_static_like": 0.0,
+              "tn_dynamic_or_non_static_like": 1,
+              "tp_static_like": 0
+            },
+            "static_larger_than_dynamic": true,
+            "static_mean": 17041.702703,
+            "status": "fit",
+            "threshold": 13823.427109
+          },
+          "majority": {
+            "metrics": {
+              "accuracy": 0.4,
+              "f1_static_like": 0.5714,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 3,
+              "n": 5,
+              "precision_static_like": 0.4,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 2
+            },
+            "prediction": 1,
+            "train_class_counts": {
+              "0": 33,
+              "1": 37
+            }
+          }
+        },
+        "eval_class_counts": {
+          "0": 3,
+          "1": 2
+        },
+        "model": {
+          "eval_class_counts": {
+            "0": 3,
+            "1": 2
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.4,
+              "f1_static_like": 0.4,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 2,
+              "n": 5,
+              "precision_static_like": 0.3333,
+              "recall_static_like": 0.5,
+              "tn_dynamic_or_non_static_like": 1,
+              "tp_static_like": 1
+            },
+            "train": {
+              "accuracy": 0.8714,
+              "f1_static_like": 0.8831,
+              "fn_static_predicted_dynamic": 3,
+              "fp_dynamic_predicted_static": 6,
+              "n": 70,
+              "precision_static_like": 0.85,
+              "recall_static_like": 0.9189,
+              "tn_dynamic_or_non_static_like": 27,
+              "tp_static_like": 34
+            }
+          },
+          "standardization": {
+            "mean": [
+              513.468082,
+              329.20708,
+              184.485714,
+              102.671429,
+              14007.328571,
+              14007.328571,
+              184.485714,
+              102.671429,
+              0.360127
+            ],
+            "std": [
+              368.364793,
+              32.751176,
+              133.238963,
+              73.007577,
+              21217.875372,
+              21217.875372,
+              133.238963,
+              73.007577,
+              0.107447
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 33,
+            "1": 37
+          },
+          "weights": [
+            0.069651,
+            1.798952,
+            -0.230795,
+            0.433656,
+            -1.766121,
+            0.646097,
+            0.646097,
+            0.433656,
+            -1.766121,
+            0.260924
+          ]
+        },
+        "n_eval": 5,
+        "n_train": 70,
+        "status_notes": [],
+        "train_class_counts": {
+          "0": 33,
+          "1": 37
+        }
+      }
+    },
+    "original_split_feature_ablations": {
+      "all_numeric": {
+        "test": {
+          "eval_class_counts": {
+            "0": 20,
+            "1": 22
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.7857,
+              "f1_static_like": 0.8235,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 8,
+              "n": 42,
+              "precision_static_like": 0.7241,
+              "recall_static_like": 0.9545,
+              "tn_dynamic_or_non_static_like": 12,
+              "tp_static_like": 21
+            },
+            "train": {
+              "accuracy": 0.8519,
+              "f1_static_like": 0.8571,
+              "fn_static_predicted_dynamic": 3,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9231,
+              "recall_static_like": 0.8,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 12
+            }
+          },
+          "standardization": {
+            "mean": [
+              370.721393,
+              333.871987,
+              213.592593,
+              101.666667,
+              23632.222222,
+              23632.222222,
+              213.592593,
+              101.666667,
+              0.355319
+            ],
+            "std": [
+              289.651776,
+              27.099891,
+              254.968736,
+              95.591724,
+              47038.288836,
+              47038.288836,
+              254.968736,
+              95.591724,
+              0.109106
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.594691,
+            2.465557,
+            0.011604,
+            -0.047982,
+            -1.18286,
+            0.549812,
+            0.549812,
+            -0.047982,
+            -1.18286,
+            0.581323
+          ]
+        },
+        "train": {
+          "eval_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.8519,
+              "f1_static_like": 0.8571,
+              "fn_static_predicted_dynamic": 3,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9231,
+              "recall_static_like": 0.8,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 12
+            },
+            "train": {
+              "accuracy": 0.8519,
+              "f1_static_like": 0.8571,
+              "fn_static_predicted_dynamic": 3,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9231,
+              "recall_static_like": 0.8,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 12
+            }
+          },
+          "standardization": {
+            "mean": [
+              370.721393,
+              333.871987,
+              213.592593,
+              101.666667,
+              23632.222222,
+              23632.222222,
+              213.592593,
+              101.666667,
+              0.355319
+            ],
+            "std": [
+              289.651776,
+              27.099891,
+              254.968736,
+              95.591724,
+              47038.288836,
+              47038.288836,
+              254.968736,
+              95.591724,
+              0.109106
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.594691,
+            2.465557,
+            0.011604,
+            -0.047982,
+            -1.18286,
+            0.549812,
+            0.549812,
+            -0.047982,
+            -1.18286,
+            0.581323
+          ]
+        },
+        "val": {
+          "eval_class_counts": {
+            "0": 4,
+            "1": 2
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height",
+            "semantic_gate_score"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.1667,
+              "f1_static_like": 0.2857,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 4,
+              "n": 6,
+              "precision_static_like": 0.2,
+              "recall_static_like": 0.5,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 1
+            },
+            "train": {
+              "accuracy": 0.8519,
+              "f1_static_like": 0.8571,
+              "fn_static_predicted_dynamic": 3,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9231,
+              "recall_static_like": 0.8,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 12
+            }
+          },
+          "standardization": {
+            "mean": [
+              370.721393,
+              333.871987,
+              213.592593,
+              101.666667,
+              23632.222222,
+              23632.222222,
+              213.592593,
+              101.666667,
+              0.355319
+            ],
+            "std": [
+              289.651776,
+              27.099891,
+              254.968736,
+              95.591724,
+              47038.288836,
+              47038.288836,
+              254.968736,
+              95.591724,
+              0.109106
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.594691,
+            2.465557,
+            0.011604,
+            -0.047982,
+            -1.18286,
+            0.549812,
+            0.549812,
+            -0.047982,
+            -1.18286,
+            0.581323
+          ]
+        }
+      },
+      "area_only": {
+        "test": {
+          "eval_class_counts": {
+            "0": 20,
+            "1": 22
+          },
+          "features": [
+            "mask_area_px"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.5238,
+              "f1_static_like": 0.6875,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 20,
+              "n": 42,
+              "precision_static_like": 0.5238,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 22
+            },
+            "train": {
+              "accuracy": 0.5926,
+              "f1_static_like": 0.7179,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 10,
+              "n": 27,
+              "precision_static_like": 0.5833,
+              "recall_static_like": 0.9333,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 14
+            }
+          },
+          "standardization": {
+            "mean": [
+              23632.222222
+            ],
+            "std": [
+              47038.288836
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.223837,
+            -0.19868
+          ]
+        },
+        "train": {
+          "eval_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "features": [
+            "mask_area_px"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.5926,
+              "f1_static_like": 0.7179,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 10,
+              "n": 27,
+              "precision_static_like": 0.5833,
+              "recall_static_like": 0.9333,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 14
+            },
+            "train": {
+              "accuracy": 0.5926,
+              "f1_static_like": 0.7179,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 10,
+              "n": 27,
+              "precision_static_like": 0.5833,
+              "recall_static_like": 0.9333,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 14
+            }
+          },
+          "standardization": {
+            "mean": [
+              23632.222222
+            ],
+            "std": [
+              47038.288836
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.223837,
+            -0.19868
+          ]
+        },
+        "val": {
+          "eval_class_counts": {
+            "0": 4,
+            "1": 2
+          },
+          "features": [
+            "mask_area_px"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.3333,
+              "f1_static_like": 0.5,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 4,
+              "n": 6,
+              "precision_static_like": 0.3333,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 2
+            },
+            "train": {
+              "accuracy": 0.5926,
+              "f1_static_like": 0.7179,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 10,
+              "n": 27,
+              "precision_static_like": 0.5833,
+              "recall_static_like": 0.9333,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 14
+            }
+          },
+          "standardization": {
+            "mean": [
+              23632.222222
+            ],
+            "std": [
+              47038.288836
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.223837,
+            -0.19868
+          ]
+        }
+      },
+      "geometry_only": {
+        "test": {
+          "eval_class_counts": {
+            "0": 20,
+            "1": 22
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "bbox_width",
+            "bbox_height"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.7857,
+              "f1_static_like": 0.8235,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 8,
+              "n": 42,
+              "precision_static_like": 0.7241,
+              "recall_static_like": 0.9545,
+              "tn_dynamic_or_non_static_like": 12,
+              "tp_static_like": 21
+            },
+            "train": {
+              "accuracy": 0.8889,
+              "f1_static_like": 0.8966,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9286,
+              "recall_static_like": 0.8667,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 13
+            }
+          },
+          "standardization": {
+            "mean": [
+              370.721393,
+              333.871987,
+              213.592593,
+              101.666667,
+              213.592593,
+              101.666667
+            ],
+            "std": [
+              289.651776,
+              27.099891,
+              254.968736,
+              95.591724,
+              254.968736,
+              95.591724
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.630072,
+            2.482658,
+            -0.021028,
+            0.192037,
+            -0.922587,
+            0.192037,
+            -0.922587
+          ]
+        },
+        "train": {
+          "eval_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "bbox_width",
+            "bbox_height"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.8889,
+              "f1_static_like": 0.8966,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9286,
+              "recall_static_like": 0.8667,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 13
+            },
+            "train": {
+              "accuracy": 0.8889,
+              "f1_static_like": 0.8966,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9286,
+              "recall_static_like": 0.8667,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 13
+            }
+          },
+          "standardization": {
+            "mean": [
+              370.721393,
+              333.871987,
+              213.592593,
+              101.666667,
+              213.592593,
+              101.666667
+            ],
+            "std": [
+              289.651776,
+              27.099891,
+              254.968736,
+              95.591724,
+              254.968736,
+              95.591724
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.630072,
+            2.482658,
+            -0.021028,
+            0.192037,
+            -0.922587,
+            0.192037,
+            -0.922587
+          ]
+        },
+        "val": {
+          "eval_class_counts": {
+            "0": 4,
+            "1": 2
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "bbox_width",
+            "bbox_height"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.1667,
+              "f1_static_like": 0.2857,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 4,
+              "n": 6,
+              "precision_static_like": 0.2,
+              "recall_static_like": 0.5,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 1
+            },
+            "train": {
+              "accuracy": 0.8889,
+              "f1_static_like": 0.8966,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9286,
+              "recall_static_like": 0.8667,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 13
+            }
+          },
+          "standardization": {
+            "mean": [
+              370.721393,
+              333.871987,
+              213.592593,
+              101.666667,
+              213.592593,
+              101.666667
+            ],
+            "std": [
+              289.651776,
+              27.099891,
+              254.968736,
+              95.591724,
+              254.968736,
+              95.591724
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.630072,
+            2.482658,
+            -0.021028,
+            0.192037,
+            -0.922587,
+            0.192037,
+            -0.922587
+          ]
+        }
+      },
+      "no_semantic_gate_score": {
+        "test": {
+          "eval_class_counts": {
+            "0": 20,
+            "1": 22
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.7857,
+              "f1_static_like": 0.8235,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 8,
+              "n": 42,
+              "precision_static_like": 0.7241,
+              "recall_static_like": 0.9545,
+              "tn_dynamic_or_non_static_like": 12,
+              "tp_static_like": 21
+            },
+            "train": {
+              "accuracy": 0.8889,
+              "f1_static_like": 0.8966,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9286,
+              "recall_static_like": 0.8667,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 13
+            }
+          },
+          "standardization": {
+            "mean": [
+              370.721393,
+              333.871987,
+              213.592593,
+              101.666667,
+              23632.222222,
+              23632.222222,
+              213.592593,
+              101.666667
+            ],
+            "std": [
+              289.651776,
+              27.099891,
+              254.968736,
+              95.591724,
+              47038.288836,
+              47038.288836,
+              254.968736,
+              95.591724
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.540946,
+            2.37139,
+            -0.070363,
+            -0.066568,
+            -1.158519,
+            0.51884,
+            0.51884,
+            -0.066568,
+            -1.158519
+          ]
+        },
+        "train": {
+          "eval_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.8889,
+              "f1_static_like": 0.8966,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9286,
+              "recall_static_like": 0.8667,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 13
+            },
+            "train": {
+              "accuracy": 0.8889,
+              "f1_static_like": 0.8966,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9286,
+              "recall_static_like": 0.8667,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 13
+            }
+          },
+          "standardization": {
+            "mean": [
+              370.721393,
+              333.871987,
+              213.592593,
+              101.666667,
+              23632.222222,
+              23632.222222,
+              213.592593,
+              101.666667
+            ],
+            "std": [
+              289.651776,
+              27.099891,
+              254.968736,
+              95.591724,
+              47038.288836,
+              47038.288836,
+              254.968736,
+              95.591724
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.540946,
+            2.37139,
+            -0.070363,
+            -0.066568,
+            -1.158519,
+            0.51884,
+            0.51884,
+            -0.066568,
+            -1.158519
+          ]
+        },
+        "val": {
+          "eval_class_counts": {
+            "0": 4,
+            "1": 2
+          },
+          "features": [
+            "mean_center_x",
+            "mean_center_y",
+            "mean_size_x",
+            "mean_size_y",
+            "support_count",
+            "mask_area_px",
+            "bbox_width",
+            "bbox_height"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.1667,
+              "f1_static_like": 0.2857,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 4,
+              "n": 6,
+              "precision_static_like": 0.2,
+              "recall_static_like": 0.5,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 1
+            },
+            "train": {
+              "accuracy": 0.8889,
+              "f1_static_like": 0.8966,
+              "fn_static_predicted_dynamic": 2,
+              "fp_dynamic_predicted_static": 1,
+              "n": 27,
+              "precision_static_like": 0.9286,
+              "recall_static_like": 0.8667,
+              "tn_dynamic_or_non_static_like": 11,
+              "tp_static_like": 13
+            }
+          },
+          "standardization": {
+            "mean": [
+              370.721393,
+              333.871987,
+              213.592593,
+              101.666667,
+              23632.222222,
+              23632.222222,
+              213.592593,
+              101.666667
+            ],
+            "std": [
+              289.651776,
+              27.099891,
+              254.968736,
+              95.591724,
+              47038.288836,
+              47038.288836,
+              254.968736,
+              95.591724
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.540946,
+            2.37139,
+            -0.070363,
+            -0.066568,
+            -1.158519,
+            0.51884,
+            0.51884,
+            -0.066568,
+            -1.158519
+          ]
+        }
+      },
+      "support_only": {
+        "test": {
+          "eval_class_counts": {
+            "0": 20,
+            "1": 22
+          },
+          "features": [
+            "support_count"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.5238,
+              "f1_static_like": 0.6875,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 20,
+              "n": 42,
+              "precision_static_like": 0.5238,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 22
+            },
+            "train": {
+              "accuracy": 0.5926,
+              "f1_static_like": 0.7179,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 10,
+              "n": 27,
+              "precision_static_like": 0.5833,
+              "recall_static_like": 0.9333,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 14
+            }
+          },
+          "standardization": {
+            "mean": [
+              23632.222222
+            ],
+            "std": [
+              47038.288836
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.223837,
+            -0.19868
+          ]
+        },
+        "train": {
+          "eval_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "features": [
+            "support_count"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.5926,
+              "f1_static_like": 0.7179,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 10,
+              "n": 27,
+              "precision_static_like": 0.5833,
+              "recall_static_like": 0.9333,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 14
+            },
+            "train": {
+              "accuracy": 0.5926,
+              "f1_static_like": 0.7179,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 10,
+              "n": 27,
+              "precision_static_like": 0.5833,
+              "recall_static_like": 0.9333,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 14
+            }
+          },
+          "standardization": {
+            "mean": [
+              23632.222222
+            ],
+            "std": [
+              47038.288836
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.223837,
+            -0.19868
+          ]
+        },
+        "val": {
+          "eval_class_counts": {
+            "0": 4,
+            "1": 2
+          },
+          "features": [
+            "support_count"
+          ],
+          "metrics": {
+            "eval": {
+              "accuracy": 0.3333,
+              "f1_static_like": 0.5,
+              "fn_static_predicted_dynamic": 0,
+              "fp_dynamic_predicted_static": 4,
+              "n": 6,
+              "precision_static_like": 0.3333,
+              "recall_static_like": 1.0,
+              "tn_dynamic_or_non_static_like": 0,
+              "tp_static_like": 2
+            },
+            "train": {
+              "accuracy": 0.5926,
+              "f1_static_like": 0.7179,
+              "fn_static_predicted_dynamic": 1,
+              "fp_dynamic_predicted_static": 10,
+              "n": 27,
+              "precision_static_like": 0.5833,
+              "recall_static_like": 0.9333,
+              "tn_dynamic_or_non_static_like": 2,
+              "tp_static_like": 14
+            }
+          },
+          "standardization": {
+            "mean": [
+              23632.222222
+            ],
+            "std": [
+              47038.288836
+            ]
+          },
+          "status": "fit",
+          "train_class_counts": {
+            "0": 12,
+            "1": 15
+          },
+          "weights": [
+            0.223837,
+            -0.19868
+          ]
+        }
+      }
+    },
+    "train_on_one_category": {
+      "forklift": {
+        "n_train": 36,
+        "reason": "Each non-ambiguous canonical category has only one target class, so a one-category supervised binary train split cannot estimate both classes.",
+        "status": "infeasible_single_class_train",
+        "train_class_counts": {
+          "0": 36,
+          "1": 0
+        }
+      },
+      "warehouse rack": {
+        "n_train": 16,
+        "reason": "Each non-ambiguous canonical category has only one target class, so a one-category supervised binary train split cannot estimate both classes.",
+        "status": "infeasible_single_class_train",
+        "train_class_counts": {
+          "0": 0,
+          "1": 16
+        }
+      },
+      "work table": {
+        "n_train": 23,
+        "reason": "Each non-ambiguous canonical category has only one target class, so a one-category supervised binary train split cannot estimate both classes.",
+        "status": "infeasible_single_class_train",
+        "train_class_counts": {
+          "0": 0,
+          "1": 23
+        }
+      }
+    }
+  },
+  "target_coupling": {
+    "interpretation": "The P199 target is a semantic category definition: forklift maps to dynamic/non-static-like, while warehouse rack and work table map to static-like. Category labels are therefore not used as learned-model inputs in P200 stress tests.",
+    "per_category": {
+      "forklift": {
+        "class_counts": {
+          "0": 36,
+          "1": 0
+        },
+        "n": 36,
+        "single_class": true
+      },
+      "warehouse rack": {
+        "class_counts": {
+          "0": 0,
+          "1": 16
+        },
+        "n": 16,
+        "single_class": true
+      },
+      "work table": {
+        "class_counts": {
+          "0": 0,
+          "1": 23
+        },
+        "n": 23,
+        "single_class": true
+      }
+    },
+    "target_is_deterministic_given_canonical_label_on_non_ambiguous_rows": true
+  }
+}
