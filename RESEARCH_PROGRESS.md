@@ -1399,3 +1399,14 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 - **Ablation:** Hallway test all-features accuracy/F1 = 0.688/0.737; no_dynamic_ratio = 0.688/0.737; geometry_only = 0.750/0.714; support_only = 0.625/0.667; no_label_category_flags = 0.812/0.842. This confirms the smoke is not being reported as a rule-copy contribution.
 - **Interpretation:** a real learned model was trained, but labels are weak/rule-derived and sample size is only 51 clusters. The result proves the training/evaluation path and exposes the next scientific requirement—independent boundary labels or pairwise association supervision, not SAM2 finetuning.
 - **Artifacts:** `tools/train_admission_scorer_p191.py`, `paper/evidence/admission_scorer_smoke_p191.json`, `paper/export/admission_scorer_smoke_p191.md`.
+
+## 2026-05-10 — P192 GPU Admission-Scorer Training Smoke
+
+- **Correction:** P191 is retained only as a CPU baseline; the real-model mainline now requires CUDA/GPU execution.
+- **GPU environment:** `/home/rui/miniconda3/envs/openvla/bin/python`, PyTorch `2.11.0+cu130`, CUDA runtime `13.0`, device `cuda`, GPU `NVIDIA GeForce RTX 3060`.
+- **Training smoke:** added `tools/train_admission_scorer_gpu_p192.py`, a CUDA-only PyTorch script that asserts `torch.cuda.is_available()` and refuses CPU fallback. It trains both a small MLP and logistic baseline on the P190 51-cluster dataset.
+- **GPU evidence:** smoke run recorded `cuda_available=True`; memory before `0/0` allocated/reserved bytes, after `18092544/23068672`, peak `18108416/23068672`; GPU MLP training time about `0.35s`, logistic about `0.32s`.
+- **Metrics:** GPU MLP train accuracy/F1 `1.000/1.000`, validation `0.857/0.833`, Hallway test `0.688/0.737`; GPU logistic Hallway test `0.625/0.667`; rule baseline remains `1.000` by construction from weak labels.
+- **Interpretation:** this is a real CUDA training run but still only pipeline validation because 51 rule-derived cluster labels are too small and leak rule proxies. The next phase must expand samples from existing TorWIC manifests/observations/tracklets/map objects.
+- **Artifacts:** `tools/train_admission_scorer_gpu_p192.py`, `paper/evidence/admission_scorer_gpu_p192.json`, `paper/export/admission_scorer_gpu_p192.md`.
+- **P193 next command:** `/home/rui/miniconda3/envs/openvla/bin/python tools/build_admission_frame_dataset_p193.py --outputs-root outputs --cluster-labels paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_frame_dataset_p193.json --output-csv paper/evidence/admission_frame_dataset_p193.csv`.
