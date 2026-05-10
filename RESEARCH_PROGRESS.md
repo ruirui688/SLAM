@@ -32,6 +32,15 @@ summary and local paths here, then commit and push the repository.
 - **Outputs:** `tools/prepare_independent_supervision_p195.py`, `paper/evidence/independent_supervision_gate_p195.json`, `paper/export/independent_supervision_gate_p195.md`.
 - **Verification:** `python3 tools/prepare_independent_supervision_p195.py`; `python3 -m py_compile tools/prepare_independent_supervision_p195.py`.
 
+## 2026-05-10 P196 — Human-labeling closed-loop packet
+
+- **Goal:** Prepare a human review packet so real reviewers can fill P194 `human_*` labels and then rerun the P195 independent-label gate.
+- **Result: READY FOR HUMAN REVIEW, still BLOCKED for training.** Added a protocol, packet manifest, and prioritized review CSVs. No human labels were inferred, copied, or filled from weak labels, categories, model outputs, or proxy fields.
+- **Evidence availability:** boundary visual references existing/missing = `32/0`; association pair `artifact_reference_a` existing/missing = `160/0`; `artifact_reference_b` existing/missing = `160/0`. No P194 sample currently lacks reviewable visual evidence.
+- **Minimum review strategy:** label 24 boundary rows first with train/val/test coverage and both admit/reject classes, prioritizing false-positive, near-threshold, proxy-sensitive, and infrastructure-boundary cases; then label 40 pair rows with both same/different object classes, continuing past 40 if the first batch does not produce both human classes.
+- **Outputs:** `tools/build_human_labeling_packet_p196.py`, `paper/export/human_labeling_protocol_p196.md`, `paper/evidence/human_labeling_packet_p196.json`, `paper/evidence/admission_boundary_label_sheet_p196_review.csv`, `paper/evidence/association_pair_candidates_p196_review.csv`.
+- **Verification:** `python3 tools/build_human_labeling_packet_p196.py`; `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED`; `python3 -m py_compile tools/build_human_labeling_packet_p196.py tools/prepare_independent_supervision_p195.py`; JSON sanity check for `paper/evidence/human_labeling_packet_p196.json`.
+
 ## 2026-05-10 P184 — Final polish citation/package consistency after ORB-SLAM3
 
 - **Goal:** Close the P173→P184 claim-boundary gap by reading ORB-SLAM3 metrics, P183 hostile reviewer attacks, `main.tex`, and submission package/checklists; then make only paper/package consistency fixes.

@@ -1,0 +1,216 @@
+{
+  "phase": "P196-human-labeling-closed-loop-packet",
+  "status": "READY_FOR_HUMAN_REVIEW",
+  "scientific_boundary": "P196 prepares human labeling materials only. It does not train, does not infer human labels, and does not unblock P195 without real human input.",
+  "inputs": {
+    "boundary_sheet_p194": "paper/evidence/admission_boundary_label_sheet_p194.csv",
+    "pair_candidates_p194": "paper/evidence/association_pair_candidates_p194.csv",
+    "p195_gate": "paper/evidence/independent_supervision_gate_p195.json"
+  },
+  "outputs": {
+    "protocol": "paper/export/human_labeling_protocol_p196.md",
+    "packet": "paper/evidence/human_labeling_packet_p196.json",
+    "boundary_review_csv": "paper/evidence/admission_boundary_label_sheet_p196_review.csv",
+    "pair_review_csv": "paper/evidence/association_pair_candidates_p196_review.csv"
+  },
+  "p195_gate_requirements": {
+    "min_boundary_labels": 24,
+    "min_pair_labels": 40,
+    "require_both_classes": true,
+    "require_all_splits": true,
+    "block_reasons": [
+      "only 0 valid human_admit_label values; need at least 24",
+      "only 0 valid human_same_object_label values; need at least 40",
+      "human_admit_label does not cover both admit and reject classes",
+      "human_same_object_label does not cover both same-object and different-object classes",
+      "human_admit_label missing required split coverage: ['test', 'train', 'val']"
+    ]
+  },
+  "label_audit": {
+    "boundary": {
+      "total": 32,
+      "blank": 32,
+      "valid": 0,
+      "invalid": 0
+    },
+    "pairs": {
+      "total": 160,
+      "blank": 160,
+      "valid": 0,
+      "invalid": 0
+    }
+  },
+  "evidence_availability": {
+    "boundary": {
+      "total_rows": 32,
+      "evidence_paths": {
+        "existing": 32,
+        "missing": 0
+      },
+      "missing_visual_evidence_samples": [],
+      "by_split": {
+        "train": 13,
+        "val": 2,
+        "test": 17
+      },
+      "by_category": {
+        "barrier": 11,
+        "work table": 11,
+        "warehouse rack": 8,
+        "forklift": 2
+      },
+      "by_risk_tags": {
+        "near_threshold;proxy_sensitive;infra_reject_boundary": 1,
+        "proxy_sensitive": 25,
+        "near_threshold;proxy_sensitive": 2,
+        "false_positive;proxy_sensitive;infra_reject_boundary": 3,
+        "proxy_sensitive;infra_reject_boundary": 1
+      },
+      "human_admit_label_audit": {
+        "blank": 32,
+        "valid": 0,
+        "invalid": 0
+      }
+    },
+    "pairs": {
+      "total_rows": 160,
+      "artifact_reference_a": {
+        "existing": 160,
+        "missing": 0
+      },
+      "artifact_reference_b": {
+        "existing": 160,
+        "missing": 0
+      },
+      "pair_rows_with_missing_visual_evidence": 0,
+      "missing_visual_evidence_pairs": [],
+      "by_split_pair": {
+        "test|test": 119,
+        "train|train": 39,
+        "val|val": 2
+      },
+      "by_category": {
+        "forklift": 61,
+        "work table": 36,
+        "warehouse rack": 25,
+        "barrier": 38
+      },
+      "human_same_object_label_audit": {
+        "blank": 160,
+        "valid": 0,
+        "invalid": 0
+      }
+    }
+  },
+  "recommended_minimum_labeling_strategy": {
+    "boundary_first": {
+      "target_valid_labels": 24,
+      "must_cover_splits": [
+        "train",
+        "val",
+        "test"
+      ],
+      "must_cover_human_classes": [
+        "0 reject",
+        "1 admit"
+      ],
+      "priority_basis": [
+        "false_positive",
+        "near_threshold",
+        "proxy_sensitive",
+        "infrastructure_boundary",
+        "split/category balance"
+      ],
+      "ordered_review_ids": [
+        "p194_review_0009",
+        "p194_review_0001",
+        "p194_review_0018",
+        "p194_review_0012",
+        "p194_review_0020",
+        "p194_review_0021",
+        "p194_review_0031",
+        "p194_review_0028",
+        "p194_review_0002",
+        "p194_review_0003",
+        "p194_review_0004",
+        "p194_review_0010",
+        "p194_review_0005",
+        "p194_review_0006",
+        "p194_review_0007",
+        "p194_review_0008",
+        "p194_review_0011",
+        "p194_review_0013",
+        "p194_review_0014",
+        "p194_review_0015",
+        "p194_review_0016",
+        "p194_review_0017",
+        "p194_review_0019",
+        "p194_review_0022"
+      ]
+    },
+    "pairs_second": {
+      "target_valid_labels": 40,
+      "must_cover_human_classes": [
+        "0 different object",
+        "1 same physical object"
+      ],
+      "priority_basis": [
+        "weak_label_disagreement",
+        "dynamic_category",
+        "val/train/test coverage",
+        "geometry-separation review risk",
+        "category balance"
+      ],
+      "ordered_pair_ids": [
+        "p194_pair_00522",
+        "p194_pair_00427",
+        "p194_pair_00016",
+        "p194_pair_00278",
+        "p194_pair_00189",
+        "p194_pair_00239",
+        "p194_pair_00031",
+        "p194_pair_00033",
+        "p194_pair_00034",
+        "p194_pair_00047",
+        "p194_pair_00051",
+        "p194_pair_00052",
+        "p194_pair_00053",
+        "p194_pair_00054",
+        "p194_pair_00055",
+        "p194_pair_00056",
+        "p194_pair_00057",
+        "p194_pair_00058",
+        "p194_pair_00059",
+        "p194_pair_00060",
+        "p194_pair_00066",
+        "p194_pair_00067",
+        "p194_pair_00068",
+        "p194_pair_00070",
+        "p194_pair_00071",
+        "p194_pair_00080",
+        "p194_pair_00081",
+        "p194_pair_00082",
+        "p194_pair_00083",
+        "p194_pair_00084",
+        "p194_pair_00085",
+        "p194_pair_00092",
+        "p194_pair_00093",
+        "p194_pair_00094",
+        "p194_pair_00095",
+        "p194_pair_00096",
+        "p194_pair_00097",
+        "p194_pair_00104",
+        "p194_pair_00105",
+        "p194_pair_00106"
+      ],
+      "class_balance_note": "The order is a review recommendation only. If the first 40 visually do not include both same and different object labels, continue reviewing lower-priority rows until both human classes are real and documented."
+    }
+  },
+  "forbidden_shortcuts": [
+    "do not fill human labels from current_weak_label",
+    "do not fill human labels from category names",
+    "do not fill human labels from rule_proxy_fields",
+    "do not fill human labels from model predictions or probabilities",
+    "do not force labels for missing or ambiguous visual evidence"
+  ]
+}
