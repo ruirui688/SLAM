@@ -1,6 +1,6 @@
 # P188 Final Visual Check
 
-**Date:** 2026-05-10 13:40+08  
+**Date:** 2026-05-10 13:40+08
 **Scope:** Machine skim follow-up for final PDF warnings. No new data, no training, no system package installation.
 
 ## Inputs
