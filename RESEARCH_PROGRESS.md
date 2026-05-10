@@ -21,6 +21,15 @@ summary and local paths here, then commit and push the repository.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
 
 
+## 2026-05-10 P198 — Safe review-label sync gate
+
+- **Goal:** Add a reproducible validation-first bridge from P197 semantic review CSVs back to the P194 source CSVs that P195 reads, without creating or inferring any labels.
+- **Result: VALID dry-run, still BLOCKED for training.** Added `tools/sync_review_labels_p198.py`; default mode writes reports only. `--apply` creates timestamped backups under `paper/evidence/backups/` and copies only reviewed `human_*` columns keyed by `review_id` / `pair_id`.
+- **Guardrails:** validates key uniqueness, row identity (`sample_id`, `sample_id_a`, `sample_id_b`), binary label domains, compact confidence values, low-confidence notes warnings, shortcut-copy warnings against weak labels, and single-class failures unless explicitly allowed.
+- **Current label audit:** P197/P194 boundary `human_admit_label` nonblank = `0/32`; pair `human_same_object_label` nonblank = `0/160`. No labels were filled, inferred, or copied from semantic hints, categories, weak labels, or model outputs.
+- **Outputs:** `tools/sync_review_labels_p198.py`, `paper/evidence/review_label_sync_p198.json`, `paper/export/review_label_sync_p198.md`.
+- **Verification:** `python3 tools/sync_review_labels_p198.py` returns `VALID` dry-run with zero labels copied; `python3 tools/sync_review_labels_p198.py --run-gate` reports P195 `BLOCKED`; `python3 -m py_compile tools/sync_review_labels_p198.py`; CSV sanity confirms all source/review human label columns remain blank.
+
 ## 2026-05-10 P195 — Independent-label gate
 
 - **Goal:** Prevent P193/P194 weak-label leakage from being promoted into a learned admission-control claim without independent human labels.

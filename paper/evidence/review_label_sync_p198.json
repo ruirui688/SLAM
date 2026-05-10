@@ -1,0 +1,148 @@
+{
+  "phase": "P198-review-label-sync",
+  "status": "VALID",
+  "mode": "dry-run",
+  "decision": "validated only; dry-run made no source CSV changes",
+  "timestamp_utc": "20260510T081943Z",
+  "inputs": {
+    "boundary_source": "paper/evidence/admission_boundary_label_sheet_p194.csv",
+    "pair_source": "paper/evidence/association_pair_candidates_p194.csv",
+    "boundary_reviewed": "paper/evidence/admission_boundary_label_sheet_p197_semantic_review.csv",
+    "pair_reviewed": "paper/evidence/association_pair_candidates_p197_semantic_review.csv"
+  },
+  "outputs": {
+    "json": "paper/evidence/review_label_sync_p198.json",
+    "markdown": "paper/export/review_label_sync_p198.md"
+  },
+  "sync_fields": {
+    "boundary": [
+      "human_admit_label",
+      "human_label_confidence",
+      "human_notes"
+    ],
+    "pairs": [
+      "human_same_object_label",
+      "human_pair_notes"
+    ]
+  },
+  "validation": {
+    "boundary_source_key": {
+      "rows": 32,
+      "unique": 32,
+      "duplicates": []
+    },
+    "boundary_reviewed_key": {
+      "rows": 32,
+      "unique": 32,
+      "duplicates": []
+    },
+    "pair_source_key": {
+      "rows": 160,
+      "unique": 160,
+      "duplicates": []
+    },
+    "pair_reviewed_key": {
+      "rows": 160,
+      "unique": 160,
+      "duplicates": []
+    },
+    "boundary_identity": {
+      "missing_in_review": 0,
+      "extra_in_review": 0,
+      "identity_mismatches": 0
+    },
+    "pair_identity": {
+      "missing_in_review": 0,
+      "extra_in_review": 0,
+      "identity_mismatches": 0
+    },
+    "boundary_labels": {
+      "total": 32,
+      "blank": 32,
+      "valid": 0,
+      "invalid": 0,
+      "confidence_invalid": 0
+    },
+    "pair_labels": {
+      "total": 160,
+      "blank": 160,
+      "valid": 0,
+      "invalid": 0,
+      "confidence_invalid": 0
+    },
+    "boundary_shortcut": {
+      "nonblank_compared": 0,
+      "all_equal": false
+    },
+    "pair_shortcut": {
+      "nonblank_compared": 0,
+      "all_equal": false
+    },
+    "boundary_class_check": {
+      "nonblank": 0,
+      "classes": [],
+      "counts": {}
+    },
+    "pair_class_check": {
+      "nonblank": 0,
+      "classes": [],
+      "counts": {}
+    }
+  },
+  "sync_plan": {
+    "boundary": {
+      "changed_cells": 0,
+      "nonblank_labels_copied": 0
+    },
+    "pairs": {
+      "changed_cells": 0,
+      "nonblank_labels_copied": 0
+    }
+  },
+  "errors": [],
+  "warnings": [],
+  "backups": [],
+  "gate_result": {
+    "command": "/usr/bin/python3 tools/prepare_independent_supervision_p195.py",
+    "returncode": 0,
+    "status": "BLOCKED",
+    "stdout_tail": "{\n  \"status\": \"BLOCKED\",\n  \"decision\": \"do not train or claim learned admission control until human labels are collected\",\n  \"block_reasons\": [\n    \"only 0 valid human_admit_label values; need at least 24\",\n    \"only 0 valid human_same_object_label values; need at least 40\",\n    \"human_admit_label does not cover both admit and reject classes\",\n    \"human_same_object_label does not cover both same-object and different-object classes\",\n    \"human_admit_label missing required split coverage: ['test', 'train', 'val']\"\n  ],\n  \"label_audit\": {\n    \"boundary\": {\n      \"total\": 32,\n      \"blank\": 32,\n      \"valid\": 0,\n      \"invalid\": 0\n    },\n    \"pairs\": {\n      \"total\": 160,\n      \"blank\": 160,\n      \"valid\": 0,\n      \"invalid\": 0\n    }\n  },\n  \"outputs\": {\n    \"gate_json\": \"paper/evidence/independent_supervision_gate_p195.json\",\n    \"gate_markdown\": \"paper/export/independent_supervision_gate_p195.md\"\n  }\n}\n",
+    "stderr_tail": "",
+    "parsed": {
+      "status": "BLOCKED",
+      "decision": "do not train or claim learned admission control until human labels are collected",
+      "block_reasons": [
+        "only 0 valid human_admit_label values; need at least 24",
+        "only 0 valid human_same_object_label values; need at least 40",
+        "human_admit_label does not cover both admit and reject classes",
+        "human_same_object_label does not cover both same-object and different-object classes",
+        "human_admit_label missing required split coverage: ['test', 'train', 'val']"
+      ],
+      "label_audit": {
+        "boundary": {
+          "total": 32,
+          "blank": 32,
+          "valid": 0,
+          "invalid": 0
+        },
+        "pairs": {
+          "total": 160,
+          "blank": 160,
+          "valid": 0,
+          "invalid": 0
+        }
+      },
+      "outputs": {
+        "gate_json": "paper/evidence/independent_supervision_gate_p195.json",
+        "gate_markdown": "paper/export/independent_supervision_gate_p195.md"
+      }
+    }
+  },
+  "constraints_observed": [
+    "dry-run by default",
+    "no fabricated labels",
+    "no semantic hints, categories, weak labels, or model outputs converted into labels",
+    "apply mode creates timestamped backups before writing",
+    "only human_* columns are copied from reviewed rows keyed by review_id/pair_id"
+  ]
+}
