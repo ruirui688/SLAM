@@ -1382,3 +1382,12 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 - **Build:** Recompiled with existing Tectonic into `paper/tro_submission/build_p188/main.pdf` (15 pages). Compile exit code 0; warnings are hbox/vbox layout warnings only. Final PDF copied to `paper/tro_submission/main.pdf`.
 - **Outputs:** `paper/tro_submission/P188_FINAL_VISUAL_CHECK.md`, `paper/tro_submission/P188_FINAL_VISUAL_CHECK.json`, `paper/tro_submission/build_p188/main.pdf`, `paper/tro_submission/build_p188/tectonic_compile_log_p188.txt`.
 - **Remaining:** final human visual skim before upload; anonymous code mirror only if code is included in double-anonymous review.
+
+## 2026-05-10 — P190 Real-Model Mainline Replan + Training Readiness
+
+- **Mainline switch:** User explicitly paused submission-package micro-polish and activated real-model / dataset experimentation. Human-upload gate is now treated as reached/paused, not the active research mainline.
+- **Selected first training target:** cluster-level object admission scorer (`admit stable map object` vs `reject`). This is selected ahead of SAM2 finetuning because existing TorWIC selected/rejected cluster artifacts already provide weak labels, the first smoke can be CPU-only, and the target directly addresses the project core map-admission decision.
+- **Dataset contract:** materialized 51 cluster-level examples from same-day, cross-day, cross-month, and Hallway selection-v5 artifacts. Split: train=same_day+cross_day (21), val=cross_month (14), test=Hallway (16). Label balance: train 10/11, val 7/7, test 9/7 admit/reject.
+- **Artifacts:** `paper/export/real_model_mainline_p190.md`, `paper/evidence/real_model_mainline_p190.json`, `paper/evidence/admission_scorer_dataset_p190.json`, `paper/evidence/admission_scorer_dataset_p190.csv`, `tools/prepare_admission_scorer_dataset_p190.py`.
+- **Smoke status:** dataset-prep smoke passed with the transparent rule baseline reproducing weak labels on train/val/test. This is expected and is not a learned-model claim; P191 must train/evaluate a learned admission scorer against this rule baseline.
+- **Next command:** `python3 tools/train_admission_scorer_p191.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_scorer_smoke_p191.json --output-md paper/export/admission_scorer_smoke_p191.md`.

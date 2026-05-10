@@ -1,0 +1,131 @@
+{
+  "phase": "P190-real-model-training-readiness",
+  "mainline_switch": "submission package reached; paused by user; real-model/data-experiment mainline activated",
+  "selected_training_target": "cluster_level_object_admission_scorer",
+  "selection_rationale": [
+    "directly targets the project core decision: admit stable semantic map object vs reject dynamic/transient cluster",
+    "uses existing selected/rejected TorWIC cluster artifacts as weak supervision",
+    "CPU-only first smoke possible; no SAM2 full finetune or long GPU run required",
+    "more complete than a stable/dynamic-only classifier because it also covers low-session and low-support infrastructure rejections"
+  ],
+  "candidate_targets_ranked": [
+    {
+      "target": "object_admission_scorer",
+      "rank": 1,
+      "status": "selected"
+    },
+    {
+      "target": "stable_dynamic_object_discriminator",
+      "rank": 2,
+      "status": "later_optional"
+    },
+    {
+      "target": "cross_session_association_scorer",
+      "rank": 3,
+      "status": "needs_pair_label_materialization"
+    },
+    {
+      "target": "lightweight_mask_refinement",
+      "rank": 4,
+      "status": "defer_until_image_mask_supervision_and_gpu_plan"
+    }
+  ],
+  "data_sources": [
+    {
+      "name": "same_day",
+      "path": "outputs/torwic_same_day_aisle_bundle_selection_v5.json",
+      "split": "train"
+    },
+    {
+      "name": "cross_day",
+      "path": "outputs/torwic_cross_day_aisle_bundle_selection_v5.json",
+      "split": "train"
+    },
+    {
+      "name": "cross_month",
+      "path": "outputs/torwic_cross_month_aisle_bundle_selection_v5.json",
+      "split": "val"
+    },
+    {
+      "name": "hallway",
+      "path": "outputs/torwic_hallway_protocol_current_selection_v5.json",
+      "split": "test"
+    }
+  ],
+  "dataset_outputs": {
+    "json": "paper/evidence/admission_scorer_dataset_p190.json",
+    "csv": "paper/evidence/admission_scorer_dataset_p190.csv"
+  },
+  "split_strategy": "train=same_day+cross_day Aisle, val=cross_month Aisle, test=Hallway within-site variation",
+  "n_samples": 51,
+  "split_counts": {
+    "train": 21,
+    "val": 14,
+    "test": 16
+  },
+  "label_counts": {
+    "train": {
+      "admit": 10,
+      "reject": 11
+    },
+    "val": {
+      "admit": 7,
+      "reject": 7
+    },
+    "test": {
+      "admit": 9,
+      "reject": 7
+    }
+  },
+  "features": [
+    "session_count",
+    "frame_count",
+    "support_count",
+    "dynamic_ratio",
+    "label_purity",
+    "mean_center_x",
+    "mean_center_y",
+    "mean_size_x",
+    "mean_size_y",
+    "is_forklift_like",
+    "is_infrastructure_like"
+  ],
+  "target": "target_admit (1=selected stable map object, 0=rejected)",
+  "rule_baseline_metrics": {
+    "train": {
+      "n": 21,
+      "correct": 21,
+      "tp": 10,
+      "tn": 11,
+      "fp": 0,
+      "fn": 0,
+      "accuracy": 1.0
+    },
+    "val": {
+      "n": 14,
+      "correct": 14,
+      "tp": 7,
+      "tn": 7,
+      "fp": 0,
+      "fn": 0,
+      "accuracy": 1.0
+    },
+    "test": {
+      "n": 16,
+      "correct": 16,
+      "tp": 9,
+      "tn": 7,
+      "fp": 0,
+      "fn": 0,
+      "accuracy": 1.0
+    }
+  },
+  "minimal_training_script_gap": "tools/train_admission_scorer_p191.py",
+  "first_smoke_command": "python3 tools/train_admission_scorer_p191.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_scorer_smoke_p191.json --output-md paper/export/admission_scorer_smoke_p191.md",
+  "constraints": [
+    "no new data download",
+    "no long GPU run",
+    "no SAM2 full finetune as first target",
+    "report learned scorer against rule baseline"
+  ]
+}
