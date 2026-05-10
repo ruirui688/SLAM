@@ -1,142 +1,121 @@
 {
   "phase": "P191-admission-scorer-smoke",
   "dataset": "paper/evidence/admission_scorer_dataset_p190.csv",
-  "model": "pure_python_logistic_regression",
-  "epochs": 4000,
-  "lr": 0.08,
-  "l2": 0.001,
-  "features": [
-    "session_count",
-    "frame_count",
-    "support_count",
-    "dynamic_ratio",
-    "label_purity",
-    "mean_center_x",
-    "mean_center_y",
-    "mean_size_x",
-    "mean_size_y",
-    "is_forklift_like",
-    "is_infrastructure_like"
-  ],
-  "standardization": {
-    "session_count": {
-      "mean": 2.5238095238095237,
-      "std": 1.2580804584402767
+  "n_samples": 51,
+  "split_counts": {
+    "train": {
+      "n": 21,
+      "admit": 10,
+      "reject": 11
     },
-    "frame_count": {
-      "mean": 21.19047619047619,
-      "std": 16.675099907229935
+    "val": {
+      "n": 14,
+      "admit": 7,
+      "reject": 7
     },
-    "support_count": {
-      "mean": 21.095238095238095,
-      "std": 16.451674576525093
-    },
-    "dynamic_ratio": {
-      "mean": 0.25529524682067056,
-      "std": 0.4084059614543549
-    },
-    "label_purity": {
-      "mean": 0.9440644427426369,
-      "std": 0.0838610694291393
-    },
-    "mean_center_x": {
-      "mean": 619.383191128471,
-      "std": 390.89436063364985
-    },
-    "mean_center_y": {
-      "mean": 363.9972699989876,
-      "std": 74.49920977567646
-    },
-    "mean_size_x": {
-      "mean": 272.2745268844895,
-      "std": 262.5569293971612
-    },
-    "mean_size_y": {
-      "mean": 138.0127556545101,
-      "std": 104.06332117425582
-    },
-    "is_forklift_like": {
-      "mean": 0.2857142857142857,
-      "std": 0.45175395145262565
-    },
-    "is_infrastructure_like": {
-      "mean": 0.7142857142857143,
-      "std": 0.45175395145262565
+    "test": {
+      "n": 16,
+      "admit": 9,
+      "reject": 7
     }
   },
-  "training_history": [
-    {
-      "epoch": 1,
-      "loss": 0.693149
-    },
-    {
-      "epoch": 10,
-      "loss": 0.440671
-    },
-    {
-      "epoch": 100,
-      "loss": 0.133084
-    },
-    {
-      "epoch": 500,
-      "loss": 0.046841
-    },
-    {
-      "epoch": 1000,
-      "loss": 0.032671
-    },
-    {
-      "epoch": 4000,
-      "loss": 0.024058
-    }
-  ],
-  "bias": -0.556512,
-  "coefficients": [
-    {
-      "feature": "session_count",
-      "coefficient": 2.498824
-    },
-    {
-      "feature": "dynamic_ratio",
-      "coefficient": -2.00897
-    },
-    {
-      "feature": "is_forklift_like",
-      "coefficient": -1.994768
-    },
-    {
-      "feature": "is_infrastructure_like",
-      "coefficient": 1.994768
-    },
-    {
-      "feature": "label_purity",
-      "coefficient": -1.648838
-    },
-    {
-      "feature": "mean_size_x",
-      "coefficient": 1.262075
-    },
-    {
-      "feature": "support_count",
-      "coefficient": 1.193199
-    },
-    {
-      "feature": "frame_count",
-      "coefficient": 1.083902
-    },
-    {
-      "feature": "mean_center_y",
-      "coefficient": 1.083703
-    },
-    {
-      "feature": "mean_size_y",
-      "coefficient": 0.718526
-    },
-    {
-      "feature": "mean_center_x",
-      "coefficient": 0.515498
-    }
-  ],
+  "primary_model": {
+    "name": "all_features",
+    "backend": "numpy_logistic_regression",
+    "features": [
+      "session_count",
+      "frame_count",
+      "support_count",
+      "dynamic_ratio",
+      "label_purity",
+      "mean_center_x",
+      "mean_center_y",
+      "mean_size_x",
+      "mean_size_y",
+      "is_forklift_like",
+      "is_infrastructure_like"
+    ],
+    "epochs": 4000,
+    "lr": 0.08,
+    "l2": 0.001,
+    "bias": -0.556512,
+    "coefficients": [
+      {
+        "feature": "session_count",
+        "coefficient": 2.498824
+      },
+      {
+        "feature": "dynamic_ratio",
+        "coefficient": -2.00897
+      },
+      {
+        "feature": "is_forklift_like",
+        "coefficient": -1.994768
+      },
+      {
+        "feature": "is_infrastructure_like",
+        "coefficient": 1.994768
+      },
+      {
+        "feature": "label_purity",
+        "coefficient": -1.648838
+      },
+      {
+        "feature": "mean_size_x",
+        "coefficient": 1.262075
+      },
+      {
+        "feature": "support_count",
+        "coefficient": 1.193199
+      },
+      {
+        "feature": "frame_count",
+        "coefficient": 1.083902
+      },
+      {
+        "feature": "mean_center_y",
+        "coefficient": 1.083703
+      },
+      {
+        "feature": "mean_size_y",
+        "coefficient": 0.718526
+      },
+      {
+        "feature": "mean_center_x",
+        "coefficient": 0.515498
+      }
+    ],
+    "training_history": [
+      {
+        "epoch": 1,
+        "loss": 0.693149
+      },
+      {
+        "epoch": 10,
+        "loss": 0.440671
+      },
+      {
+        "epoch": 100,
+        "loss": 0.133084
+      },
+      {
+        "epoch": 500,
+        "loss": 0.046841
+      },
+      {
+        "epoch": 1000,
+        "loss": 0.032671
+      },
+      {
+        "epoch": 4000,
+        "loss": 0.024058
+      }
+    ]
+  },
+  "rule_baseline": {
+    "definition": "session_count>=2 and frame_count>=4 and support_count>=6 and dynamic_ratio<=0.2 and label_purity>=0.7",
+    "warning": "This baseline is expected to score 1.000 because P190 labels are weak labels from this rule gate."
+  },
   "metrics": {
     "train": {
       "learned": {
@@ -149,6 +128,8 @@
         "precision_admit": 1.0,
         "recall_admit": 1.0,
         "f1_admit": 1.0,
+        "false_admits": [],
+        "false_rejects": [],
         "false_admit_forklift_like": [],
         "false_reject_infrastructure_like": []
       },
@@ -162,6 +143,8 @@
         "precision_admit": 1.0,
         "recall_admit": 1.0,
         "f1_admit": 1.0,
+        "false_admits": [],
+        "false_rejects": [],
         "false_admit_forklift_like": [],
         "false_reject_infrastructure_like": []
       }
@@ -177,6 +160,11 @@
         "precision_admit": 1.0,
         "recall_admit": 0.7143,
         "f1_admit": 0.8333,
+        "false_admits": [],
+        "false_rejects": [
+          "cross_month:cluster_0013",
+          "cross_month:cluster_0014"
+        ],
         "false_admit_forklift_like": [],
         "false_reject_infrastructure_like": [
           "cross_month:cluster_0013",
@@ -193,6 +181,8 @@
         "precision_admit": 1.0,
         "recall_admit": 1.0,
         "f1_admit": 1.0,
+        "false_admits": [],
+        "false_rejects": [],
         "false_admit_forklift_like": [],
         "false_reject_infrastructure_like": []
       }
@@ -208,6 +198,15 @@
         "precision_admit": 0.7,
         "recall_admit": 0.7778,
         "f1_admit": 0.7368,
+        "false_admits": [
+          "hallway:cluster_0002",
+          "hallway:cluster_0004",
+          "hallway:cluster_0014"
+        ],
+        "false_rejects": [
+          "hallway:cluster_0015",
+          "hallway:cluster_0008"
+        ],
         "false_admit_forklift_like": [
           "hallway:cluster_0002"
         ],
@@ -226,12 +225,592 @@
         "precision_admit": 1.0,
         "recall_admit": 1.0,
         "f1_admit": 1.0,
+        "false_admits": [],
+        "false_rejects": [],
         "false_admit_forklift_like": [],
         "false_reject_infrastructure_like": []
       }
     }
   },
-  "interpretation": "Feasibility smoke only: labels are weak labels from the current rule gate, so matching the rule baseline is expected and not evidence of a stronger learned method.",
+  "ablation": {
+    "all_features": {
+      "backend": "numpy_logistic_regression",
+      "features": [
+        "session_count",
+        "frame_count",
+        "support_count",
+        "dynamic_ratio",
+        "label_purity",
+        "mean_center_x",
+        "mean_center_y",
+        "mean_size_x",
+        "mean_size_y",
+        "is_forklift_like",
+        "is_infrastructure_like"
+      ],
+      "n_features": 11,
+      "metrics": {
+        "train": {
+          "n": 21,
+          "tp": 10,
+          "tn": 11,
+          "fp": 0,
+          "fn": 0,
+          "accuracy": 1.0,
+          "precision_admit": 1.0,
+          "recall_admit": 1.0,
+          "f1_admit": 1.0,
+          "false_admits": [],
+          "false_rejects": [],
+          "false_admit_forklift_like": [],
+          "false_reject_infrastructure_like": []
+        },
+        "val": {
+          "n": 14,
+          "tp": 5,
+          "tn": 7,
+          "fp": 0,
+          "fn": 2,
+          "accuracy": 0.8571,
+          "precision_admit": 1.0,
+          "recall_admit": 0.7143,
+          "f1_admit": 0.8333,
+          "false_admits": [],
+          "false_rejects": [
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ],
+          "false_admit_forklift_like": [],
+          "false_reject_infrastructure_like": [
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ]
+        },
+        "test": {
+          "n": 16,
+          "tp": 7,
+          "tn": 4,
+          "fp": 3,
+          "fn": 2,
+          "accuracy": 0.6875,
+          "precision_admit": 0.7,
+          "recall_admit": 0.7778,
+          "f1_admit": 0.7368,
+          "false_admits": [
+            "hallway:cluster_0002",
+            "hallway:cluster_0004",
+            "hallway:cluster_0014"
+          ],
+          "false_rejects": [
+            "hallway:cluster_0015",
+            "hallway:cluster_0008"
+          ],
+          "false_admit_forklift_like": [
+            "hallway:cluster_0002"
+          ],
+          "false_reject_infrastructure_like": [
+            "hallway:cluster_0015",
+            "hallway:cluster_0008"
+          ]
+        }
+      },
+      "coefficients": [
+        {
+          "feature": "session_count",
+          "coefficient": 2.498824
+        },
+        {
+          "feature": "dynamic_ratio",
+          "coefficient": -2.00897
+        },
+        {
+          "feature": "is_forklift_like",
+          "coefficient": -1.994768
+        },
+        {
+          "feature": "is_infrastructure_like",
+          "coefficient": 1.994768
+        },
+        {
+          "feature": "label_purity",
+          "coefficient": -1.648838
+        },
+        {
+          "feature": "mean_size_x",
+          "coefficient": 1.262075
+        },
+        {
+          "feature": "support_count",
+          "coefficient": 1.193199
+        },
+        {
+          "feature": "frame_count",
+          "coefficient": 1.083902
+        },
+        {
+          "feature": "mean_center_y",
+          "coefficient": 1.083703
+        },
+        {
+          "feature": "mean_size_y",
+          "coefficient": 0.718526
+        },
+        {
+          "feature": "mean_center_x",
+          "coefficient": 0.515498
+        }
+      ]
+    },
+    "no_dynamic_ratio": {
+      "backend": "numpy_logistic_regression",
+      "features": [
+        "session_count",
+        "frame_count",
+        "support_count",
+        "label_purity",
+        "mean_center_x",
+        "mean_center_y",
+        "mean_size_x",
+        "mean_size_y",
+        "is_forklift_like",
+        "is_infrastructure_like"
+      ],
+      "n_features": 10,
+      "metrics": {
+        "train": {
+          "n": 21,
+          "tp": 10,
+          "tn": 11,
+          "fp": 0,
+          "fn": 0,
+          "accuracy": 1.0,
+          "precision_admit": 1.0,
+          "recall_admit": 1.0,
+          "f1_admit": 1.0,
+          "false_admits": [],
+          "false_rejects": [],
+          "false_admit_forklift_like": [],
+          "false_reject_infrastructure_like": []
+        },
+        "val": {
+          "n": 14,
+          "tp": 5,
+          "tn": 7,
+          "fp": 0,
+          "fn": 2,
+          "accuracy": 0.8571,
+          "precision_admit": 1.0,
+          "recall_admit": 0.7143,
+          "f1_admit": 0.8333,
+          "false_admits": [],
+          "false_rejects": [
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ],
+          "false_admit_forklift_like": [],
+          "false_reject_infrastructure_like": [
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ]
+        },
+        "test": {
+          "n": 16,
+          "tp": 7,
+          "tn": 4,
+          "fp": 3,
+          "fn": 2,
+          "accuracy": 0.6875,
+          "precision_admit": 0.7,
+          "recall_admit": 0.7778,
+          "f1_admit": 0.7368,
+          "false_admits": [
+            "hallway:cluster_0002",
+            "hallway:cluster_0004",
+            "hallway:cluster_0014"
+          ],
+          "false_rejects": [
+            "hallway:cluster_0015",
+            "hallway:cluster_0008"
+          ],
+          "false_admit_forklift_like": [
+            "hallway:cluster_0002"
+          ],
+          "false_reject_infrastructure_like": [
+            "hallway:cluster_0015",
+            "hallway:cluster_0008"
+          ]
+        }
+      },
+      "coefficients": [
+        {
+          "feature": "is_forklift_like",
+          "coefficient": -2.730603
+        },
+        {
+          "feature": "is_infrastructure_like",
+          "coefficient": 2.730603
+        },
+        {
+          "feature": "session_count",
+          "coefficient": 2.539837
+        },
+        {
+          "feature": "label_purity",
+          "coefficient": -1.745144
+        },
+        {
+          "feature": "mean_size_x",
+          "coefficient": 1.241832
+        },
+        {
+          "feature": "mean_center_y",
+          "coefficient": 1.170098
+        },
+        {
+          "feature": "support_count",
+          "coefficient": 1.050336
+        },
+        {
+          "feature": "frame_count",
+          "coefficient": 0.917112
+        },
+        {
+          "feature": "mean_center_x",
+          "coefficient": 0.61655
+        },
+        {
+          "feature": "mean_size_y",
+          "coefficient": 0.60775
+        }
+      ]
+    },
+    "geometry_only": {
+      "backend": "numpy_logistic_regression",
+      "features": [
+        "mean_center_x",
+        "mean_center_y",
+        "mean_size_x",
+        "mean_size_y"
+      ],
+      "n_features": 4,
+      "metrics": {
+        "train": {
+          "n": 21,
+          "tp": 6,
+          "tn": 10,
+          "fp": 1,
+          "fn": 4,
+          "accuracy": 0.7619,
+          "precision_admit": 0.8571,
+          "recall_admit": 0.6,
+          "f1_admit": 0.7059,
+          "false_admits": [
+            "cross_day:cluster_0003"
+          ],
+          "false_rejects": [
+            "same_day:cluster_0005",
+            "same_day:cluster_0006",
+            "cross_day:cluster_0005",
+            "cross_day:cluster_0006"
+          ],
+          "false_admit_forklift_like": [],
+          "false_reject_infrastructure_like": [
+            "same_day:cluster_0005",
+            "same_day:cluster_0006",
+            "cross_day:cluster_0005",
+            "cross_day:cluster_0006"
+          ]
+        },
+        "val": {
+          "n": 14,
+          "tp": 3,
+          "tn": 6,
+          "fp": 1,
+          "fn": 4,
+          "accuracy": 0.6429,
+          "precision_admit": 0.75,
+          "recall_admit": 0.4286,
+          "f1_admit": 0.5455,
+          "false_admits": [
+            "cross_month:cluster_0003"
+          ],
+          "false_rejects": [
+            "cross_month:cluster_0005",
+            "cross_month:cluster_0006",
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ],
+          "false_admit_forklift_like": [],
+          "false_reject_infrastructure_like": [
+            "cross_month:cluster_0005",
+            "cross_month:cluster_0006",
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ]
+        },
+        "test": {
+          "n": 16,
+          "tp": 5,
+          "tn": 7,
+          "fp": 0,
+          "fn": 4,
+          "accuracy": 0.75,
+          "precision_admit": 1.0,
+          "recall_admit": 0.5556,
+          "f1_admit": 0.7143,
+          "false_admits": [],
+          "false_rejects": [
+            "hallway:cluster_0007",
+            "hallway:cluster_0009",
+            "hallway:cluster_0013",
+            "hallway:cluster_0008"
+          ],
+          "false_admit_forklift_like": [],
+          "false_reject_infrastructure_like": [
+            "hallway:cluster_0007",
+            "hallway:cluster_0009",
+            "hallway:cluster_0013",
+            "hallway:cluster_0008"
+          ]
+        }
+      },
+      "coefficients": [
+        {
+          "feature": "mean_center_y",
+          "coefficient": 2.660495
+        },
+        {
+          "feature": "mean_size_x",
+          "coefficient": 1.726908
+        },
+        {
+          "feature": "mean_size_y",
+          "coefficient": -1.424693
+        },
+        {
+          "feature": "mean_center_x",
+          "coefficient": 0.219517
+        }
+      ]
+    },
+    "support_only": {
+      "backend": "numpy_logistic_regression",
+      "features": [
+        "session_count",
+        "frame_count",
+        "support_count"
+      ],
+      "n_features": 3,
+      "metrics": {
+        "train": {
+          "n": 21,
+          "tp": 8,
+          "tn": 9,
+          "fp": 2,
+          "fn": 2,
+          "accuracy": 0.8095,
+          "precision_admit": 0.8,
+          "recall_admit": 0.8,
+          "f1_admit": 0.8,
+          "false_admits": [
+            "same_day:cluster_0007",
+            "cross_day:cluster_0004"
+          ],
+          "false_rejects": [
+            "same_day:cluster_0006",
+            "cross_day:cluster_0008"
+          ],
+          "false_admit_forklift_like": [
+            "same_day:cluster_0007",
+            "cross_day:cluster_0004"
+          ],
+          "false_reject_infrastructure_like": [
+            "same_day:cluster_0006",
+            "cross_day:cluster_0008"
+          ]
+        },
+        "val": {
+          "n": 14,
+          "tp": 5,
+          "tn": 6,
+          "fp": 1,
+          "fn": 2,
+          "accuracy": 0.7857,
+          "precision_admit": 0.8333,
+          "recall_admit": 0.7143,
+          "f1_admit": 0.7692,
+          "false_admits": [
+            "cross_month:cluster_0004"
+          ],
+          "false_rejects": [
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ],
+          "false_admit_forklift_like": [
+            "cross_month:cluster_0004"
+          ],
+          "false_reject_infrastructure_like": [
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ]
+        },
+        "test": {
+          "n": 16,
+          "tp": 6,
+          "tn": 4,
+          "fp": 3,
+          "fn": 3,
+          "accuracy": 0.625,
+          "precision_admit": 0.6667,
+          "recall_admit": 0.6667,
+          "f1_admit": 0.6667,
+          "false_admits": [
+            "hallway:cluster_0002",
+            "hallway:cluster_0004",
+            "hallway:cluster_0003"
+          ],
+          "false_rejects": [
+            "hallway:cluster_0006",
+            "hallway:cluster_0015",
+            "hallway:cluster_0008"
+          ],
+          "false_admit_forklift_like": [
+            "hallway:cluster_0002",
+            "hallway:cluster_0003"
+          ],
+          "false_reject_infrastructure_like": [
+            "hallway:cluster_0006",
+            "hallway:cluster_0015",
+            "hallway:cluster_0008"
+          ]
+        }
+      },
+      "coefficients": [
+        {
+          "feature": "session_count",
+          "coefficient": 2.994909
+        },
+        {
+          "feature": "frame_count",
+          "coefficient": -1.127768
+        },
+        {
+          "feature": "support_count",
+          "coefficient": -0.141283
+        }
+      ]
+    },
+    "no_label_category_flags": {
+      "backend": "numpy_logistic_regression",
+      "features": [
+        "session_count",
+        "frame_count",
+        "support_count",
+        "dynamic_ratio",
+        "mean_center_x",
+        "mean_center_y",
+        "mean_size_x",
+        "mean_size_y"
+      ],
+      "n_features": 8,
+      "metrics": {
+        "train": {
+          "n": 21,
+          "tp": 10,
+          "tn": 11,
+          "fp": 0,
+          "fn": 0,
+          "accuracy": 1.0,
+          "precision_admit": 1.0,
+          "recall_admit": 1.0,
+          "f1_admit": 1.0,
+          "false_admits": [],
+          "false_rejects": [],
+          "false_admit_forklift_like": [],
+          "false_reject_infrastructure_like": []
+        },
+        "val": {
+          "n": 14,
+          "tp": 5,
+          "tn": 7,
+          "fp": 0,
+          "fn": 2,
+          "accuracy": 0.8571,
+          "precision_admit": 1.0,
+          "recall_admit": 0.7143,
+          "f1_admit": 0.8333,
+          "false_admits": [],
+          "false_rejects": [
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ],
+          "false_admit_forklift_like": [],
+          "false_reject_infrastructure_like": [
+            "cross_month:cluster_0013",
+            "cross_month:cluster_0014"
+          ]
+        },
+        "test": {
+          "n": 16,
+          "tp": 8,
+          "tn": 5,
+          "fp": 2,
+          "fn": 1,
+          "accuracy": 0.8125,
+          "precision_admit": 0.8,
+          "recall_admit": 0.8889,
+          "f1_admit": 0.8421,
+          "false_admits": [
+            "hallway:cluster_0002",
+            "hallway:cluster_0004"
+          ],
+          "false_rejects": [
+            "hallway:cluster_0008"
+          ],
+          "false_admit_forklift_like": [
+            "hallway:cluster_0002"
+          ],
+          "false_reject_infrastructure_like": [
+            "hallway:cluster_0008"
+          ]
+        }
+      },
+      "coefficients": [
+        {
+          "feature": "dynamic_ratio",
+          "coefficient": -4.911679
+        },
+        {
+          "feature": "session_count",
+          "coefficient": 2.685828
+        },
+        {
+          "feature": "mean_size_x",
+          "coefficient": 1.768273
+        },
+        {
+          "feature": "mean_center_y",
+          "coefficient": 1.247799
+        },
+        {
+          "feature": "support_count",
+          "coefficient": 1.113842
+        },
+        {
+          "feature": "frame_count",
+          "coefficient": 0.907518
+        },
+        {
+          "feature": "mean_center_x",
+          "coefficient": 0.462834
+        },
+        {
+          "feature": "mean_size_y",
+          "coefficient": 0.447636
+        }
+      ]
+    }
+  },
   "predictions": [
     {
       "sample_id": "same_day:cluster_0001",
@@ -692,5 +1271,134 @@
       "learned_pred": 0,
       "rule_pred": 0
     }
+  ],
+  "near_threshold_samples": [
+    {
+      "sample_id": "hallway:cluster_0006",
+      "split": "test",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.52983,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0015",
+      "split": "test",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.379285,
+      "learned_pred": 0,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_month:cluster_0013",
+      "split": "val",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.229534,
+      "learned_pred": 0,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0008",
+      "split": "test",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.13374,
+      "learned_pred": 0,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_month:cluster_0014",
+      "split": "val",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.088188,
+      "learned_pred": 0,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_day:cluster_0003",
+      "split": "train",
+      "canonical_label": "barrier",
+      "target_admit": 0,
+      "learned_probability": 0.050677,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_month:cluster_0003",
+      "split": "val",
+      "canonical_label": "barrier",
+      "target_admit": 0,
+      "learned_probability": 0.050677,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_day:cluster_0008",
+      "split": "train",
+      "canonical_label": "warehouse rack",
+      "target_admit": 1,
+      "learned_probability": 0.956004,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "same_day:cluster_0003",
+      "split": "train",
+      "canonical_label": "barrier",
+      "target_admit": 1,
+      "learned_probability": 0.964863,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "hallway:cluster_0013",
+      "split": "test",
+      "canonical_label": "work table",
+      "target_admit": 1,
+      "learned_probability": 0.97076,
+      "learned_pred": 1,
+      "rule_pred": 1
+    },
+    {
+      "sample_id": "cross_day:cluster_0004",
+      "split": "train",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.027145,
+      "learned_pred": 0,
+      "rule_pred": 0
+    },
+    {
+      "sample_id": "cross_month:cluster_0004",
+      "split": "val",
+      "canonical_label": "forklift",
+      "target_admit": 0,
+      "learned_probability": 0.027145,
+      "learned_pred": 0,
+      "rule_pred": 0
+    }
+  ],
+  "risk_interpretation": [
+    "This is a real trained logistic model but only a feasibility smoke, not a publication-grade learned component.",
+    "The labels are weak labels generated by the current rule gate, so dynamic_ratio/label_purity/category features can act as rule proxies.",
+    "The rule baseline scoring 1.000 is by construction and must not be used as evidence that a learned model improves the system.",
+    "The 51-cluster sample size and within-site Hallway test split limit generalization claims."
+  ],
+  "next_expansion_plan_p192": [
+    "Export P191 false admits/false rejects and near-threshold samples into a compact human-review sheet.",
+    "Add independent admission-boundary labels that are not generated from the current rule gate.",
+    "Materialize pairwise cross-session association labels as a second supervised target if the goal shifts from admission to association.",
+    "Only after independent labels exist, compare learned models against the transparent rule gate as a potential method contribution."
+  ],
+  "constraints_observed": [
+    "CPU-only",
+    "no downloads",
+    "no GPU",
+    "no SAM2 training",
+    "protocol split preserved"
   ]
 }

@@ -1394,7 +1394,8 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 
 ## 2026-05-10 — P191 Admission-Scorer Learned Smoke
 
-- **Training smoke:** added `tools/train_admission_scorer_p191.py`, a pure-Python CPU-only logistic-regression smoke using the P190 admission-scorer dataset.
-- **Result:** train matched weak labels (accuracy/F1 1.000), but cross-month validation dropped to accuracy 0.857 / F1 0.833 and Hallway test dropped to accuracy 0.688 / F1 0.737, while the transparent rule baseline remains 1.000 by construction.
-- **Interpretation:** the learned scorer is feasible but currently underperforms the handcrafted gate out-of-distribution because labels are weak/rule-derived and sample size is only 51 clusters. This is useful: it proves the training/evaluation path and exposes the next scientific requirement—independent boundary labels or pairwise association supervision, not SAM2 finetuning.
-- **Artifacts:** `paper/evidence/admission_scorer_smoke_p191.json`, `paper/export/admission_scorer_smoke_p191.md`.
+- **Training smoke:** added/refined `tools/train_admission_scorer_p191.py`, a CPU-only auditable logistic-regression smoke using local NumPy (sklearn unavailable; no downloads/GPU/SAM2 training) on the P190 admission-scorer dataset.
+- **Primary result:** train matched weak labels (accuracy/F1 1.000), but cross-month validation dropped to accuracy 0.857 / F1 0.833 and Hallway test dropped to accuracy 0.688 / F1 0.737; the transparent rule baseline remains 1.000 by construction.
+- **Ablation:** Hallway test all-features accuracy/F1 = 0.688/0.737; no_dynamic_ratio = 0.688/0.737; geometry_only = 0.750/0.714; support_only = 0.625/0.667; no_label_category_flags = 0.812/0.842. This confirms the smoke is not being reported as a rule-copy contribution.
+- **Interpretation:** a real learned model was trained, but labels are weak/rule-derived and sample size is only 51 clusters. The result proves the training/evaluation path and exposes the next scientific requirement—independent boundary labels or pairwise association supervision, not SAM2 finetuning.
+- **Artifacts:** `tools/train_admission_scorer_p191.py`, `paper/evidence/admission_scorer_smoke_p191.json`, `paper/export/admission_scorer_smoke_p191.md`.
