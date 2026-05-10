@@ -130,6 +130,17 @@ summary and local paths here, then commit and push the repository.
 - **Verification:** `python3 tools/summarize_evidence_quality_notes_p208.py` returns `PASS` with 32 rows, all note fields blank, zero blockers, zero issues, and zero warnings; `python3 -m py_compile tools/summarize_evidence_quality_notes_p208.py tools/build_evidence_quality_notes_p207.py tools/prepare_independent_supervision_p195.py`; `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED` with `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`; P207 notes CSV contains no prohibited label/proxy columns.
 - **P209 recommendation:** Add a small regression test harness for the P207/P208 safety checks using temporary synthetic notes CSVs that exercise invalid allowed values, prohibited columns, quality blockers, and reviewer-note label-decision text without touching raw evidence.
 
+## 2026-05-10 P209 — Evidence-quality safety regression tests
+
+- **Goal:** Add deterministic regression tests for P207/P208 evidence-quality tooling using temporary synthetic notes CSVs only, without modifying real notes, creating labels, training, or touching raw evidence.
+- **Result: SAFETY TESTS PASS, P195 still BLOCKED.** Added `tools/test_evidence_quality_safety_p209.py`, which copies the P207 notes CSV into a temporary directory, injects targeted invalid/valid cases, calls P207 validation and P208 summary behavior, and writes compact JSON/Markdown evidence.
+- **Regression cases:** baseline blank P207 notes pass; invalid `visibility_quality` fails; prohibited `human_admit_label` column fails; reviewer-note admit/reject decision text is detected; valid `quality_blocker=yes` produces one blocker summary row; allowed `occlusion_level=low`, `blur_level=none`, and `quality_blocker=no` distributions are counted.
+- **Safety checks:** harness reports `6/6` expected outcomes passed, real P207 notes SHA-256 unchanged before/after, and all seven real P207 note fields remain blank across 32 rows.
+- **Scientific boundary:** P209 is safety/regression testing for evidence-quality tooling only. It does not fill or infer `human_admit_label` or `human_same_object_label`, does not use weak/model/selection fields as labels, does not train, and does not support admission-control claims.
+- **Outputs:** `tools/test_evidence_quality_safety_p209.py`, `paper/evidence/evidence_quality_safety_tests_p209.json`, `paper/export/evidence_quality_safety_tests_p209.md`.
+- **Verification:** `python3 tools/test_evidence_quality_safety_p209.py` returns `PASS` with 6/6 cases; `python3 -m py_compile tools/build_evidence_quality_notes_p207.py tools/summarize_evidence_quality_notes_p208.py tools/test_evidence_quality_safety_p209.py tools/prepare_independent_supervision_p195.py`; `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED` with `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`; P194/P196 human labels and real P207 notes remain blank.
+- **P210 recommendation:** Keep P195 blocked until independent human labels exist. If continuing no-label work, add more read-only audit coverage around reviewer-note ingestion or collect/import independent P195/P196 human labels through the separate label protocol.
+
 ## 2026-05-10 P198 — Safe review-label sync gate
 
 - **Goal:** Add a reproducible validation-first bridge from P197 semantic review CSVs back to the P194 source CSVs that P195 reads, without creating or inferring any labels.

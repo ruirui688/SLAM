@@ -1,0 +1,557 @@
+{
+  "case_count": 6,
+  "cases": [
+    {
+      "description": "Unmodified temporary P207 notes copy passes P207 validation and P208 summary.",
+      "expectation_failures": [],
+      "expected_outcome_met": true,
+      "name": "baseline_blank_notes_pass",
+      "p207": {
+        "issue_codes": [],
+        "issue_count": 0,
+        "note_fields_blank": true,
+        "status": "PASS",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "p208": {
+        "all_note_fields_blank": true,
+        "invalid_value_rows": 0,
+        "issue_codes": [],
+        "issue_count": 0,
+        "note_field_distributions": {
+          "blur_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "depth_quality": {
+            "blank": 32,
+            "limited": 0,
+            "not_assessable": 0,
+            "unusable": 0,
+            "usable": 0
+          },
+          "mask_alignment_quality": {
+            "blank": 32,
+            "good": 0,
+            "major_issue": 0,
+            "minor_issue": 0,
+            "not_assessable": 0
+          },
+          "occlusion_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "quality_blocker": {
+            "blank": 32,
+            "no": 0,
+            "yes": 0
+          },
+          "reviewer_note": {
+            "blank": 32,
+            "nonblank": 0
+          },
+          "visibility_quality": {
+            "blank": 32,
+            "clear": 0,
+            "not_assessable": 0,
+            "partial": 0,
+            "poor": 0
+          }
+        },
+        "p207_issue_codes": [],
+        "p207_issue_count": 0,
+        "p207_validation_status": "PASS",
+        "p207_warning_count": 0,
+        "prohibited_columns_present": [],
+        "quality_blocker_rows": [],
+        "quality_blocker_yes_count": 0,
+        "reviewer_note_label_text_rows": 0,
+        "rows": 32,
+        "status": "PASS",
+        "unsafe_extra_columns_present": [],
+        "validation_status": "PASS",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "temp_notes_csv_name": "baseline_blank_notes_pass.csv"
+    },
+    {
+      "description": "A non-domain visibility_quality value is rejected.",
+      "expectation_failures": [],
+      "expected_outcome_met": true,
+      "name": "invalid_allowed_value_fails",
+      "p207": {
+        "issue_codes": [
+          "invalid_allowed_value"
+        ],
+        "issue_count": 1,
+        "note_fields_blank": false,
+        "status": "FAIL",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "p208": {
+        "all_note_fields_blank": false,
+        "invalid_value_rows": 1,
+        "issue_codes": [
+          "invalid_allowed_value"
+        ],
+        "issue_count": 1,
+        "note_field_distributions": {
+          "blur_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "depth_quality": {
+            "blank": 32,
+            "limited": 0,
+            "not_assessable": 0,
+            "unusable": 0,
+            "usable": 0
+          },
+          "mask_alignment_quality": {
+            "blank": 32,
+            "good": 0,
+            "major_issue": 0,
+            "minor_issue": 0,
+            "not_assessable": 0
+          },
+          "occlusion_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "quality_blocker": {
+            "blank": 32,
+            "no": 0,
+            "yes": 0
+          },
+          "reviewer_note": {
+            "blank": 32,
+            "nonblank": 0
+          },
+          "visibility_quality": {
+            "blank": 31,
+            "clear": 0,
+            "not_assessable": 0,
+            "opaque": 1,
+            "partial": 0,
+            "poor": 0
+          }
+        },
+        "p207_issue_codes": [
+          "invalid_allowed_value"
+        ],
+        "p207_issue_count": 1,
+        "p207_validation_status": "FAIL",
+        "p207_warning_count": 0,
+        "prohibited_columns_present": [],
+        "quality_blocker_rows": [],
+        "quality_blocker_yes_count": 0,
+        "reviewer_note_label_text_rows": 0,
+        "rows": 32,
+        "status": "FAIL",
+        "unsafe_extra_columns_present": [],
+        "validation_status": "FAIL",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "temp_notes_csv_name": "invalid_allowed_value_fails.csv"
+    },
+    {
+      "description": "Adding human_admit_label to the temporary CSV is rejected.",
+      "expectation_failures": [],
+      "expected_outcome_met": true,
+      "name": "prohibited_label_proxy_column_fails",
+      "p207": {
+        "issue_codes": [
+          "p207_validator_refusal"
+        ],
+        "issue_count": 1,
+        "note_fields_blank": null,
+        "refusal": "Refusing P207 notes validation; prohibited label/proxy columns present: human_admit_label",
+        "status": "FAIL",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "p208": {
+        "all_note_fields_blank": true,
+        "invalid_value_rows": 0,
+        "issue_codes": [
+          "prohibited_label_or_proxy_column"
+        ],
+        "issue_count": 1,
+        "note_field_distributions": {
+          "blur_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "depth_quality": {
+            "blank": 32,
+            "limited": 0,
+            "not_assessable": 0,
+            "unusable": 0,
+            "usable": 0
+          },
+          "mask_alignment_quality": {
+            "blank": 32,
+            "good": 0,
+            "major_issue": 0,
+            "minor_issue": 0,
+            "not_assessable": 0
+          },
+          "occlusion_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "quality_blocker": {
+            "blank": 32,
+            "no": 0,
+            "yes": 0
+          },
+          "reviewer_note": {
+            "blank": 32,
+            "nonblank": 0
+          },
+          "visibility_quality": {
+            "blank": 32,
+            "clear": 0,
+            "not_assessable": 0,
+            "partial": 0,
+            "poor": 0
+          }
+        },
+        "p207_issue_codes": [
+          "p207_validator_refusal"
+        ],
+        "p207_issue_count": 1,
+        "p207_validation_status": "FAIL",
+        "p207_warning_count": 0,
+        "prohibited_columns_present": [
+          "human_admit_label"
+        ],
+        "quality_blocker_rows": [],
+        "quality_blocker_yes_count": 0,
+        "reviewer_note_label_text_rows": 0,
+        "rows": 32,
+        "status": "FAIL",
+        "unsafe_extra_columns_present": [],
+        "validation_status": "FAIL",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "temp_notes_csv_name": "prohibited_label_proxy_column_fails.csv"
+    },
+    {
+      "description": "Admission/rejection wording in reviewer_note is detected as unsafe.",
+      "expectation_failures": [],
+      "expected_outcome_met": true,
+      "name": "reviewer_note_label_decision_text_detected",
+      "p207": {
+        "issue_codes": [
+          "possible_label_decision_text"
+        ],
+        "issue_count": 1,
+        "note_fields_blank": false,
+        "status": "FAIL",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "p208": {
+        "all_note_fields_blank": false,
+        "invalid_value_rows": 0,
+        "issue_codes": [
+          "possible_label_decision_text"
+        ],
+        "issue_count": 1,
+        "note_field_distributions": {
+          "blur_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "depth_quality": {
+            "blank": 32,
+            "limited": 0,
+            "not_assessable": 0,
+            "unusable": 0,
+            "usable": 0
+          },
+          "mask_alignment_quality": {
+            "blank": 32,
+            "good": 0,
+            "major_issue": 0,
+            "minor_issue": 0,
+            "not_assessable": 0
+          },
+          "occlusion_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "quality_blocker": {
+            "blank": 32,
+            "no": 0,
+            "yes": 0
+          },
+          "reviewer_note": {
+            "blank": 31,
+            "nonblank": 1
+          },
+          "visibility_quality": {
+            "blank": 32,
+            "clear": 0,
+            "not_assessable": 0,
+            "partial": 0,
+            "poor": 0
+          }
+        },
+        "p207_issue_codes": [
+          "possible_label_decision_text"
+        ],
+        "p207_issue_count": 1,
+        "p207_validation_status": "FAIL",
+        "p207_warning_count": 0,
+        "prohibited_columns_present": [],
+        "quality_blocker_rows": [],
+        "quality_blocker_yes_count": 0,
+        "reviewer_note_label_text_rows": 1,
+        "rows": 32,
+        "status": "FAIL",
+        "unsafe_extra_columns_present": [],
+        "validation_status": "FAIL",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "temp_notes_csv_name": "reviewer_note_label_decision_text_detected.csv"
+    },
+    {
+      "description": "A valid quality_blocker=yes note is counted and emitted in blocker rows.",
+      "expectation_failures": [],
+      "expected_outcome_met": true,
+      "name": "quality_blocker_yes_summary_row",
+      "p207": {
+        "issue_codes": [],
+        "issue_count": 0,
+        "note_fields_blank": false,
+        "status": "PASS",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "p208": {
+        "all_note_fields_blank": false,
+        "invalid_value_rows": 0,
+        "issue_codes": [],
+        "issue_count": 0,
+        "note_field_distributions": {
+          "blur_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "depth_quality": {
+            "blank": 32,
+            "limited": 0,
+            "not_assessable": 0,
+            "unusable": 0,
+            "usable": 0
+          },
+          "mask_alignment_quality": {
+            "blank": 32,
+            "good": 0,
+            "major_issue": 0,
+            "minor_issue": 0,
+            "not_assessable": 0
+          },
+          "occlusion_level": {
+            "blank": 32,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "quality_blocker": {
+            "blank": 31,
+            "no": 0,
+            "yes": 1
+          },
+          "reviewer_note": {
+            "blank": 31,
+            "nonblank": 1
+          },
+          "visibility_quality": {
+            "blank": 31,
+            "clear": 0,
+            "not_assessable": 0,
+            "partial": 0,
+            "poor": 1
+          }
+        },
+        "p207_issue_codes": [],
+        "p207_issue_count": 0,
+        "p207_validation_status": "PASS",
+        "p207_warning_count": 0,
+        "prohibited_columns_present": [],
+        "quality_blocker_rows": [
+          {
+            "audit_sample_id": "p206_001",
+            "quality_blocker": "yes",
+            "reviewer_note": "Evidence quality blocks visual inspection.",
+            "visibility_quality": "poor"
+          }
+        ],
+        "quality_blocker_yes_count": 1,
+        "reviewer_note_label_text_rows": 0,
+        "rows": 32,
+        "status": "PASS",
+        "unsafe_extra_columns_present": [],
+        "validation_status": "PASS",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "temp_notes_csv_name": "quality_blocker_yes_summary_row.csv"
+    },
+    {
+      "description": "Allowed low/none/no values are accepted and counted in distributions.",
+      "expectation_failures": [],
+      "expected_outcome_met": true,
+      "name": "allowed_low_none_quality_distributions_counted",
+      "p207": {
+        "issue_codes": [],
+        "issue_count": 0,
+        "note_fields_blank": false,
+        "status": "PASS",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "p208": {
+        "all_note_fields_blank": false,
+        "invalid_value_rows": 0,
+        "issue_codes": [],
+        "issue_count": 0,
+        "note_field_distributions": {
+          "blur_level": {
+            "blank": 31,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+            "none": 1,
+            "not_assessable": 0
+          },
+          "depth_quality": {
+            "blank": 32,
+            "limited": 0,
+            "not_assessable": 0,
+            "unusable": 0,
+            "usable": 0
+          },
+          "mask_alignment_quality": {
+            "blank": 32,
+            "good": 0,
+            "major_issue": 0,
+            "minor_issue": 0,
+            "not_assessable": 0
+          },
+          "occlusion_level": {
+            "blank": 31,
+            "high": 0,
+            "low": 1,
+            "medium": 0,
+            "none": 0,
+            "not_assessable": 0
+          },
+          "quality_blocker": {
+            "blank": 31,
+            "no": 1,
+            "yes": 0
+          },
+          "reviewer_note": {
+            "blank": 32,
+            "nonblank": 0
+          },
+          "visibility_quality": {
+            "blank": 32,
+            "clear": 0,
+            "not_assessable": 0,
+            "partial": 0,
+            "poor": 0
+          }
+        },
+        "p207_issue_codes": [],
+        "p207_issue_count": 0,
+        "p207_validation_status": "PASS",
+        "p207_warning_count": 0,
+        "prohibited_columns_present": [],
+        "quality_blocker_rows": [],
+        "quality_blocker_yes_count": 0,
+        "reviewer_note_label_text_rows": 0,
+        "rows": 32,
+        "status": "PASS",
+        "unsafe_extra_columns_present": [],
+        "validation_status": "PASS",
+        "warning_codes": [],
+        "warning_count": 0
+      },
+      "temp_notes_csv_name": "allowed_low_none_quality_distributions_counted.csv"
+    }
+  ],
+  "constraints_observed": {
+    "admission_or_semantic_stability_training_performed": false,
+    "downloads_performed": false,
+    "human_admit_label_created_or_filled": false,
+    "human_same_object_label_created_or_filled": false,
+    "real_p207_notes_modified": false,
+    "weak_admission_or_model_predictions_used_as_labels": false
+  },
+  "inputs": {
+    "real_p207_notes_csv": "paper/evidence/raw_evidence_quality_notes_p207.csv"
+  },
+  "outputs": {
+    "json": "paper/evidence/evidence_quality_safety_tests_p209.json",
+    "markdown": "paper/export/evidence_quality_safety_tests_p209.md"
+  },
+  "p195_status": "BLOCKED",
+  "p210_recommendation": "Keep P195 blocked until independent human labels exist. Next no-label work should either add more read-only audit coverage around reviewer-note ingestion or collect/import independent P195/P196 human labels through the separate label protocol.",
+  "passed_case_count": 6,
+  "phase": "P209-evidence-quality-safety-regression-tests",
+  "real_p207_notes_blank_before_and_after": true,
+  "real_p207_notes_hash_unchanged": true,
+  "real_p207_notes_sha256_after": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+  "real_p207_notes_sha256_before": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+  "scientific_boundary": "Safety/regression testing for P207/P208 evidence-quality tooling only. P209 uses temporary synthetic notes CSVs and does not create labels, train, modify real notes, or support admission-control claims.",
+  "status": "PASS"
+}
