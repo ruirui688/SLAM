@@ -1,14 +1,14 @@
 # P212 Release Governance Summary
 
-**Release readiness:** `BLOCKED_STALE_ARTIFACTS`
-**Current commit:** `6f8e260710fc` - exp: add P211 cross-phase evidence index
+**Release readiness:** `READY_NO_LABEL_EVIDENCE_ONLY`
+**Current commit:** `a7465737100d` - exp: refresh P213 evidence index hashes
 **P195 gate:** `BLOCKED`
 **P210 readiness:** `READY_EMPTY`
 
 ## Governance Checks
 
 - P211 artifact hash comparison: `PASS` (0 mismatches / 22 artifacts)
-- Relevant dirty tracked/untracked status: `FAIL`
+- Relevant dirty tracked/untracked status: `PASS`
 - P195 remains blocked with blank labels: `PASS`
 - P209 safety status: `PASS` (6/6 cases)
 - P210 quality-only readiness: `PASS`
@@ -17,11 +17,9 @@
 
 ## Dirty Worktree Scope
 
-- Relevant tracked dirty paths: 2
+- Relevant tracked dirty paths: 0
 - Relevant untracked dirty paths: 0
 - Protected untracked paths ignored for readiness blocking: 202
-  - ` M` `paper/evidence/raw_evidence_diverse_packet_p206.json`
-  - ` M` `paper/evidence/raw_evidence_diverse_packet_triage_p206.json`
 
 ## Artifact Drift
 

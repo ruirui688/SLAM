@@ -13,12 +13,12 @@
           "role": "producer_script"
         },
         {
-          "current_sha256": "263bb6ac743fcd57adc3eeb67bc27fb913cb8231ddbe4b590e40262504b3d70e",
+          "current_sha256": "241ef9feab26c562fcf3b06ea2c8b73f74c11546bfb77ecaac4ca49387ffdb8b",
           "exists": true,
           "matches_p211": true,
           "path": "paper/evidence/raw_evidence_diverse_packet_p206.json",
           "phase": "P206",
-          "recorded_sha256": "263bb6ac743fcd57adc3eeb67bc27fb913cb8231ddbe4b590e40262504b3d70e",
+          "recorded_sha256": "241ef9feab26c562fcf3b06ea2c8b73f74c11546bfb77ecaac4ca49387ffdb8b",
           "role": "diverse_packet_json"
         },
         {
@@ -40,12 +40,12 @@
           "role": "diverse_packet_report"
         },
         {
-          "current_sha256": "589bd599e8e475f6994d0fd55a2d720cd42fca774560a175480fc692f66f8d70",
+          "current_sha256": "9b0645f4a5a8dea29e9d5ef757c21bcd1c1bac49d82dbfecd6cbfc863544063b",
           "exists": true,
           "matches_p211": true,
           "path": "paper/evidence/raw_evidence_diverse_packet_triage_p206.json",
           "phase": "P206",
-          "recorded_sha256": "589bd599e8e475f6994d0fd55a2d720cd42fca774560a175480fc692f66f8d70",
+          "recorded_sha256": "9b0645f4a5a8dea29e9d5ef757c21bcd1c1bac49d82dbfecd6cbfc863544063b",
           "role": "triage_json"
         },
         {
@@ -257,11 +257,11 @@
           "tools/orb_slam3_headless_runner.cc"
         ]
       },
-      "other_dirty_count": 11,
+      "other_dirty_count": 10,
       "other_dirty_examples": [
         {
-          "path": "aper/evidence/raw_evidence_audit_packet_p204.json",
-          "status": "M "
+          "path": "paper/evidence/raw_evidence_audit_packet_p204.json",
+          "status": " M"
         },
         {
           "path": "paper/evidence/raw_evidence_issue_triage_p205.json",
@@ -296,26 +296,22 @@
           "status": " M"
         },
         {
-          "path": "tools/build_release_governance_summary_p212.py",
-          "status": "??"
-        },
-        {
           "path": "tools/orb_slam3_wrapper.sh",
           "status": "??"
         }
       ],
-      "p212_generated_outputs": [],
-      "relevant_dirty_clean": false,
-      "tracked_relevant": [
+      "p212_generated_outputs": [
         {
-          "path": "paper/evidence/raw_evidence_diverse_packet_p206.json",
+          "path": "paper/evidence/release_governance_summary_p212.json",
           "status": " M"
         },
         {
-          "path": "paper/evidence/raw_evidence_diverse_packet_triage_p206.json",
+          "path": "paper/export/release_governance_summary_p212.md",
           "status": " M"
         }
       ],
+      "relevant_dirty_clean": true,
+      "tracked_relevant": [],
       "untracked_relevant": []
     },
     "label_leakage": {
@@ -423,8 +419,8 @@
   },
   "current_git": {
     "branch": "main",
-    "commit": "6f8e260710fcd50bfcfa94c1caa7106c780316da",
-    "committer_date": "2026-05-10T20:05:08+08:00",
+    "commit": "a7465737100d7e6f2f80d8c2870accd2b951de1c",
+    "committer_date": "2026-05-10T20:16:06+08:00",
     "p206_p211_commits": [
       {
         "commit": "e51e536",
@@ -445,10 +441,18 @@
       {
         "commit": "6f8e260",
         "subject": "exp: add P211 cross-phase evidence index"
+      },
+      {
+        "commit": "7783bbc",
+        "subject": "exp: add P212 release governance summary"
+      },
+      {
+        "commit": "a746573",
+        "subject": "exp: refresh P213 evidence index hashes"
       }
     ],
-    "short_commit": "6f8e260710fc",
-    "subject": "exp: add P211 cross-phase evidence index"
+    "short_commit": "a7465737100d",
+    "subject": "exp: refresh P213 evidence index hashes"
   },
   "inputs": {
     "p195_gate_json": "paper/evidence/independent_supervision_gate_p195.json",
@@ -460,5 +464,5 @@
   },
   "phase": "P212-release-governance-summary",
   "recommendation": "P213 should either restore/regenerate and commit the relevant dirty P206-P211 evidence artifacts before paper export, or explicitly archive this blocked governance summary as evidence that the current worktree is not release-clean. Keep P195 blocked until independent human admission and same-object labels exist.",
-  "release_readiness_status": "BLOCKED_STALE_ARTIFACTS"
+  "release_readiness_status": "READY_NO_LABEL_EVIDENCE_ONLY"
 }
