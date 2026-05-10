@@ -119,6 +119,17 @@ summary and local paths here, then commit and push the repository.
 - **Verification:** `python3 tools/build_evidence_quality_notes_p207.py build`; `python3 tools/build_evidence_quality_notes_p207.py validate` returns `PASS` with 32 rows, 0 issues, 0 warnings, and blank note fields; `python3 -m py_compile tools/build_evidence_quality_notes_p207.py tools/prepare_independent_supervision_p195.py`; `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED` with `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`.
 - **P208 recommendation:** If continuing no-label work, add a read-only notes QA summarizer that reports reviewer quality-blocker rates and evidence-quality distributions after humans fill P207 fields, while keeping any admission/same-object labeling in the independent P195/P196 workflow.
 
+## 2026-05-10 P208 — Evidence-quality notes QA summary
+
+- **Goal:** Add a read-only QA summarizer for filled P207 evidence-quality notes, reporting quality distributions and blocker rates only, without creating labels, training, or inferring admission/same-object status.
+- **Result: SUMMARY TOOL BUILT, P195 still BLOCKED.** Added `tools/summarize_evidence_quality_notes_p208.py`, which reads the P207 notes CSV, validates P207 allowed values, flags prohibited label/proxy columns and admission/same-object-like reviewer-note text, and writes a JSON/Markdown summary plus a blocker-row CSV.
+- **Current summary:** 32 rows; all seven P207 note fields remain blank for all rows; `quality_blocker=yes` count is `0/32`; invalid allowed-value rows `0`; reviewer notes with possible label-decision text `0`; prohibited label/proxy columns in the P207 notes CSV `0`.
+- **Blocker-rate outputs:** rates are reported by `canonical_label`, `source`, `row_source`, and `session_id`. With the current blank template, every category/source/row-source/session has zero blocker rows and all blocker values blank.
+- **Scientific boundary:** P208 summarizes evidence-quality notes only. It does not fill or infer `human_admit_label` or `human_same_object_label`, does not use `target_admit`, `current_weak_label`, `selection_v5`, model predictions, or model probabilities as labels, does not train, and does not alter raw evidence.
+- **Outputs:** `tools/summarize_evidence_quality_notes_p208.py`, `paper/evidence/evidence_quality_notes_summary_p208.json`, `paper/export/evidence_quality_notes_summary_p208.md`, `paper/evidence/evidence_quality_notes_blockers_p208.csv`.
+- **Verification:** `python3 tools/summarize_evidence_quality_notes_p208.py` returns `PASS` with 32 rows, all note fields blank, zero blockers, zero issues, and zero warnings; `python3 -m py_compile tools/summarize_evidence_quality_notes_p208.py tools/build_evidence_quality_notes_p207.py tools/prepare_independent_supervision_p195.py`; `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED` with `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`; P207 notes CSV contains no prohibited label/proxy columns.
+- **P209 recommendation:** Add a small regression test harness for the P207/P208 safety checks using temporary synthetic notes CSVs that exercise invalid allowed values, prohibited columns, quality blockers, and reviewer-note label-decision text without touching raw evidence.
+
 ## 2026-05-10 P198 — Safe review-label sync gate
 
 - **Goal:** Add a reproducible validation-first bridge from P197 semantic review CSVs back to the P194 source CSVs that P195 reads, without creating or inferring any labels.

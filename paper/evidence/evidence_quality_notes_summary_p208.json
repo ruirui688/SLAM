@@ -1,0 +1,458 @@
+{
+  "constraints_observed": {
+    "admission_or_semantic_stability_training_performed": false,
+    "downloads_performed": false,
+    "human_admit_label_created_or_filled": false,
+    "human_same_object_label_created_or_filled": false,
+    "raw_images_or_data_modified": false,
+    "weak_admission_or_model_predictions_used_as_labels": false
+  },
+  "generated_at_utc": "2026-05-10T11:47:19.921287+00:00",
+  "inputs": {
+    "notes_csv": "paper/evidence/raw_evidence_quality_notes_p207.csv"
+  },
+  "outputs": {
+    "blockers_csv": "paper/evidence/evidence_quality_notes_blockers_p208.csv",
+    "summary_json": "paper/evidence/evidence_quality_notes_summary_p208.json",
+    "summary_md": "paper/export/evidence_quality_notes_summary_p208.md"
+  },
+  "p195_status": "BLOCKED",
+  "phase": "P208-evidence-quality-notes-summary",
+  "quality_blocker_rows": [],
+  "rows_requiring_attention": {
+    "invalid_value_rows": [],
+    "quality_blocker_rows": [],
+    "reviewer_note_label_text_rows": []
+  },
+  "schema": {
+    "allowed_values": {
+      "blur_level": [
+        "",
+        "none",
+        "low",
+        "medium",
+        "high",
+        "not_assessable"
+      ],
+      "depth_quality": [
+        "",
+        "usable",
+        "limited",
+        "unusable",
+        "not_assessable"
+      ],
+      "mask_alignment_quality": [
+        "",
+        "good",
+        "minor_issue",
+        "major_issue",
+        "not_assessable"
+      ],
+      "occlusion_level": [
+        "",
+        "none",
+        "low",
+        "medium",
+        "high",
+        "not_assessable"
+      ],
+      "quality_blocker": [
+        "",
+        "no",
+        "yes"
+      ],
+      "visibility_quality": [
+        "",
+        "clear",
+        "partial",
+        "poor",
+        "not_assessable"
+      ]
+    },
+    "note_columns": [
+      "visibility_quality",
+      "mask_alignment_quality",
+      "depth_quality",
+      "occlusion_level",
+      "blur_level",
+      "reviewer_note",
+      "quality_blocker"
+    ],
+    "quality_blocker_group_fields": [
+      "canonical_label",
+      "source",
+      "row_source",
+      "session_id"
+    ]
+  },
+  "scientific_boundary": "Read-only evidence-quality notes QA only. P208 summarizes allowed P207 quality fields and quality_blocker rates; it creates no admission or same-object labels, does not use weak/model/selection fields as labels, does not train, and does not alter raw evidence.",
+  "status": "PASS",
+  "summary": {
+    "all_note_fields_blank": true,
+    "category_counts": {
+      "barrier": 8,
+      "forklift": 8,
+      "warehouse rack": 8,
+      "work table": 8
+    },
+    "note_blank_counts": {
+      "blur_level": 32,
+      "depth_quality": 32,
+      "mask_alignment_quality": 32,
+      "occlusion_level": 32,
+      "quality_blocker": 32,
+      "reviewer_note": 32,
+      "visibility_quality": 32
+    },
+    "note_field_distributions": {
+      "blur_level": {
+        "blank": 32,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "none": 0,
+        "not_assessable": 0
+      },
+      "depth_quality": {
+        "blank": 32,
+        "limited": 0,
+        "not_assessable": 0,
+        "unusable": 0,
+        "usable": 0
+      },
+      "mask_alignment_quality": {
+        "blank": 32,
+        "good": 0,
+        "major_issue": 0,
+        "minor_issue": 0,
+        "not_assessable": 0
+      },
+      "occlusion_level": {
+        "blank": 32,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "none": 0,
+        "not_assessable": 0
+      },
+      "quality_blocker": {
+        "blank": 32,
+        "no": 0,
+        "yes": 0
+      },
+      "reviewer_note": {
+        "blank": 32,
+        "nonblank": 0
+      },
+      "visibility_quality": {
+        "blank": 32,
+        "clear": 0,
+        "not_assessable": 0,
+        "partial": 0,
+        "poor": 0
+      }
+    },
+    "quality_blocker_rates_by": {
+      "canonical_label": {
+        "barrier": {
+          "quality_blocker_blank": 8,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 8
+        },
+        "forklift": {
+          "quality_blocker_blank": 8,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 8
+        },
+        "warehouse rack": {
+          "quality_blocker_blank": 8,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 8
+        },
+        "work table": {
+          "quality_blocker_blank": 8,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 8
+        }
+      },
+      "row_source": {
+        "p193": {
+          "quality_blocker_blank": 6,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 6
+        },
+        "p197_boundary": {
+          "quality_blocker_blank": 6,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 6
+        },
+        "p197_pair": {
+          "quality_blocker_blank": 14,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 14
+        },
+        "p199": {
+          "quality_blocker_blank": 6,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 6
+        }
+      },
+      "session_id": {
+        "torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_1": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_cross_month_aisle_bundle_v1__2022-10-12__Aisle_CCW": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_cross_month_aisle_bundle_v1__2022-10-12__Aisle_CW": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CCW": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CW": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Straight_CCW": {
+          "quality_blocker_blank": 1,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 1
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Full_CW": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CCW": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CW": {
+          "quality_blocker_blank": 1,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 1
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_1": {
+          "quality_blocker_blank": 1,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 1
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_2": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Straight_CCW": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Straight_CW": {
+          "quality_blocker_blank": 1,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 1
+        },
+        "torwic_same_day_aisle_bundle_v1__2022-06-15__Aisle_CCW_Run_1": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        },
+        "torwic_same_day_aisle_bundle_v1__2022-06-15__Aisle_CCW_Run_2": {
+          "quality_blocker_blank": 2,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 2
+        }
+      },
+      "source": {
+        "cross_day": {
+          "quality_blocker_blank": 8,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 8
+        },
+        "cross_month": {
+          "quality_blocker_blank": 4,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 4
+        },
+        "hallway": {
+          "quality_blocker_blank": 16,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 16
+        },
+        "same_day": {
+          "quality_blocker_blank": 4,
+          "quality_blocker_invalid": 0,
+          "quality_blocker_no": 0,
+          "quality_blocker_yes": 0,
+          "quality_blocker_yes_rate": 0.0,
+          "rows": 4
+        }
+      }
+    },
+    "quality_blocker_yes_count": 0,
+    "quality_blocker_yes_rate": 0.0,
+    "row_source_counts": {
+      "p193": 6,
+      "p197_boundary": 6,
+      "p197_pair": 14,
+      "p199": 6
+    },
+    "rows": 32,
+    "session_counts": {
+      "torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_1": 2,
+      "torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2": 2,
+      "torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_1": 2,
+      "torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2": 2,
+      "torwic_cross_month_aisle_bundle_v1__2022-10-12__Aisle_CCW": 2,
+      "torwic_cross_month_aisle_bundle_v1__2022-10-12__Aisle_CW": 2,
+      "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CCW": 2,
+      "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CW": 2,
+      "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Straight_CCW": 1,
+      "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Full_CW": 2,
+      "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CCW": 2,
+      "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CW": 1,
+      "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_1": 1,
+      "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_2": 2,
+      "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Straight_CCW": 2,
+      "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Straight_CW": 1,
+      "torwic_same_day_aisle_bundle_v1__2022-06-15__Aisle_CCW_Run_1": 2,
+      "torwic_same_day_aisle_bundle_v1__2022-06-15__Aisle_CCW_Run_2": 2
+    },
+    "source_counts": {
+      "cross_day": 8,
+      "cross_month": 4,
+      "hallway": 16,
+      "same_day": 4
+    }
+  },
+  "validation": {
+    "invalid_value_rows": [],
+    "issue_count": 0,
+    "issues": [],
+    "p207_issue_count": 0,
+    "p207_issues": [],
+    "p207_validation_status": "PASS",
+    "p207_warning_count": 0,
+    "p207_warnings": [],
+    "prohibited_columns_present": [],
+    "reviewer_note_label_text_rows": [],
+    "row_count": 32,
+    "status": "PASS",
+    "unsafe_extra_columns_present": [],
+    "warning_count": 0,
+    "warnings": []
+  }
+}
