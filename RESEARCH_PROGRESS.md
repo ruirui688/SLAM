@@ -1422,3 +1422,13 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 - **Metrics:** GPU MLP train accuracy/F1 `1.000/1.000`, val `1.000/1.000` on only 8 samples, Hallway test `0.950/0.961`; GPU logistic Hallway test `0.950/0.961`.
 - **Risk/blocker:** P193 expanded real samples beyond 51 clusters, but labels are still weak labels inherited from `selection_v5`, validation is tiny after de-duplication, and forklift/category features can leak the target. Do not claim learned contribution yet.
 - **P194:** build independent supervision: human boundary-label sheet for false admits/false rejects/near-threshold observations and/or pairwise cross-session association labels from tracklet/map-object lineage.
+
+## 2026-05-10 — P194 Independent Boundary Supervision + No-Proxy Stress
+
+- **Environment:** continued under README §0.3 `tram` command form only: `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram <command>`. No downloads, no CPU fallback, no SAM2 full training, no submission/PDF work.
+- **Boundary-label sheet:** added `tools/build_boundary_supervision_p194.py` and generated `paper/evidence/admission_boundary_label_sheet_p194.csv/json`. The sheet has 32 review rows: 3 P193 MLP false positives, 0 false negatives, 3 near-threshold additions, and 26 proxy-sensitive additions. Human label columns are intentionally blank; no human annotation is claimed.
+- **Pairwise association candidates:** generated `paper/evidence/association_pair_candidates_p194.csv/json` with 160 same-label cross-session candidate pairs for future independent association supervision. Pair labels are blank and require human/reviewer input before training.
+- **Report:** `paper/export/admission_boundary_supervision_p194.md` documents sampling strategy, risk coverage, and how the sheet should become independent supervision.
+- **No-proxy CUDA stress:** reran `tools/train_admission_scorer_gpu_p192.py` on P193 frame dataset with `dynamic_ratio,label_purity,is_forklift_like,is_infrastructure_like` dropped. Outputs: `paper/evidence/admission_scorer_no_proxy_p194.json`, `paper/export/admission_scorer_no_proxy_p194.md`.
+- **No-proxy metrics:** full-proxy P193 MLP Hallway test accuracy/F1 was `0.950/0.961`; no-proxy P194 MLP Hallway test dropped to `0.867/0.900`; validation dropped to `0.500/0.600` on n=8. This quantifies reliance on rule/category proxy fields.
+- **Risk/blocker:** P194 creates review-ready independent supervision inputs, but it does not create labels. P195 must obtain human/reviewer labels or otherwise independent labels before training a claim-worthy model.

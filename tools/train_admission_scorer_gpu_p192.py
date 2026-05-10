@@ -97,8 +97,8 @@ def split_rows(rows: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
     return out
 
 
-def matrix(rows: list[dict[str, Any]]) -> list[list[float]]:
-    return [[fnum(row[field]) for field in FEATURE_FIELDS] for row in rows]
+def matrix(rows: list[dict[str, Any]], features: list[str]) -> list[list[float]]:
+    return [[fnum(row[field]) for field in features] for row in rows]
 
 
 def labels(rows: list[dict[str, Any]]) -> list[float]:
@@ -108,19 +108,20 @@ def labels(rows: list[dict[str, Any]]) -> list[float]:
 def standardize(
     rows_by_split: dict[str, list[dict[str, Any]]],
     device: torch.device,
+    features: list[str],
 ) -> tuple[dict[str, torch.Tensor], dict[str, torch.Tensor], dict[str, dict[str, float]]]:
-    train_x_cpu = torch.tensor(matrix(rows_by_split["train"]), dtype=torch.float32)
+    train_x_cpu = torch.tensor(matrix(rows_by_split["train"], features), dtype=torch.float32)
     mean = train_x_cpu.mean(dim=0)
     std = train_x_cpu.std(dim=0, unbiased=False)
     std = torch.where(std == 0, torch.ones_like(std), std)
     stats = {
         field: {"mean": float(mean[i]), "std": float(std[i])}
-        for i, field in enumerate(FEATURE_FIELDS)
+        for i, field in enumerate(features)
     }
     x_by_split: dict[str, torch.Tensor] = {}
     y_by_split: dict[str, torch.Tensor] = {}
     for split, rows in rows_by_split.items():
-        x_cpu = torch.tensor(matrix(rows), dtype=torch.float32)
+        x_cpu = torch.tensor(matrix(rows, features), dtype=torch.float32)
         y_cpu = torch.tensor(labels(rows), dtype=torch.float32)
         x_by_split[split] = ((x_cpu - mean) / std).to(device)
         y_by_split[split] = y_cpu.to(device)
@@ -366,13 +367,13 @@ def write_markdown(path: Path, payload: dict[str, Any]) -> None:
             )
     else:
         lines.append("- P191 JSON not found; comparison skipped.")
-    lines += ["", "## P192 51-Cluster GPU Baseline Comparison", ""]
+    lines += ["", f"## {payload['comparison_label']} Comparison", ""]
     if p192:
         for split in SPLITS:
             base = p192["models"]["mlp"]["metrics"][split]
             m = mlp["metrics"][split]
             lines.append(
-                f"- {split}: P192 cluster GPU MLP acc/F1={base['accuracy']:.4f}/{base['f1_admit']:.4f}; current GPU MLP acc/F1={m['accuracy']:.4f}/{m['f1_admit']:.4f}."
+                f"- {split}: {payload['comparison_label']} MLP acc/F1={base['accuracy']:.4f}/{base['f1_admit']:.4f}; current GPU MLP acc/F1={m['accuracy']:.4f}/{m['f1_admit']:.4f}."
             )
     else:
         lines.append("- P192 GPU JSON not found; comparison skipped.")
@@ -417,6 +418,8 @@ def main() -> int:
     parser.add_argument("--report-title", default="P192 GPU Admission-Scorer Training Smoke")
     parser.add_argument("--dataset-kind", default="cluster-level")
     parser.add_argument("--actual-command", default="")
+    parser.add_argument("--drop-features", default="", help="Comma-separated feature names to remove for leakage/proxy stress tests.")
+    parser.add_argument("--comparison-label", default="P192 51-cluster GPU baseline")
     parser.add_argument("--epochs", type=int, default=800)
     parser.add_argument("--lr", type=float, default=0.01)
     parser.add_argument("--weight-decay", type=float, default=0.001)
@@ -434,11 +437,15 @@ def main() -> int:
     dataset_path = Path(args.dataset)
     rows = read_rows(dataset_path)
     rows_by_split = split_rows(rows)
-    x_by_split, y_by_split, stats = standardize(rows_by_split, device)
+    dropped_features = [item.strip() for item in args.drop_features.split(",") if item.strip()]
+    active_features = [feature for feature in FEATURE_FIELDS if feature not in set(dropped_features)]
+    if not active_features:
+        raise ValueError("all features were dropped; refusing to train an empty model")
+    x_by_split, y_by_split, stats = standardize(rows_by_split, device, active_features)
 
     logistic_result = train_model(
         "logistic",
-        LogisticAdmissionNet(len(FEATURE_FIELDS)),
+        LogisticAdmissionNet(len(active_features)),
         x_by_split,
         y_by_split,
         rows_by_split,
@@ -449,7 +456,7 @@ def main() -> int:
     )
     mlp_result = train_model(
         "mlp",
-        MLPAdmissionNet(len(FEATURE_FIELDS), args.hidden),
+        MLPAdmissionNet(len(active_features), args.hidden),
         x_by_split,
         y_by_split,
         rows_by_split,
@@ -469,6 +476,7 @@ def main() -> int:
         "phase": args.phase,
         "report_title": args.report_title,
         "dataset_kind": args.dataset_kind,
+        "comparison_label": args.comparison_label,
         "environment_basis": "README.md §0.3: use LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib: conda run -n tram <command>",
         "actual_training_command": args.actual_command or default_command,
         "python_executable": sys.executable,
@@ -483,7 +491,8 @@ def main() -> int:
             }
             for split, split_rows_ in rows_by_split.items()
         },
-        "features": FEATURE_FIELDS,
+        "features": active_features,
+        "dropped_features": dropped_features,
         "standardization": stats,
         "gpu": {
             "cuda_available": bool(torch.cuda.is_available()),
