@@ -15,10 +15,10 @@ P211 is read-only artifact governance for the P206-P210 no-label evidence QA sta
 | Phase | Role | Path | Exists | Rows | SHA-256 |
 |---|---|---|---:|---:|---|
 | P206 | producer_script | `tools/build_diverse_raw_evidence_packet_p206.py` | True |  | `b52c55517a39` |
-| P206 | diverse_packet_json | `paper/evidence/raw_evidence_diverse_packet_p206.json` | True | 32 | `263bb6ac743f` |
+| P206 | diverse_packet_json | `paper/evidence/raw_evidence_diverse_packet_p206.json` | True | 32 | `241ef9feab26` |
 | P206 | diverse_packet_csv | `paper/evidence/raw_evidence_diverse_packet_p206.csv` | True | 32 | `8db7e9de20e2` |
 | P206 | diverse_packet_report | `paper/export/raw_evidence_diverse_packet_p206.md` | True |  | `5476e92cbdce` |
-| P206 | triage_json | `paper/evidence/raw_evidence_diverse_packet_triage_p206.json` | True | 32 | `589bd599e8e4` |
+| P206 | triage_json | `paper/evidence/raw_evidence_diverse_packet_triage_p206.json` | True | 32 | `9b0645f4a5a8` |
 | P206 | triage_csv | `paper/evidence/raw_evidence_diverse_packet_triage_p206.csv` | True | 32 | `49c4b09c206a` |
 | P206 | triage_report | `paper/export/raw_evidence_diverse_packet_triage_p206.md` | True |  | `6858cc21b4de` |
 | P207 | producer_and_validator_script | `tools/build_evidence_quality_notes_p207.py` | True |  | `fb018520a3f1` |

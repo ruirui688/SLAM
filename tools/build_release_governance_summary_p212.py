@@ -75,7 +75,7 @@ def run_git(args: list[str]) -> str:
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
-    return proc.stdout.strip()
+    return proc.stdout.rstrip("\n")
 
 
 def sha256(path: Path) -> str | None:

@@ -130,7 +130,7 @@
     "unique_physical_keys": 12,
     "unique_session_frame_pairs": 32
   },
-  "generated_at_utc": "2026-05-10T11:34:20.545275+00:00",
+  "generated_at_utc": "2026-05-10T12:13:20.751482+00:00",
   "inputs": {
     "p203_index_csv": "paper/evidence/raw_segmentation_evidence_index_p203.csv"
   },
