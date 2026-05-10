@@ -1,8 +1,10 @@
 # P192 GPU Admission-Scorer Training Smoke
 
 **Status:** CUDA-only PyTorch smoke completed. This run used GPU and would fail rather than falling back to CPU if CUDA were unavailable.
-**Python:** `/home/rui/miniconda3/envs/openvla/bin/python`
-**Torch:** `2.11.0+cu130`; CUDA runtime `13.0`; device `cuda`; GPU `NVIDIA GeForce RTX 3060`.
+**Environment basis:** README.md §0.3: use LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram <command>
+**Actual command:** `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/train_admission_scorer_gpu_p192.py --dataset paper/evidence/admission_scorer_dataset_p190.csv --p191-json paper/evidence/admission_scorer_smoke_p191.json --output-json paper/evidence/admission_scorer_gpu_p192.json --output-md paper/export/admission_scorer_gpu_p192.md`
+**Python executable:** `/home/rui/miniconda3/envs/tram/bin/python`
+**Torch:** `2.4.0+cu118`; CUDA runtime `11.8`; device `cuda`; GPU `NVIDIA GeForce RTX 3060`.
 **Dataset:** `paper/evidence/admission_scorer_dataset_p190.csv` (51 cluster samples).
 
 ## GPU Evidence
@@ -10,8 +12,8 @@
 - cuda_available: `True`
 - device_count: `1`
 - memory_before: allocated=0 bytes, reserved=0 bytes
-- memory_after: allocated=18092544 bytes, reserved=23068672 bytes
-- memory_peak: allocated=18108416 bytes, reserved=23068672 bytes
+- memory_after: allocated=17043968 bytes, reserved=23068672 bytes
+- memory_peak: allocated=18105344 bytes, reserved=23068672 bytes
 
 ## Metrics: GPU MLP vs GPU Logistic vs Rule Baseline
 
@@ -38,8 +40,8 @@
 
 ## Training Runtime
 
-- GPU MLP training time: 0.351514 s
-- GPU logistic training time: 0.321915 s
+- GPU MLP training time: 0.295921 s
+- GPU logistic training time: 0.255770 s
 
 ## Risk / Interpretation
 
@@ -52,10 +54,10 @@
 
 ### Frame-level admission dataset
 - Source globs: `outputs/torwic_*/frontend_output/all_instances_manifest.json, outputs/torwic_*/observation_output/observations_index.json`
-- Command: `/home/rui/miniconda3/envs/openvla/bin/python tools/build_admission_frame_dataset_p193.py --outputs-root outputs --cluster-labels paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_frame_dataset_p193.json --output-csv paper/evidence/admission_frame_dataset_p193.csv`
+- Command: `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/build_admission_frame_dataset_p193.py --outputs-root outputs --cluster-labels paper/evidence/admission_scorer_dataset_p190.csv --output-json paper/evidence/admission_frame_dataset_p193.json --output-csv paper/evidence/admission_frame_dataset_p193.csv`
 
 ### Pairwise cross-session association dataset
 - Source globs: `outputs/torwic_*/tracklet_output/tracklets_index.json, outputs/torwic_*/map_output/map_objects.json, outputs/torwic_*selection_v5.json`
-- Command: `/home/rui/miniconda3/envs/openvla/bin/python tools/build_association_pair_dataset_p193.py --outputs-root outputs --selection-glob 'outputs/torwic_*selection_v5.json' --output-json paper/evidence/association_pair_dataset_p193.json --output-csv paper/evidence/association_pair_dataset_p193.csv`
+- Command: `LD_LIBRARY_PATH=/home/rui/miniconda3/envs/tram/lib:$LD_LIBRARY_PATH conda run -n tram python tools/build_association_pair_dataset_p193.py --outputs-root outputs --selection-glob 'outputs/torwic_*selection_v5.json' --output-json paper/evidence/association_pair_dataset_p193.json --output-csv paper/evidence/association_pair_dataset_p193.csv`
 
 **Recommendation:** Implement the frame-level dataset builder first because manifests already exist and it expands admission supervision without changing the model target; then build pairwise association labels as P194 if admission still underfits.
