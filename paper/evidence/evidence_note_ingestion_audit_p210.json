@@ -1,0 +1,403 @@
+{
+  "constraints_observed": {
+    "admission_or_semantic_stability_training_performed": false,
+    "downloads_performed": false,
+    "human_admit_label_created_or_filled": false,
+    "human_same_object_label_created_or_filled": false,
+    "real_p207_notes_modified": false,
+    "weak_admission_or_model_predictions_used_as_labels": false
+  },
+  "generated_at_utc": "2026-05-10T11:57:48.317288+00:00",
+  "ingestion_manifest": {
+    "contains_admission_or_same_object_decision_field": false,
+    "contains_canonical_label_field": false,
+    "contains_human_admit_label": false,
+    "contains_human_same_object_label": false,
+    "excluded_label_or_proxy_fields": [
+      "admission_decision",
+      "admission_label",
+      "admit_label",
+      "admit_probability",
+      "current_weak_label",
+      "different_object",
+      "human_admit_label",
+      "human_same_object_label",
+      "model_prediction",
+      "model_probability",
+      "model_probability_a",
+      "model_probability_b",
+      "predicted_admit",
+      "same_object",
+      "same_object_decision",
+      "same_object_label",
+      "same_object_probability",
+      "selection_v5",
+      "selection_v5_label",
+      "selection_v5_score",
+      "target_admit",
+      "weak_label",
+      "weak_label_a",
+      "weak_label_b"
+    ],
+    "ingested_fields": [
+      "audit_sample_id",
+      "p203_index_row_id",
+      "p202_audit_row_id",
+      "sample_id",
+      "observation_id",
+      "source",
+      "session_id",
+      "frame_index",
+      "tracklet_id",
+      "physical_key",
+      "raw_segmentation_color_left_path",
+      "raw_segmentation_greyscale_left_path",
+      "raw_segmentation_color_right_path",
+      "raw_segmentation_greyscale_right_path",
+      "raw_rgb_left_path",
+      "raw_depth_left_path",
+      "visibility_quality",
+      "mask_alignment_quality",
+      "depth_quality",
+      "occlusion_level",
+      "blur_level",
+      "reviewer_note",
+      "quality_blocker"
+    ],
+    "non_ingested_source_fields": [
+      "canonical_label",
+      "row_source",
+      "row_role"
+    ],
+    "purpose": "evidence_quality_only_downstream_table"
+  },
+  "ingestion_manifest_preview": [
+    {
+      "audit_sample_id": "p206_001",
+      "blur_level": "",
+      "depth_quality": "",
+      "frame_index": "7",
+      "mask_alignment_quality": "",
+      "observation_id": "obs_torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CCW_000007_003",
+      "occlusion_level": "",
+      "p202_audit_row_id": "p202_00001",
+      "p203_index_row_id": "p203_00001",
+      "physical_key": "2022-06-15__Hallway_Full_CCW::000007::rack_forklift_003",
+      "quality_blocker": "",
+      "raw_depth_left_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/depth_left/000007.png",
+      "raw_rgb_left_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/image_left/000007.png",
+      "raw_segmentation_color_left_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_color_left/000007.png",
+      "raw_segmentation_color_right_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_color_right/000007.png",
+      "raw_segmentation_greyscale_left_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_greyscale_left/000007.png",
+      "raw_segmentation_greyscale_right_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW/segmentation_greyscale_right/000007.png",
+      "reviewer_note": "",
+      "sample_id": "hallway:obs_torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CCW_000007_003",
+      "session_id": "torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CCW",
+      "source": "hallway",
+      "tracklet_id": "trk_torwic_hallway_benchmark_batch2_v1__2022-06-15__Hallway_Full_CCW_003",
+      "visibility_quality": ""
+    },
+    {
+      "audit_sample_id": "p206_002",
+      "blur_level": "",
+      "depth_quality": "",
+      "frame_index": "7",
+      "mask_alignment_quality": "",
+      "observation_id": "obs_torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CCW_000007_006",
+      "occlusion_level": "",
+      "p202_audit_row_id": "p202_00004",
+      "p203_index_row_id": "p203_00004",
+      "physical_key": "2022-06-23__Hallway_Straight_CCW::000007::warehouse_rack_006",
+      "quality_blocker": "",
+      "raw_depth_left_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/depth_left/000007.png",
+      "raw_rgb_left_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/image_left/000007.png",
+      "raw_segmentation_color_left_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_left/000007.png",
+      "raw_segmentation_color_right_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_color_right/000007.png",
+      "raw_segmentation_greyscale_left_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_left/000007.png",
+      "raw_segmentation_greyscale_right_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW/segmentation_greyscale_right/000007.png",
+      "reviewer_note": "",
+      "sample_id": "hallway:obs_torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CCW_000007_006",
+      "session_id": "torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CCW",
+      "source": "hallway",
+      "tracklet_id": "trk_torwic_hallway_benchmark_batch2_v1__2022-06-23__Hallway_Straight_CCW_006",
+      "visibility_quality": ""
+    },
+    {
+      "audit_sample_id": "p206_003",
+      "blur_level": "",
+      "depth_quality": "",
+      "frame_index": "7",
+      "mask_alignment_quality": "",
+      "observation_id": "obs_torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_1_000007_001",
+      "occlusion_level": "",
+      "p202_audit_row_id": "p202_00011",
+      "p203_index_row_id": "p203_00011",
+      "physical_key": "2022-10-12__Hallway_Full_CW_Run_1::000007::barrier_001",
+      "quality_blocker": "",
+      "raw_depth_left_path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/depth_left/000007.png",
+      "raw_rgb_left_path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/image_left/000007.png",
+      "raw_segmentation_color_left_path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_color_left/000007.png",
+      "raw_segmentation_color_right_path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_color_right/000007.png",
+      "raw_segmentation_greyscale_left_path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_greyscale_left/000007.png",
+      "raw_segmentation_greyscale_right_path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Hallway_Full_CW_Run_1/Hallway_Full_CW_Run_1/segmentation_greyscale_right/000007.png",
+      "reviewer_note": "",
+      "sample_id": "hallway:obs_torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_1_000007_001",
+      "session_id": "torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_1",
+      "source": "hallway",
+      "tracklet_id": "trk_torwic_hallway_benchmark_batch2_v1__2022-10-12__Hallway_Full_CW_Run_1_001",
+      "visibility_quality": ""
+    },
+    {
+      "audit_sample_id": "p206_004",
+      "blur_level": "",
+      "depth_quality": "",
+      "frame_index": "7",
+      "mask_alignment_quality": "",
+      "observation_id": "obs_torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2_000007_001",
+      "occlusion_level": "",
+      "p202_audit_row_id": "p202_00073",
+      "p203_index_row_id": "p203_00073",
+      "physical_key": "2022-06-15__Aisle_CW_Run_2::000007::barrier_001",
+      "quality_blocker": "",
+      "raw_depth_left_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/depth_left/000007.png",
+      "raw_rgb_left_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/image_left/000007.png",
+      "raw_segmentation_color_left_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_left/000007.png",
+      "raw_segmentation_color_right_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_right/000007.png",
+      "raw_segmentation_greyscale_left_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_left/000007.png",
+      "raw_segmentation_greyscale_right_path": "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_right/000007.png",
+      "reviewer_note": "",
+      "sample_id": "cross_day:obs_torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2_000007_001",
+      "session_id": "torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2",
+      "source": "cross_day",
+      "tracklet_id": "trk_torwic_cross_day_aisle_bundle_v1__2022-06-15__Aisle_CW_Run_2_001",
+      "visibility_quality": ""
+    },
+    {
+      "audit_sample_id": "p206_005",
+      "blur_level": "",
+      "depth_quality": "",
+      "frame_index": "7",
+      "mask_alignment_quality": "",
+      "observation_id": "obs_torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2_000007_006",
+      "occlusion_level": "",
+      "p202_audit_row_id": "p202_00077",
+      "p203_index_row_id": "p203_00077",
+      "physical_key": "2022-06-23__Aisle_CW_Run_2::000007::forklift_006",
+      "quality_blocker": "",
+      "raw_depth_left_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/depth_left/000007.png",
+      "raw_rgb_left_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/image_left/000007.png",
+      "raw_segmentation_color_left_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_left/000007.png",
+      "raw_segmentation_color_right_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_color_right/000007.png",
+      "raw_segmentation_greyscale_left_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_left/000007.png",
+      "raw_segmentation_greyscale_right_path": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2/segmentation_greyscale_right/000007.png",
+      "reviewer_note": "",
+      "sample_id": "cross_day:obs_torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2_000007_006",
+      "session_id": "torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2",
+      "source": "cross_day",
+      "tracklet_id": "trk_torwic_cross_day_aisle_bundle_v1__2022-06-23__Aisle_CW_Run_2_006",
+      "visibility_quality": ""
+    }
+  ],
+  "inputs": {
+    "notes_csv": "paper/evidence/raw_evidence_quality_notes_p207.csv"
+  },
+  "outputs": {
+    "audit_json": "paper/evidence/evidence_note_ingestion_audit_p210.json",
+    "audit_markdown": "paper/export/evidence_note_ingestion_audit_p210.md",
+    "manifest_csv": "paper/evidence/evidence_note_ingestion_manifest_p210.csv"
+  },
+  "p195_status": "BLOCKED",
+  "phase": "P210-evidence-note-ingestion-audit",
+  "readiness": {
+    "reasons": [
+      "all P207 evidence-quality note fields are blank"
+    ],
+    "status": "READY_EMPTY"
+  },
+  "real_p207_notes_hash_unchanged": true,
+  "real_p207_notes_sha256_after": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+  "real_p207_notes_sha256_before": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+  "scientific_boundary": "Read-only evidence-quality note ingestion audit only. P210 audits P207 quality-note ingestibility and quality-only safety boundaries; it creates no admission/same-object labels, does not import labels, does not train, and does not support admission-control claims.",
+  "self_test": {
+    "case_count": 5,
+    "cases": [
+      {
+        "actual_readiness": "READY_EMPTY",
+        "expected_outcome_met": true,
+        "expected_readiness": "READY_EMPTY",
+        "issue_codes": [],
+        "manifest_has_label_fields": false,
+        "name": "blank_notes_ready_empty",
+        "status": "PASS",
+        "warning_codes": []
+      },
+      {
+        "actual_readiness": "READY_WITH_QUALITY_NOTES",
+        "expected_outcome_met": true,
+        "expected_readiness": "READY_WITH_QUALITY_NOTES",
+        "issue_codes": [],
+        "manifest_has_label_fields": false,
+        "name": "valid_quality_notes_ready",
+        "status": "PASS",
+        "warning_codes": []
+      },
+      {
+        "actual_readiness": "BLOCKED_INVALID_VALUES",
+        "expected_outcome_met": true,
+        "expected_readiness": "BLOCKED_INVALID_VALUES",
+        "issue_codes": [
+          "invalid_allowed_value"
+        ],
+        "manifest_has_label_fields": false,
+        "name": "invalid_allowed_value_blocked",
+        "status": "FAIL",
+        "warning_codes": []
+      },
+      {
+        "actual_readiness": "BLOCKED_LABEL_LEAKAGE",
+        "expected_outcome_met": true,
+        "expected_readiness": "BLOCKED_LABEL_LEAKAGE",
+        "issue_codes": [
+          "prohibited_label_or_proxy_column"
+        ],
+        "manifest_has_label_fields": false,
+        "name": "prohibited_column_label_leakage_blocked",
+        "status": "FAIL",
+        "warning_codes": []
+      },
+      {
+        "actual_readiness": "BLOCKED_LABEL_LEAKAGE",
+        "expected_outcome_met": true,
+        "expected_readiness": "BLOCKED_LABEL_LEAKAGE",
+        "issue_codes": [
+          "possible_label_decision_text"
+        ],
+        "manifest_has_label_fields": false,
+        "name": "reviewer_note_label_text_blocked",
+        "status": "FAIL",
+        "warning_codes": []
+      }
+    ],
+    "passed_case_count": 5,
+    "real_p207_notes_hash_unchanged": true,
+    "real_p207_notes_sha256_after": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+    "real_p207_notes_sha256_before": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+    "status": "PASS"
+  },
+  "status": "PASS",
+  "summary": {
+    "all_note_fields_blank": true,
+    "any_quality_note_present": false,
+    "manifest_rows": 32,
+    "note_blank_counts": {
+      "blur_level": 32,
+      "depth_quality": 32,
+      "mask_alignment_quality": 32,
+      "occlusion_level": 32,
+      "quality_blocker": 32,
+      "reviewer_note": 32,
+      "visibility_quality": 32
+    },
+    "note_field_distributions": {
+      "blur_level": {
+        "blank": 32,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "none": 0,
+        "not_assessable": 0
+      },
+      "depth_quality": {
+        "blank": 32,
+        "limited": 0,
+        "not_assessable": 0,
+        "unusable": 0,
+        "usable": 0
+      },
+      "mask_alignment_quality": {
+        "blank": 32,
+        "good": 0,
+        "major_issue": 0,
+        "minor_issue": 0,
+        "not_assessable": 0
+      },
+      "occlusion_level": {
+        "blank": 32,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "none": 0,
+        "not_assessable": 0
+      },
+      "quality_blocker": {
+        "blank": 32,
+        "no": 0,
+        "yes": 0
+      },
+      "reviewer_note": {
+        "blank": 32,
+        "nonblank": 0
+      },
+      "visibility_quality": {
+        "blank": 32,
+        "clear": 0,
+        "not_assessable": 0,
+        "partial": 0,
+        "poor": 0
+      }
+    },
+    "note_nonblank_counts": {
+      "blur_level": 0,
+      "depth_quality": 0,
+      "mask_alignment_quality": 0,
+      "occlusion_level": 0,
+      "quality_blocker": 0,
+      "reviewer_note": 0,
+      "visibility_quality": 0
+    },
+    "rows": 32,
+    "source_columns": [
+      "audit_sample_id",
+      "p203_index_row_id",
+      "p202_audit_row_id",
+      "row_source",
+      "row_role",
+      "sample_id",
+      "observation_id",
+      "canonical_label",
+      "source",
+      "session_id",
+      "frame_index",
+      "tracklet_id",
+      "physical_key",
+      "raw_segmentation_color_left_path",
+      "raw_segmentation_greyscale_left_path",
+      "raw_segmentation_color_right_path",
+      "raw_segmentation_greyscale_right_path",
+      "raw_rgb_left_path",
+      "raw_depth_left_path",
+      "visibility_quality",
+      "mask_alignment_quality",
+      "depth_quality",
+      "occlusion_level",
+      "blur_level",
+      "reviewer_note",
+      "quality_blocker"
+    ]
+  },
+  "validation": {
+    "invalid_value_rows": [],
+    "issue_codes": [],
+    "issue_count": 0,
+    "p207_issue_codes": [],
+    "p207_issue_count": 0,
+    "p207_validation_status": "PASS",
+    "p207_warning_count": 0,
+    "prohibited_columns_present": [],
+    "reviewer_note_label_text_rows": [],
+    "status": "PASS",
+    "unsafe_extra_columns_present": [],
+    "warning_codes": [],
+    "warning_count": 0
+  }
+}
