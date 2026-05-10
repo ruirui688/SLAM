@@ -1358,3 +1358,11 @@ Persisted the DeepSeek worker verification for the ORB-SLAM3 sparse-keyframe cav
 - `paper/evidence/inline_citation_threading_p185.json`
 
 Next owner-loop step: broader pre-submission anonymization and metadata/package consistency cleanup (EXIF/PDF metadata/path-string/supplementary package checks).
+
+## 2026-05-10 — P186 Pre-Submission Anonymization / Metadata / Package Cleanup
+
+- **Goal:** Close the next post-P185 reviewer-upload risk by auditing anonymization, PDF metadata, local path strings, and supplementary package hygiene without downloading new data.
+- **Result: PASS with human-visual caveat.** Sanitized tracked local absolute-path strings in evidence/export/supplementary surfaces to `<repo-root>`, refreshed `ANONYMIZATION_CHECKLIST.md`, audited 18 current paper figures, and verified current PDF metadata.
+- **Machine checks:** 18/18 current `paper/figures/*.png` have 0 PNG text/EXIF chunks and 0 identity/path string hits; text/data scan has 0 Linux-user-home, project-GitHub-username, Windows-user-path, or credential-marker hits; `pdfinfo` shows no Author field and no custom metadata in current PDFs.
+- **Outputs:** `paper/export/pre_submission_anonymization_audit_p186.md`, `paper/evidence/pre_submission_anonymization_audit_p186.json`.
+- **Remaining:** final human visual skim of figures before upload; anonymous code mirror only if code is included in double-anonymous review.

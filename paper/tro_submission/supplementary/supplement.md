@@ -360,7 +360,7 @@ Across all Aisle runs (same-day, cross-day, cross-month), the maximum per-frame 
 
 ### S8.1 Complete Evidence Inventory
 
-All evidence files are located under the project root (`/home/rui/slam/`).
+All evidence files are located under the project root (`<repo-root>/`).
 
 #### Core Outputs
 

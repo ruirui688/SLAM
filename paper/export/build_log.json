@@ -8,17 +8,17 @@
   "builds": [
     {
       "lang": "en",
-      "html": "/home/rui/slam/paper/export/manuscript_en_thick.html",
+      "html": "<repo-root>/paper/export/manuscript_en_thick.html",
       "html_size_kb": 79.8,
-      "pdf": "/home/rui/slam/paper/export/manuscript_en_thick.pdf",
+      "pdf": "<repo-root>/paper/export/manuscript_en_thick.pdf",
       "pdf_size_kb": 667.0,
       "pdf_ok": true
     },
     {
       "lang": "zh",
-      "html": "/home/rui/slam/paper/export/manuscript_zh_thick.html",
+      "html": "<repo-root>/paper/export/manuscript_zh_thick.html",
       "html_size_kb": 77.8,
-      "pdf": "/home/rui/slam/paper/export/manuscript_zh_thick.pdf",
+      "pdf": "<repo-root>/paper/export/manuscript_zh_thick.pdf",
       "pdf_size_kb": 960.7,
       "pdf_ok": true
     }

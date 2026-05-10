@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-05-10T12:46+08",
+  "phase": "P186-pre-submission-anonymization-metadata-package-cleanup",
+  "figure_count": 18,
+  "figure_text_or_exif_chunks": [],
+  "figure_identity_string_hits": [],
+  "text_data_identity_hits": {
+    "linux_user_home_path": [],
+    "project_github_username": [],
+    "windows_user_path": [],
+    "credential_marker": []
+  },
+  "pdf_metadata": [
+    {
+      "file": "paper/tro_submission/main.pdf",
+      "author_field_present": false,
+      "custom_metadata_no": true,
+      "head": [
+        "Title:           Session-Level Map Admission Control for Semantic-Segmentation-Assisted SLAM in Dynamic Industrial Environments",
+        "Subject:         Robotics, SLAM, Semantic Mapping",
+        "Keywords:        SLAM, semantic segmentation, dynamic object filtering, object-level mapping, map maintenance, industrial robotics, open-vocabulary perception, long-term autonomy",
+        "Creator:         LaTeX with hyperref",
+        "Producer:        xdvipdfmx (0.1)",
+        "CreationDate:    Sun May 10 01:46:41 2026 CST",
+        "Custom Metadata: no",
+        "Metadata Stream: no",
+        "Tagged:          no",
+        "UserProperties:  no"
+      ]
+    },
+    {
+      "file": "paper/tro_submission/build_p180/main.pdf",
+      "author_field_present": false,
+      "custom_metadata_no": true,
+      "head": [
+        "Title:           Session-Level Map Admission Control for Semantic-Segmentation-Assisted SLAM in Dynamic Industrial Environments",
+        "Subject:         Robotics, SLAM, Semantic Mapping",
+        "Keywords:        SLAM, semantic segmentation, dynamic object filtering, object-level mapping, map maintenance, industrial robotics, open-vocabulary perception, long-term autonomy",
+        "Creator:         LaTeX with hyperref",
+        "Producer:        xdvipdfmx (0.1)",
+        "CreationDate:    Sun May 10 01:46:41 2026 CST",
+        "Custom Metadata: no",
+        "Metadata Stream: no",
+        "Tagged:          no",
+        "UserProperties:  no"
+      ]
+    }
+  ],
+  "verdict": "PASS with final human visual skim recommended; no machine-detected identity leaks in current reviewer-facing figure/PDF/text-data surfaces after sanitization."
+}

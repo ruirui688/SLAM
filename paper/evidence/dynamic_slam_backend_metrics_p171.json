@@ -236,7 +236,7 @@
       "n_frames": 8,
       "global_ba": false,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:02.604177+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.002508\n      mean\t0.001299\n    median\t0.001223\n       min\t0.000537\n      rmse\t0.001428\n       sse\t0.000016\n       std\t0.000593\n\n",
@@ -274,7 +274,7 @@
       "n_frames": 64,
       "global_ba": false,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:03.269103+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.663253\n      mean\t0.142137\n    median\t0.093797\n       min\t0.090605\n      rmse\t0.183616\n       sse\t2.157749\n       std\t0.116241\n\n",
@@ -312,7 +312,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:04.000096+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",
@@ -350,7 +350,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64_semantic_masks/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64_semantic_masks/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:04.706818+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",
@@ -388,7 +388,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64_temporal_mask_stress/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64_temporal_mask_stress/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:05.428226+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",
@@ -426,7 +426,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64_flow_mask_stress/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64_flow_mask_stress/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:06.083560+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",
@@ -464,7 +464,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64_first8_real_masks/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64_first8_real_masks/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:06.756251+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",
@@ -502,7 +502,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64_first16_real_masks/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64_first16_real_masks/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:07.465208+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",
@@ -540,7 +540,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64_first32_real_masks/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64_first32_real_masks/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:08.138663+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",
@@ -578,7 +578,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64_top4_real_masks_p142/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64_top4_real_masks_p142/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:08.831130+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",
@@ -616,7 +616,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64_top8_real_masks_p142/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64_top8_real_masks_p142/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:09.511815+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",
@@ -654,7 +654,7 @@
       "n_frames": 64,
       "global_ba": true,
       "input_session": "2022-06-15 Aisle_CW_Run_1",
-      "groundtruth": "/home/rui/slam/outputs/dynamic_slam_backend_input_pack_64_top16_real_masks_p142/groundtruth.txt",
+      "groundtruth": "<repo-root>/outputs/dynamic_slam_backend_input_pack_64_top16_real_masks_p142/groundtruth.txt",
       "timestamp": "2026-05-09T22:57:10.171567+08:00",
       "ape_raw_m": {
         "raw_output_preview": "APE w.r.t. translation part (m)\n(with SE(3) Umeyama alignment)\n\n       max\t0.403779\n      mean\t0.084466\n    median\t0.048880\n       min\t0.045508\n      rmse\t0.109855\n       sse\t0.772354\n       std\t0.070239\n\n",

@@ -128,11 +128,11 @@ Extend ORB-SLAM3 to full-sequence Aisle_CW_Run_1 (≥300 frames) for denser keyf
 | Headless runner source | `/tmp/ORB_SLAM3/Examples/Monocular/run_headless.cc` |
 | Headless runner binary | `/tmp/ORB_SLAM3/Examples/Monocular/run_headless` |
 | TorWIC config | `/tmp/torwic_mono.yaml` |
-| Run A raw trajectory (10 KFs) | `/home/rui/slam/outputs/orb_slam3_p173_recovery/raw_KeyFrameTrajectory.txt` |
-| Run A masked trajectory (12 KFs) | `/home/rui/slam/outputs/orb_slam3_p173_recovery/masked_KeyFrameTrajectory.txt` |
-| Run B raw trajectory (5 KFs) | `/home/rui/slam/outputs/orb_slam3_cross_check_p173/traj_raw_aisle_ccw_run1.txt` |
-| Run B masked trajectory (9 KFs) | `/home/rui/slam/outputs/orb_slam3_cross_check_p173/traj_masked_aisle_ccw_run1.txt` |
-| Ground truth (64 poses) | `/home/rui/slam/outputs/orb_slam3_cross_check_p173/groundtruth_aisle_ccw_run1.txt` |
+| Run A raw trajectory (10 KFs) | `<repo-root>/outputs/orb_slam3_p173_recovery/raw_KeyFrameTrajectory.txt` |
+| Run A masked trajectory (12 KFs) | `<repo-root>/outputs/orb_slam3_p173_recovery/masked_KeyFrameTrajectory.txt` |
+| Run B raw trajectory (5 KFs) | `<repo-root>/outputs/orb_slam3_cross_check_p173/traj_raw_aisle_ccw_run1.txt` |
+| Run B masked trajectory (9 KFs) | `<repo-root>/outputs/orb_slam3_cross_check_p173/traj_masked_aisle_ccw_run1.txt` |
+| Ground truth (64 poses) | `<repo-root>/outputs/orb_slam3_cross_check_p173/groundtruth_aisle_ccw_run1.txt` |
 | ORB-SLAM3 build | `/tmp/ORB_SLAM3/` (lib, examples, vocab) |
 | evo metrics JSON | `paper/evidence/orb_slam3_cross_check_p173_metrics.json` |
 | This report | `paper/export/orb_slam3_cross_check_p173_recovery.md` |

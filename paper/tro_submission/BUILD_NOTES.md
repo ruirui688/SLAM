@@ -30,7 +30,7 @@ LaTeX: NOT INSTALLED
 ## Build Commands (when LaTeX is available)
 
 ```bash
-cd /home/rui/slam/paper/tro_submission
+cd <repo-root>/paper/tro_submission
 
 # Option A: traditional pdflatex + bibtex
 pdflatex main.tex

@@ -141,7 +141,7 @@ These are not verified (no TeX) but predictable from IEEEtran experience:
 
 After TeX installation:
 ```bash
-cd /home/rui/slam/paper/tro_submission
+cd <repo-root>/paper/tro_submission
 latexmk -pdf -interaction=nonstopmode main.tex
 # Or for troubleshooting:
 pdflatex -interaction=nonstopmode main.tex && bibtex main && pdflatex main && pdflatex main
