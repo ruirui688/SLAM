@@ -1,7 +1,7 @@
 # P190 Real-Model Mainline Replan + First Training Feasibility Step
 
-**Date:** 2026-05-10 13:43+08  
-**Project:** industrial-semantic-slam  
+**Date:** 2026-05-10 13:43+08
+**Project:** industrial-semantic-slam
 **Status:** real-model/data-experiment mainline activated; submission package work paused by user.
 
 ## 1. Mainline Switch

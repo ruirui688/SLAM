@@ -149,7 +149,7 @@ def main() -> None:
 
     columns = ["sample_id", "source", "split", "cluster_id", "canonical_label", "dominant_state", "target_admit"] + FEATURE_FIELDS
     with out_csv.open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=columns)
+        writer = csv.DictWriter(f, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         writer.writerows({k: s.get(k, "") for k in columns} for s in samples)
 
