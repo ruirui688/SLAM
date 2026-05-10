@@ -8,7 +8,7 @@ are intentionally excluded from Git. When the research robot produces progress
 that lives in ignored paths such as `outputs/`, it should record the evidence
 summary and local paths here, then commit and push the repository.
 
-- **ORB-SLAM3 cross-check (P173.1):** ✅ Metrics computed — evo unblocked (scipy 1.15.3 user-level upgrade), APE/RPE computed on sparse keyframe trajectories against groundtruth. Raw (10 KFs): APE RMSE 0.052 m, RPE RMSE 0.024 m. Masked (12 KFs): APE RMSE 0.048 m, RPE RMSE 0.020 m. ORB-SLAM3 tracked only ~1.2s of the 7s sequence (17%). Metrics are mathematically valid but low power (N=10–12). No improvement claim: these numbers only show that ORB-SLAM3 briefly initialized/tracked and that the masked sparse-keyframe subset was numerically lower in this short window. Report: `paper/export/orb_slam3_cross_check_p173_metrics.md`. JSON evidence: `paper/evidence/orb_slam3_cross_check_p173_metrics.json`.
+- **ORB-SLAM3 cross-check (P173):** ✅ Metrics computed — evo APE/RPE computed on sparse keyframe trajectories against TorWIC groundtruth. Current audit source is raw 5 KFs / masked 9 KFs over ~1.2s of a ~7s 64-frame window; raw/masked APE RMSE is 0.041/0.043 m and RPE RMSE is 0.044/0.032 m. Metrics are mathematically valid but low power and not directly comparable to DROID-SLAM dense per-frame trajectories. No improvement claim is supported. Report: `paper/export/orb_slam3_cross_check_p173_metrics.md`. JSON evidence: `paper/evidence/orb_slam3_cross_check_p173_metrics.json`.
   - **P183 hostile review:** ✅ Complete — 3 reject-level simulations (12 major, 12 minor), 3 text fixes applied, rebuttal templates prepared. Risk estimate: 60-70% chance first-round reject with major revision.
   - **P178 LaTeX build:** CONDITIONALLY BUILD-READY → verified by P180 real compilation.
   - **P180 compile:** ✅ PDF generated (14 pages, 3.09 MB) via Tectonic 0.16.9 (conda, user-level, no sudo). 0 errors, 26 warnings (all hbox, 2×80pt overfull in Related Work — cosmetic).
@@ -19,6 +19,16 @@ summary and local paths here, then commit and push the repository.
   - **P179 quality gate:** PASS — 3 text fixes applied, 0 overclaims, T-RO-submission recommended.
 - **Active:** Manuscript production closure. Paper faces 3 HIGH risks from hostile reviewer simulation (heuristics framing, n=20 scale, short DROID-SLAM window) — all documented with rebuttal templates in REVIEWER_ATTACKS_P183.md.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
+
+
+## 2026-05-10 P184 — Final polish citation/package consistency after ORB-SLAM3
+
+- **Goal:** Close the P173→P184 claim-boundary gap by reading ORB-SLAM3 metrics, P183 hostile reviewer attacks, `main.tex`, and submission package/checklists; then make only paper/package consistency fixes.
+- **Result: PASS with bounded caveat.** Added a claim-boundary/package artifact and tightened `main.tex` so ORB-SLAM3 is represented only as a sparse, low-power backend-risk check.
+- **Main manuscript fixes:** downgraded residual Hallway `scene-transfer` wording to within-site variation; replaced residual B2 `richer` labels with `Full Admission Control`; replaced the old single-VO-backend limitation with a P173-aware ORB-SLAM3 sparse-keyframe caveat.
+- **Evidence boundary:** raw/masked ORB-SLAM3 APE RMSE 0.041/0.043 m on 5/9 keyframes does not support improvement, trajectory-neutrality generalization, or cross-backend comparison claims.
+- **Outputs:** `paper/export/claim_boundary_package_consistency_p184.md`, `paper/evidence/claim_boundary_package_consistency_p184.json`.
+- **Remaining package caveat:** P148 package index/checklist predate P173/P184; before external upload, refresh checklist and rerun real LaTeX/PDF metadata checks.
 
 ## 2026-05-10 P183 — Hostile reviewer simulation
 

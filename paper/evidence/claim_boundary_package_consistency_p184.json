@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-05-10T11:59:00+08:00",
+  "project": "industrial-semantic-slam",
+  "phase": "P184-final-polish-citation-verification",
+  "artifact": "paper/export/claim_boundary_package_consistency_p184.md",
+  "sources_read": [
+    "paper/export/orb_slam3_cross_check_p173_metrics.md",
+    "paper/evidence/orb_slam3_cross_check_p173_metrics.json",
+    "paper/tro_submission/REVIEWER_ATTACKS_P183.md",
+    "paper/tro_submission/main.tex",
+    "paper/tro_submission/ANONYMIZATION_CHECKLIST.md",
+    "outputs/torwic_submission_readiness_checklist_v1.md",
+    "outputs/torwic_submission_ready_package_index_v10.md",
+    "outputs/torwic_submission_ready_closure_bundle_v36.md",
+    "outputs/torwic_submission_ready_appendix_table_closure_v15.md"
+  ],
+  "orb_slam3_claim_boundary": {
+    "allowed": "ORB-SLAM3 built, ran headlessly, and produced mathematically valid sparse-keyframe evo APE/RPE on TorWIC.",
+    "disallowed": [
+      "raw-vs-masked ORB-SLAM3 improvement claim",
+      "cross-backend trajectory-neutrality generalization",
+      "direct comparison between ORB-SLAM3 sparse keyframe metrics and DROID-SLAM dense per-frame metrics"
+    ],
+    "raw_keyframes": 5,
+    "masked_keyframes": 9,
+    "raw_ape_rmse_m": 0.041,
+    "masked_ape_rmse_m": 0.043,
+    "coverage_seconds_approx": 1.2,
+    "window_seconds_approx": 7.0
+  },
+  "main_tex_changes": [
+    "scene-transfer wording downgraded to within-site scene variation",
+    "B2 richer labels replaced with full admission control wording",
+    "single-VO-backend limitation replaced with ORB-SLAM3 sparse-keyframe caveat"
+  ],
+  "package_verdict": "PASS with caveat: P148 package index/checklist predate P173/P184 and require a final P184-aware checklist refresh plus real compile/PDF metadata check before external submission."
+}

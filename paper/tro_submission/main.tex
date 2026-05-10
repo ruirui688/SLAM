@@ -257,7 +257,7 @@ We use the \textbf{TorWIC dataset} from the POV-SLAM release~\cite{barath2023pov
 \subsection{Protocol Design}
 \label{sec:protocol_design}
 
-We define four protocols spanning increasing temporal gaps and a scene-transfer branch:
+We define four protocols spanning increasing temporal gaps and a within-site scene-variation branch:
 
 \textbf{Primary Aisle Ladder.} Three protocols using a high-fidelity Aisle protocol bundle covering a specific aisle section:
 \begin{itemize}
@@ -266,7 +266,7 @@ We define four protocols spanning increasing temporal gaps and a scene-transfer 
   \item \textbf{Cross-month:} 6 sessions (Jun~15, Jun~23, Oct~12), 297 observations, 14 clusters, 7 retained. Tests 4-month gap with seasonal variation.
 \end{itemize}
 
-\textbf{Hallway Scene-Transfer Branch.} 10 sessions (10/10 complete) across all 3 dates, 537 observations, 16 clusters, 9 retained. Tests whether the admission-control framework transfers to a scene without forklifts (Hallway serve as a negative-control environment). Admission rate 56.2\% (bootstrap 95\% CI: 31.2--81.2\%, n=16); does not differ from pooled Aisle (Fisher exact p=0.76).
+\textbf{Hallway Within-Site Variation Branch.} 10 sessions (10/10 complete) across all 3 dates, 537 observations, 16 clusters, 9 retained. Evaluates the admission-control framework on a different floor plan within the same TorWIC warehouse and without forklifts (Hallway serves as a negative-control environment). Admission rate 56.2\% (bootstrap 95\% CI: 31.2--81.2\%, n=16); does not differ from pooled Aisle (Fisher exact p=0.76).
 
 \subsection{Selection Criteria (Constant Across All Protocols)}
 \label{sec:protocol_criteria}
@@ -313,7 +313,7 @@ All results are reported with invariant selection criteria: \texttt{min\_session
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{../figures/torwic_real_session_overlays.png}
-  \caption{Four-protocol rejection-ratio overview: same-day, cross-day, cross-month Aisle protocols and Hallway scene-transfer. Retained infrastructure objects (barriers, work tables, warehouse racks) are shown in green; rejected clusters (forklifts, single-session, low-quality) in red.}
+  \caption{Four-protocol rejection-ratio overview: same-day, cross-day, cross-month Aisle protocols and Hallway within-site scene variation. Retained infrastructure objects (barriers, work tables, warehouse racks) are shown in green; rejected clusters (forklifts, single-session, low-quality) in red.}
   \label{fig:protocol_overview}
 \end{figure*}
 \subsection{Selection Criteria Analysis}
@@ -368,7 +368,7 @@ All results are reported with invariant selection criteria: \texttt{min\_session
   \end{tabular}
 \end{table}
 
-% === VII.C Hallway Scene-Transfer ===
+% === VII.C Hallway Within-Site Variation ===
 \subsection{Hallway Within-Site Scene Variation}
 \label{sec:results_hallway}
 
@@ -455,7 +455,7 @@ We evaluate 12 masking configurations on a single 64-frame TorWIC window (Jun~15
 
 These results establish two findings. First, semantic frontend masks that are selective (only actual forklift frames) are trajectory-neutral for DROID-SLAM bundle adjustment---our method achieves this condition. Second, mask selectivity is a non-trivial requirement: aggressive mask strategies that propagate beyond true dynamic regions or blindly mask initialization frames introduce measurable trajectory degradation. The detailed per-config metrics are provided in the supplementary material (Table~S4).
 
-Stage~1 replication on two additional TorWIC Aisle sessions confirms cross-session reproducibility: Jun~15 Aisle\_CW\_Run\_2 (same-day) and Jun~23 Aisle\_CW\_Run\_1 (cross-day, two weeks later) both produce $\Delta\text{APE} \leq 0.001~\text{mm}$ with selective semantic frontend masks (4/64 frames masked, max coverage $\leq 1.49\%$). Stage~2 extends this to cross-month and scene-transfer: Oct~12 Aisle\_CW (cross-month, four months later, $\Delta\text{APE}=0.000~\text{mm}$, 2/64 masked, max~$4.89\%$) and Oct~12 Hallway\_Full\_CW\_Run\_2 (first-ever Hallway dynamic mask test, $\Delta\text{APE}=0.000~\text{mm}$, 3/64 masked, max~$0.63\%$). This upgrades to an 11/16-config, 5-session evidence chain (same-day $+$ cross-day $+$ cross-month $+$ Hallway scene-transfer). A follow-up high-coverage selective-mask pressure test on Jun~15 Aisle\_CCW\_Run\_1 masks 5/64 frames with max per-frame coverage $17.32\%$ and mean coverage $0.568\%$; it remains small in absolute terms but no longer exactly neutral ($\Delta\text{APE}=+0.114~\text{mm}$, $\Delta\text{RPE}=-0.006~\text{mm}$). Thus, selectivity is necessary but not sufficient by itself: coverage magnitude also defines the boundary between trajectory-neutral and mildly perturbed behavior.
+Stage~1 replication on two additional TorWIC Aisle sessions confirms cross-session reproducibility: Jun~15 Aisle\_CW\_Run\_2 (same-day) and Jun~23 Aisle\_CW\_Run\_1 (cross-day, two weeks later) both produce $\Delta\text{APE} \leq 0.001~\text{mm}$ with selective semantic frontend masks (4/64 frames masked, max coverage $\leq 1.49\%$). Stage~2 extends this to cross-month and within-site scene variation: Oct~12 Aisle\_CW (cross-month, four months later, $\Delta\text{APE}=0.000~\text{mm}$, 2/64 masked, max~$4.89\%$) and Oct~12 Hallway\_Full\_CW\_Run\_2 (first Hallway dynamic mask test, $\Delta\text{APE}=0.000~\text{mm}$, 3/64 masked, max~$0.63\%$). This upgrades to an 11/16-config, 5-session evidence chain (same-day $+$ cross-day $+$ cross-month $+$ Hallway within-site variation). A follow-up high-coverage selective-mask pressure test on Jun~15 Aisle\_CCW\_Run\_1 masks 5/64 frames with max per-frame coverage $17.32\%$ and mean coverage $0.568\%$; it remains small in absolute terms but no longer exactly neutral ($\Delta\text{APE}=+0.114~\text{mm}$, $\Delta\text{RPE}=-0.006~\text{mm}$). Thus, selectivity is necessary but not sufficient by itself: coverage magnitude also defines the boundary between trajectory-neutral and mildly perturbed behavior.
 
 % --- Figure 4: DROID-SLAM raw-vs-masked trajectories ---
 \begin{figure}[t]
@@ -554,11 +554,11 @@ Stage~1 replication on two additional TorWIC Aisle sessions confirms cross-sessi
 % --- Table 8: Baseline Comparison (P155) ---
 \begin{table}[t]
   \centering
-  \caption{Baseline Comparison: Naive (B0), Purity/Support Heuristic (B1), Richer Admission (B2).}
+  \caption{Baseline Comparison: Naive (B0), Purity/Support Heuristic (B1), Full Admission Control (B2).}
   \label{tab:baseline_comparison}
   \begin{tabular}{lccc}
     \toprule
-    Metric & B0 (Naive) & B1 (Purity/Support) & B2 (Richer) \\
+    Metric & B0 (Naive) & B1 (Purity/Support) & B2 (Full Control) \\
     \midrule
     Total admitted & 20/20 & 13/20 & 5/20 \\
     Forklift admitted & 4/4 & 4/4 & 0/4 \\
@@ -593,7 +593,7 @@ Stage~1 replication on two additional TorWIC Aisle sessions confirms cross-sessi
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{../figures/torwic_before_after_map_composition_p156.png}
-  \caption{B0 (naive) vs B2 (richer admission) map composition. B0 admits all 20 clusters including 4 forklifts (phantom risk 20.0\%); B2 retains 5 infrastructure-only clusters (phantom risk 0.0\%).}
+  \caption{B0 (naive) vs B2 (full admission control) map composition. B0 admits all 20 clusters including 4 forklifts (phantom risk 20.0\%); B2 retains 5 infrastructure-only clusters (phantom risk 0.0\%).}
   \label{fig:map_composition}
 \end{figure}
 
@@ -620,7 +620,7 @@ The five admission criteria (\S\ref{sec:admission_criteria}) are deliberately bo
 
 \textbf{Traceability.} Every admission or rejection decision maps to a specific criterion violation, enabling per-object provenance auditable without model introspection. Learned classifiers (e.g., a neural admission gate trained on object features) would obscure the decision boundary.
 
-\textbf{Cross-scene transfer.} Boolean thresholds on session count, label purity, and dynamic ratio transfer across the Aisle and Hallway protocols without retraining. A learned gate trained on Aisle data might specialize to forklift-rich scenes and fail on the Hallway negative-control environment.
+\textbf{Within-site variation.} Boolean thresholds on session count, label purity, and dynamic ratio remain stable across the Aisle and Hallway protocols without retraining. This supports within-warehouse floor-plan variation, not cross-site generalization: a learned gate trained only on forklift-rich Aisle data might specialize to that scene and fail on the Hallway negative-control environment.
 
 \textbf{Domain-informed priorities.} The weights in the trust score (\ref{eq:trust_score}) reflect domain priorities---session count ($\alpha{=}0.4$) is weighted more heavily than observation support ($\beta{=}0.3$) because cross-session persistence is a stronger indicator of infrastructure than repeated detection within a single session---rather than being optimized on a validation set. The dynamic-ratio weight ($\gamma{=}0.5$) intentionally penalizes dynamic contamination to produce a clean floor: $\tau(O) \leq 0.15$ for forklifts, $\tau(O) \geq 0.4$ for infrastructure.
 
@@ -655,7 +655,7 @@ The current evidence is limited to a single warehouse site (TorWIC). While the A
   \item \textbf{No comparison against published map-management policies.} The baseline comparison (naive-all-admit, purity/support heuristic) uses deliberately simple policies to isolate the contribution of individual signals. Comparison against map-management policies in published SLAM systems (e.g., RTAB-Map's memory management, ORB-SLAM3's map-point culling) is deferred to future work.
   \item \textbf{Single-session infrastructure loss.} Infrastructure appearing in only one session cannot be verified for cross-session persistence and is conservatively rejected. This is a design choice---precision over recall for map entries---but entails genuine infrastructure omission.
   \item \textbf{Dynamic SLAM boundary.} evo APE evaluation across the bounded DROID-SLAM chain reveals three regimes. Selective low-coverage semantic masks are trajectory-neutral ($|\Delta\text{APE}| \leq 0.006~\text{mm}$ in the original 7/12 neutral configs, extended by four neutral replication sessions). Aggressive mask strategies (temporal/flow propagation, uniform first-N masks) introduce measurable perturbations ($0.92$--$7.52~\text{mm}$, 5 configs). A high-coverage but still selective Jun~15 Aisle\_CCW pressure test (max $17.32\%$ frame coverage, mean $0.568\%$) produces only a small perturbation ($\Delta\text{APE}=+0.114~\text{mm}$). Mask selectivity is therefore necessary, but high dynamic coverage can still move the trajectory at sub-millimetre scale. Bootstrap 95\% CI for the neutral rate is 43.8--87.5\% (11/16 configs); the two-group $\Delta$APE separation at $|\Delta\text{APE}| \leq 0.006~\text{mm}$ is complete (gap=0.914~mm, no overlap). We do not claim navigation benefit or full-map quality improvement from masking.
-  \item \textbf{Single VO backend.} Only DROID-SLAM was tested as the visual odometry backend. ORB-SLAM3 and other backends may exhibit different sensitivity to dynamic content masking.
+  \item \textbf{Backend boundary and ORB-SLAM3 caveat.} The trajectory-perturbation evidence remains DROID-SLAM-primary. A follow-up ORB-SLAM3 mono cross-check on Jun~15 Aisle\_CCW produced only sparse keyframe trajectories (raw 5 keyframes, masked 9 keyframes over roughly 1.2~s of a 64-frame, approximately 7~s window). evo APE/RPE are mathematically valid on those matched keyframes (raw/masked APE RMSE 0.041/0.043~m), but the sample is underpowered and not directly comparable to DROID-SLAM dense per-frame trajectories. We therefore treat ORB-SLAM3 only as a low-power backend-risk check and make no raw-vs-masked improvement, trajectory-neutrality generalization, or cross-backend performance claim.
   \item \textbf{Ground-truth object annotations.} TorWIC provides ground-truth object IDs; we use them for protocol configuration but the framework itself operates without ground truth.
 \end{enumerate}
 
@@ -667,7 +667,7 @@ The current evidence is limited to a single warehouse site (TorWIC). While the A
 
 This paper presents a systematic, evidence-backed approach to session-level map admission control for semantic-segmentation-assisted SLAM in dynamic industrial environments. The framework transforms open-vocabulary RGB-D segmentation outputs into observation, tracklet, map-object, and revision layers, then applies explicit persistence, stability, and dynamicity signals to retain stable semantic landmarks and suppress dynamic contamination.
 
-Current TorWIC evidence documents a reproducible evidence chain across same-day, cross-day, and cross-month Aisle protocols, with Hallway retained as a separate scene-transfer branch. Forklift-like evidence is consistently rejected as dynamic contamination (50\%--71\% rejection share), while barriers, work tables, and warehouse racks are selectively retained based on multi-session evidence, label consistency, and static dominance.
+Current TorWIC evidence documents a reproducible evidence chain across same-day, cross-day, and cross-month Aisle protocols, with Hallway retained as a separate within-site variation branch. Forklift-like evidence is consistently rejected as dynamic contamination (50\%--71\% rejection share), while barriers, work tables, and warehouse racks are selectively retained based on multi-session evidence, label consistency, and static dominance.
 
 The dynamic SLAM backend evaluation identifies a boundary condition: selective low-coverage semantic masks are trajectory-neutral for DROID-SLAM across the original single-session sweep and four replication sessions, while aggressive mask strategies (propagation, uniform first-N) introduce measurable perturbations ($0.92$--$7.52~\text{mm}$). A high-coverage selective-mask pressure test remains far below the aggressive-mask failures but produces a small nonzero shift ($\Delta\text{APE}=+0.114~\text{mm}$), showing that both selectivity and coverage magnitude matter for bundle adjustment. The admission criteria are validated through parameter ablation across 27 parameter combinations, baseline comparison (demonstrating that purity/support heuristics fail to reject any forklift), and per-category retention/rejection analysis.
 
