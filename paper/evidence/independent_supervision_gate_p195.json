@@ -1,0 +1,211 @@
+{
+  "phase": "P195-independent-label-gate",
+  "status": "BLOCKED",
+  "decision": "do not train or claim learned admission control until human labels are collected",
+  "inputs": {
+    "p193_dataset": "paper/evidence/admission_frame_dataset_p193.csv",
+    "boundary_sheet": "paper/evidence/admission_boundary_label_sheet_p194.csv",
+    "pair_candidates": "paper/evidence/association_pair_candidates_p194.csv",
+    "reference_model_json": "paper/evidence/admission_scorer_frame_gpu_p193.json"
+  },
+  "gate": {
+    "min_boundary_labels": 24,
+    "min_pair_labels": 40,
+    "require_both_classes": true,
+    "require_all_splits": true,
+    "block_reasons": [
+      "only 0 valid human_admit_label values; need at least 24",
+      "only 0 valid human_same_object_label values; need at least 40",
+      "human_admit_label does not cover both admit and reject classes",
+      "human_same_object_label does not cover both same-object and different-object classes",
+      "human_admit_label missing required split coverage: ['test', 'train', 'val']"
+    ]
+  },
+  "label_audit": {
+    "boundary": {
+      "total": 32,
+      "blank": 32,
+      "valid": 0,
+      "invalid": 0
+    },
+    "pairs": {
+      "total": 160,
+      "blank": 160,
+      "valid": 0,
+      "invalid": 0
+    }
+  },
+  "p193_dataset_counts": {
+    "total": 110,
+    "by_split": {
+      "test": {
+        "n": 60,
+        "reject": 23,
+        "admit": 37
+      },
+      "train": {
+        "n": 42,
+        "reject": 14,
+        "admit": 28
+      },
+      "val": {
+        "n": 8,
+        "reject": 4,
+        "admit": 4
+      }
+    },
+    "by_label": {
+      "admit": {
+        "n": 69
+      },
+      "reject": {
+        "n": 41
+      }
+    },
+    "by_category": {
+      "barrier": {
+        "n": 35,
+        "admit": 34,
+        "reject": 1
+      },
+      "forklift": {
+        "n": 36,
+        "reject": 36
+      },
+      "warehouse rack": {
+        "n": 16,
+        "reject": 3,
+        "admit": 13
+      },
+      "work table": {
+        "n": 23,
+        "admit": 22,
+        "reject": 1
+      }
+    }
+  },
+  "boundary_review_counts": {
+    "by_split": {
+      "test": {
+        "n": 17
+      },
+      "train": {
+        "n": 13
+      },
+      "val": {
+        "n": 2
+      }
+    },
+    "by_split_label": {
+      "test": {
+        "unlabeled": 17
+      },
+      "train": {
+        "unlabeled": 13
+      },
+      "val": {
+        "unlabeled": 2
+      }
+    },
+    "by_category": {
+      "barrier": {
+        "n": 11
+      },
+      "forklift": {
+        "n": 2
+      },
+      "warehouse rack": {
+        "n": 8
+      },
+      "work table": {
+        "n": 11
+      }
+    },
+    "by_category_label": {
+      "barrier": {
+        "unlabeled": 11
+      },
+      "forklift": {
+        "unlabeled": 2
+      },
+      "warehouse rack": {
+        "unlabeled": 8
+      },
+      "work table": {
+        "unlabeled": 11
+      }
+    }
+  },
+  "pair_label_counts": {
+    "total": 160,
+    "blank": 160,
+    "valid": 0,
+    "invalid": 0
+  },
+  "split_overlap": {
+    "physical_key_overlap_by_split_pair": {
+      "test|train": 0,
+      "test|val": 0,
+      "train|val": 0
+    },
+    "sample_id_overlap_by_split_pair": {
+      "test|train": 0,
+      "test|val": 0,
+      "train|val": 0
+    }
+  },
+  "leakage_audit": {
+    "proxy_feature_presence_in_p193_dataset": {
+      "dynamic_ratio": true,
+      "is_forklift_like": true,
+      "is_infrastructure_like": true,
+      "label_purity": true
+    },
+    "boundary_rows_with_rule_proxy_fields": 32,
+    "boundary_rows_total": 32,
+    "p193_or_reference_model_features": [
+      "dynamic_ratio",
+      "frame_count",
+      "is_forklift_like",
+      "is_infrastructure_like",
+      "label_purity",
+      "mean_center_x",
+      "mean_center_y",
+      "mean_size_x",
+      "mean_size_y",
+      "session_count",
+      "support_count"
+    ],
+    "proxy_features_used_by_reference_model": [
+      "dynamic_ratio",
+      "is_forklift_like",
+      "is_infrastructure_like",
+      "label_purity"
+    ],
+    "proxy_features_dropped_by_reference_model": [],
+    "p195_training_policy": {
+      "rule_proxy_fields_used_for_training": false,
+      "category_flags_used_for_training": false,
+      "drop_features_for_no_proxy_training": [
+        "dynamic_ratio",
+        "is_forklift_like",
+        "is_infrastructure_like",
+        "label_purity"
+      ]
+    }
+  },
+  "independent_dataset_counts": null,
+  "outputs": {
+    "gate_json": "paper/evidence/independent_supervision_gate_p195.json",
+    "gate_markdown": "paper/export/independent_supervision_gate_p195.md"
+  },
+  "training_commands": [],
+  "training_result": null,
+  "constraints_observed": [
+    "no fabricated human labels",
+    "blank human_* columns are not labels",
+    "no downloads",
+    "no submission/PDF tuning",
+    "no SAM2 full training"
+  ]
+}

@@ -21,6 +21,17 @@ summary and local paths here, then commit and push the repository.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
 
 
+## 2026-05-10 P195 — Independent-label gate
+
+- **Goal:** Prevent P193/P194 weak-label leakage from being promoted into a learned admission-control claim without independent human labels.
+- **Result: BLOCKED by design.** Added an independent-label gate that reads the P194 boundary review sheet and association-pair candidates, refuses blank `human_*` fields as labels, and emits a claim-boundary report instead of training.
+- **Current label audit:** `human_admit_label` blank/valid/invalid = `32/0/0`; `human_same_object_label` blank/valid/invalid = `160/0/0`.
+- **Leakage audit:** P193 includes proxy fields `dynamic_ratio`, `label_purity`, `is_forklift_like`, and `is_infrastructure_like`; P193 reference training used all four; P195 no-proxy/anti-proxy policy drops all four and never trains from `rule_proxy_fields`.
+- **Split audit:** P193 deduped dataset has 0 physical-key and 0 sample-id overlap across train/val/test; counts are train `42` (28/14), val `8` (4/4), test `60` (37/23).
+- **Claim boundary:** current evidence cannot claim learned admission control; it can only claim review-ready independent supervision preparation plus proxy-leakage stress evidence until human labels are collected.
+- **Outputs:** `tools/prepare_independent_supervision_p195.py`, `paper/evidence/independent_supervision_gate_p195.json`, `paper/export/independent_supervision_gate_p195.md`.
+- **Verification:** `python3 tools/prepare_independent_supervision_p195.py`; `python3 -m py_compile tools/prepare_independent_supervision_p195.py`.
+
 ## 2026-05-10 P184 — Final polish citation/package consistency after ORB-SLAM3
 
 - **Goal:** Close the P173→P184 claim-boundary gap by reading ORB-SLAM3 metrics, P183 hostile reviewer attacks, `main.tex`, and submission package/checklists; then make only paper/package consistency fixes.
