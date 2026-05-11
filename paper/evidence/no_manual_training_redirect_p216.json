@@ -1,0 +1,712 @@
+{
+  "claim_boundary": "P216 may claim dataset-mask-supervised semantic/dynamic mask training and SLAM front-end masking evaluation only. It must not claim learned admission control while P195 is BLOCKED.",
+  "cuda_smoke": {
+    "cuda_device": "NVIDIA GeForce RTX 3060",
+    "input_shape": [
+      2,
+      3,
+      96,
+      160
+    ],
+    "loss": 0.5426157712936401,
+    "requested": true,
+    "sample_count": 2,
+    "status": "pass",
+    "target_shape": [
+      2,
+      96,
+      160
+    ],
+    "torch_version": "2.4.0+cu118"
+  },
+  "generated_at_utc": "2026-05-11T07:21:16.326087+00:00",
+  "leakage_guard": {
+    "note": "P216 reads P195 status and local semantic mask inventories only; it does not read P193 weak targets as labels.",
+    "p193_contains_prohibited_fields": [
+      "target_admit"
+    ],
+    "p216_target_artifacts": {
+      "p216_json": "paper/evidence/no_manual_training_redirect_p216.json",
+      "p216_markdown": "paper/export/no_manual_training_redirect_p216.md"
+    },
+    "p216_uses_prohibited_fields_as_targets": false,
+    "prohibited_target_fields": [
+      "admit_probability",
+      "current_weak_label",
+      "human_admit_label",
+      "human_same_object_label",
+      "model_pred",
+      "model_prediction",
+      "model_prob",
+      "model_probability",
+      "selection_v5",
+      "target_admit"
+    ]
+  },
+  "local_data_inventory": {
+    "annotated_semantic_set": {
+      "archive_members": 4276,
+      "categories": [
+        {
+          "category": "cart_pallet_jack",
+          "colors": [
+            "#95f942",
+            "#99d207",
+            "#bde07d",
+            "#d2f53c"
+          ],
+          "image_count": 123,
+          "indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            47,
+            48,
+            49
+          ],
+          "instance_count": 223,
+          "positive_pixels_total": 1852422,
+          "role": "movable_or_dynamic_semantic_class"
+        },
+        {
+          "category": "ceiling",
+          "colors": [
+            "#3cb44b"
+          ],
+          "image_count": 88,
+          "indices": [
+            2
+          ],
+          "instance_count": 88,
+          "positive_pixels_total": 2965902,
+          "role": "context_semantic_class"
+        },
+        {
+          "category": "driveable_ground",
+          "colors": [
+            "#e6194b"
+          ],
+          "image_count": 230,
+          "indices": [
+            1
+          ],
+          "instance_count": 230,
+          "positive_pixels_total": 38647675,
+          "role": "context_semantic_class"
+        },
+        {
+          "category": "ego_vehicle",
+          "colors": [
+            "#ffe119"
+          ],
+          "image_count": 64,
+          "indices": [
+            3
+          ],
+          "instance_count": 64,
+          "positive_pixels_total": 211098,
+          "role": "context_semantic_class"
+        },
+        {
+          "category": "fixed_machinery",
+          "colors": [
+            "#f032e6"
+          ],
+          "image_count": 41,
+          "indices": [
+            8
+          ],
+          "instance_count": 41,
+          "positive_pixels_total": 151683,
+          "role": "static_object_semantic_class"
+        },
+        {
+          "category": "fork_truck",
+          "colors": [
+            "#e5cf95",
+            "#f5ea84",
+            "#fffac8"
+          ],
+          "image_count": 59,
+          "indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            24,
+            25,
+            27,
+            28,
+            29,
+            30,
+            32,
+            35,
+            36,
+            38,
+            41,
+            44,
+            45,
+            47,
+            49,
+            54
+          ],
+          "instance_count": 75,
+          "positive_pixels_total": 2839080,
+          "role": "movable_or_dynamic_semantic_class"
+        },
+        {
+          "category": "goods_material",
+          "colors": [
+            "#46f0f0"
+          ],
+          "image_count": 219,
+          "indices": [
+            7
+          ],
+          "instance_count": 219,
+          "positive_pixels_total": 33527507,
+          "role": "movable_or_dynamic_semantic_class"
+        },
+        {
+          "category": "misc_dynamic_feature",
+          "colors": [
+            "#800000",
+            "#863e27",
+            "#9e1d2b",
+            "#b01705"
+          ],
+          "image_count": 137,
+          "indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            38,
+            39,
+            44,
+            47,
+            48,
+            51,
+            62
+          ],
+          "instance_count": 342,
+          "positive_pixels_total": 4778550,
+          "role": "movable_or_dynamic_semantic_class"
+        },
+        {
+          "category": "misc_non_static_feature",
+          "colors": [
+            "#bf9fce",
+            "#c7bee0",
+            "#e1bbd8",
+            "#e6beff"
+          ],
+          "image_count": 189,
+          "indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            50,
+            51,
+            52,
+            53,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            63
+          ],
+          "instance_count": 786,
+          "positive_pixels_total": 5329549,
+          "role": "movable_or_dynamic_semantic_class"
+        },
+        {
+          "category": "misc_static_feature",
+          "colors": [
+            "#f58230"
+          ],
+          "image_count": 215,
+          "indices": [
+            5
+          ],
+          "instance_count": 215,
+          "positive_pixels_total": 7523500,
+          "role": "static_object_semantic_class"
+        },
+        {
+          "category": "person",
+          "colors": [
+            "#aa6e28",
+            "#ba805a",
+            "#cf6422",
+            "#d67f24"
+          ],
+          "image_count": 56,
+          "indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            33,
+            35,
+            37,
+            39,
+            40,
+            42
+          ],
+          "instance_count": 90,
+          "positive_pixels_total": 2398912,
+          "role": "movable_or_dynamic_semantic_class"
+        },
+        {
+          "category": "pylon_cone",
+          "colors": [
+            "#c9adad",
+            "#da979e",
+            "#dba592",
+            "#fabebe"
+          ],
+          "image_count": 48,
+          "indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            34,
+            38,
+            43,
+            54,
+            55
+          ],
+          "instance_count": 128,
+          "positive_pixels_total": 580464,
+          "role": "movable_or_dynamic_semantic_class"
+        },
+        {
+          "category": "rack_shelf",
+          "colors": [
+            "#911eb4"
+          ],
+          "image_count": 119,
+          "indices": [
+            6
+          ],
+          "instance_count": 119,
+          "positive_pixels_total": 2786781,
+          "role": "static_object_semantic_class"
+        },
+        {
+          "category": "text_region",
+          "colors": [
+            "#008080",
+            "#459a91",
+            "#588078"
+          ],
+          "image_count": 35,
+          "indices": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            20,
+            21,
+            22,
+            23,
+            24,
+            26,
+            28,
+            34,
+            35,
+            38,
+            44
+          ],
+          "instance_count": 41,
+          "positive_pixels_total": 73206,
+          "role": "context_semantic_class"
+        },
+        {
+          "category": "wall_fence_pillar",
+          "colors": [
+            "#0082c8"
+          ],
+          "image_count": 234,
+          "indices": [
+            4
+          ],
+          "instance_count": 234,
+          "positive_pixels_total": 33450697,
+          "role": "context_semantic_class"
+        }
+      ],
+      "category_count": 15,
+      "combined_color_mask_count": 237,
+      "combined_indexed_mask_count": 237,
+      "paired_source_indexed_mask_count": 237,
+      "path": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip",
+      "raw_label_json_count": 237,
+      "sample_training_records": [
+        {
+          "indexed_mask": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000000285/image_0.png_raw_labels_2d/combined_indexedImage.png",
+          "raw_labels": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000000285/image_0.png_raw_labels_2d/raw_labels_2d.json",
+          "source_image": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000000285/image_0.png_raw_labels_2d/source_image.png"
+        },
+        {
+          "indexed_mask": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000000285/image_2.png_raw_labels_2d/combined_indexedImage.png",
+          "raw_labels": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000000285/image_2.png_raw_labels_2d/raw_labels_2d.json",
+          "source_image": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000000285/image_2.png_raw_labels_2d/source_image.png"
+        },
+        {
+          "indexed_mask": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000000285/image_1.png_raw_labels_2d/combined_indexedImage.png",
+          "raw_labels": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000000285/image_1.png_raw_labels_2d/raw_labels_2d.json",
+          "source_image": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000000285/image_1.png_raw_labels_2d/source_image.png"
+        },
+        {
+          "indexed_mask": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000001680/image_0.png_raw_labels_2d/combined_indexedImage.png",
+          "raw_labels": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000001680/image_0.png_raw_labels_2d/raw_labels_2d.json",
+          "source_image": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000001680/image_0.png_raw_labels_2d/source_image.png"
+        },
+        {
+          "indexed_mask": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000001680/image_2.png_raw_labels_2d/combined_indexedImage.png",
+          "raw_labels": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000001680/image_2.png_raw_labels_2d/raw_labels_2d.json",
+          "source_image": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip::Labelled_Test_Data/000001680/image_2.png_raw_labels_2d/source_image.png"
+        }
+      ],
+      "source_image_count": 237,
+      "status": "ok"
+    },
+    "extracted_sequence_masks": {
+      "data_root": "data/TorWIC_SLAM_Dataset",
+      "sample_sequences": {
+        "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1": {
+          "image_left_count": 1136,
+          "segmentation": {
+            "segmentation_color_left": 1136,
+            "segmentation_color_right": 1136,
+            "segmentation_greyscale_left": 1136,
+            "segmentation_greyscale_right": 1136
+          }
+        },
+        "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CCW_Run_2/Aisle_CCW_Run_2": {
+          "image_left_count": 1238,
+          "segmentation": {
+            "segmentation_color_left": 1238,
+            "segmentation_color_right": 1238,
+            "segmentation_greyscale_left": 1238,
+            "segmentation_greyscale_right": 1238
+          }
+        },
+        "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1": {
+          "image_left_count": 1114,
+          "segmentation": {
+            "segmentation_color_left": 1114,
+            "segmentation_color_right": 1114,
+            "segmentation_greyscale_left": 1114,
+            "segmentation_greyscale_right": 1114
+          }
+        },
+        "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Aisle_CW_Run_2/Aisle_CW_Run_2": {
+          "image_left_count": 1124,
+          "segmentation": {
+            "segmentation_color_left": 1124,
+            "segmentation_color_right": 1124,
+            "segmentation_greyscale_left": 1124,
+            "segmentation_greyscale_right": 1124
+          }
+        },
+        "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CCW/Hallway_Full_CCW": {
+          "image_left_count": 2539,
+          "segmentation": {
+            "segmentation_color_left": 2539,
+            "segmentation_color_right": 2539,
+            "segmentation_greyscale_left": 2539,
+            "segmentation_greyscale_right": 2539
+          }
+        },
+        "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Full_CW/Hallway_Full_CW": {
+          "image_left_count": 2511,
+          "segmentation": {
+            "segmentation_color_left": 2511,
+            "segmentation_color_right": 2511,
+            "segmentation_greyscale_left": 2511,
+            "segmentation_greyscale_right": 2511
+          }
+        },
+        "data/TorWIC_SLAM_Dataset/Jun. 15, 2022/Hallway_Straight_CCW/Hallway_Straight_CCW": {
+          "image_left_count": 2197,
+          "segmentation": {
+            "segmentation_color_left": 2197,
+            "segmentation_color_right": 2197,
+            "segmentation_greyscale_left": 2197,
+            "segmentation_greyscale_right": 2197
+          }
+        },
+        "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CCW_Run_1/Aisle_CCW_Run_1": {
+          "image_left_count": 1066,
+          "segmentation": {
+            "segmentation_color_left": 1066,
+            "segmentation_color_right": 1066,
+            "segmentation_greyscale_left": 1066,
+            "segmentation_greyscale_right": 1066
+          }
+        }
+      },
+      "segmentation_png_counts_by_kind": {
+        "segmentation_color_left": 32743,
+        "segmentation_color_right": 32743,
+        "segmentation_greyscale_left": 32743,
+        "segmentation_greyscale_right": 32743
+      },
+      "sequence_count_with_complete_left_greyscale_masks": 20,
+      "sequence_count_with_images": 20
+    },
+    "sequence_zips": {
+      "left_rgb_greyscale_mask_pair_count": 32743,
+      "segmentation_png_counts_by_kind": {
+        "segmentation_color_left": 32743,
+        "segmentation_color_right": 32743,
+        "segmentation_greyscale_left": 32743,
+        "segmentation_greyscale_right": 32743
+      },
+      "sequence_zip_count": 20
+    }
+  },
+  "outputs": {
+    "json": "paper/evidence/no_manual_training_redirect_p216.json",
+    "markdown": "paper/export/no_manual_training_redirect_p216.md"
+  },
+  "p195": {
+    "decision": "do not train or claim learned admission control until human labels are collected",
+    "label_audit": {
+      "boundary": {
+        "blank": 32,
+        "invalid": 0,
+        "total": 32,
+        "valid": 0
+      },
+      "pairs": {
+        "blank": 160,
+        "invalid": 0,
+        "total": 160,
+        "valid": 0
+      }
+    },
+    "labels_blank": true,
+    "status": "BLOCKED"
+  },
+  "p216_plan": {
+    "allowed_targets": [
+      "semantic class pixels from raw_labels_2d/combined_indexedImage",
+      "binary movable/dynamic mask derived from dataset semantic categories",
+      "SLAM front-end raw-vs-masked evaluation metrics"
+    ],
+    "blocked_targets": [
+      "persistent-map admission labels",
+      "cross-session same-object labels",
+      "P193 target_admit/current_weak_label/selection_v5/model predictions as ground truth"
+    ],
+    "phase_id": "P216",
+    "primary_deliverable": "CUDA semantic segmentation and binary dynamic-mask training smoke using AnnotatedSemanticSet masks"
+  },
+  "previous_path_assessment": {
+    "p206_p215_drifted_from_training": true,
+    "why": "P206-P215 built evidence packets, QA, notes governance, release checks, and appendix packaging. That is valuable governance but it does not create a supervised training target.",
+    "why_manual_labels_were_requested": "P195 admission-control learning needs independent human_admit_label and human_same_object_label because existing P193 weak/proxy/model fields are not ground truth."
+  },
+  "recommendation": "Start P216A: train semantic segmentation / binary dynamic-mask front-end from dataset-provided TorWIC masks; do not train admission control.",
+  "recommendation_ranking": [
+    {
+      "claim_allowed": "learned semantic segmentation or dynamic-object masking front-end for SLAM preprocessing",
+      "claim_blocked": "learned persistent-map admission control or cross-session same-object association",
+      "evidence": {
+        "annotated_paired_source_indexed_masks": 237,
+        "semantic_categories": 15
+      },
+      "rank": 1,
+      "route": "P216A dataset-provided semantic segmentation and binary dynamic/static mask training",
+      "status": "immediately_executable_cuda_smoke",
+      "target": "pixel-level semantic category masks from AnnotatedSemanticSet; optional binary movable/dynamic mask derived from TorWIC semantic categories",
+      "why_valid": "The labels are dataset-provided segmentation masks and raw_labels_2d categories, not persistent-map admission or same-object labels."
+    },
+    {
+      "claim_allowed": "front-end masking ablation using semantic masks and downstream ATE/RPE/feature metrics",
+      "claim_blocked": "admission-control learning",
+      "evidence": {
+        "sequence_left_rgb_greyscale_mask_pairs": 32743
+      },
+      "rank": 2,
+      "route": "P216B SLAM front-end dynamic object masking from dataset masks",
+      "status": "executable_preprocessing_path",
+      "target": "mask RGB/depth features for movable categories before DROID/ORB front-end evaluation",
+      "why_valid": "Uses local segmentation masks as masks, not as admission ground truth."
+    },
+    {
+      "claim_allowed": "self-supervised pretraining or consistency regularization",
+      "claim_blocked": "admission decisions without independent labels",
+      "evidence": {
+        "complete_extracted_left_mask_sequences": 20
+      },
+      "rank": 3,
+      "route": "P216C self-supervised temporal consistency representation learning",
+      "status": "valid_but_second_order",
+      "target": "photometric/depth/semantic consistency over adjacent frames, evaluated as representation or mask-consistency pretraining",
+      "why_valid": "No human admission labels are required, but it still needs a clean downstream evaluation protocol."
+    },
+    {
+      "claim_allowed": "none until P195 unblocks",
+      "claim_blocked": "learned admission control",
+      "evidence": {
+        "p195_required": "human labels remain blank"
+      },
+      "rank": 4,
+      "route": "P216D object-level persistent-map admission learning",
+      "status": "blocked",
+      "target": "human_admit_label and human_same_object_label",
+      "why_valid": "Requires independent labels that do not exist locally yet."
+    }
+  ],
+  "status": "REDIRECT_READY_NO_MANUAL_MASK_TRAINING_P195_BLOCKED",
+  "verification": {
+    "cuda_smoke_status": "pass",
+    "human_labels_remain_blank": true,
+    "no_prohibited_targets_used": true,
+    "p195_remains_blocked": true
+  }
+}
