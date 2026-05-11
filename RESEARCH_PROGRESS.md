@@ -20,6 +20,13 @@ summary and local paths here, then commit and push the repository.
 - **Active:** Manuscript production closure. Paper faces 3 HIGH risks from hostile reviewer simulation (heuristics framing, n=20 scale, short DROID-SLAM window) — all documented with rebuttal templates in REVIEWER_ATTACKS_P183.md.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
 
+## 2026-05-11 P223 — Chinese root README
+
+- **Goal:** Translate/rewrite the root `README.md` into clear Chinese for Chinese research collaborators while preserving the P222 project-facing structure and scientific boundaries.
+- **Result: P223_README_ZH_COMPLETE, P195 still BLOCKED.** Rewrote the root README in Chinese with the same project overview, scientific boundary, P217-P220 metrics, environment/data layout, reproducibility commands, tracked artifacts, blockers, and next steps. Exact reported metrics and command snippets were preserved.
+- **Scientific boundary:** The README continues to separate the valid dataset-mask-supervised dynamic/non-static front-end route from blocked learned persistent-map admission control. It explicitly says P195 has `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`, and that P219/P220 do not support trajectory ATE/RPE, map-quality, navigation-benefit, or raw-vs-masked SLAM improvement claims.
+- **Verification:** Documentation-only update. No experiments, training, downloads, label creation, raw-data edits, or protected untracked `thirdparty/` / `tools/orb_slam3_headless*` changes were made. Lightweight text checks confirmed the README is primarily Chinese and contains no positive claim of learned admission control or P219/P220 ATE/RPE trajectory results.
+
 ## 2026-05-11 P222 — README and manuscript training documentation cleanup
 
 - **Goal:** Clean the root README into a project-facing document and update paper-facing manuscript/export materials with the current P217-P220 dynamic-mask training and front-end masking evidence, without running new experiments, creating labels, downloading data, or touching raw data.
