@@ -1,0 +1,742 @@
+{
+  "category_summary": [
+    {
+      "category": "cart_pallet_jack",
+      "image_count": 123,
+      "positive_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        47,
+        48,
+        49
+      ],
+      "positive_pixels_total": 1852422,
+      "role": "dynamic_positive"
+    },
+    {
+      "category": "ceiling",
+      "image_count": 88,
+      "positive_indices": [
+        2
+      ],
+      "positive_pixels_total": 2965902,
+      "role": "context_negative"
+    },
+    {
+      "category": "driveable_ground",
+      "image_count": 230,
+      "positive_indices": [
+        1
+      ],
+      "positive_pixels_total": 38647675,
+      "role": "context_negative"
+    },
+    {
+      "category": "ego_vehicle",
+      "image_count": 64,
+      "positive_indices": [
+        3
+      ],
+      "positive_pixels_total": 211098,
+      "role": "context_negative"
+    },
+    {
+      "category": "fixed_machinery",
+      "image_count": 41,
+      "positive_indices": [
+        8
+      ],
+      "positive_pixels_total": 151683,
+      "role": "static_negative"
+    },
+    {
+      "category": "fork_truck",
+      "image_count": 59,
+      "positive_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30,
+        32,
+        35,
+        36,
+        38,
+        41,
+        44,
+        45,
+        47,
+        49,
+        54
+      ],
+      "positive_pixels_total": 2839080,
+      "role": "dynamic_positive"
+    },
+    {
+      "category": "goods_material",
+      "image_count": 219,
+      "positive_indices": [
+        7
+      ],
+      "positive_pixels_total": 33527507,
+      "role": "dynamic_positive"
+    },
+    {
+      "category": "misc_dynamic_feature",
+      "image_count": 137,
+      "positive_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        38,
+        39,
+        44,
+        47,
+        48,
+        51,
+        62
+      ],
+      "positive_pixels_total": 4778550,
+      "role": "dynamic_positive"
+    },
+    {
+      "category": "misc_non_static_feature",
+      "image_count": 189,
+      "positive_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        50,
+        51,
+        52,
+        53,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        63
+      ],
+      "positive_pixels_total": 5329549,
+      "role": "dynamic_positive"
+    },
+    {
+      "category": "misc_static_feature",
+      "image_count": 215,
+      "positive_indices": [
+        5
+      ],
+      "positive_pixels_total": 7523500,
+      "role": "static_negative"
+    },
+    {
+      "category": "person",
+      "image_count": 56,
+      "positive_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        33,
+        35,
+        37,
+        39,
+        40,
+        42
+      ],
+      "positive_pixels_total": 2398912,
+      "role": "dynamic_positive"
+    },
+    {
+      "category": "pylon_cone",
+      "image_count": 48,
+      "positive_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        34,
+        38,
+        43,
+        54,
+        55
+      ],
+      "positive_pixels_total": 580464,
+      "role": "dynamic_positive"
+    },
+    {
+      "category": "rack_shelf",
+      "image_count": 119,
+      "positive_indices": [
+        6
+      ],
+      "positive_pixels_total": 2786781,
+      "role": "static_negative"
+    },
+    {
+      "category": "text_region",
+      "image_count": 35,
+      "positive_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        24,
+        26,
+        28,
+        34,
+        35,
+        38,
+        44
+      ],
+      "positive_pixels_total": 73206,
+      "role": "context_negative"
+    },
+    {
+      "category": "wall_fence_pillar",
+      "image_count": 234,
+      "positive_indices": [
+        4
+      ],
+      "positive_pixels_total": 33450697,
+      "role": "context_negative"
+    }
+  ],
+  "claim_boundary": "P217 creates a no-manual semantic/dynamic-mask front-end dataset from dataset-provided TorWIC AnnotatedSemanticSet labels only. It does not create admission labels, same-object labels, or learned admission-control evidence.",
+  "generated_at_utc": "2026-05-11T07:29:34.825772+00:00",
+  "leakage_guard": {
+    "manifest_prohibited_columns": [],
+    "prohibited_fields": [
+      "admit_probability",
+      "current_weak_label",
+      "human_admit_label",
+      "human_same_object_label",
+      "model_pred",
+      "model_prediction",
+      "model_prob",
+      "model_probability",
+      "selection_v5",
+      "target_admit"
+    ],
+    "uses_current_weak_label": false,
+    "uses_human_labels": false,
+    "uses_model_predictions_as_labels": false,
+    "uses_p193_target_admit": false,
+    "uses_selection_v5": false
+  },
+  "outputs": {
+    "csv_manifest": "paper/evidence/dynamic_mask_dataset_p217.csv",
+    "derived_binary_mask_root": "outputs/dynamic_mask_dataset_p217/binary_masks",
+    "derived_image_root": "outputs/dynamic_mask_dataset_p217/images",
+    "json_manifest": "paper/evidence/dynamic_mask_dataset_p217.json",
+    "markdown_report": "paper/export/dynamic_mask_dataset_p217.md"
+  },
+  "p195_status": {
+    "boundary_valid_human_admit_label_count": 0,
+    "human_labels_blank": true,
+    "pair_valid_human_same_object_label_count": 0,
+    "status": "BLOCKED"
+  },
+  "sanity": {
+    "contact_sheet": "outputs/dynamic_mask_dataset_p217/sanity/p217_dynamic_mask_sanity.png",
+    "samples": [
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "positive_pixel_rate": 0.1674774,
+        "positive_pixels": 68170,
+        "sample_id": "000000900_image-0",
+        "split": "test"
+      },
+      {
+        "image_size": [
+          1280,
+          720
+        ],
+        "mask_size": [
+          1280,
+          720
+        ],
+        "positive_pixel_rate": 0.06692491,
+        "positive_pixels": 61678,
+        "sample_id": "000000900_image-1",
+        "split": "test"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "positive_pixel_rate": 0.1493465,
+        "positive_pixels": 60790,
+        "sample_id": "000000900_image-2",
+        "split": "test"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "positive_pixel_rate": 0.04202044,
+        "positive_pixels": 17104,
+        "sample_id": "000000908_image-0",
+        "split": "test"
+      },
+      {
+        "image_size": [
+          1280,
+          720
+        ],
+        "mask_size": [
+          1280,
+          720
+        ],
+        "positive_pixel_rate": 0.28299913,
+        "positive_pixels": 260812,
+        "sample_id": "000000908_image-1",
+        "split": "test"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "positive_pixel_rate": 0.08418829,
+        "positive_pixels": 34268,
+        "sample_id": "000000908_image-2",
+        "split": "test"
+      }
+    ]
+  },
+  "skipped": [],
+  "source": {
+    "annotated_zip": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/AnnotatedSemanticSet_Finetuning.zip",
+    "raw_data_touched": false,
+    "sequence_greyscale_masks_used": false,
+    "sequence_greyscale_note": "Not used because AnnotatedSemanticSet gives explicit per-sample category-to-index mappings; no sequence greyscale IDs were guessed."
+  },
+  "status": "READY_NO_MANUAL_DYNAMIC_MASK_DATASET",
+  "summary": {
+    "frame_group_counts_by_split": {
+      "test": 10,
+      "train": 52,
+      "val": 17
+    },
+    "frame_group_overlap": {
+      "train_test": 0,
+      "train_val": 0,
+      "val_test": 0
+    },
+    "overall_positive_pixel_rate": 0.37417563407826443,
+    "positive_pixel_rate_by_split": {
+      "test": 0.3157050838864307,
+      "train": 0.3879089507814273,
+      "val": 0.36656228309908034
+    },
+    "positive_row_counts_by_split": {
+      "test": 29,
+      "train": 155,
+      "val": 51
+    },
+    "split_counts": {
+      "test": 30,
+      "train": 156,
+      "val": 51
+    },
+    "total_rows": 237
+  },
+  "target_policy": {
+    "context_negative_categories": [
+      "ceiling",
+      "driveable_ground",
+      "ego_vehicle",
+      "text_region",
+      "unlabeled",
+      "wall_fence_pillar"
+    ],
+    "goods_material_justification": "Included as movable clutter for SLAM front-end masking because industrial goods/material can be rearranged; this is not an admission-control label.",
+    "name": "binary_dynamic_non_static_from_dataset_semantic_indices",
+    "negative_encoding": "All other indexed/background pixels are binary 0.",
+    "positive_categories": [
+      "cart_pallet_jack",
+      "fork_truck",
+      "goods_material",
+      "misc_dynamic_feature",
+      "misc_non_static_feature",
+      "person",
+      "pylon_cone"
+    ],
+    "static_negative_categories": [
+      "fixed_machinery",
+      "misc_static_feature",
+      "rack_shelf"
+    ]
+  },
+  "validation": {
+    "checked": [
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000000900_image-0"
+      },
+      {
+        "image_size": [
+          1280,
+          720
+        ],
+        "mask_size": [
+          1280,
+          720
+        ],
+        "ok": true,
+        "sample_id": "000000900_image-1"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000000900_image-2"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000000908_image-0"
+      },
+      {
+        "image_size": [
+          1280,
+          720
+        ],
+        "mask_size": [
+          1280,
+          720
+        ],
+        "ok": true,
+        "sample_id": "000000908_image-1"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000000908_image-2"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000001685_image-0"
+      },
+      {
+        "image_size": [
+          1280,
+          720
+        ],
+        "mask_size": [
+          1280,
+          720
+        ],
+        "ok": true,
+        "sample_id": "000001685_image-1"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000001685_image-2"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000001752_image-0"
+      },
+      {
+        "image_size": [
+          1280,
+          720
+        ],
+        "mask_size": [
+          1280,
+          720
+        ],
+        "ok": true,
+        "sample_id": "000001752_image-1"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000001752_image-2"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000001786_image-0"
+      },
+      {
+        "image_size": [
+          1280,
+          720
+        ],
+        "mask_size": [
+          1280,
+          720
+        ],
+        "ok": true,
+        "sample_id": "000001786_image-1"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000001786_image-2"
+      },
+      {
+        "image_size": [
+          848,
+          480
+        ],
+        "mask_size": [
+          848,
+          480
+        ],
+        "ok": true,
+        "sample_id": "000001788_image-0"
+      }
+    ],
+    "checked_count": 16,
+    "dimension_failures": [],
+    "manifest_prohibited_columns": [],
+    "pass": true,
+    "sample_limit": 16
+  }
+}
