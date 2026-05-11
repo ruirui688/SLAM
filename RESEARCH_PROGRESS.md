@@ -20,6 +20,16 @@ summary and local paths here, then commit and push the repository.
 - **Active:** Manuscript production closure. Paper faces 3 HIGH risks from hostile reviewer simulation (heuristics framing, n=20 scale, short DROID-SLAM window) — all documented with rebuttal templates in REVIEWER_ATTACKS_P183.md.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
 
+## 2026-05-11 P221 — Latest progress sync
+
+- **Goal:** Submit a comprehensive latest progress update after the user pause at P220, covering paper/export summaries, README status, code/evidence artifacts, data/training state, claim boundaries, blockers, and next steps without starting new experiments.
+- **Result: P221_PROGRESS_SYNC_COMPLETE, P195 still BLOCKED.** Added `paper/export/latest_progress_summary_p221.md` and updated the root README with the current research status. The active valid route is P216-P220 dataset-provided semantic/dynamic-mask front-end training and feature-level masking evaluation, not learned admission control.
+- **Latest completed experimental state:** P217 built a 237-row / 79-frame-group no-manual dynamic-mask dataset with zero frame overlap across train/val/test; P218 trained a compact CUDA dynamic-mask model with validation IoU/F1 `0.671304/0.803329` and test IoU/F1 `0.578580/0.733038`; P219 packaged six held-out front-end masking samples with mean precision/recall/F1/IoU `0.556007/0.789669/0.604636/0.443210`; P220 audited ORB feature proxy behavior and reduced GT dynamic-region keypoints from `4795` to `2192` (`54.2857%` reduction).
+- **Claim boundary:** P193 weak-label admission training remains proxy-leakage-risk historical evidence; P206-P215 are no-label evidence governance and appendix artifacts, not training; P195 learned admission control remains blocked because independent `human_admit_label` and `human_same_object_label` are absent. No trajectory SLAM ATE/RPE claim is supported by P220.
+- **Pause status:** No new training, downloads, raw-data edits, or long experiments were run for P221. Next work should be a temporally aligned held-out raw-vs-P218-masked sequence package before any ORB/DROID trajectory smoke.
+- **Outputs:** `paper/export/latest_progress_summary_p221.md`, README current-status update, this progress-log entry.
+- **Verification:** Existing P195 JSON reports `BLOCKED`; P217/P218/P219/P220 JSON evidence files exist and report completed statuses; no new scripts were added; git diff reviewed for documentation-only P221 edits plus pre-existing timestamp-only tracked evidence drift left untouched.
+
 
 ## 2026-05-10 P199 — No-human semantic-stability auxiliary branch
 

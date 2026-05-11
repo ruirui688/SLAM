@@ -14,6 +14,21 @@
 - 尚未完成：扩大到多 session DROID-SLAM 后端轨迹实验，并报告有统计意义的 ATE/RPE、建图质量或导航收益；
 - 因此本文当前主张是“语义分割辅助的动态对象过滤与长期对象地图维护”，不是“完整动态 SLAM benchmark 已经闭环优于现有后端”。
 
+## Current Research Status
+
+截至 2026-05-11，最新完成阶段是 **P220**，完整进度同步见
+[`paper/export/latest_progress_summary_p221.md`](paper/export/latest_progress_summary_p221.md)。
+
+当前有效训练路线已经从 P193/P195 的 admission-control 尝试转向
+**P216-P220 dataset-provided semantic/dynamic-mask front-end route**：
+
+- **P195 independent-label gate 仍为 `BLOCKED`**：`human_admit_label` 为 `0/32` valid，`human_same_object_label` 为 `0/160` valid；不能训练或声称 learned persistent-map admission control。
+- **P216-P217**：使用 TorWIC/AnnotatedSemanticSet 提供的 semantic/indexed masks 构建 no-manual binary dynamic/non-static mask dataset；237 rows，79 frame groups，train/val/test 为 156/51/30，split 间 frame overlap 为 0。
+- **P218**：在 `tram`/RTX 3060 上完成 compact dynamic-mask CUDA smoke；validation IoU/F1 为 `0.671304/0.803329`，test IoU/F1 为 `0.578580/0.733038`。
+- **P219-P220**：完成 6 个 held-out front-end masking package 和 ORB feature proxy；P220 显示 GT dynamic-region keypoints 从 `4795` 降至 `2192`，减少 `54.2857%`。这只是前端特征代理结果，不是 SLAM 轨迹 ATE/RPE 结果。
+
+可安全表述的论文主张：dataset-mask-supervised semantic/dynamic front-end masking 可作为动态工业 SLAM 的预处理证据链。尚不可表述的主张：learned admission control、cross-session same-object learned association、或 raw-vs-masked SLAM 轨迹优于 baseline。
+
 ## 0. 环境与安装
 
 环境的作用只是隔离依赖和固定运行口径，不是项目能力本身。
@@ -709,12 +724,13 @@ RGB-D frames
 
 ## 7. 当前状态
 
-截至 2026-05-09：
+截至 2026-05-11：
 
-- 已有厚版中英文论文初稿；
-- 已有 P114-P119 证据和投稿包闭环；
-- 已有最小可运行 demo；
-- 当前没有新数据下载；
-- 当前没有新实验 protocol 在运行。
+- 已有厚版中英文论文初稿、最小可运行 demo、语义前端/对象地图证据链，以及 P206-P215 no-label evidence governance appendix bundle；
+- P193 weak-label admission CUDA training 已完成但存在 proxy leakage 风险，不能作为 claim-worthy learned admission control；
+- P195 independent-label gate 仍为 `BLOCKED`，因为没有独立 `human_admit_label` / `human_same_object_label`；
+- 当前有效进展是 P216-P220：dataset-provided semantic/dynamic masks -> no-manual dynamic-mask dataset -> compact CUDA front-end model -> held-out masking package -> ORB feature proxy audit；
+- P220 只支持“动态区域 ORB keypoint proxy 有下降”的前端证据，不支持 trajectory ATE/RPE 或完整 SLAM 优势声明；
+- 当前没有新数据下载，没有新训练任务，也没有新长实验在运行。
 
-下一步必须是明确方向，例如：目标 venue 格式化、引用后端补强、更丰富可视化 demo、或经批准的更大实验。
+下一步应先构建小型、时间对齐的 held-out raw-vs-P218-masked sequence package，包含 timestamps、calibration 和可对齐 GT，之后才能运行 ORB/DROID trajectory smoke 并报告有效 ATE/RPE。P195 在独立人工标签导入前继续保持 blocked。
