@@ -1724,3 +1724,11 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 - **Artifacts:** `tools/audit_frontend_masking_slam_p220.py`, `paper/evidence/frontend_masking_slam_smoke_p220.json`, `paper/evidence/frontend_masking_slam_smoke_p220.csv`, `paper/export/frontend_masking_slam_smoke_p220.md`.
 - **Verification:** `python3 -m py_compile tools/audit_frontend_masking_slam_p220.py` passed; `python3 tools/audit_frontend_masking_slam_p220.py` passed.
 - **P221 recommendation:** build a small temporally aligned held-out raw-vs-P218-masked sequence package from local data before any trajectory/ATE claim; keep P195 blocked until independent human admission/same-object labels exist.
+
+## 2026-05-11 — P224 Paper Manuscript Synchronization
+
+- **Goal:** Make the current P217-P220 dataset-mask-supervised dynamic/non-static front-end contribution visible in the actual manuscript/T-RO draft, not only in the P222 export appendix.
+- **Scope:** Documentation-only sync. No experiments, training, downloads, label creation, or raw-data edits.
+- **Updated manuscript surfaces:** `paper/manuscript_en.md`, `paper/tro_submission/abstract.tex`, `paper/tro_submission/main.tex`, `paper/README.md`, `paper/tro_submission/README.md`, and `paper/export/paper_manuscript_sync_p224.md`.
+- **Threaded current values:** P217 dataset `237` rows from `79` frame groups; split `156/51/30` train/val/test with zero frame overlap; positive pixel rate `0.374176`; P218 validation/test IoU-F1 `0.671304/0.803329` and `0.578580/0.733038`; P219 held-out precision/recall/F1/IoU `0.556007/0.789669/0.604636/0.443210`; P220 ORB proxy raw/masked keypoints `10059/9972`, GT dynamic keypoints `4795 -> 2192`, `54.2857%` reduction.
+- **Claim boundary:** P217-P220 support front-end dynamic-region suppression only. P195 learned persistent-map admission control remains blocked because independent `human_admit_label` and `human_same_object_label` values are absent (`0/32` and `0/160` valid). No same-object learning, learned admission-control, trajectory ATE/RPE improvement, map-quality improvement, or navigation-gain claim was added.

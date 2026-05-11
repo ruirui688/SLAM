@@ -28,7 +28,13 @@ objects, cross-session clusters, and retained stable objects; the Hallway branch
 reaches `537/16/9` over `80/80` executed first-eight Hallway frames. The results
 support a bounded systems claim: segmentation-assisted semantic observations can
 become auditable long-term SLAM map evidence when filtered through cross-session
-stable-object retention and dynamic-contamination rejection rules.
+stable-object retention and dynamic-contamination rejection rules. The current
+learned result is narrower and complementary: a dataset-mask-supervised
+dynamic/non-static front end trained on TorWIC semantic masks reaches
+validation/test IoU-F1 of `0.671304/0.803329` and `0.578580/0.733038`, and
+reduces ORB keypoints inside held-out ground-truth dynamic regions from `4795`
+to `2192` (`54.2857%`). This is not learned admission control and does not
+support an ATE/RPE improvement claim.
 
 ## Index Terms
 
@@ -68,6 +74,12 @@ sessions, and decide whether a cross-session object should be retained as stable
 semantic landmark evidence. The goal is not to claim a final lifelong SLAM
 backend, but to make the admission process explicit, executable, and auditable
 on real industrial RGB-D data.
+
+The learned route currently available in the project is intentionally placed at
+the pixel-mask front end rather than at the object-admission layer. Dataset
+semantic/indexed masks can supervise dynamic/non-static pixel suppression, but
+they do not provide independent persistent-map admit/reject labels or
+same-object association labels.
 
 ![Figure 1. Representative TorWIC industrial RGB-D revisits with segmentation overlays. The panels show why the paper treats semantic detections as candidate evidence rather than immediate persistent map structure: stable barriers, work tables, warehouse racks, and forklift-like dynamic contamination can appear in the same revisit family.](figures/torwic_real_session_overlays.png)
 
@@ -226,6 +238,24 @@ supports the paper's dynamic-SLAM claim: the system does not simply accumulate
 segmented objects; it filters dynamic or insufficiently supported semantic
 evidence before map admission.
 
+Table 3 summarizes the current dataset-mask-supervised dynamic/non-static
+front-end evidence.
+
+| Evidence Item | Result |
+|---|---:|
+| P217 dataset | 237 rows from 79 frame groups |
+| Split | 156 train / 51 validation / 30 test; zero frame overlap |
+| Positive dynamic/non-static pixel rate | 0.374176 |
+| P218 validation IoU / F1 | 0.671304 / 0.803329 |
+| P218 test IoU / F1 | 0.578580 / 0.733038 |
+| P219 held-out precision / recall / F1 / IoU | 0.556007 / 0.789669 / 0.604636 / 0.443210 |
+| P220 GT dynamic-region ORB keypoints | 4795 -> 2192 (54.2857% reduction) |
+
+The P220 keypoint result is a front-end masking proxy. Total ORB keypoints
+change only from 10059 raw to 9972 masked, while dynamic-region keypoints drop
+substantially. The six held-out P219 samples lack timestamps, calibration, and
+aligned trajectory ground truth, so no trajectory ATE/RPE result is reported.
+
 ## 6. Discussion
 
 The central design decision is to place an explicit maintenance layer between
@@ -239,6 +269,12 @@ The current method remains lightweight, but this is useful for an initial
 systems paper. Each decision can be inspected at the observation, tracklet,
 map-object, and revision level. The rejection mix is not a black-box metric; it
 can be traced to object categories and support patterns.
+
+The same boundary applies to the learned front-end mask model. It is useful
+because it moves dynamic/non-static suppression from hand-built masks toward a
+dataset-supervised pixel predictor. It does not remove the need for independent
+object-level supervision before claiming learned persistent-map admission or
+same-object association.
 
 The evidence stack is intentionally layered: a primary Aisle richer ladder, a
 historical fallback family, and a Hallway broader-validation branch. This makes

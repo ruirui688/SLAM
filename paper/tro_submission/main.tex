@@ -478,6 +478,35 @@ These results establish two findings. First, semantic frontend masks that are se
 
 Stage~1 replication on two additional TorWIC Aisle sessions confirms cross-session reproducibility: Jun~15 Aisle\_CW\_Run\_2 (same-day) and Jun~23 Aisle\_CW\_Run\_1 (cross-day, two weeks later) both produce $\Delta\text{APE} \leq 0.001~\text{mm}$ with selective semantic frontend masks (4/64 frames masked, max coverage $\leq 1.49\%$). Stage~2 extends this to cross-month and within-site scene variation: Oct~12 Aisle\_CW (cross-month, four months later, $\Delta\text{APE}=0.000~\text{mm}$, 2/64 masked, max~$4.89\%$) and Oct~12 Hallway\_Full\_CW\_Run\_2 (first Hallway dynamic mask test, $\Delta\text{APE}=0.000~\text{mm}$, 3/64 masked, max~$0.63\%$). This upgrades to an 11/16-config, 5-session evidence chain (same-day $+$ cross-day $+$ cross-month $+$ Hallway within-site variation). A follow-up high-coverage selective-mask pressure test on Jun~15 Aisle\_CCW\_Run\_1 masks 5/64 frames with max per-frame coverage $17.32\%$ and mean coverage $0.568\%$; it remains small in absolute terms but no longer exactly neutral ($\Delta\text{APE}=+0.114~\text{mm}$, $\Delta\text{RPE}=-0.006~\text{mm}$). Thus, selectivity is necessary but not sufficient by itself: coverage magnitude also defines the boundary between trajectory-neutral and mildly perturbed behavior.
 
+\subsection{Dataset-Mask-Supervised Front-End Training}
+\label{sec:results_dynamic_mask_training}
+
+The newest learned component is evaluated as a front-end mask predictor, not as learned map admission. Table~\ref{tab:dynamic_mask_training} summarizes P217--P220. P217 builds a binary dynamic/non-static mask dataset from dataset-provided TorWIC/AnnotatedSemanticSet semantic/indexed masks, with positives assigned to \texttt{cart\_pallet\_jack}, \texttt{fork\_truck}, \texttt{goods\_material}, \texttt{misc\_dynamic\_feature}, \texttt{misc\_non\_static\_feature}, \texttt{person}, and \texttt{pylon\_cone}. Static object, context, and background pixels are encoded as zero. The split is deterministic by frame group and has zero frame overlap across train, validation, and test.
+
+\begin{table}[t]
+  \centering
+  \caption{Dataset-Mask-Supervised Dynamic/Non-Static Front-End Evidence (P217--P220).}
+  \label{tab:dynamic_mask_training}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{ll}
+    \toprule
+    Item & Result \\
+    \midrule
+    Dataset size & 237 rows from 79 frame groups \\
+    Split & 156 train / 51 validation / 30 test, zero frame overlap \\
+    Positive pixel rate & 0.374176 \\
+    Model/training & compact UNet, CUDA RTX 3060, 5 epochs, threshold 0.40 \\
+    Validation IoU / F1 & 0.671304 / 0.803329 \\
+    Test IoU / F1 & 0.578580 / 0.733038 \\
+    Held-out mask precision / recall / F1 / IoU & 0.556007 / 0.789669 / 0.604636 / 0.443210 \\
+    ORB proxy & GT dynamic keypoints 4795 $\rightarrow$ 2192 (54.2857\% reduction) \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+The ORB proxy uses the six held-out P219 samples and OpenCV in the \texttt{tram} environment. Total raw keypoints are 10059 and total masked keypoints are 9972, but the relevant effect is concentrated inside ground-truth dynamic regions: keypoints there drop from 4795 to 2192. Because the P219 package is a frame-level held-out mask package without timestamps, calibration, or aligned trajectory ground truth, these results do not support a raw-vs-masked ATE/RPE or trajectory-improvement claim.
+
 % --- Figure 4: DROID-SLAM raw-vs-masked trajectories ---
 \begin{figure}[t]
   \centering
@@ -654,6 +683,11 @@ The observed separation---infrastructure clusters at dynamic ratio $=$ 0.00, for
 
 However, this bimodality may partially reflect the frontend state classifier's decision boundary rather than purely physical separation. The detector reports three states (\texttt{static}, \texttt{candidate}, \texttt{dynamic\_agent}); if the classifier assigns \texttt{dynamic\_agent} conservatively, dynamic objects receive consistently high ratios while static objects receive zero. This caveat is noted as a limitation (\S\ref{sec:limitations}, item 4): the bimodality is real in the data but its sharpness may be frontend-dependent. Multi-frontend ablation would be needed to quantify this dependence.
 
+\subsection{Separation Between Front-End Masking and Map Admission}
+\label{sec:disc_mask_admission_boundary}
+
+The P217--P220 dynamic/non-static mask route deliberately addresses a different supervision problem from map admission. Dataset-provided semantic/indexed masks can supervise a pixel-level front-end target for suppressing movable or non-static regions before feature extraction. They do not say whether a segmented object deserves a persistent slot in the long-term semantic map, nor whether two detections across sessions are the same physical object. For that reason, the learned front-end result is reported as mask quality and feature-level dynamic-region suppression only. Learned persistent-map admission remains outside the claim boundary until independent \texttt{human\_admit\_label} and \texttt{human\_same\_object\_label} supervision exists.
+
 \subsection{Relationship to Landmark Selection in Classical SLAM}
 \label{sec:disc_landmark}
 
@@ -678,6 +712,7 @@ The current evidence is limited to a single warehouse site (TorWIC). While the A
   \item \textbf{No comparison against published map-management policies.} The baseline comparison (naive-all-admit, purity/support heuristic) uses deliberately simple policies to isolate the contribution of individual signals. Comparison against map-management policies in published SLAM systems (e.g., RTAB-Map's memory management, ORB-SLAM3's map-point culling) is deferred to future work.
   \item \textbf{Single-session infrastructure loss.} Infrastructure appearing in only one session cannot be verified for cross-session persistence and is conservatively rejected. This is a design choice---precision over recall for map entries---but entails genuine infrastructure omission.
   \item \textbf{Dynamic SLAM boundary.} evo APE evaluation across the bounded DROID-SLAM chain reveals three regimes. Selective low-coverage semantic masks are trajectory-neutral ($|\Delta\text{APE}| \leq 0.006~\text{mm}$ in the original 7/12 neutral configs, extended by four neutral replication sessions). Aggressive mask strategies (temporal/flow propagation, uniform first-N masks) introduce measurable perturbations ($0.92$--$7.52~\text{mm}$, 5 configs). A high-coverage but still selective Jun~15 Aisle\_CCW pressure test (max $17.32\%$ frame coverage, mean $0.568\%$) produces only a small perturbation ($\Delta\text{APE}=+0.114~\text{mm}$). Mask selectivity is therefore necessary, but high dynamic coverage can still move the trajectory at sub-millimetre scale. Bootstrap 95\% CI for the neutral rate is 43.8--87.5\% (11/16 configs); the two-group $\Delta$APE separation at $|\Delta\text{APE}| \leq 0.006~\text{mm}$ is complete (gap=0.914~mm, no overlap). We do not claim navigation benefit or full-map quality improvement from masking.
+  \item \textbf{Learned front-end mask boundary.} The P217--P220 compact mask model is supervised by dataset-provided semantic/indexed masks and supports a dynamic/non-static pixel-masking claim. It is not learned admission control, not learned same-object association, and not a trajectory benchmark. The six-sample P219 package lacks timestamps, calibration, and aligned trajectory ground truth, so the P220 ORB result is a feature-level proxy only and cannot be reported as ATE/RPE improvement.
   \item \textbf{Backend boundary and ORB-SLAM3 caveat.} The trajectory-perturbation evidence remains DROID-SLAM-primary. A follow-up ORB-SLAM3 mono cross-check on Jun~15 Aisle\_CCW produced only sparse keyframe trajectories (raw 5 keyframes, masked 9 keyframes over roughly 1.2~s of a 64-frame, approximately 7~s window). evo APE/RPE are mathematically valid on those matched keyframes (raw/masked APE RMSE 0.041/0.043~m), but the sample is underpowered and not directly comparable to DROID-SLAM dense per-frame trajectories. We therefore treat ORB-SLAM3 only as a low-power backend-risk check and make no raw-vs-masked improvement, trajectory-neutrality generalization, or cross-backend performance claim.
   \item \textbf{Ground-truth object annotations.} TorWIC provides ground-truth object IDs; we use them for protocol configuration but the framework itself operates without ground truth.
 \end{enumerate}
@@ -693,6 +728,8 @@ This paper presents a systematic, evidence-backed approach to session-level map 
 Current TorWIC evidence documents a reproducible evidence chain across same-day, cross-day, and cross-month Aisle protocols, with Hallway retained as a separate within-site variation branch. Forklift-like evidence is consistently rejected as dynamic contamination (50\%--71\% rejection share), while barriers, work tables, and warehouse racks are selectively retained based on multi-session evidence, label consistency, and static dominance.
 
 The dynamic SLAM backend evaluation identifies a boundary condition: selective low-coverage semantic masks are trajectory-neutral for DROID-SLAM across the original single-session sweep and four replication sessions, while aggressive mask strategies (propagation, uniform first-N) introduce measurable perturbations ($0.92$--$7.52~\text{mm}$). A high-coverage selective-mask pressure test remains far below the aggressive-mask failures but produces a small nonzero shift ($\Delta\text{APE}=+0.114~\text{mm}$), showing that both selectivity and coverage magnitude matter for bundle adjustment. The admission criteria are validated through parameter ablation across 27 parameter combinations, baseline comparison (demonstrating that purity/support heuristics fail to reject any forklift), and per-category retention/rejection analysis.
+
+The current learned route is therefore framed narrowly: dataset-mask-supervised dynamic/non-static front-end masking improves suppression of dynamic-region features in held-out frames, but does not by itself establish learned persistent-map admission, learned same-object association, or trajectory ATE/RPE improvement. P195 remains blocked until independent human supervision is available for those object-level decisions.
 
 The contribution is bounded: not a lifelong SLAM benchmark, not dense dynamic reconstruction, and not a downstream navigation-gain claim. It is a systematic map maintenance methodology --- five boolean criteria with per-object provenance at every layer --- supported by reproducible evidence and a complete supplementary evidence package that enables per-cluster auditability of all admission and rejection decisions.
 

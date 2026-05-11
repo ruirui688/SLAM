@@ -20,6 +20,15 @@ paper/tro_submission/
 └── supplementary/      ← Supplementary material (P163)
 ```
 
+## Current Claim Status
+
+P224 synchronized the T-RO manuscript path with the current P217-P220
+dataset-mask-supervised dynamic/non-static front-end route. `abstract.tex` and
+`main.tex` now include the dataset construction, compact CUDA mask-model
+metrics, held-out mask-quality metrics, ORB feature-level dynamic-region
+suppression proxy, and explicit boundaries: no learned admission-control claim
+and no P217-P220 ATE/RPE or trajectory-improvement claim.
+
 ## Conversion Checklist
 
 - [ ] `main.tex` scaffold with correct \documentclass and all sections
