@@ -1687,3 +1687,15 @@ Next owner-loop step: broader pre-submission anonymization and metadata/package 
 - **No-proxy CUDA stress:** reran `tools/train_admission_scorer_gpu_p192.py` on P193 frame dataset with `dynamic_ratio,label_purity,is_forklift_like,is_infrastructure_like` dropped. Outputs: `paper/evidence/admission_scorer_no_proxy_p194.json`, `paper/export/admission_scorer_no_proxy_p194.md`.
 - **No-proxy metrics:** full-proxy P193 MLP Hallway test accuracy/F1 was `0.950/0.961`; no-proxy P194 MLP Hallway test dropped to `0.867/0.900`; validation dropped to `0.500/0.600` on n=8. This quantifies reliance on rule/category proxy fields.
 - **Risk/blocker:** P194 creates review-ready independent supervision inputs, but it does not create labels. P195 must obtain human/reviewer labels or otherwise independent labels before training a claim-worthy model.
+
+## 2026-05-11 — P220 Front-End Masking SLAM Feasibility Smoke
+
+- **Boundary:** audited P218/P219 semantic dynamic-mask front-end effects only. No downloads, no training, no admission/weak-label use, no learned admission-control claim.
+- **Local availability:** default `/usr/bin/python3` OpenCV remains blocked (`ImportError: numpy.core.multiarray failed to import`); `tram` Python OpenCV works (`cv2 4.12.0`, ORB available). ORB-SLAM3 wrapper/headless/vocab/camera files are locally present/readable; DROID root/weights and 20 prior backend input packs are present.
+- **P219 package audit:** all 6 raw images, masked images, full-res predicted masks, and GT dynamic masks are present. P219 is a six-sample held-out frame/mask package and does not contain timestamps, calibration, or trajectory GT for a raw-vs-P218-masked SLAM trajectory run.
+- **ORB feature proxy:** using `tram`, raw total keypoints `10059`, masked total `9972` (0.8649% reduction). Keypoints inside GT dynamic regions dropped from `4795` to `2192` (54.2857% reduction). This supports front-end feature suppression evidence only, not trajectory improvement.
+- **SLAM smoke decision:** did not force ORB-SLAM3 or DROID trajectory smoke. Existing local backend packs are not raw-vs-P218-masked P219 sequences, and the ORB wrapper expects a temporal sequence directory. Reporting availability/blockers is the bounded safe result.
+- **P195 gate:** remains `BLOCKED`; 32/32 boundary rows and 160/160 pair rows still have blank human labels; valid human admission/same-object labels are both `0`.
+- **Artifacts:** `tools/audit_frontend_masking_slam_p220.py`, `paper/evidence/frontend_masking_slam_smoke_p220.json`, `paper/evidence/frontend_masking_slam_smoke_p220.csv`, `paper/export/frontend_masking_slam_smoke_p220.md`.
+- **Verification:** `python3 -m py_compile tools/audit_frontend_masking_slam_p220.py` passed; `python3 tools/audit_frontend_masking_slam_p220.py` passed.
+- **P221 recommendation:** build a small temporally aligned held-out raw-vs-P218-masked sequence package from local data before any trajectory/ATE claim; keep P195 blocked until independent human admission/same-object labels exist.

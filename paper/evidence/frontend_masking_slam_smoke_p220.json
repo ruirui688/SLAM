@@ -1,0 +1,238 @@
+{
+  "availability": {
+    "backend": {
+      "droid": {
+        "backend_packs_found": 20,
+        "root_exists": true,
+        "smallest_backend_pack": {
+          "frame_count": 8,
+          "groundtruth": true,
+          "manifest": "outputs/dynamic_slam_backend_input_pack/backend_input_manifest.json",
+          "masked_rgb": true,
+          "raw_rgb": true
+        },
+        "smoke_reason": "DROID runtime and prior backend packs exist, but P219 samples are not a SLAM sequence and running DROID even on prior packs would not be raw-vs-P218-masked; bounded P220 records availability only.",
+        "smoke_status": "not_run",
+        "weights_exists": true
+      },
+      "orb_slam3": {
+        "camera_yaml_exists": true,
+        "headless_executable": true,
+        "headless_exists": true,
+        "headless_source_exists": true,
+        "smoke_reason": "Existing wrapper expects a temporal sequence directory and writes inside the input session; P219 is a six-frame held-out package without timestamps/trajectory, so P220 did not force an ORB-SLAM3 trajectory run.",
+        "smoke_status": "not_run",
+        "vocabulary_exists": true,
+        "wrapper_exists": true,
+        "wrapper_readable": true
+      }
+    },
+    "opencv_default": {
+      "available": false,
+      "error": "ImportError: numpy.core.multiarray failed to import",
+      "probe_status": "error",
+      "python": "/usr/bin/python3",
+      "returncode": 1,
+      "stderr_tail": [
+        "Traceback (most recent call last):",
+        "  File \"<string>\", line 3, in <module>",
+        "ImportError: numpy.core.multiarray failed to import"
+      ]
+    },
+    "opencv_tram": {
+      "available": true,
+      "has_orb_create": true,
+      "probe_status": "ok",
+      "python": "/home/rui/miniconda3/envs/tram/bin/python",
+      "returncode": 0,
+      "version": "4.12.0"
+    }
+  },
+  "claim_boundary": "P220 audits/evaluates semantic dynamic-mask front-end effects only. It does not train or claim learned admission control, and it does not use weak/admission labels.",
+  "generated_at_utc": "2026-05-11T07:48:26+00:00",
+  "guardrails": {
+    "downloads": false,
+    "long_experiments": false,
+    "prohibited_label_tokens_not_used": [
+      "target_admit",
+      "current_weak_label",
+      "selection_v5",
+      "model_prediction",
+      "model_pred",
+      "model_probability",
+      "model_prob",
+      "human_admit_label",
+      "human_same_object_label"
+    ],
+    "touches_raw_data": false,
+    "uses_admission_labels": false,
+    "uses_weak_or_selection_labels": false
+  },
+  "orb_proxy": {
+    "cv2_version": "4.12.0",
+    "python": "/home/rui/miniconda3/envs/tram/bin/python",
+    "samples": [
+      {
+        "gt_dynamic_keypoint_reduction_rate": 0.5968412302576891,
+        "masked_keypoints_in_gt_dynamic": 485,
+        "masked_keypoints_total": 1319,
+        "raw_keypoints_in_gt_dynamic": 1203,
+        "raw_keypoints_total": 1782,
+        "sample_id": "000000904_image-0",
+        "split": "val",
+        "total_keypoint_delta": -463,
+        "total_keypoint_reduction_rate": 0.25982042648709314
+      },
+      {
+        "gt_dynamic_keypoint_reduction_rate": 0.8173374613003096,
+        "masked_keypoints_in_gt_dynamic": 118,
+        "masked_keypoints_total": 1989,
+        "raw_keypoints_in_gt_dynamic": 646,
+        "raw_keypoints_total": 2000,
+        "sample_id": "000000904_image-1",
+        "split": "val",
+        "total_keypoint_delta": -11,
+        "total_keypoint_reduction_rate": 0.0055
+      },
+      {
+        "gt_dynamic_keypoint_reduction_rate": 0.5388235294117647,
+        "masked_keypoints_in_gt_dynamic": 588,
+        "masked_keypoints_total": 1527,
+        "raw_keypoints_in_gt_dynamic": 1275,
+        "raw_keypoints_total": 1906,
+        "sample_id": "000000904_image-2",
+        "split": "val",
+        "total_keypoint_delta": -379,
+        "total_keypoint_reduction_rate": 0.19884575026232948
+      },
+      {
+        "gt_dynamic_keypoint_reduction_rate": 0.23546099290780143,
+        "masked_keypoints_in_gt_dynamic": 539,
+        "masked_keypoints_total": 1484,
+        "raw_keypoints_in_gt_dynamic": 705,
+        "raw_keypoints_total": 1785,
+        "sample_id": "000000900_image-0",
+        "split": "test",
+        "total_keypoint_delta": -301,
+        "total_keypoint_reduction_rate": 0.16862745098039217
+      },
+      {
+        "gt_dynamic_keypoint_reduction_rate": 0.991701244813278,
+        "masked_keypoints_in_gt_dynamic": 4,
+        "masked_keypoints_total": 2000,
+        "raw_keypoints_in_gt_dynamic": 482,
+        "raw_keypoints_total": 1236,
+        "sample_id": "000000900_image-1",
+        "split": "test",
+        "total_keypoint_delta": 764,
+        "total_keypoint_reduction_rate": -0.6181229773462783
+      },
+      {
+        "gt_dynamic_keypoint_reduction_rate": 0.05371900826446281,
+        "masked_keypoints_in_gt_dynamic": 458,
+        "masked_keypoints_total": 1653,
+        "raw_keypoints_in_gt_dynamic": 484,
+        "raw_keypoints_total": 1350,
+        "sample_id": "000000900_image-2",
+        "split": "test",
+        "total_keypoint_delta": 303,
+        "total_keypoint_reduction_rate": -0.22444444444444445
+      }
+    ],
+    "status": "ok",
+    "summary": {
+      "gt_dynamic_keypoint_delta": -2603,
+      "gt_dynamic_keypoint_reduction_rate": 0.542857,
+      "masked_keypoints_in_gt_dynamic": 2192,
+      "masked_keypoints_total": 9972,
+      "raw_keypoints_in_gt_dynamic": 4795,
+      "raw_keypoints_total": 10059,
+      "sample_count": 6,
+      "total_keypoint_delta": -87,
+      "total_keypoint_reduction_rate": 0.008649
+    }
+  },
+  "p195_status": {
+    "boundary_blank": 32,
+    "boundary_total": 32,
+    "boundary_valid_human_admit_label_count": 0,
+    "human_labels_blank": true,
+    "pair_blank": 160,
+    "pair_total": 160,
+    "pair_valid_human_same_object_label_count": 0,
+    "status": "BLOCKED"
+  },
+  "p219_input_audit": {
+    "all_required_images_and_masks_present": true,
+    "per_sample": [
+      {
+        "gt_binary_mask_path_exists": true,
+        "height": 480,
+        "masked_image_path_exists": true,
+        "predicted_mask_fullres_path_exists": true,
+        "raw_image_path_exists": true,
+        "sample_id": "000000904_image-0",
+        "width": 848
+      },
+      {
+        "gt_binary_mask_path_exists": true,
+        "height": 720,
+        "masked_image_path_exists": true,
+        "predicted_mask_fullres_path_exists": true,
+        "raw_image_path_exists": true,
+        "sample_id": "000000904_image-1",
+        "width": 1280
+      },
+      {
+        "gt_binary_mask_path_exists": true,
+        "height": 480,
+        "masked_image_path_exists": true,
+        "predicted_mask_fullres_path_exists": true,
+        "raw_image_path_exists": true,
+        "sample_id": "000000904_image-2",
+        "width": 848
+      },
+      {
+        "gt_binary_mask_path_exists": true,
+        "height": 480,
+        "masked_image_path_exists": true,
+        "predicted_mask_fullres_path_exists": true,
+        "raw_image_path_exists": true,
+        "sample_id": "000000900_image-0",
+        "width": 848
+      },
+      {
+        "gt_binary_mask_path_exists": true,
+        "height": 720,
+        "masked_image_path_exists": true,
+        "predicted_mask_fullres_path_exists": true,
+        "raw_image_path_exists": true,
+        "sample_id": "000000900_image-1",
+        "width": 1280
+      },
+      {
+        "gt_binary_mask_path_exists": true,
+        "height": 480,
+        "masked_image_path_exists": true,
+        "predicted_mask_fullres_path_exists": true,
+        "raw_image_path_exists": true,
+        "sample_id": "000000900_image-2",
+        "width": 848
+      }
+    ],
+    "sample_count": 6,
+    "trajectory_inputs_for_p219_samples": {
+      "calibration": "absent_in_p219_package",
+      "note": "P219 contains held-out frame/mask samples, not a temporally aligned SLAM sequence.",
+      "timestamps": "absent_in_p219_package",
+      "trajectory_groundtruth": "absent_in_p219_package"
+    }
+  },
+  "p221_recommendation": "P221 should build a small temporally aligned raw-vs-P218-masked sequence package from local held-out frames before any trajectory claim. Keep P195 blocked until independent human admission/same-object labels exist.",
+  "source_reports": {
+    "p218": "paper/evidence/dynamic_mask_training_p218.json",
+    "p219": "paper/evidence/frontend_masking_eval_p219.json",
+    "p219_manifest": "outputs/frontend_masking_eval_p219/frontend_masking_eval_manifest.json"
+  },
+  "status": "P220_FRONTEND_MASKING_SLAM_FEASIBILITY_SMOKE_COMPLETE"
+}
