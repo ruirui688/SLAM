@@ -174,6 +174,16 @@ summary and local paths here, then commit and push the repository.
 - **Verification:** `python3 tools/build_release_governance_summary_p212.py` returns `BLOCKED_STALE_ARTIFACTS` with P195 `BLOCKED` and P210 `READY_EMPTY`; `python3 -m py_compile tools/build_release_governance_summary_p212.py`; `python3 tools/build_cross_phase_evidence_index_p211.py` returns `PASS` with 22 artifacts; `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED` with `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`; P212 JSON/Markdown output schema has no prohibited row-level decision/proxy fields.
 - **P213 recommendation:** Make the release worktree clean for P206-P211 before paper export: either restore or intentionally regenerate and commit the dirty relevant P206 evidence JSONs, then rerun P211 and P212. Keep P195 blocked until independent human admission/same-object labels exist.
 
+## 2026-05-11 P214 — Evidence-only release bundle
+
+- **Goal:** Package the P206-P213 no-label evidence governance stack for paper/export support without creating labels, training, downloading data, touching raw data, or touching protected untracked `thirdparty/` and `tools/orb_slam3_headless*` paths.
+- **Result: EVIDENCE-ONLY RELEASE BUNDLE READY, P195 still BLOCKED.** Added `tools/build_evidence_only_release_bundle_p214.py`, which builds a deterministic compact manifest and appendix over P206 packet/triage, P207 notes protocol, P208 summary, P209 safety tests, P210 ingestion audit/manifest, P211 evidence index, P212 release governance, and P213 cleanup status.
+- **Bundle status:** `READY_NO_LABEL_EVIDENCE_ONLY`. Outputs are `paper/evidence/evidence_only_release_bundle_p214.json`, `paper/evidence/evidence_only_release_bundle_p214.csv`, and `paper/export/evidence_only_release_bundle_p214.md`.
+- **Claim boundary:** P214 packages no-label evidence governance only. Evidence-only governance is ready, learned admission control remains blocked, no human labels exist, no admission/same-object labels were generated, and semantic/category evidence must not be reported as admission ground truth.
+- **Final checklist:** P195 `BLOCKED`; P212 `READY_NO_LABEL_EVIDENCE_ONLY`; P209 `PASS`; P210 `READY_EMPTY`; P211 `PASS`; P206 QA zero issues.
+- **Verification:** `python3 tools/build_evidence_only_release_bundle_p214.py` returns `READY_NO_LABEL_EVIDENCE_ONLY` with verification `PASS`; `python3 -m py_compile tools/build_evidence_only_release_bundle_p214.py` passes; `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED` with `32/32` blank and `0/32` valid `human_admit_label`, plus `160/160` blank and `0/160` valid `human_same_object_label`; P212 readiness remains `READY_NO_LABEL_EVIDENCE_ONLY`; generated P214 CSV schema contains no prohibited row-level decision/proxy columns.
+- **P215 recommendation:** Either integrate the P214 bundle into the paper appendix/export path, or collect/import independent human labels through the existing P195/P196 protocol before making any learned admission-control claim.
+
 ## 2026-05-10 P213 — Release evidence state cleanup
 
 - **Goal:** Clean the P206-P212 no-label evidence governance state without creating labels, training, downloading data, touching raw data, or touching protected untracked `thirdparty/` and `tools/orb_slam3_headless*` paths.

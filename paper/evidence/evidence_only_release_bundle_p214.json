@@ -1,0 +1,323 @@
+{
+  "bundle_status": "READY_NO_LABEL_EVIDENCE_ONLY",
+  "claim_boundary": "P214 packages no-label evidence governance only. Evidence-only governance is ready; learned admission control remains blocked; no human labels exist; no admission/same-object labels were generated; semantic/category evidence must not be reported as admission ground truth.",
+  "constraints_observed": {
+    "admission_or_same_object_labels_inferred": false,
+    "downloads_performed": false,
+    "human_admit_label_created_or_filled": false,
+    "human_same_object_label_created_or_filled": false,
+    "protected_untracked_thirdparty_or_orb_paths_touched": false,
+    "raw_data_modified": false,
+    "training_performed": false
+  },
+  "current_git": {
+    "branch": "main",
+    "commit": "d3d1dd90688bf3da403f2044ba6b618754ae4259",
+    "short_commit": "d3d1dd90688b",
+    "subject": "exp: clean P213 release evidence state"
+  },
+  "inputs": {
+    "p195_gate_json": "paper/evidence/independent_supervision_gate_p195.json",
+    "p206_triage_json": "paper/evidence/raw_evidence_diverse_packet_triage_p206.json",
+    "p209_safety_json": "paper/evidence/evidence_quality_safety_tests_p209.json",
+    "p210_ingestion_audit_json": "paper/evidence/evidence_note_ingestion_audit_p210.json",
+    "p211_index_json": "paper/evidence/cross_phase_evidence_index_p211.json",
+    "p212_governance_json": "paper/evidence/release_governance_summary_p212.json",
+    "research_progress": "RESEARCH_PROGRESS.md"
+  },
+  "manifest": [
+    {
+      "artifact_role": "diverse_packet_json",
+      "claim_boundary": "Raw evidence packet and QA only; semantic/category evidence is not admission ground truth.",
+      "exists": true,
+      "path": "paper/evidence/raw_evidence_diverse_packet_p206.json",
+      "phase": "P206",
+      "sha256": "241ef9feab26c562fcf3b06ea2c8b73f74c11546bfb77ecaac4ca49387ffdb8b",
+      "status": "DIVERSE_AUDIT_PACKET_BUILT_P195_STILL_BLOCKED"
+    },
+    {
+      "artifact_role": "diverse_packet_csv",
+      "claim_boundary": "Raw evidence packet and QA only; semantic/category evidence is not admission ground truth.",
+      "exists": true,
+      "path": "paper/evidence/raw_evidence_diverse_packet_p206.csv",
+      "phase": "P206",
+      "sha256": "8db7e9de20e2dd048c14b458407a082428e0d97ab0044ec3aafe559886b89b7e",
+      "status": "DIVERSE_AUDIT_PACKET_BUILT_P195_STILL_BLOCKED"
+    },
+    {
+      "artifact_role": "diverse_packet_report",
+      "claim_boundary": "Raw evidence packet and QA only; semantic/category evidence is not admission ground truth.",
+      "exists": true,
+      "path": "paper/export/raw_evidence_diverse_packet_p206.md",
+      "phase": "P206",
+      "sha256": "5476e92cbdcef3fe26d83dec2078e2fed4c81a140e9c4b5dcc61348ae100444e",
+      "status": "DIVERSE_AUDIT_PACKET_BUILT_P195_STILL_BLOCKED"
+    },
+    {
+      "artifact_role": "triage_json",
+      "claim_boundary": "Raw evidence packet and QA only; semantic/category evidence is not admission ground truth.",
+      "exists": true,
+      "path": "paper/evidence/raw_evidence_diverse_packet_triage_p206.json",
+      "phase": "P206",
+      "sha256": "9b0645f4a5a8dea29e9d5ef757c21bcd1c1bac49d82dbfecd6cbfc863544063b",
+      "status": "DIVERSE_PACKET_TRIAGE_COMPLETE_P195_STILL_BLOCKED"
+    },
+    {
+      "artifact_role": "triage_csv",
+      "claim_boundary": "Raw evidence packet and QA only; semantic/category evidence is not admission ground truth.",
+      "exists": true,
+      "path": "paper/evidence/raw_evidence_diverse_packet_triage_p206.csv",
+      "phase": "P206",
+      "sha256": "49c4b09c206ab51e3bee74225db4496a8cf7ee88ef01ba76319331a091c67586",
+      "status": "DIVERSE_PACKET_TRIAGE_COMPLETE_P195_STILL_BLOCKED"
+    },
+    {
+      "artifact_role": "triage_report",
+      "claim_boundary": "Raw evidence packet and QA only; semantic/category evidence is not admission ground truth.",
+      "exists": true,
+      "path": "paper/export/raw_evidence_diverse_packet_triage_p206.md",
+      "phase": "P206",
+      "sha256": "6858cc21b4de05c329f58c78a0e5e05de16eca3ec56815997377bee7930c4e76",
+      "status": "DIVERSE_PACKET_TRIAGE_COMPLETE_P195_STILL_BLOCKED"
+    },
+    {
+      "artifact_role": "quality_notes_json",
+      "claim_boundary": "Evidence-quality notes protocol only; note fields are not labels.",
+      "exists": true,
+      "path": "paper/evidence/raw_evidence_quality_notes_p207.json",
+      "phase": "P207",
+      "sha256": "20ae5ff77e97917173ad78edb7616239819234213b61f3912c0e10934f0a48bd",
+      "status": "BLANK_TEMPLATE_P195_STILL_BLOCKED"
+    },
+    {
+      "artifact_role": "quality_notes_csv",
+      "claim_boundary": "Evidence-quality notes protocol only; note fields are not labels.",
+      "exists": true,
+      "path": "paper/evidence/raw_evidence_quality_notes_p207.csv",
+      "phase": "P207",
+      "sha256": "1601e75e3c71f9c03489e39bba1b381fd06758cbbe9c5cabf0683f7418eda830",
+      "status": "BLANK_TEMPLATE_P195_STILL_BLOCKED"
+    },
+    {
+      "artifact_role": "quality_notes_protocol",
+      "claim_boundary": "Evidence-quality notes protocol only; note fields are not labels.",
+      "exists": true,
+      "path": "paper/export/raw_evidence_quality_notes_protocol_p207.md",
+      "phase": "P207",
+      "sha256": "d27aaebf27c4f921ba711346f27ed26635647692903d690f9c6b34ca777a9ca8",
+      "status": "PROTOCOL_READY_P195_STILL_BLOCKED"
+    },
+    {
+      "artifact_role": "quality_notes_summary_json",
+      "claim_boundary": "Summary of blank evidence-quality notes only; no label inference or training.",
+      "exists": true,
+      "path": "paper/evidence/evidence_quality_notes_summary_p208.json",
+      "phase": "P208",
+      "sha256": "9caeabde44d1eaad37aea0f2e1a944b8dbbc41ea74eda5b3d015deed03aafe2a",
+      "status": "PASS"
+    },
+    {
+      "artifact_role": "quality_blockers_csv",
+      "claim_boundary": "Summary of blank evidence-quality notes only; no label inference or training.",
+      "exists": true,
+      "path": "paper/evidence/evidence_quality_notes_blockers_p208.csv",
+      "phase": "P208",
+      "sha256": "fb8c22a24adc08c091b35bd0c727a676e06d63590dae1d3e9118aa6fdb0a4eb8",
+      "status": "PASS_ZERO_BLOCKERS"
+    },
+    {
+      "artifact_role": "quality_notes_summary_report",
+      "claim_boundary": "Summary of blank evidence-quality notes only; no label inference or training.",
+      "exists": true,
+      "path": "paper/export/evidence_quality_notes_summary_p208.md",
+      "phase": "P208",
+      "sha256": "e60619251eeced0399c7299e6f50e7535b00743d742912f06b857f7fc4ed311b",
+      "status": "PASS"
+    },
+    {
+      "artifact_role": "safety_tests_json",
+      "claim_boundary": "Safety regression tests for evidence-quality tooling only.",
+      "exists": true,
+      "path": "paper/evidence/evidence_quality_safety_tests_p209.json",
+      "phase": "P209",
+      "sha256": "2539ceb7b482c30becf85f7619bd5e0e844a62bade86906446f4fcd83cbc29e5",
+      "status": "PASS"
+    },
+    {
+      "artifact_role": "safety_tests_report",
+      "claim_boundary": "Safety regression tests for evidence-quality tooling only.",
+      "exists": true,
+      "path": "paper/export/evidence_quality_safety_tests_p209.md",
+      "phase": "P209",
+      "sha256": "48a8ffcde06a9b13f9df85a07eb2c123c3012e97cb33aa388f9ee7683d642e64",
+      "status": "PASS"
+    },
+    {
+      "artifact_role": "ingestion_audit_json",
+      "claim_boundary": "Quality-only ingestion audit; READY_EMPTY because all note fields are blank.",
+      "exists": true,
+      "path": "paper/evidence/evidence_note_ingestion_audit_p210.json",
+      "phase": "P210",
+      "sha256": "38610f1c901201f30b7692ed9b9e87b4b57f135fd10fb9eb48e4b92b548bd630",
+      "status": "READY_EMPTY"
+    },
+    {
+      "artifact_role": "ingestion_manifest_csv",
+      "claim_boundary": "Quality-only ingestion audit; READY_EMPTY because all note fields are blank.",
+      "exists": true,
+      "path": "paper/evidence/evidence_note_ingestion_manifest_p210.csv",
+      "phase": "P210",
+      "sha256": "ba94d197f611396080218c8424ccec3023dee3678cd6c4d1b030be42717fdd09",
+      "status": "READY_EMPTY_QUALITY_ONLY"
+    },
+    {
+      "artifact_role": "ingestion_audit_report",
+      "claim_boundary": "Quality-only ingestion audit; READY_EMPTY because all note fields are blank.",
+      "exists": true,
+      "path": "paper/export/evidence_note_ingestion_audit_p210.md",
+      "phase": "P210",
+      "sha256": "403b81a6d21dc0eb7a1b7603451078dbfa6f41f4d6c03e77108bc92fbd24c51d",
+      "status": "READY_EMPTY"
+    },
+    {
+      "artifact_role": "cross_phase_index_json",
+      "claim_boundary": "Artifact governance index for the no-label evidence stack only.",
+      "exists": true,
+      "path": "paper/evidence/cross_phase_evidence_index_p211.json",
+      "phase": "P211",
+      "sha256": "c47d1c0e11ee4457baf568ac127ea572839247173bd2be1683e9d101b198198f",
+      "status": "PASS"
+    },
+    {
+      "artifact_role": "cross_phase_index_csv",
+      "claim_boundary": "Artifact governance index for the no-label evidence stack only.",
+      "exists": true,
+      "path": "paper/evidence/cross_phase_evidence_index_p211.csv",
+      "phase": "P211",
+      "sha256": "7ec955c3d00249660cfc0e6e4cb54a1cbb4b15c4ea6e04815590729c9d43497b",
+      "status": "PASS"
+    },
+    {
+      "artifact_role": "cross_phase_index_report",
+      "claim_boundary": "Artifact governance index for the no-label evidence stack only.",
+      "exists": true,
+      "path": "paper/export/cross_phase_evidence_index_p211.md",
+      "phase": "P211",
+      "sha256": "c1b14556d997cc0083f7a3af791eaa246698285970f7e065c546b177c30af537",
+      "status": "PASS"
+    },
+    {
+      "artifact_role": "release_governance_json",
+      "claim_boundary": "Release governance is READY_NO_LABEL_EVIDENCE_ONLY; learned admission remains blocked.",
+      "exists": true,
+      "path": "paper/evidence/release_governance_summary_p212.json",
+      "phase": "P212",
+      "sha256": "52a1ec728a7666cded88a881bdf27ba261afc846aaa4ff4f0b09053165f5fbaf",
+      "status": "READY_NO_LABEL_EVIDENCE_ONLY"
+    },
+    {
+      "artifact_role": "release_governance_report",
+      "claim_boundary": "Release governance is READY_NO_LABEL_EVIDENCE_ONLY; learned admission remains blocked.",
+      "exists": true,
+      "path": "paper/export/release_governance_summary_p212.md",
+      "phase": "P212",
+      "sha256": "b7b3981d9501d9ced73d6161e35119a289911f56b10963175d360ca7a4d9b6a3",
+      "status": "READY_NO_LABEL_EVIDENCE_ONLY"
+    },
+    {
+      "artifact_role": "cleanup_status",
+      "claim_boundary": "Cleanup confirmed no-label release readiness without creating labels.",
+      "exists": true,
+      "path": "RESEARCH_PROGRESS.md",
+      "phase": "P213",
+      "sha256": "bf158f9f4c3256ae83a5473cdf11c44475cb83fbb1d64f137a53d12ed4851292",
+      "status": "COMPLETE_READY_NO_LABEL_EVIDENCE_ONLY"
+    },
+    {
+      "artifact_role": "bundle_builder_script",
+      "claim_boundary": "No-label evidence governance only; creates no admission/same-object labels, does not train, and does not support learned admission-control claims.",
+      "exists": true,
+      "path": "tools/build_evidence_only_release_bundle_p214.py",
+      "phase": "P214",
+      "sha256": "9a118741f758020b558047ecb91086d938cc68399197e4c6c9009077c298ab4e",
+      "status": "BUILDS_EVIDENCE_ONLY_RELEASE_BUNDLE"
+    }
+  ],
+  "outputs": {
+    "csv": "paper/evidence/evidence_only_release_bundle_p214.csv",
+    "json": "paper/evidence/evidence_only_release_bundle_p214.json",
+    "markdown": "paper/export/evidence_only_release_bundle_p214.md"
+  },
+  "p213_cleanup": {
+    "source": "RESEARCH_PROGRESS.md",
+    "source_sha256": "bf158f9f4c3256ae83a5473cdf11c44475cb83fbb1d64f137a53d12ed4851292",
+    "status": "COMPLETE_READY_NO_LABEL_EVIDENCE_ONLY",
+    "summary": "P213 cleaned the P206-P212 no-label release state and preserved the P195 blocked label boundary."
+  },
+  "p215_recommendation": "Either integrate this evidence-only bundle into the paper appendix/export path, or collect/import independent human labels through the existing P195/P196 protocol before any learned admission-control claim.",
+  "phase": "P214-evidence-only-release-bundle",
+  "schema_scan": {
+    "columns": [
+      "phase",
+      "artifact_role",
+      "path",
+      "exists",
+      "sha256",
+      "status",
+      "claim_boundary"
+    ],
+    "prohibited_columns_present": [],
+    "status": "PASS"
+  },
+  "verification": {
+    "checks": {
+      "human_labels_remain_blank": true,
+      "overall": "PASS",
+      "p195_blocked": true,
+      "p206_qa_zero_issues": true,
+      "p209_pass": true,
+      "p210_ready_empty": true,
+      "p211_pass": true,
+      "p212_ready_no_label_evidence_only": true
+    },
+    "p195": {
+      "human_admit_label": {
+        "blank": 32,
+        "total": 32,
+        "valid": 0
+      },
+      "human_same_object_label": {
+        "blank": 160,
+        "total": 160,
+        "valid": 0
+      },
+      "labels_blank": true,
+      "status": "BLOCKED"
+    },
+    "p206": {
+      "issue_counts": {},
+      "rows": 32,
+      "rows_by_issue_level": {
+        "OK": 32
+      },
+      "status": "DIVERSE_PACKET_TRIAGE_COMPLETE_P195_STILL_BLOCKED"
+    },
+    "p209": {
+      "case_count": 6,
+      "passed_case_count": 6,
+      "status": "PASS"
+    },
+    "p210": {
+      "readiness": "READY_EMPTY",
+      "status": "PASS"
+    },
+    "p211": {
+      "artifact_count": 22,
+      "status": "PASS"
+    },
+    "p212": {
+      "release_readiness_status": "READY_NO_LABEL_EVIDENCE_ONLY"
+    },
+    "status": "PASS"
+  }
+}
