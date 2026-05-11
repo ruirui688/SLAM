@@ -20,6 +20,14 @@ summary and local paths here, then commit and push the repository.
 - **Active:** Manuscript production closure. Paper faces 3 HIGH risks from hostile reviewer simulation (heuristics framing, n=20 scale, short DROID-SLAM window) — all documented with rebuttal templates in REVIEWER_ATTACKS_P183.md.
 - **Audit:** 30/30 PASS, 0 WARN, 0 FAIL.
 
+## 2026-05-11 P222 — README and manuscript training documentation cleanup
+
+- **Goal:** Clean the root README into a project-facing document and update paper-facing manuscript/export materials with the current P217-P220 dynamic-mask training and front-end masking evidence, without running new experiments, creating labels, downloading data, or touching raw data.
+- **Result: P222_DOC_CLEANUP_COMPLETE, P195 still BLOCKED.** Rewrote `README.md` around project overview, scientific boundary, key P217-P220 results, environment, data layout, reproducibility commands, blockers, and next steps. Historical details are now linked to `RESEARCH_PROGRESS.md` and `paper/export/latest_progress_summary_p221.md` rather than repeated in the README.
+- **Manuscript/export update:** Added P217-P220 dynamic/non-static front-end training text to `paper/manuscript_en.md` and `paper/tro_submission/main.tex`, and created `paper/export/dynamic_mask_training_section_p222.md` as a paste-ready manuscript section. Updated `paper/README.md` to point at the new export section.
+- **Scientific boundary:** Documentation now explicitly distinguishes dataset-mask-supervised front-end masking from blocked learned persistent-map admission control. P217/P218/P219/P220 results are reported as mask training, held-out mask quality, and ORB feature-level dynamic-region suppression only. No learned admission-control claim and no trajectory ATE/RPE claim are made from P219/P220.
+- **Verification:** No training or long experiment was run. `python3 tools/prepare_independent_supervision_p195.py` remains `BLOCKED` with `0/32` valid `human_admit_label` and `0/160` valid `human_same_object_label`. Text scans found no README/manuscript claim of learned admission control or P219/P220 ATE/RPE trajectory results; `git diff` was reviewed with pre-existing tracked evidence timestamp drift and protected untracked `thirdparty/` / `tools/orb_slam3_headless*` left untouched.
+
 ## 2026-05-11 P221 — Latest progress sync
 
 - **Goal:** Submit a comprehensive latest progress update after the user pause at P220, covering paper/export summaries, README status, code/evidence artifacts, data/training state, claim boundaries, blockers, and next steps without starting new experiments.

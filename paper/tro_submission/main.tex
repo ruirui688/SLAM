@@ -100,6 +100,8 @@ We deliberately limit the contribution to stable-object retention, dynamic-conta
   \item \textbf{Per-category retention and rejection analysis} (Section~\ref{sec:results_defense}): forklift rejection is universal (0/4 retained), infrastructure retention is selective and interpretable---barriers 40\%, work tables 50\%, racks 33\%---with each rejection attributable to one or more documented criteria.
   
   \item \textbf{A dynamic masking trajectory analysis} (Section~\ref{sec:results_dynamic_chain}): 16 DROID-SLAM configurations across five TorWIC sessions identify a bounded trajectory-neutral regime. Selective semantic frontend masks and concentrated forklift masks produce trajectory-neutral or near-neutral results ($|\Delta\text{APE}| \leq 0.006~\text{mm}$ for 11/16 configs), while aggressive mask strategies introduce measurable perturbations ($0.92$--$7.52~\text{mm}$, 5/16 configs). A high-coverage selective-mask pressure test produces a small sub-millimetre shift, so we claim mask selectivity as necessary but not sufficient by itself; coverage magnitude also matters.
+
+  \item \textbf{A dataset-mask-supervised dynamic/non-static front-end training route} (Section~\ref{sec:dynamic_mask_frontend}): P217--P220 construct a no-manual TorWIC/AnnotatedSemanticSet mask dataset, train a compact CUDA mask model, and evaluate held-out front-end masking and ORB feature suppression. This learned component is explicitly a front-end mask predictor, not learned persistent-map admission control.
   
   \item \textbf{A modular, backend-agnostic maintenance layer} designed to consume output from any detection+segmentation pipeline. The trust-score and admission-criteria formulations are defined with configurable weights and semantics, enabling domain-specific tuning without modifying the underlying architecture (Section~\ref{sec:method}).
 \end{enumerate}
@@ -242,6 +244,19 @@ When a new session revisits the environment, its tracklets are matched against e
   \item \textbf{Reject:} A tracklet does not match any existing object and fails admission criteria $\rightarrow$ record as rejected with reasons.
 \end{enumerate}
 The map $\mathcal{M}$ is thus \textbf{revisioned} rather than rebuilt: stable objects accumulate confirming evidence across revisits, while new candidates are admitted only after meeting the multi-session threshold.
+
+\subsection{Dataset-Mask-Supervised Dynamic/Non-Static Front End}
+\label{sec:dynamic_mask_frontend}
+
+The current learned model in the project is not the admission-control gate. It is a semantic dynamic/non-static mask front end trained from dataset-provided TorWIC/AnnotatedSemanticSet masks and used only for front-end masking before feature extraction. P217 constructs the dataset from local \texttt{source\_image.png}, \texttt{combined\_indexedImage.png}, and \texttt{raw\_labels\_2d.json} entries. Positive pixels are semantic indices for \texttt{cart\_pallet\_jack}, \texttt{fork\_truck}, \texttt{goods\_material}, \texttt{misc\_dynamic\_feature}, \texttt{misc\_non\_static\_feature}, \texttt{person}, and \texttt{pylon\_cone}; static object, context, and background pixels are encoded as zero. These labels define a front-end dynamic/non-static mask target, not persistent-map admission ground truth.
+
+The P217 manifest contains 237 rows from 79 frame groups. The split is deterministic by frame group to prevent frame leakage: 156 train rows, 51 validation rows, and 30 test rows, with zero frame overlap across splits. The overall positive dynamic/non-static pixel rate is 0.374176.
+
+P218 trains a compact UNet-style binary model in the \texttt{tram} CUDA environment on an NVIDIA RTX 3060. The smoke configuration resizes inputs to $320{\times}180$, runs for 5 epochs with batch size 8, and optimizes \texttt{BCEWithLogitsLoss(pos\_weight=1.489919)} plus $0.5$ Dice loss. The selected operating threshold is 0.40 from validation F1. Validation IoU/F1 are 0.671304/0.803329; test IoU/F1 are 0.578580/0.733038.
+
+P219 packages six held-out validation/test samples with raw images, predicted masks, ground-truth dynamic masks, and masked images. Mean mask precision/recall/F1/IoU are 0.556007/0.789669/0.604636/0.443210. P220 evaluates ORB feature-level effects with OpenCV in \texttt{tram}: raw keypoints total 10059 and masked keypoints total 9972, while ground-truth dynamic-region keypoints drop from 4795 to 2192, a 54.2857\% reduction.
+
+This evidence supports only front-end dynamic-region suppression. The P219 package is six held-out frames without timestamps, calibration, or aligned trajectory ground truth, so P220 reports no ATE/RPE and makes no trajectory-improvement claim. P195 learned persistent-map admission control remains blocked because independent \texttt{human\_admit\_label} and \texttt{human\_same\_object\_label} are absent (0/32 and 0/160 valid, respectively).
 
 % ============================================================================
 % VI. EXPERIMENTAL PROTOCOL

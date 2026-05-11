@@ -1,8 +1,8 @@
 # Dynamic Industrial Semantic-Segmentation-Assisted SLAM in Industrial Environments
 
-Status: repository-visible draft, 2026-05-09. This draft reflects the current
-P112 evidence state. It is a paper-progress manuscript, not final venue
-typesetting.
+Status: repository-visible draft, updated 2026-05-11. This draft includes the
+P217-P220 dynamic-mask training and front-end masking evidence. It is a
+paper-progress manuscript, not final venue typesetting.
 
 ## Abstract
 
@@ -88,6 +88,10 @@ on real industrial RGB-D data.
 5. We provide current evidence showing stable-object retention,
    dynamic-contamination rejection, and map-admission selectivity on real
    industrial RGB-D data.
+6. We report the current dataset-mask-supervised dynamic/non-static front-end
+   training route, including P217 dataset construction, P218 compact mask-model
+   training, P219 held-out masking quality, and P220 ORB feature-level masking
+   effects.
 
 ## 3. Method
 
@@ -121,6 +125,45 @@ admission signal used to decide whether an object belongs in the stable map
 layer. Every map update is recorded as a MapRevision, making retained objects,
 rejected objects, and dynamic contamination traceable to concrete sessions and
 observations.
+
+### Dynamic/Non-Static Mask Front End
+
+The current learned component is not the map-admission gate. It is a
+dataset-mask-supervised front-end model that predicts dynamic/non-static pixels
+for masking before SLAM feature extraction. P217 constructs this training set
+from dataset-provided TorWIC/AnnotatedSemanticSet semantic/indexed masks:
+`source_image.png`, `combined_indexedImage.png`, and `raw_labels_2d.json`.
+Positive pixels are semantic indices for `cart_pallet_jack`, `fork_truck`,
+`goods_material`, `misc_dynamic_feature`, `misc_non_static_feature`, `person`,
+and `pylon_cone`; static object, context, and background pixels are encoded as
+zero. `goods_material` is treated as movable clutter for front-end masking, not
+as persistent-map admission ground truth.
+
+The resulting P217 dataset contains 237 rows from 79 frame groups, split
+deterministically by frame group into 156 train, 51 validation, and 30 test
+rows. Frame overlap across train/validation/test is zero. The overall
+dynamic/non-static positive pixel rate is 0.374176.
+
+P218 trains a compact UNet-style binary mask model in the `tram` CUDA
+environment on an NVIDIA RTX 3060. Images and masks are resized to `320x180`.
+The smoke run uses 5 epochs, batch size 8, and
+`BCEWithLogitsLoss(pos_weight=1.489919) + 0.5 * DiceLoss`. The operating
+threshold is selected from validation F1 and is 0.40. Validation IoU/F1 are
+0.671304/0.803329; test IoU/F1 are 0.578580/0.733038. This is a semantic
+dynamic-mask front-end result, not learned admission control.
+
+P219 packages six held-out validation/test samples as raw image, predicted
+mask, ground-truth dynamic mask, and masked image artifacts. Mean mask
+precision/recall/F1/IoU over the package are
+0.556007/0.789669/0.604636/0.443210. P220 then evaluates ORB feature-level
+effects with OpenCV in the `tram` environment: total raw keypoints are 10059
+and masked keypoints are 9972, while keypoints inside ground-truth dynamic
+regions drop from 4795 to 2192, a 54.2857% reduction.
+
+This front-end masking evidence does not include trajectory ATE/RPE. The P219
+package is a six-frame held-out package without timestamps, calibration, or
+aligned trajectory ground truth. The current admissible claim is therefore
+feature-level dynamic-region suppression, not SLAM trajectory improvement.
 
 ## 4. Experimental Protocol
 
@@ -216,6 +259,13 @@ planning gains. The evidence supports object-map maintenance, stable-object
 retention, and dynamic-contamination rejection on real industrial revisits. It
 does not yet measure improved task performance for a deployed robot.
 
+The current learned dynamic-mask model must also be separated from
+admission-control learning. P195 remains blocked because independent
+`human_admit_label` and `human_same_object_label` values are absent
+(`0/32` and `0/160` valid, respectively). P193 weak labels and rule-derived
+proxy fields are historical evidence only and cannot support a learned
+persistent-map admission claim.
+
 ## 8. Conclusion
 
 This paper presents an object-centric approach to
@@ -241,3 +291,5 @@ long-term object-map maintenance on real industrial revisits.
 - Inline citation/evidence threading matrix:
   `outputs/torwic_p109_inline_citation_threading_matrix_v1.md`
 - Tracked paper figures: `paper/figures/`
+- Dynamic-mask training section:
+  `paper/export/dynamic_mask_training_section_p222.md`
