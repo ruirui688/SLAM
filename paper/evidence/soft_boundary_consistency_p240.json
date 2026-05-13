@@ -1,0 +1,596 @@
+{
+  "artifact": "P240 self-supervised soft-boundary consistency evidence",
+  "claim_boundary": "Self-supervised evidence only: not independent human-label validation and does not unblock P195. No full benchmark, navigation, learned-admission, or manuscript-body claim.",
+  "created": "2026-05-13T13:40:38+08:00",
+  "decision": "The selected P235/P237 soft-boundary candidate is mixed in self-supervised checks: 3/5 representative windows pass all support flags. Treat this as diagnostic support only and inspect the failing flags before manuscript integration. P234 hard-mask contrasts on 840-899 show region ORB deltas [1070, 1300] and boundary-band ORB deltas [2912, 5377], preserving the hard-edge failure contrast.",
+  "evaluations": [
+    {
+      "end_index": 899,
+      "feature_residual_proxy": {
+        "boundary_band_keypoint_delta_masked_minus_raw": -231,
+        "boundary_band_pixels_total": 3861076,
+        "boundary_band_radius_px": 3,
+        "mask_pixels_total": 5529600,
+        "masked_boundary_band_keypoints": 169,
+        "masked_region_keypoints": 0,
+        "masked_total_keypoints": 60000,
+        "raw_boundary_band_keypoints": 400,
+        "raw_region_keypoints": 127,
+        "raw_total_keypoints": 60000,
+        "region_keypoint_delta_masked_minus_raw": -127,
+        "total_keypoint_delta_masked_minus_raw": 0
+      },
+      "frame_count": 60,
+      "motion_cue_alignment": {
+        "farneback_flow_high_cue_enrichment": {
+          "count": 59,
+          "max": 1.080620659722222,
+          "mean": 0.3394938999196955,
+          "median": 0.35373263888888884,
+          "min": 0.0
+        },
+        "farneback_flow_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 1.275487548185642,
+          "mean": 0.7969946755979931,
+          "median": 0.7836037534289544,
+          "min": 0.5996175772406903
+        },
+        "frame_difference_high_cue_enrichment": {
+          "count": 59,
+          "max": 1.3183870796366148,
+          "mean": 0.25682491614922026,
+          "median": 0.2309184787794612,
+          "min": 0.002810172825628776
+        },
+        "frame_difference_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 1.4067381763798594,
+          "mean": 0.5290796504402396,
+          "median": 0.47993385086034934,
+          "min": 0.33479325012515865
+        },
+        "high_cue_quantile": 0.9
+      },
+      "pack_dir": "outputs/soft_boundary_mask_p235/aisle_cw_0840_0899/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary",
+      "selection_reason": "mandatory failure/repair regression window",
+      "sequence_label": "Oct. 12, 2022 Aisle_CW",
+      "source_phase": "P235",
+      "start_index": 840,
+      "support_flags": {
+        "boundary_band_orb_not_inflated": true,
+        "motion_or_difference_enriched": false,
+        "region_orb_not_inflated": true,
+        "temporal_coherent": true
+      },
+      "temporal_mask_stability": {
+        "adjacent_binary_mask_iou": {
+          "count": 59,
+          "max": 0.8843542978653799,
+          "mean": 0.7850451512761499,
+          "median": 0.8084062634904439,
+          "min": 0.5175241435522513
+        },
+        "adjacent_probability_soft_iou": {
+          "count": 59,
+          "max": 0.9880143404006958,
+          "mean": 0.9661834563239146,
+          "median": 0.9684144258499146,
+          "min": 0.930485188961029
+        },
+        "mask_coverage_cv": 4.1633363423443385e-16,
+        "mean_mask_coverage_percent": 9.999999999999996,
+        "nonzero_mask_frames": 60
+      },
+      "window_id": "aisle_cw_0840_0899",
+      "window_support": false
+    },
+    {
+      "end_index": 299,
+      "feature_residual_proxy": {
+        "boundary_band_keypoint_delta_masked_minus_raw": -340,
+        "boundary_band_pixels_total": 1960909,
+        "boundary_band_radius_px": 3,
+        "mask_pixels_total": 4769095,
+        "masked_boundary_band_keypoints": 497,
+        "masked_region_keypoints": 41,
+        "masked_total_keypoints": 60000,
+        "raw_boundary_band_keypoints": 837,
+        "raw_region_keypoints": 218,
+        "raw_total_keypoints": 60000,
+        "region_keypoint_delta_masked_minus_raw": -177,
+        "total_keypoint_delta_masked_minus_raw": 0
+      },
+      "frame_count": 60,
+      "motion_cue_alignment": {
+        "farneback_flow_high_cue_enrichment": {
+          "count": 59,
+          "max": 2.4593173662688805,
+          "mean": 1.5736664042737118,
+          "median": 1.5682338516292142,
+          "min": 0.6429561734575984
+        },
+        "farneback_flow_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 2.4296759501054885,
+          "mean": 1.5601843200738181,
+          "median": 1.536318781187693,
+          "min": 0.9467610948980574
+        },
+        "frame_difference_high_cue_enrichment": {
+          "count": 59,
+          "max": 0.9753650522427162,
+          "mean": 0.46145906278061183,
+          "median": 0.4197634478990877,
+          "min": 0.15806371816275028
+        },
+        "frame_difference_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 1.0411441786063462,
+          "mean": 0.6636941172958368,
+          "median": 0.6358641733791027,
+          "min": 0.45436943325008955
+        },
+        "high_cue_quantile": 0.9
+      },
+      "pack_dir": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary",
+      "selection_reason": "mandatory expanded-support same-sequence window",
+      "sequence_label": "Oct. 12, 2022 Aisle_CW",
+      "source_phase": "P237",
+      "start_index": 240,
+      "support_flags": {
+        "boundary_band_orb_not_inflated": true,
+        "motion_or_difference_enriched": true,
+        "region_orb_not_inflated": true,
+        "temporal_coherent": true
+      },
+      "temporal_mask_stability": {
+        "adjacent_binary_mask_iou": {
+          "count": 59,
+          "max": 0.9075413704244155,
+          "mean": 0.7384920031731301,
+          "median": 0.746752992978388,
+          "min": 0.46567729712661826
+        },
+        "adjacent_probability_soft_iou": {
+          "count": 59,
+          "max": 0.9810084700584412,
+          "mean": 0.9607168223898289,
+          "median": 0.9625738263130188,
+          "min": 0.9206231236457825
+        },
+        "mask_coverage_cv": 0.19304216863512622,
+        "mean_mask_coverage_percent": 8.624665436921296,
+        "nonzero_mask_frames": 60
+      },
+      "window_id": "aisle_cw_0240_0299",
+      "window_support": true
+    },
+    {
+      "end_index": 299,
+      "feature_residual_proxy": {
+        "boundary_band_keypoint_delta_masked_minus_raw": -100,
+        "boundary_band_pixels_total": 3261049,
+        "boundary_band_radius_px": 3,
+        "mask_pixels_total": 5529600,
+        "masked_boundary_band_keypoints": 127,
+        "masked_region_keypoints": 4,
+        "masked_total_keypoints": 60000,
+        "raw_boundary_band_keypoints": 227,
+        "raw_region_keypoints": 81,
+        "raw_total_keypoints": 60000,
+        "region_keypoint_delta_masked_minus_raw": -77,
+        "total_keypoint_delta_masked_minus_raw": 0
+      },
+      "frame_count": 60,
+      "motion_cue_alignment": {
+        "farneback_flow_high_cue_enrichment": {
+          "count": 59,
+          "max": 3.3651258680555554,
+          "mean": 1.346264934330652,
+          "median": 0.9207899305555556,
+          "min": 0.0
+        },
+        "farneback_flow_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 2.8301217899787585,
+          "mean": 1.3855421100628635,
+          "median": 1.3117412904359684,
+          "min": 0.50857859224448
+        },
+        "frame_difference_high_cue_enrichment": {
+          "count": 59,
+          "max": 1.2082600580448175,
+          "mean": 0.4741703485135495,
+          "median": 0.3471661210085463,
+          "min": 0.056927209927082
+        },
+        "frame_difference_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 1.2321327940389293,
+          "mean": 0.7117104913193102,
+          "median": 0.632103734875668,
+          "min": 0.31308221840762746
+        },
+        "high_cue_quantile": 0.9
+      },
+      "pack_dir": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary",
+      "selection_reason": "mandatory expanded-support opposite-direction window",
+      "sequence_label": "Oct. 12, 2022 Aisle_CCW",
+      "source_phase": "P237",
+      "start_index": 240,
+      "support_flags": {
+        "boundary_band_orb_not_inflated": true,
+        "motion_or_difference_enriched": true,
+        "region_orb_not_inflated": true,
+        "temporal_coherent": true
+      },
+      "temporal_mask_stability": {
+        "adjacent_binary_mask_iou": {
+          "count": 59,
+          "max": 0.9403739262253663,
+          "mean": 0.7052654994365773,
+          "median": 0.7398527468378328,
+          "min": 0.34853162815879196
+        },
+        "adjacent_probability_soft_iou": {
+          "count": 59,
+          "max": 0.9909186959266663,
+          "mean": 0.9560856667615599,
+          "median": 0.9681393504142761,
+          "min": 0.8727844953536987
+        },
+        "mask_coverage_cv": 4.1633363423443385e-16,
+        "mean_mask_coverage_percent": 9.999999999999996,
+        "nonzero_mask_frames": 60
+      },
+      "window_id": "aisle_ccw_0240_0299",
+      "window_support": true
+    },
+    {
+      "end_index": 539,
+      "feature_residual_proxy": {
+        "boundary_band_keypoint_delta_masked_minus_raw": -1069,
+        "boundary_band_pixels_total": 1523858,
+        "boundary_band_radius_px": 3,
+        "mask_pixels_total": 3024465,
+        "masked_boundary_band_keypoints": 1157,
+        "masked_region_keypoints": 188,
+        "masked_total_keypoints": 60000,
+        "raw_boundary_band_keypoints": 2226,
+        "raw_region_keypoints": 1382,
+        "raw_total_keypoints": 60000,
+        "region_keypoint_delta_masked_minus_raw": -1194,
+        "total_keypoint_delta_masked_minus_raw": 0
+      },
+      "frame_count": 60,
+      "motion_cue_alignment": {
+        "farneback_flow_high_cue_enrichment": {
+          "count": 59,
+          "max": 5.093634665330113,
+          "mean": 1.7989120600658994,
+          "median": 1.6072528487834925,
+          "min": 0.38818385411112294
+        },
+        "farneback_flow_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 4.373356401675827,
+          "mean": 1.7503941282272035,
+          "median": 1.714049229257183,
+          "min": 0.7821560858403412
+        },
+        "frame_difference_high_cue_enrichment": {
+          "count": 59,
+          "max": 6.263252622958802,
+          "mean": 1.802056470611303,
+          "median": 1.5045160201384495,
+          "min": 0.6221726664542847
+        },
+        "frame_difference_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 3.650956683839215,
+          "mean": 1.608428131386702,
+          "median": 1.4969225640514017,
+          "min": 0.9301912898400904
+        },
+        "high_cue_quantile": 0.9
+      },
+      "pack_dir": "outputs/soft_boundary_mask_p235/aisle_cw_0480_0539/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary",
+      "selection_reason": "P235 backtest/story-seed window",
+      "sequence_label": "Oct. 12, 2022 Aisle_CW",
+      "source_phase": "P235",
+      "start_index": 480,
+      "support_flags": {
+        "boundary_band_orb_not_inflated": true,
+        "motion_or_difference_enriched": true,
+        "region_orb_not_inflated": true,
+        "temporal_coherent": true
+      },
+      "temporal_mask_stability": {
+        "adjacent_binary_mask_iou": {
+          "count": 59,
+          "max": 0.9337508123116914,
+          "mean": 0.3849525128943514,
+          "median": 0.339012853470437,
+          "min": 0.041454425952442434
+        },
+        "adjacent_probability_soft_iou": {
+          "count": 59,
+          "max": 0.9931861162185669,
+          "mean": 0.9291659401634992,
+          "median": 0.9273403882980347,
+          "min": 0.8456425070762634
+        },
+        "mask_coverage_cv": 0.6280926638575818,
+        "mean_mask_coverage_percent": 5.4695909288194455,
+        "nonzero_mask_frames": 60
+      },
+      "window_id": "aisle_cw_0480_0539",
+      "window_support": true
+    },
+    {
+      "end_index": 179,
+      "feature_residual_proxy": {
+        "boundary_band_keypoint_delta_masked_minus_raw": -587,
+        "boundary_band_pixels_total": 2927613,
+        "boundary_band_radius_px": 3,
+        "mask_pixels_total": 5443229,
+        "masked_boundary_band_keypoints": 773,
+        "masked_region_keypoints": 20,
+        "masked_total_keypoints": 60000,
+        "raw_boundary_band_keypoints": 1360,
+        "raw_region_keypoints": 215,
+        "raw_total_keypoints": 60000,
+        "region_keypoint_delta_masked_minus_raw": -195,
+        "total_keypoint_delta_masked_minus_raw": 0
+      },
+      "frame_count": 60,
+      "motion_cue_alignment": {
+        "farneback_flow_high_cue_enrichment": {
+          "count": 59,
+          "max": 1.4073956204022178,
+          "mean": 0.39296994791993933,
+          "median": 0.18785214537799516,
+          "min": 0.016959383713242692
+        },
+        "farneback_flow_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 1.7071756126153685,
+          "mean": 1.1201484040099812,
+          "median": 1.1799368516394448,
+          "min": 0.5654708196003629
+        },
+        "frame_difference_high_cue_enrichment": {
+          "count": 59,
+          "max": 0.8222012565130691,
+          "mean": 0.5792012138015585,
+          "median": 0.5721937115238939,
+          "min": 0.31314866132108277
+        },
+        "frame_difference_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 0.9141348731697257,
+          "mean": 0.763542794881422,
+          "median": 0.7580680307086256,
+          "min": 0.4973662125975636
+        },
+        "high_cue_quantile": 0.9
+      },
+      "pack_dir": "outputs/soft_boundary_mask_p235/aisle_cw_0120_0179/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary",
+      "selection_reason": "P235/P233 backtest window",
+      "sequence_label": "Oct. 12, 2022 Aisle_CW",
+      "source_phase": "P235",
+      "start_index": 120,
+      "support_flags": {
+        "boundary_band_orb_not_inflated": true,
+        "motion_or_difference_enriched": false,
+        "region_orb_not_inflated": true,
+        "temporal_coherent": true
+      },
+      "temporal_mask_stability": {
+        "adjacent_binary_mask_iou": {
+          "count": 59,
+          "max": 0.8606341419096938,
+          "mean": 0.7202222493057748,
+          "median": 0.7379664085286131,
+          "min": 0.5697892999002894
+        },
+        "adjacent_probability_soft_iou": {
+          "count": 59,
+          "max": 0.982556939125061,
+          "mean": 0.9610116774752989,
+          "median": 0.963383674621582,
+          "min": 0.9299994707107544
+        },
+        "mask_coverage_cv": 0.0840299028718267,
+        "mean_mask_coverage_percent": 9.84380244502315,
+        "nonzero_mask_frames": 60
+      },
+      "window_id": "aisle_cw_0120_0179",
+      "window_support": false
+    }
+  ],
+  "hard_mask_contrasts": [
+    {
+      "contrast_id": "p234_hard_best_aisle_cw_0840_0899",
+      "contrast_reason": "best P234 hard-mask failure variant on the 840-899 regression window",
+      "feature_residual_proxy": {
+        "boundary_band_keypoint_delta_masked_minus_raw": 2912,
+        "boundary_band_pixels_total": 3861076,
+        "boundary_band_radius_px": 3,
+        "mask_pixels_total": 5529600,
+        "masked_boundary_band_keypoints": 3312,
+        "masked_region_keypoints": 1197,
+        "masked_total_keypoints": 60000,
+        "raw_boundary_band_keypoints": 400,
+        "raw_region_keypoints": 127,
+        "raw_total_keypoints": 60000,
+        "region_keypoint_delta_masked_minus_raw": 1070,
+        "total_keypoint_delta_masked_minus_raw": 0
+      },
+      "frame_count": 60,
+      "motion_cue_alignment": {
+        "farneback_flow_high_cue_enrichment": {
+          "count": 59,
+          "max": 1.080620659722222,
+          "mean": 0.3394938999196955,
+          "median": 0.35373263888888884,
+          "min": 0.0
+        },
+        "farneback_flow_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 1.275487548185642,
+          "mean": 0.7969946755979931,
+          "median": 0.7836037534289544,
+          "min": 0.5996175772406903
+        },
+        "frame_difference_high_cue_enrichment": {
+          "count": 59,
+          "max": 1.3183870796366148,
+          "mean": 0.25682491614922026,
+          "median": 0.2309184787794612,
+          "min": 0.002810172825628776
+        },
+        "frame_difference_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 1.4067381763798594,
+          "mean": 0.5290796504402396,
+          "median": 0.47993385086034934,
+          "min": 0.33479325012515865
+        },
+        "high_cue_quantile": 0.9
+      },
+      "pack_dir": "outputs/gated_mask_failure_sweep_p234/thr060_cap012_min256_dil0/dynamic_slam_backend_input_pack_p228_conf_gated",
+      "source_phase": "P234",
+      "temporal_mask_stability": {
+        "adjacent_binary_mask_iou": {
+          "count": 59,
+          "max": 0.8843542978653799,
+          "mean": 0.7850451512761499,
+          "median": 0.8084062634904439,
+          "min": 0.5175241435522513
+        },
+        "adjacent_probability_soft_iou": {
+          "count": 59,
+          "max": 0.9880143404006958,
+          "mean": 0.9661834563239146,
+          "median": 0.9684144258499146,
+          "min": 0.930485188961029
+        },
+        "mask_coverage_cv": 4.1633363423443385e-16,
+        "mean_mask_coverage_percent": 9.999999999999996,
+        "nonzero_mask_frames": 60
+      },
+      "variant_id": "thr060_cap012_min256_dil0",
+      "window_id": "aisle_cw_0840_0899"
+    },
+    {
+      "contrast_id": "p234_hard_default_aisle_cw_0840_0899",
+      "contrast_reason": "P233/P234 default hard-mask failure contrast on 840-899",
+      "feature_residual_proxy": {
+        "boundary_band_keypoint_delta_masked_minus_raw": 5377,
+        "boundary_band_pixels_total": 2227672,
+        "boundary_band_radius_px": 3,
+        "mask_pixels_total": 9953280,
+        "masked_boundary_band_keypoints": 6444,
+        "masked_region_keypoints": 1901,
+        "masked_total_keypoints": 60000,
+        "raw_boundary_band_keypoints": 1067,
+        "raw_region_keypoints": 601,
+        "raw_total_keypoints": 60000,
+        "region_keypoint_delta_masked_minus_raw": 1300,
+        "total_keypoint_delta_masked_minus_raw": 0
+      },
+      "frame_count": 60,
+      "motion_cue_alignment": {
+        "farneback_flow_high_cue_enrichment": {
+          "count": 59,
+          "max": 0.8496696566358025,
+          "mean": 0.3564785921929553,
+          "median": 0.3857421875,
+          "min": 0.07348331404320987
+        },
+        "farneback_flow_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 1.2362423403187524,
+          "mean": 0.820280856537667,
+          "median": 0.8159011346466202,
+          "min": 0.572189252763608
+        },
+        "frame_difference_high_cue_enrichment": {
+          "count": 59,
+          "max": 1.1076874037082292,
+          "mean": 0.34432056274150513,
+          "median": 0.3218875119389588,
+          "min": 0.12038040207054292
+        },
+        "frame_difference_inside_outside_mean_ratio": {
+          "count": 59,
+          "max": 1.2095693829692034,
+          "mean": 0.569663529610409,
+          "median": 0.5550222751937083,
+          "min": 0.4291279561473357
+        },
+        "high_cue_quantile": 0.9
+      },
+      "pack_dir": "outputs/gated_mask_failure_sweep_p234/p233_default/dynamic_slam_backend_input_pack_p228_conf_gated",
+      "source_phase": "P234",
+      "temporal_mask_stability": {
+        "adjacent_binary_mask_iou": {
+          "count": 59,
+          "max": 0.9461742415354654,
+          "mean": 0.8649308880027188,
+          "median": 0.88193652684421,
+          "min": 0.6658014048370982
+        },
+        "adjacent_probability_soft_iou": {
+          "count": 59,
+          "max": 0.9880143404006958,
+          "mean": 0.9661834563239146,
+          "median": 0.9684144258499146,
+          "min": 0.930485188961029
+        },
+        "mask_coverage_cv": 1.5419764230904954e-16,
+        "mean_mask_coverage_percent": 17.999999999999996,
+        "nonzero_mask_frames": 60
+      },
+      "variant_id": "p233_default",
+      "window_id": "aisle_cw_0840_0899"
+    }
+  ],
+  "inputs_checked": {
+    "hard_mask_contrast": "paper/evidence/gated_mask_failure_sweep_p234.json",
+    "p235_evidence": "paper/evidence/soft_boundary_mask_p235.json",
+    "p235_output_root": "outputs/soft_boundary_mask_p235",
+    "p235_tool": "tools/apply_soft_boundary_mask_p235.py",
+    "p237_evidence": "paper/evidence/soft_boundary_multiwindow_p237.json",
+    "p237_output_root": "outputs/soft_boundary_multiwindow_p237",
+    "p237_tool": "tools/run_soft_boundary_multiwindow_p237.py"
+  },
+  "metric_definitions": {
+    "feature_residual_proxy": "ORB keypoint counts in predicted region and morphological boundary band before/after soft masking.",
+    "motion_cue_alignment": "Farneback optical-flow and frame-difference high-cue enrichment inside the soft-mask region; high cue means top quantile over each adjacent pair.",
+    "temporal_mask_stability": "Adjacent binary mask IoU, adjacent probability-map soft IoU, and mask coverage CV over 60 frames."
+  },
+  "next_step": "Use P240 as self-supervised support for the bounded soft-boundary frontend module. If integrating into the thick manuscript, do it in a separate P241 pass and keep P195 blocked until independent labels are collected.",
+  "outputs": {
+    "csv": "paper/evidence/soft_boundary_consistency_p240.csv",
+    "json": "paper/evidence/soft_boundary_consistency_p240.json",
+    "local_output_root": "outputs/soft_boundary_consistency_p240",
+    "markdown": "paper/export/soft_boundary_consistency_p240.md"
+  },
+  "selected_variant": "meanfill035_feather5_thr060_cap012_min256",
+  "status": "mixed_self_supervised_support",
+  "summary_counts": {
+    "all_flags_required": true,
+    "hard_mask_contrast_count": 2,
+    "self_supervised_support_count": 3,
+    "window_count": 5
+  },
+  "support_rule": {
+    "boundary_band_orb_not_inflated": "masked-minus-raw ORB keypoint delta in boundary band <= max(30, 5% of raw boundary-band keypoints)",
+    "motion_or_difference_enriched": "mean flow or frame-difference high-cue enrichment >= 1.10",
+    "region_orb_not_inflated": "masked-minus-raw ORB keypoint delta inside predicted region <= 0",
+    "temporal_coherent": "mean adjacent binary mask IoU >= 0.35 or mean adjacent probability soft IoU >= 0.55"
+  }
+}
