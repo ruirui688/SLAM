@@ -1,0 +1,177 @@
+{
+  "artifact": "P228 confidence-gated mask module smoke",
+  "created": "2026-05-13T08:47:58+08:00",
+  "status": "viable_story_seed",
+  "claim_boundary": "Small frontend mask post-processing smoke on the P225 sequence only; not a full benchmark, navigation claim, or independent dynamic segmentation claim. P195 remains BLOCKED.",
+  "inputs": {
+    "input_pack": "outputs/dynamic_slam_backend_input_pack_p228_conf_gated",
+    "sequence_output": "outputs/temporal_masked_sequence_p228_conf_gated",
+    "smoke_manifest_16": "outputs/dynamic_slam_backend_smoke_p228_conf_gated_16/dynamic_slam_backend_smoke_manifest.json",
+    "metrics_json_16": "outputs/dynamic_slam_backend_smoke_p228_conf_gated_16/p228_conf_gated_metrics.json",
+    "smoke_manifest_60": "outputs/dynamic_slam_backend_smoke_p228_conf_gated/dynamic_slam_backend_smoke_manifest.json",
+    "metrics_json_60": "outputs/dynamic_slam_backend_smoke_p228_conf_gated/p228_conf_gated_metrics.json",
+    "orb_feature_csv": "paper/evidence/confidence_gated_mask_module_p228_orb_features.csv",
+    "baseline_p227": "paper/evidence/p225_baseline_reproduction_p227.json"
+  },
+  "module_parameters": {
+    "probability_threshold": 0.5,
+    "dilation_px": 1,
+    "min_component_area_px": 128,
+    "max_coverage": 0.22,
+    "target_coverage": 0.18,
+    "mask_value": 0
+  },
+  "mask_summary": {
+    "total_candidate_pixels": 7980212,
+    "total_mask_pixels": 7811695,
+    "mean_coverage_percent": 14.127053,
+    "coverage_capped_frames": [
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "nonzero_mask_frames": 60
+  },
+  "runtime": {
+    "python": "/home/rui/miniconda3/envs/tram/bin/python",
+    "torch": "2.4.0+cu118",
+    "cuda_available": true,
+    "device": "NVIDIA GeForce RTX 3060",
+    "droid_root": "/home/rui/tram/thirdparty/DROID-SLAM",
+    "weights": "/home/rui/tram/data/pretrain/droid.pth"
+  },
+  "stability_gate_16_frame": {
+    "status": "ok",
+    "frame_count": 16,
+    "runs": [
+      {
+        "label": "raw",
+        "status": "ok",
+        "rgb_list": "outputs/dynamic_slam_backend_input_pack_p228_conf_gated/raw/rgb.txt",
+        "estimate_tum": "outputs/dynamic_slam_backend_smoke_p228_conf_gated_16/raw_estimate_tum.txt",
+        "frame_count": 16,
+        "trajectory_rows": 16,
+        "error": null
+      },
+      {
+        "label": "masked",
+        "status": "ok",
+        "rgb_list": "outputs/dynamic_slam_backend_input_pack_p228_conf_gated/masked/rgb.txt",
+        "estimate_tum": "outputs/dynamic_slam_backend_smoke_p228_conf_gated_16/masked_estimate_tum.txt",
+        "frame_count": 16,
+        "trajectory_rows": 16,
+        "error": null
+      }
+    ],
+    "metrics": {
+      "raw RGB": {
+        "ape_rmse_m": 0.02581,
+        "ape_mean_m": 0.022088,
+        "rpe_rmse_m": 0.092888,
+        "rpe_mean_m": 0.091594
+      },
+      "masked RGB (P228 confidence-gated P225 probability masks)": {
+        "ape_rmse_m": 0.02518,
+        "ape_mean_m": 0.021683,
+        "rpe_rmse_m": 0.092865,
+        "rpe_mean_m": 0.091584
+      }
+    },
+    "delta_masked_minus_raw": {
+      "ape_rmse_m": -0.0006299999999999986,
+      "rpe_rmse_m": -2.2999999999995246e-05
+    }
+  },
+  "full_60_frame": {
+    "status": "ok",
+    "frame_count": 60,
+    "runs": [
+      {
+        "label": "raw",
+        "status": "ok",
+        "rgb_list": "outputs/dynamic_slam_backend_input_pack_p228_conf_gated/raw/rgb.txt",
+        "estimate_tum": "outputs/dynamic_slam_backend_smoke_p228_conf_gated/raw_estimate_tum.txt",
+        "frame_count": 60,
+        "trajectory_rows": 60,
+        "error": null
+      },
+      {
+        "label": "masked",
+        "status": "ok",
+        "rgb_list": "outputs/dynamic_slam_backend_input_pack_p228_conf_gated/masked/rgb.txt",
+        "estimate_tum": "outputs/dynamic_slam_backend_smoke_p228_conf_gated/masked_estimate_tum.txt",
+        "frame_count": 60,
+        "trajectory_rows": 60,
+        "error": null
+      }
+    ],
+    "metrics": {
+      "raw RGB": {
+        "ape_rmse_m": 0.088496,
+        "ape_mean_m": 0.077587,
+        "rpe_rmse_m": 0.076145,
+        "rpe_mean_m": 0.071417
+      },
+      "masked RGB (P228 confidence-gated P225 probability masks)": {
+        "ape_rmse_m": 0.084705,
+        "ape_mean_m": 0.073877,
+        "rpe_rmse_m": 0.076224,
+        "rpe_mean_m": 0.071468
+      }
+    },
+    "delta_masked_minus_raw": {
+      "ape_rmse_m": -0.0037910000000000027,
+      "rpe_rmse_m": 7.899999999999574e-05
+    }
+  },
+  "p227_baseline_metrics": {
+    "16_frame": {
+      "raw_ape_rmse_m": 0.02581,
+      "raw_rpe_rmse_m": 0.092888,
+      "masked_ape_rmse_m": 0.025066,
+      "masked_rpe_rmse_m": 0.09277
+    },
+    "60_frame": {
+      "raw_ape_rmse_m": 0.088504,
+      "raw_rpe_rmse_m": 0.076145,
+      "masked_ape_rmse_m": 0.084529,
+      "masked_rpe_rmse_m": 0.076226
+    }
+  },
+  "orb_feature_sanity": {
+    "frames": 60,
+    "raw_total_keypoints": 60000,
+    "masked_total_keypoints": 60000,
+    "raw_predicted_mask_region_keypoints": 8969,
+    "masked_predicted_mask_region_keypoints": 5073,
+    "predicted_mask_region_pixels": 7811695,
+    "predicted_mask_region_proxy": true,
+    "raw_to_masked_total_keypoint_delta": 0,
+    "raw_to_masked_predicted_region_keypoint_delta": -3896
+  },
+  "p227_orb_feature_sanity": {
+    "frames": 60,
+    "raw_total_keypoints": 60000,
+    "masked_total_keypoints": 60000,
+    "raw_predicted_mask_region_keypoints": 21030,
+    "masked_predicted_mask_region_keypoints": 18617,
+    "predicted_mask_region_pixels": 13377728,
+    "predicted_mask_region_proxy": true,
+    "raw_to_masked_total_keypoint_delta": 0,
+    "raw_to_masked_predicted_region_keypoint_delta": -2413
+  },
+  "orb_proxy_remains_or_improves_vs_p227": true,
+  "commands": [
+    "/home/rui/miniconda3/envs/tram/bin/python tools/apply_confidence_gated_mask_module_p228.py build --source-dir outputs/temporal_masked_sequence_p225/sequence --sequence-output outputs/temporal_masked_sequence_p228_conf_gated --pack-output outputs/dynamic_slam_backend_input_pack_p228_conf_gated --probability-threshold 0.50 --dilation-px 1 --min-component-area-px 128 --max-coverage 0.22 --target-coverage 0.18",
+    "timeout 240s /home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/dynamic_slam_backend_input_pack_p228_conf_gated --output-dir outputs/dynamic_slam_backend_smoke_p228_conf_gated_16 --frame-limit 16",
+    "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/dynamic_slam_backend_input_pack_p228_conf_gated --output-dir outputs/dynamic_slam_backend_smoke_p228_conf_gated_16 --artifact \"P228 16-frame confidence-gated P225 mask DROID-SLAM smoke metrics\" --scope \"P228 bounded local module smoke: first 16 frames from Oct. 12 2022 Aisle_CW P225 package, confidence/coverage-gated probability-mask post-processing.\" --masked-label \"masked RGB (P228 confidence-gated P225 probability masks)\" --output-prefix p228_conf_gated_metrics --interpretation \"P228 16-frame gate for confidence-gated mask module; use only as bounded smoke evidence.\"",
+    "timeout 600s /home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/dynamic_slam_backend_input_pack_p228_conf_gated --output-dir outputs/dynamic_slam_backend_smoke_p228_conf_gated --frame-limit 60",
+    "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/dynamic_slam_backend_input_pack_p228_conf_gated --output-dir outputs/dynamic_slam_backend_smoke_p228_conf_gated --artifact \"P228 60-frame confidence-gated P225 mask DROID-SLAM smoke metrics\" --scope \"P228 bounded local module smoke: 60 frames from Oct. 12 2022 Aisle_CW P225 package, confidence/coverage-gated probability-mask post-processing.\" --masked-label \"masked RGB (P228 confidence-gated P225 probability masks)\" --output-prefix p228_conf_gated_metrics --interpretation \"P228 60-frame smoke for confidence-gated mask module; use only as bounded module evidence.\""
+  ],
+  "interpretation": "The confidence-gated module stayed within the bounded trajectory smoke tolerance and preserved/improved the P227 ORB predicted-region suppression proxy. This is only a small frontend mask-module smoke, but it is a viable story seed.",
+  "next_adjustment_if_needed": "If ORB suppression is too weak, lower probability_threshold below the current value or raise max_coverage/target_coverage modestly; if trajectory degrades, reduce dilation_px or max_coverage."
+}

@@ -1,0 +1,122 @@
+{
+  "artifact": "P227 P225 learned-mask baseline reproduction",
+  "created": "2026-05-13T08:33:50+08:00",
+  "status": "baseline_reproduction_passed_neutral",
+  "claim_boundary": "Bounded DROID-SLAM trajectory smoke and ORB feature sanity only. No improvement claim unless APE/RPE support it; ORB dynamic-region counts use predicted-mask-region proxy, not GT dynamic masks.",
+  "frame_count": 60,
+  "inputs": {
+    "input_pack": "outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask",
+    "smoke_manifest": "outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask/dynamic_slam_backend_smoke_manifest.json",
+    "metrics_json": "outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask/p227_p225_learned_mask_metrics.json",
+    "orb_feature_csv": "paper/evidence/p225_baseline_reproduction_p227_orb_features.csv"
+  },
+  "runtime": {
+    "python": "/home/rui/miniconda3/envs/tram/bin/python",
+    "torch": "2.4.0+cu118",
+    "cuda_available": true,
+    "device": "NVIDIA GeForce RTX 3060",
+    "droid_root": "/home/rui/tram/thirdparty/DROID-SLAM",
+    "weights": "/home/rui/tram/data/pretrain/droid.pth"
+  },
+  "runs": [
+    {
+      "label": "raw",
+      "status": "ok",
+      "rgb_list": "outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask/raw/rgb.txt",
+      "estimate_tum": "outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask/raw_estimate_tum.txt",
+      "frame_count": 60,
+      "trajectory_rows": 60,
+      "error": null
+    },
+    {
+      "label": "masked",
+      "status": "ok",
+      "rgb_list": "outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask/masked/rgb.txt",
+      "estimate_tum": "outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask/masked_estimate_tum.txt",
+      "frame_count": 60,
+      "trajectory_rows": 60,
+      "error": null
+    }
+  ],
+  "stability_gate_16_frame": {
+    "status": "ok",
+    "frame_count": 16,
+    "runs": [
+      {
+        "label": "raw",
+        "status": "ok",
+        "rgb_list": "outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask/raw/rgb.txt",
+        "estimate_tum": "outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask_16/raw_estimate_tum.txt",
+        "frame_count": 16,
+        "trajectory_rows": 16,
+        "error": null
+      },
+      {
+        "label": "masked",
+        "status": "ok",
+        "rgb_list": "outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask/masked/rgb.txt",
+        "estimate_tum": "outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask_16/masked_estimate_tum.txt",
+        "frame_count": 16,
+        "trajectory_rows": 16,
+        "error": null
+      }
+    ],
+    "metrics": {
+      "raw RGB": {
+        "ape_rmse_m": 0.02581,
+        "ape_mean_m": 0.022088,
+        "rpe_rmse_m": 0.092888,
+        "rpe_mean_m": 0.091594
+      },
+      "masked RGB (P225 learned predicted-mask package)": {
+        "ape_rmse_m": 0.025066,
+        "ape_mean_m": 0.021558,
+        "rpe_rmse_m": 0.09277,
+        "rpe_mean_m": 0.091495
+      }
+    },
+    "delta_masked_minus_raw": {
+      "ape_rmse_m": -0.0007439999999999981,
+      "rpe_rmse_m": -0.00011799999999999311
+    }
+  },
+  "metrics": {
+    "raw RGB": {
+      "ape_rmse_m": 0.088504,
+      "ape_mean_m": 0.077594,
+      "rpe_rmse_m": 0.076145,
+      "rpe_mean_m": 0.071417
+    },
+    "masked RGB (P225 learned predicted-mask package)": {
+      "ape_rmse_m": 0.084529,
+      "ape_mean_m": 0.073688,
+      "rpe_rmse_m": 0.076226,
+      "rpe_mean_m": 0.07146
+    }
+  },
+  "delta_masked_minus_raw": {
+    "ape_rmse_m": -0.003974999999999992,
+    "rpe_rmse_m": 8.099999999999774e-05
+  },
+  "orb_feature_sanity": {
+    "frames": 60,
+    "raw_total_keypoints": 60000,
+    "masked_total_keypoints": 60000,
+    "raw_predicted_mask_region_keypoints": 21030,
+    "masked_predicted_mask_region_keypoints": 18617,
+    "predicted_mask_region_pixels": 13377728,
+    "predicted_mask_region_proxy": true,
+    "raw_to_masked_total_keypoint_delta": 0,
+    "raw_to_masked_predicted_region_keypoint_delta": -2413
+  },
+  "orb_feature_csv": "paper/evidence/p225_baseline_reproduction_p227_orb_features.csv",
+  "commands": [
+    "/home/rui/miniconda3/envs/tram/bin/python tools/prepare_p227_p225_backend_pack.py --source-dir outputs/temporal_masked_sequence_p225/sequence --output-dir outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask",
+    "timeout 240s /home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask --output-dir outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask_16 --frame-limit 16",
+    "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask --output-dir outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask_16 --artifact 'P227 16-frame P225 learned-mask DROID-SLAM smoke metrics' --scope 'P227 bounded local reproduction: first 16 frames from Oct. 12 2022 Aisle_CW P225 learned-mask package, source indices 480-495.' --masked-label 'masked RGB (P225 learned predicted-mask package)' --output-prefix p227_p225_learned_mask_metrics",
+    "timeout 600s /home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask --output-dir outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask --frame-limit 60",
+    "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/dynamic_slam_backend_input_pack_p227_p225_learned_mask --output-dir outputs/dynamic_slam_backend_smoke_p227_p225_learned_mask --artifact 'P227 60-frame P225 learned-mask DROID-SLAM smoke metrics' --scope 'P227 bounded local reproduction: 60 frames from Oct. 12 2022 Aisle_CW P225 learned-mask package, source indices 480-539.' --masked-label 'masked RGB (P225 learned predicted-mask package)' --output-prefix p227_p225_learned_mask_metrics"
+  ],
+  "interpretation": "The P225 learned-mask raw/masked DROID-SLAM smoke reproduced successfully. Masked trajectory error is neutral within the bounded smoke tolerance, so this is baseline reproduction evidence, not an improvement claim.",
+  "next_network_module_recommendation": "Keep the DROID/evo path fixed and add a small learned-mask module next: confidence/coverage-gated dilation or boundary refinement on the P218/P225 SmallUNet output, then rerun the same raw-vs-masked smoke and ORB proxy."
+}

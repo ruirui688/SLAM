@@ -1,7 +1,8 @@
 # Dynamic Industrial Semantic-Segmentation-Assisted SLAM in Industrial Environments
 
-Status: repository-visible draft, updated 2026-05-11. This draft includes the
-P217-P220 dynamic-mask training and front-end masking evidence. It is a
+Status: repository-visible draft, updated 2026-05-13. This draft includes the
+P217-P228 dynamic-mask training, baseline reproduction, and confidence-gated
+front-end masking evidence. It is a
 paper-progress manuscript, not final venue typesetting.
 
 ## Abstract
@@ -33,8 +34,13 @@ learned result is narrower and complementary: a dataset-mask-supervised
 dynamic/non-static front end trained on TorWIC semantic masks reaches
 validation/test IoU-F1 of `0.671304/0.803329` and `0.578580/0.733038`, and
 reduces ORB keypoints inside held-out ground-truth dynamic regions from `4795`
-to `2192` (`54.2857%`). This is not learned admission control and does not
-support an ATE/RPE improvement claim.
+to `2192` (`54.2857%`). A later bounded 60-frame DROID-SLAM smoke on a
+timestamped TorWIC sequence reproduces the raw-vs-learned-mask baseline and
+tests a confidence/coverage-gated mask module: the module stays trajectory
+neutral relative to the learned-mask baseline while reducing ORB keypoints in
+the predicted gated regions from `8969` to `5073`. This is not learned
+admission control and does not support a full navigation or benchmark-level
+improvement claim.
 
 ## Index Terms
 
@@ -102,8 +108,8 @@ same-object association labels.
    industrial RGB-D data.
 6. We report the current dataset-mask-supervised dynamic/non-static front-end
    training route, including P217 dataset construction, P218 compact mask-model
-   training, P219 held-out masking quality, and P220 ORB feature-level masking
-   effects.
+   training, P219 held-out masking quality, P220 ORB feature-level masking
+   effects, and P225-P228 bounded raw-vs-masked DROID/ORB frontend smoke tests.
 
 ## 3. Method
 
@@ -176,6 +182,26 @@ This front-end masking evidence does not include trajectory ATE/RPE. The P219
 package is a six-frame held-out package without timestamps, calibration, or
 aligned trajectory ground truth. The current admissible claim is therefore
 feature-level dynamic-region suppression, not SLAM trajectory improvement.
+
+P225-P228 extend this front-end line from frame-level packaging to a bounded
+trajectory-ready sequence. P225 builds a 60-frame raw-vs-learned-mask TorWIC
+`Aisle_CW` package with timestamps, calibration, and aligned ground truth for
+source indices 480-539. Because P218 did not save a reusable checkpoint, P225
+explicitly retrains the same compact SmallUNet route as a bounded smoke from
+P217 semantic dynamic/non-static masks and records this provenance. P227 then
+reproduces the DROID-SLAM baseline on the P225 sequence. The 60-frame raw and
+learned-mask APE/RPE RMSE are `0.088504/0.076145 m` and
+`0.084529/0.076226 m`, respectively. P228 adds a minimal post-network
+confidence/coverage-gated mask module with probability threshold `0.50`, 1 px
+dilation, minimum connected-component area 128 px, and a 0.22/0.18
+coverage cap/target. On the same 60-frame DROID smoke, raw and gated-mask
+APE/RPE RMSE are `0.088496/0.076145 m` and `0.084705/0.076224 m`. Compared
+with P227, the P228 gated mask is effectively trajectory-neutral: APE is
+`0.000176 m` higher and RPE is `0.000002 m` lower than the P227 learned-mask
+baseline. Its stronger evidence is front-end feature suppression: ORB
+keypoints in the predicted gated regions drop from `8969` to `5073`, compared
+with the P227 predicted-region drop from `21030` to `18617`. These counts are
+predicted-region proxies, not independent dynamic-mask ground truth.
 
 ## 4. Experimental Protocol
 
@@ -256,6 +282,21 @@ change only from 10059 raw to 9972 masked, while dynamic-region keypoints drop
 substantially. The six held-out P219 samples lack timestamps, calibration, and
 aligned trajectory ground truth, so no trajectory ATE/RPE result is reported.
 
+Table 4 fixes the current raw-vs-mask DROID/ORB frontend smoke story used for
+module comparison. P227 is the reproduced learned-mask baseline on the P225
+60-frame sequence. P228 changes only the post-network mask module.
+
+| Front-End Variant | Frames | Mask Coverage / Region | APE RMSE Raw -> Masked (m) | RPE RMSE Raw -> Masked (m) | ORB Region Keypoints Raw -> Masked |
+|---|---:|---:|---:|---:|---:|
+| P227 learned-mask baseline | 60 | predicted region, 13,377,728 px | 0.088504 -> 0.084529 | 0.076145 -> 0.076226 | 21030 -> 18617 |
+| P228 confidence/coverage-gated module | 60 | 14.127053% mean coverage, 7,811,695 px | 0.088496 -> 0.084705 | 0.076145 -> 0.076224 | 8969 -> 5073 |
+
+The table should be read conservatively. Both rows are bounded local smoke
+tests using the same DROID/evo evaluation path; they do not establish a
+benchmark-level trajectory improvement. The useful paper-facing result is that
+the P228 module preserves the trajectory-neutral behavior of the learned-mask
+baseline while producing more concentrated predicted-region feature suppression.
+
 ## 6. Discussion
 
 The central design decision is to place an explicit maintenance layer between
@@ -275,6 +316,16 @@ because it moves dynamic/non-static suppression from hand-built masks toward a
 dataset-supervised pixel predictor. It does not remove the need for independent
 object-level supervision before claiming learned persistent-map admission or
 same-object association.
+
+The P228 confidence/coverage-gated module is intentionally modest. It is not a
+new segmentation backbone and does not create independent dynamic-object
+labels. Its role is to make the learned-mask frontend easier to control before
+SLAM feature extraction: suppress high-confidence dynamic/non-static regions,
+cap per-frame coverage, and avoid broad over-masking. The bounded DROID
+results show that this controlled masking does not destabilize the trajectory
+smoke, while the ORB proxy shows stronger feature suppression inside the gated
+regions. This is a viable story seed for a frontend filtering module, not a
+standalone dynamic-SLAM benchmark result.
 
 The evidence stack is intentionally layered: a primary Aisle richer ladder, a
 historical fallback family, and a Hallway broader-validation branch. This makes
@@ -301,6 +352,12 @@ admission-control learning. P195 remains blocked because independent
 (`0/32` and `0/160` valid, respectively). P193 weak labels and rule-derived
 proxy fields are historical evidence only and cannot support a learned
 persistent-map admission claim.
+
+The P225-P228 DROID and ORB numbers are also bounded local smoke results. They
+use a single 60-frame TorWIC `Aisle_CW` window, predicted-mask-region ORB
+proxies, and the existing DROID runtime. They are suitable for fixing the
+baseline and shaping the module story, but not for claiming broad trajectory,
+navigation, or deployed-robot gains.
 
 ## 8. Conclusion
 

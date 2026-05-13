@@ -1,0 +1,176 @@
+{
+  "claim_boundary": "This package is trajectory-ready input material for raw-vs-P218-masked feasibility testing. It does not claim ORB-SLAM3/DROID ATE/RPE improvement.",
+  "environment": {
+    "cuda_available": true,
+    "cuda_version": "11.8",
+    "device": "NVIDIA GeForce RTX 3060",
+    "duration_seconds": 31.593,
+    "platform": "Linux-6.8.0-110-generic-x86_64-with-glibc2.35",
+    "python": "3.10.18",
+    "torch": "2.4.0+cu118"
+  },
+  "generated_at_utc": "2026-05-13T00:25:51.828196+00:00",
+  "mask_model": {
+    "checkpoint": "outputs/temporal_masked_sequence_p225/model/p225_retrained_p218_smallunet.pt",
+    "checkpoint_sha256": "ca55faffb734fba2184ee48a9bb54220fd8ea5a297a73184d3a991ecbdd583c2",
+    "class_balance": {
+      "pos_weight_used": 1.489919,
+      "raw_neg_pos_ratio": 1.489919,
+      "train_resized_positive_pixel_rate": 0.401619,
+      "train_resized_positive_pixels": 3608792,
+      "train_resized_total_pixels": 8985600
+    },
+    "dataset": {
+      "manifest_prohibited_columns": [],
+      "p217_csv": "paper/evidence/dynamic_mask_dataset_p217.csv",
+      "rows": 237,
+      "split_counts": {
+        "test": 30,
+        "train": 156,
+        "val": 51
+      }
+    },
+    "duration_seconds": 9.479,
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 0.977115,
+        "val_dynamic_iou_at_0_50": 0.579838,
+        "val_f1_dynamic_at_0_50": 0.734047
+      }
+    ],
+    "metrics": {
+      "test": {
+        "loss": 0.845354,
+        "selected_threshold": {
+          "balanced_accuracy": 0.786671,
+          "dynamic_iou": 0.541541,
+          "f1_dynamic": 0.702597,
+          "fn": 57932,
+          "fp": 376278,
+          "pixel_accuracy": 0.748721,
+          "pixels": 1728000,
+          "positive_pixel_rate": 0.330341,
+          "precision_dynamic": 0.576824,
+          "predicted_positive_rate": 0.514569,
+          "recall_dynamic": 0.898513,
+          "tn": 780892,
+          "tp": 512898
+        }
+      },
+      "train": {
+        "loss": 0.832815,
+        "selected_threshold": {
+          "balanced_accuracy": 0.773972,
+          "dynamic_iou": 0.590541,
+          "f1_dynamic": 0.742567,
+          "fn": 351816,
+          "fp": 1906445,
+          "pixel_accuracy": 0.74868,
+          "pixels": 8985600,
+          "positive_pixel_rate": 0.401619,
+          "precision_dynamic": 0.630779,
+          "predicted_positive_rate": 0.574633,
+          "recall_dynamic": 0.902511,
+          "tn": 3470363,
+          "tp": 3256976
+        }
+      },
+      "val": {
+        "loss": 0.821349,
+        "selected_threshold": {
+          "balanced_accuracy": 0.798122,
+          "dynamic_iou": 0.607783,
+          "f1_dynamic": 0.756051,
+          "fn": 113578,
+          "fp": 547085,
+          "pixel_accuracy": 0.775101,
+          "pixels": 2937600,
+          "positive_pixel_rate": 0.387168,
+          "precision_dynamic": 0.651727,
+          "predicted_positive_rate": 0.53474,
+          "recall_dynamic": 0.900138,
+          "tn": 1253169,
+          "tp": 1023768
+        }
+      }
+    },
+    "mode": "retrained_bounded_smoke_no_prior_p218_checkpoint_found",
+    "selected_threshold": 0.4
+  },
+  "mask_statistics": {
+    "max_predicted_dynamic_pixel_rate": 0.37217,
+    "mean_predicted_dynamic_pixel_rate": 0.241929,
+    "mean_probability": 0.35203,
+    "min_predicted_dynamic_pixel_rate": 0.084028
+  },
+  "outputs": {
+    "csv": "paper/evidence/temporal_masked_sequence_p225.csv",
+    "json": "paper/evidence/temporal_masked_sequence_p225.json",
+    "markdown": "paper/export/temporal_masked_sequence_p225.md",
+    "masked_sequence_dir": "outputs/temporal_masked_sequence_p225/sequence/masked",
+    "package_root": "outputs/temporal_masked_sequence_p225/sequence",
+    "predicted_mask_dir": "outputs/temporal_masked_sequence_p225/sequence/predicted_masks",
+    "probability_dir": "outputs/temporal_masked_sequence_p225/sequence/probabilities",
+    "raw_sequence_dir": "outputs/temporal_masked_sequence_p225/sequence/raw"
+  },
+  "p195_status": {
+    "boundary_valid_human_admit_label_count": 0,
+    "human_labels_blank": true,
+    "pair_valid_human_same_object_label_count": 0,
+    "status": "BLOCKED"
+  },
+  "sequence": {
+    "end_index": 539,
+    "frame_count": 60,
+    "image_size": [
+      1280,
+      720
+    ],
+    "preferred_oct_12_aisle_cw_used": true,
+    "source_sequence_dir": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW",
+    "start_index": 480,
+    "timestamp_end": 53.892828941345215,
+    "timestamp_span_seconds": 5.894061,
+    "timestamp_start": 47.99876809120178
+  },
+  "source_evidence": {
+    "p217_json": "paper/evidence/dynamic_mask_dataset_p217.json",
+    "p217_status": "READY_NO_MANUAL_DYNAMIC_MASK_DATASET",
+    "p218_existing_checkpoint_found": false,
+    "p218_json": "paper/evidence/dynamic_mask_training_p218.json",
+    "p218_status": "P218_DYNAMIC_MASK_TRAINING_SMOKE_COMPLETE",
+    "target_sequence_semantic_masks_used_as_training_labels": false,
+    "uses_current_weak_label": false,
+    "uses_human_labels": false,
+    "uses_model_predictions_as_training_labels": false,
+    "uses_selection_v5": false,
+    "uses_target_admit": false
+  },
+  "status": "P225_TEMPORAL_RAW_VS_P218_MASKED_SEQUENCE_PACKAGE_COMPLETE",
+  "trajectory_readiness": {
+    "calibrations_txt": [
+      "outputs/temporal_masked_sequence_p225/sequence/raw/calibrations.txt",
+      "outputs/temporal_masked_sequence_p225/sequence/masked/calibrations.txt"
+    ],
+    "frame_times_txt": [
+      "outputs/temporal_masked_sequence_p225/sequence/raw/frame_times.txt",
+      "outputs/temporal_masked_sequence_p225/sequence/masked/frame_times.txt"
+    ],
+    "groundtruth_txt": [
+      "outputs/temporal_masked_sequence_p225/sequence/raw/groundtruth.txt",
+      "outputs/temporal_masked_sequence_p225/sequence/masked/groundtruth.txt"
+    ],
+    "masked_frame_count": 60,
+    "orb_yaml_reference": [
+      "outputs/temporal_masked_sequence_p225/sequence/raw/TorWIC_mono_left.yaml",
+      "outputs/temporal_masked_sequence_p225/sequence/masked/TorWIC_mono_left.yaml"
+    ],
+    "raw_frame_count": 60,
+    "rgb_txt": [
+      "outputs/temporal_masked_sequence_p225/sequence/raw/rgb.txt",
+      "outputs/temporal_masked_sequence_p225/sequence/masked/rgb.txt"
+    ],
+    "slam_not_run": true
+  }
+}

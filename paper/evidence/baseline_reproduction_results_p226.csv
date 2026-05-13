@@ -1,0 +1,2 @@
+experiment,backend,sequence,frames,mask_policy,status,raw_ape_rmse_m,masked_ape_rmse_m,delta_ape_rmse_m,raw_rpe_rmse_m,masked_rpe_rmse_m,delta_rpe_rmse_m,masked_frames,total_frames,mean_mask_coverage_percent
+p226_repro8,DROID-SLAM,Jun. 23 2022 Aisle_CW_Run_1,8,example forklift mask on frame 000002,ok,0.001242,0.001243,0.000001,0.002250,0.002255,0.000005,1,8,0.021593

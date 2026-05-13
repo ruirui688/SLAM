@@ -1,0 +1,205 @@
+{
+  "artifact": "P226 baseline reproduction plan and baseline selection",
+  "created": "2026-05-13T08:27:00+08:00",
+  "status": "P226_BASELINE_REPRODUCTION_SMOKE_COMPLETE",
+  "claim_boundary": "This artifact selects a reproducible baseline route and records a bounded local smoke reproduction. It does not claim a full benchmark improvement or new network result yet.",
+  "task_route": "Find local baselines and code, reproduce a minimal baseline, then propose a small module replacement/addition suitable for a paper story.",
+  "do_not_use_as_main_baseline": [
+    {
+      "baseline": "P193/P195 weak-label or admission-control learning",
+      "reason": "P193 has proxy-leakage risk and P195 remains blocked without independent labels."
+    },
+    {
+      "baseline": "P155/P176 admission baseline as main story",
+      "reason": "It is useful context, but B1 statistics conflict across artifacts: tools/run_baseline_comparison.py currently reports B1 admitted=19, while paper/evidence/baseline_statistics_p176.json reports B1 admitted=9 from supplement-derived per-cluster flags."
+    }
+  ],
+  "baseline_candidates": [
+    {
+      "name": "DROID-SLAM raw vs semantic/dynamic masked frontend",
+      "code": [
+        "tools/build_dynamic_slam_backend_input_pack.py",
+        "tools/run_dynamic_slam_backend_smoke.py",
+        "tools/evaluate_dynamic_slam_metrics.py"
+      ],
+      "existing_results": [
+        "outputs/dynamic_slam_backend_smoke_p172_*/*metrics.json",
+        "outputs/dynamic_slam_backend_smoke_p173_*/*metrics.json",
+        "paper/evidence/dynamic_slam_stage1_p172.json",
+        "paper/evidence/dynamic_slam_stage2_p173_coverage_scan.json"
+      ],
+      "local_reproducible": true,
+      "metrics": [
+        "APE RMSE",
+        "APE mean",
+        "RPE RMSE",
+        "RPE mean",
+        "mask coverage"
+      ],
+      "fair_comparison": "Same sequence, same frame window, same DROID weights/runtime, raw RGB vs masked RGB only changes frontend masking.",
+      "strengths": "Most directly supports dynamic-SLAM paper story; already has 64-frame multi-session evidence and ORB cross-check context.",
+      "risks": "Sparse or selective masks are often trajectory-neutral, so improvement may require a targeted dynamic-object sequence or frontend feature-retention metric rather than only APE/RPE."
+    },
+    {
+      "name": "ORB-SLAM3 raw vs masked cross-check",
+      "code": [
+        "tools/orb_slam3_wrapper.sh",
+        "tools/orb_slam3_headless",
+        "outputs/orb_slam3_cross_check_p173/*",
+        "paper/evidence/orb_slam3_cross_check_p173_metrics.json"
+      ],
+      "existing_results": [
+        "paper/evidence/orb_slam3_cross_check_p173_metrics.json",
+        "outputs/orb_slam3_p173_recovery/*"
+      ],
+      "local_reproducible": "partial",
+      "metrics": [
+        "sparse keyframe APE"
+      ],
+      "fair_comparison": "Same mono TUM path and raw/masked images, but sparse tracking coverage weakens statistical power.",
+      "strengths": "Independent backend sanity check.",
+      "risks": "Monocular scale ambiguity and short tracking coverage make it a secondary cross-check, not the main baseline."
+    },
+    {
+      "name": "P218 compact binary dynamic-mask segmentation baseline",
+      "code": [
+        "tools/train_dynamic_mask_p218.py",
+        "paper/evidence/dynamic_mask_training_p218.json",
+        "paper/export/dynamic_mask_training_p218.md"
+      ],
+      "existing_results": [
+        "outputs/dynamic_mask_training_p218/predictions/*",
+        "paper/evidence/dynamic_mask_training_p218.json"
+      ],
+      "local_reproducible": true,
+      "metrics": [
+        "dynamic IoU",
+        "dynamic F1",
+        "precision",
+        "recall",
+        "balanced accuracy"
+      ],
+      "fair_comparison": "Same P217 dataset-mask-supervised split and same leakage guard; architecture variants can be compared directly.",
+      "strengths": "Clear network baseline with room for temporal/boundary/motion-aware module additions.",
+      "risks": "Default training script writes fixed P218 evidence paths, so P226/P227 variants should first add output override support or a separate variant script to avoid overwriting baseline evidence."
+    },
+    {
+      "name": "P155/P176 admission-policy baselines B0/B1/B2",
+      "code": [
+        "tools/run_baseline_comparison.py",
+        "paper/evidence/baseline_statistics_p176.json",
+        "paper/export/baseline_comparison_report_v1.md",
+        "outputs/torwic_baseline_comparison_results.json"
+      ],
+      "existing_results": [
+        "outputs/torwic_baseline_comparison_results.json",
+        "paper/evidence/baseline_statistics_p176.json"
+      ],
+      "local_reproducible": true,
+      "metrics": [
+        "admitted count",
+        "phantom risk",
+        "stability ratio",
+        "McNemar p-value"
+      ],
+      "fair_comparison": "Cluster-level paired policies, but not the requested learned dynamic-mask or SLAM frontend story.",
+      "strengths": "Good supporting motivation for rejecting dynamic agents.",
+      "risks": "B1 mismatch and proxy-leakage concerns make it unsuitable as the main baseline."
+    }
+  ],
+  "reproduced_experiment": {
+    "name": "p226_repro8",
+    "baseline": "DROID-SLAM raw vs masked frontend smoke",
+    "status": "ok",
+    "commands": [
+      "/home/rui/miniconda3/envs/tram/bin/python tools/build_dynamic_slam_backend_input_pack.py --frame-count 8 --output-dir outputs/dynamic_slam_backend_input_pack_p226_repro8",
+      "timeout 180s /home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/dynamic_slam_backend_input_pack_p226_repro8 --output-dir outputs/dynamic_slam_backend_smoke_p226_repro8 --frame-limit 8",
+      "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/dynamic_slam_backend_input_pack_p226_repro8 --output-dir outputs/dynamic_slam_backend_smoke_p226_repro8 --artifact \"P226 reproduced 8-frame DROID-SLAM raw-vs-masked smoke metrics\" --scope \"P226 bounded local reproduction: 8 frames, Jun. 23 2022 Aisle_CW_Run_1, repository example forklift mask on frame 000002 only.\" --masked-label \"masked RGB (example forklift frame 000002)\" --output-prefix p226_repro8_metrics --interpretation \"Both raw and masked 8-frame DROID-SLAM runs completed locally. This is a smoke reproduction, not the main 64-frame benchmark; the mask is sparse and expected to be trajectory-neutral.\""
+    ],
+    "environment": {
+      "python": "/home/rui/miniconda3/envs/tram/bin/python",
+      "torch": "2.4.0+cu118",
+      "cuda_available": true,
+      "device": "NVIDIA GeForce RTX 3060",
+      "droid_root": "/home/rui/tram/thirdparty/DROID-SLAM",
+      "weights": "/home/rui/tram/data/pretrain/droid.pth",
+      "evo_ape": "/home/rui/.local/bin/evo_ape",
+      "evo_rpe": "/home/rui/.local/bin/evo_rpe"
+    },
+    "inputs": {
+      "sequence": "data/TorWIC_SLAM_Dataset/Jun. 23, 2022/Aisle_CW_Run_1/Aisle_CW_Run_1",
+      "input_pack": "outputs/dynamic_slam_backend_input_pack_p226_repro8",
+      "smoke_output": "outputs/dynamic_slam_backend_smoke_p226_repro8",
+      "metrics_json": "outputs/dynamic_slam_backend_smoke_p226_repro8/p226_repro8_metrics.json",
+      "metrics_markdown": "outputs/dynamic_slam_backend_smoke_p226_repro8/p226_repro8_metrics.md",
+      "summary_csv": "paper/evidence/baseline_reproduction_results_p226.csv"
+    },
+    "metrics": {
+      "raw_ape_rmse_m": 0.001242,
+      "masked_ape_rmse_m": 0.001243,
+      "delta_ape_rmse_m": 0.000001,
+      "raw_rpe_rmse_m": 0.00225,
+      "masked_rpe_rmse_m": 0.002255,
+      "delta_rpe_rmse_m": 0.000005,
+      "masked_frames": 1,
+      "total_frames": 8,
+      "mean_mask_coverage_percent": 0.021593
+    },
+    "interpretation": "The minimal baseline is locally reproducible and trajectory-neutral at the expected scale for a sparse one-frame example mask. This verifies the raw-vs-masked DROID pipeline before adding a learned or temporal frontend module."
+  },
+  "recommended_main_baseline": {
+    "primary": "DROID-SLAM raw vs masked temporal/dynamic frontend",
+    "secondary_network_baseline": "P218 compact binary dynamic-mask segmentation",
+    "rationale": "Use DROID raw-vs-masked as the paper-level SLAM baseline because it has local reproducibility, backend metrics, and a direct dynamic-SLAM story. Use P218 compact UNet as the module baseline to improve mask quality before feeding learned masks into the same DROID/ORB evaluation path."
+  },
+  "module_replacement_plan": [
+    {
+      "module": "confidence-gated mask dilation for SLAM frontend",
+      "files_to_change": [
+        "tools/build_dynamic_slam_backend_input_pack.py"
+      ],
+      "implementation": "Add mask post-processing modes: confidence/coverage gate, small-hole close, boundary dilation cap, and per-frame coverage ceiling. Preserve raw/masked pairing and write policy fields to backend_input_manifest.json.",
+      "expected_metric": "Maintain APE/RPE within baseline tolerance while improving ORB/DROID frontend dynamic feature suppression; success threshold: no more than 1 mm APE RMSE degradation on low-coverage sessions and fewer features inside dynamic masks.",
+      "risk": "Over-dilation removes static texture and hurts tracking.",
+      "proof": "Run same 8/64-frame raw-vs-masked pack with dilation sweep and compare APE/RPE plus mask coverage."
+    },
+    {
+      "module": "P218 temporal consistency head",
+      "files_to_change": [
+        "tools/train_dynamic_mask_p218.py",
+        "tools/build_temporal_masked_sequence_p225.py or a new P227 temporal training script"
+      ],
+      "implementation": "Extend SmallUNet with an auxiliary temporal consistency loss over adjacent frames or add a light recurrent/previous-mask input head when P225 sequence pack is ready.",
+      "expected_metric": "Improve validation/test dynamic IoU or F1 over P218 baseline without reducing recall; target +1 to +3 IoU points in bounded smoke.",
+      "risk": "P225 temporal pack may not align masks perfectly; temporal smoothing can erase true object boundaries.",
+      "proof": "Use P217/P225 split-safe sequences, compare against frozen P218 config and all-background/all-dynamic baselines."
+    },
+    {
+      "module": "boundary refinement head",
+      "files_to_change": [
+        "tools/train_dynamic_mask_p218.py"
+      ],
+      "implementation": "Add an auxiliary boundary target derived from mask edges and a small boundary logits head sharing the UNet decoder.",
+      "expected_metric": "Better boundary F1 and fewer foreground leaks into static texture; dynamic IoU should stay at least P218 baseline or slightly lower while SLAM masking becomes cleaner.",
+      "risk": "Extra loss can overfit the small 237-row mask dataset.",
+      "proof": "Report dynamic IoU/F1 plus boundary F1; then feed predicted masks to DROID frontend smoke."
+    },
+    {
+      "module": "learned mask gating in SLAM frontend",
+      "files_to_change": [
+        "tools/build_dynamic_slam_backend_input_pack.py",
+        "new tool for exporting P218 predictions into backend input packs"
+      ],
+      "implementation": "Use P218 predicted probabilities as soft gates: mask only pixels above a selected threshold and cap per-frame coverage.",
+      "expected_metric": "DROID/ORB trajectory remains at baseline or slightly below while dynamic-agent feature contamination drops versus raw.",
+      "risk": "Predicted masks from still images may not transfer to sequence frames without temporal adaptation.",
+      "proof": "Same raw-vs-mask pack, same backend, predicted-mask vs dataset-mask vs raw comparison."
+    }
+  ],
+  "next_actions": [
+    "Do not use P193/P195 weak-label admission as a learned baseline.",
+    "Wait for or inspect P225 temporal sequence package before implementing temporal loss.",
+    "First small safe implementation should be output-path overrides for P218 variant evidence, then a boundary or confidence-gated post-processing module.",
+    "Run 8-frame smoke first, then 64-frame DROID session(s), then ORB-SLAM3 as secondary cross-check."
+  ]
+}
