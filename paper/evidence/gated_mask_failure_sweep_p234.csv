@@ -1,0 +1,9 @@
+variant_id,status,threshold,dilation_px,min_component_area_px,max_coverage,target_coverage,mean_coverage_percent,coverage_capped_frames,raw_region_keypoints,gated_region_keypoints,region_keypoint_delta,droid_16f_trajectory_neutral,droid_16f_raw_ape_rmse_m,droid_16f_gated_ape_rmse_m,droid_16f_delta_ape_rmse_m,droid_16f_raw_rpe_rmse_m,droid_16f_gated_rpe_rmse_m,droid_16f_delta_rpe_rmse_m
+p233_default,not_candidate,0.5,1,128,0.22,0.18,18.0,60,601,1901,1300,,,,,,,
+thr055_cap018_min128_dil1,not_candidate,0.55,1,128,0.18,0.16,16.0,60,449,1757,1308,,,,,,,
+thr055_cap016_min128_dil1,not_candidate,0.55,1,128,0.16,0.12,12.0,60,227,1352,1125,,,,,,,
+thr055_cap012_min128_dil0,not_candidate,0.55,0,128,0.12,0.1,10.0,60,127,1207,1080,True,0.022044,0.021987,-5.7000000000001494e-05,0.090853,0.09082,-3.300000000000525e-05
+thr060_cap018_min128_dil1,not_candidate,0.6,1,128,0.18,0.16,16.432901,31,504,1728,1224,,,,,,,
+thr060_cap016_min256_dil1,not_candidate,0.6,1,256,0.16,0.12,12.248381,56,248,1349,1101,,,,,,,
+thr060_cap012_min256_dil0,not_candidate,0.6,0,256,0.12,0.1,10.0,60,127,1197,1070,True,0.022044,0.021987,-5.7000000000001494e-05,0.090853,0.09082,-3.300000000000525e-05
+thr060_cap012_min128_dil1,not_candidate,0.6,1,128,0.12,0.1,10.0,60,127,1207,1080,,,,,,,
