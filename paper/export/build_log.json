@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-05-09T20:42:42.033284",
+  "timestamp": "2026-05-13T09:32:42.328823",
   "toolchain": {
-    "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:09:02) [GCC 11.2.0]",
+    "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]",
     "markdown": "3.10.2",
     "weasyprint": "68.1"
   },
   "builds": [
     {
       "lang": "en",
-      "html": "<repo-root>/paper/export/manuscript_en_thick.html",
-      "html_size_kb": 79.8,
-      "pdf": "<repo-root>/paper/export/manuscript_en_thick.pdf",
-      "pdf_size_kb": 667.0,
+      "html": "/home/rui/slam/paper/export/manuscript_en_thick.html",
+      "html_size_kb": 47.1,
+      "pdf": "/home/rui/slam/paper/export/manuscript_en_thick.pdf",
+      "pdf_size_kb": 629.6,
       "pdf_ok": true
     },
     {
       "lang": "zh",
-      "html": "<repo-root>/paper/export/manuscript_zh_thick.html",
-      "html_size_kb": 77.8,
-      "pdf": "<repo-root>/paper/export/manuscript_zh_thick.pdf",
-      "pdf_size_kb": 960.7,
+      "html": "/home/rui/slam/paper/export/manuscript_zh_thick.html",
+      "html_size_kb": 29.8,
+      "pdf": "/home/rui/slam/paper/export/manuscript_zh_thick.pdf",
+      "pdf_size_kb": 765.6,
       "pdf_ok": true
     }
   ],
