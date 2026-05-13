@@ -1,0 +1,145 @@
+{
+  "artifact": "P231 thick manuscript results lock",
+  "created": "2026-05-13T09:40:00+08:00",
+  "status": "locked_for_thick_manuscript_only",
+  "active_manuscripts": [
+    "paper/manuscript_en_thick.md",
+    "paper/manuscript_zh_thick.md"
+  ],
+  "inactive_manuscripts": [
+    "paper/manuscript_en.md",
+    "paper/manuscript_zh.md"
+  ],
+  "claim_boundary": "P217-P228 support a bounded dynamic-mask frontend smoke/story seed only. P228 is trajectory-neutral DROID smoke plus ORB predicted/gated-region proxy evidence; it is not a full benchmark, navigation result, independent dynamic-label result, or learned persistent-map admission result. P195 remains BLOCKED.",
+  "locked_results": {
+    "p217_dataset": {
+      "rows": 237,
+      "split_counts": {
+        "train": 156,
+        "val": 51,
+        "test": 30
+      },
+      "frame_group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "overall_positive_pixel_rate": 0.374176,
+      "source": "paper/evidence/dynamic_mask_dataset_p217.json"
+    },
+    "p218_compact_unet": {
+      "selected_threshold": 0.4,
+      "validation": {
+        "dynamic_iou": 0.671304,
+        "f1_dynamic": 0.803329
+      },
+      "test": {
+        "dynamic_iou": 0.57858,
+        "f1_dynamic": 0.733038
+      },
+      "source": "paper/evidence/dynamic_mask_training_p218.json"
+    },
+    "p219_held_out_frontend_eval": {
+      "sample_count": 6,
+      "mean_mask_precision": 0.556007,
+      "mean_mask_recall": 0.789669,
+      "mean_mask_f1": 0.604636,
+      "mean_mask_iou": 0.44321,
+      "source": "paper/evidence/frontend_masking_eval_p219.json"
+    },
+    "p220_orb_gt_region_proxy": {
+      "sample_count": 6,
+      "raw_keypoints_in_gt_dynamic": 4795,
+      "masked_keypoints_in_gt_dynamic": 2192,
+      "gt_dynamic_keypoint_reduction_rate_percent": 54.2857,
+      "source": "paper/evidence/frontend_masking_slam_smoke_p220.json"
+    },
+    "p225_temporal_package": {
+      "frame_count": 60,
+      "date": "Oct. 12, 2022",
+      "sequence": "Aisle_CW",
+      "source_indices": {
+        "start": 480,
+        "end": 539
+      },
+      "status": "trajectory-ready input only",
+      "mask_model_mode": "bounded retrained SmallUNet because the prior P218 checkpoint was unavailable",
+      "source": "paper/evidence/temporal_masked_sequence_p225.json"
+    },
+    "p226_baseline_selection": {
+      "recommended_main_baseline": "DROID-SLAM raw vs masked temporal/dynamic frontend",
+      "secondary_network_baseline": "P218 compact binary dynamic-mask segmentation",
+      "repro8_raw_masked_ape_rmse_m": [
+        0.001242,
+        0.001243
+      ],
+      "repro8_raw_masked_rpe_rmse_m": [
+        0.00225,
+        0.002255
+      ],
+      "source": "paper/evidence/baseline_reproduction_plan_p226.json"
+    },
+    "p227_droid_baseline": {
+      "frame_count": 60,
+      "raw_masked_ape_rmse_m": [
+        0.088504,
+        0.084529
+      ],
+      "raw_masked_rpe_rmse_m": [
+        0.076145,
+        0.076226
+      ],
+      "orb_predicted_region_keypoints": [
+        21030,
+        18617
+      ],
+      "status": "neutral DROID baseline reproduction",
+      "source": "paper/evidence/p225_baseline_reproduction_p227.json"
+    },
+    "p228_confidence_gated_module": {
+      "module_parameters": {
+        "probability_threshold": 0.5,
+        "dilation_px": 1,
+        "min_component_area_px": 128,
+        "max_coverage": 0.22,
+        "target_coverage": 0.18
+      },
+      "mean_coverage_percent": 14.127053,
+      "raw_masked_ape_rmse_m": [
+        0.088496,
+        0.084705
+      ],
+      "raw_masked_rpe_rmse_m": [
+        0.076145,
+        0.076224
+      ],
+      "orb_gated_region_keypoints": [
+        8969,
+        5073
+      ],
+      "status": "viable frontend story seed; trajectory-neutral bounded smoke",
+      "source": "paper/evidence/confidence_gated_mask_module_p228.json"
+    }
+  },
+  "source_hashes_sha256": {
+    "paper/evidence/dynamic_mask_dataset_p217.json": "f13841f5548fd859419154621913d32150ec8553c30094fb083eaa3d89deac2b",
+    "paper/evidence/dynamic_mask_training_p218.json": "39601f188a5411a3b29c13132bb8e452abd7af56c91f5d4513b9dfac6d5c9e43",
+    "paper/evidence/frontend_masking_eval_p219.json": "9ac6b3817665f6649f0bd27cda1e57ca5e164ba00a15ef749666407e696a39b9",
+    "paper/evidence/frontend_masking_slam_smoke_p220.json": "cbee9d1877bb4ab75990d83f68aa0068995bff7dce5eaaf86d2643c8e4674c06",
+    "paper/evidence/temporal_masked_sequence_p225.json": "fa3a4eb0970b6d19e91426b3b0beae9f463895404cb9f49584a1cb966e2064b9",
+    "paper/evidence/baseline_reproduction_plan_p226.json": "cfb8af8bbb5bce3fe01d124dc8c16b622b523d3b881883e2f700ae088a1c73c8",
+    "paper/evidence/p225_baseline_reproduction_p227.json": "f25f38641a16c89021a0383f5b76f17d33a9dfb7a0381f48037d044192b5d75b",
+    "paper/evidence/confidence_gated_mask_module_p228.json": "f701c3f41198c8ec44d22fc409f8f13196eee9582190f00fe2f87ada7604503e"
+  },
+  "manuscript_consistency": {
+    "p230_report": "paper/export/thick_manuscript_quality_gate_p230.md",
+    "required_numbers_present_in_english_thick": true,
+    "required_numbers_present_in_chinese_thick": true,
+    "brief_manuscripts_edited": false
+  },
+  "residual_risks": [
+    "Citation style remains venue-deferred.",
+    "Raw/semantic evidence JSON timestamp-only modifications predate this lock and are not required for P231.",
+    "Untracked thirdparty and ORB wrapper/headless files are not part of this documentation lock."
+  ]
+}
