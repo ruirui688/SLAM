@@ -1,0 +1,8 @@
+window_id,variant_id,method,status,mean_coverage_percent,mean_soft_alpha_percent,raw_total_keypoints,masked_total_keypoints,total_keypoint_delta,raw_region_keypoints,masked_region_keypoints,region_keypoint_delta,droid_16f_neutral,droid_16f_delta_ape,droid_16f_delta_rpe,droid_60f_neutral,droid_60f_delta_ape,droid_60f_delta_rpe
+aisle_cw_0840_0899,alpha035_thr060_cap012_min256,alpha_attenuation,backtest_orb_proxy_down,10.0,3.5,60000,60000,0,127,25,-102,,,,,,
+aisle_cw_0840_0899,alpha050_thr060_cap012_min256,alpha_attenuation,backtest_orb_proxy_down,10.0,5.0,60000,60000,0,127,74,-53,,,,,,
+aisle_cw_0840_0899,feather035_sigma5_thr060_cap012_min256,feathered_boundary,backtest_orb_proxy_down,10.0,4.038715,60000,60000,0,127,3,-124,,,,,,
+aisle_cw_0840_0899,feather050_sigma7_thr060_cap012_min256,feathered_boundary,backtest_orb_proxy_down,10.0,5.939528,60000,60000,0,127,4,-123,,,,,,
+aisle_cw_0840_0899,meanfill035_feather5_thr060_cap012_min256,mean_color_feather,candidate_soft_boundary_v1,10.0,4.038715,60000,60000,0,127,0,-127,True,-3.600000000000131e-05,6.999999999993123e-06,True,0.0001580000000000019,-2.9999999999891225e-06
+aisle_cw_0480_0539,meanfill035_feather5_thr060_cap012_min256,mean_color_feather,backtest_orb_proxy_down,5.469591,2.193039,60000,60000,0,1382,188,-1194,True,-3.900000000000084e-05,-1.9999999999992246e-05,,,
+aisle_cw_0120_0179,meanfill035_feather5_thr060_cap012_min256,mean_color_feather,backtest_orb_proxy_down,9.843802,3.991233,60000,60000,0,215,20,-195,True,-9.000000000002062e-06,5.999999999992123e-06,,,
