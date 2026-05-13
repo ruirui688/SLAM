@@ -1,0 +1,55 @@
+{
+  "by_window": {
+    "aisle_ccw_0240_0299": 6,
+    "aisle_cw_0240_0299": 6,
+    "aisle_cw_0840_0899": 6
+  },
+  "claim_boundary": "This audit only checks whether reviewer labels are present and syntactically valid. It does not infer labels or validate the soft-boundary module.",
+  "complete_review_rows": 0,
+  "generated_at_utc": "2026-05-13T06:03:01+00:00",
+  "image_path_counts": {
+    "probability_overlay": {
+      "existing": 18,
+      "missing": 0
+    },
+    "raw_image": {
+      "existing": 18,
+      "missing": 0
+    },
+    "region_crop": {
+      "existing": 18,
+      "missing": 0
+    },
+    "soft_mask_overlay": {
+      "existing": 18,
+      "missing": 0
+    }
+  },
+  "inputs": {
+    "review_csv": "paper/evidence/independent_dynamic_label_review_template_p242.csv"
+  },
+  "invalid_values": [],
+  "label_non_empty_counts": {
+    "boundary_quality": 0,
+    "dynamic_region_present": 0,
+    "dynamic_region_type": 0,
+    "false_negative_region": 0,
+    "false_positive_region": 0,
+    "label_confidence": 0,
+    "reviewed_at_utc": 0,
+    "reviewer_id": 0,
+    "reviewer_notes": 0
+  },
+  "labels_collected": false,
+  "missing_image_paths": [],
+  "missing_required_fields": [],
+  "outputs": {
+    "audit_json": "paper/evidence/independent_dynamic_label_review_audit_p242.json"
+  },
+  "p195_status": "BLOCKED",
+  "p195_unblock_condition": "P195 remains BLOCKED until non-empty, valid reviewer labels exist and are audited for coverage, conflicts, and independence.",
+  "phase": "P242-independent-dynamic-label-review-audit",
+  "reviewed_rows": 0,
+  "row_count": 18,
+  "status": "no_labels_collected"
+}
