@@ -1,0 +1,3 @@
+window_id,sequence_label,start_index,end_index,frame_count,status,mean_gated_coverage_percent,raw_ape_rmse_m,gated_ape_rmse_m,delta_ape_rmse_m,raw_rpe_rmse_m,gated_rpe_rmse_m,delta_rpe_rmse_m,raw_region_keypoints,gated_region_keypoints,region_keypoint_delta
+aisle_cw_0120_0179,"Oct. 12, 2022 Aisle_CW",120,179,60,trajectory_neutral_orb_proxy_down,18.497106,0.021072,0.020831,-0.00024100000000000163,0.102477,0.102523,4.600000000000437e-05,5927,4820,-1107
+aisle_cw_0840_0899,"Oct. 12, 2022 Aisle_CW",840,899,60,mixed_or_neutral,18.0,0.027162,0.027473,0.00031100000000000225,0.101863,0.101896,3.300000000000525e-05,601,1901,1300
