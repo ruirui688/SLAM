@@ -1,0 +1,1010 @@
+{
+  "artifact": "P237 soft boundary multi-window validation",
+  "claim_boundary": "Bounded frontend module evidence only; no full benchmark, navigation, independent-label, learned map-admission, or manuscript-body claim. P195 remains BLOCKED.",
+  "commands": [
+    "/home/rui/miniconda3/envs/tram/bin/python tools/run_soft_boundary_multiwindow_p237.py"
+  ],
+  "created": "2026-05-13T11:54:11+08:00",
+  "evaluations": [
+    {
+      "droid_gates": [
+        {
+          "frame_limit": 16,
+          "metrics": {
+            "delta_masked_minus_raw": {
+              "ape_rmse_m": 3.399999999999931e-05,
+              "rpe_rmse_m": 2.0000000000006124e-05
+            },
+            "masked": {
+              "ape_mean_m": 0.021766,
+              "ape_rmse_m": 0.023766,
+              "rpe_mean_m": 0.103348,
+              "rpe_rmse_m": 0.105158
+            },
+            "metrics_json": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/p237_aisle_cw_0240_0299_meanfill035_feather5_thr060_cap012_min256_16f_metrics.json",
+            "raw": {
+              "ape_mean_m": 0.021752,
+              "ape_rmse_m": 0.023732,
+              "rpe_mean_m": 0.103335,
+              "rpe_rmse_m": 0.105138
+            }
+          },
+          "metrics_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16 --artifact P237 16-frame soft-boundary multi-window metrics (aisle_cw_0240_0299) --scope P237 bounded frontend smoke: 16 frames from Oct. 12, 2022 Aisle_CW source indices 240-255. --masked-label masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend) --output-prefix p237_aisle_cw_0240_0299_meanfill035_feather5_thr060_cap012_min256_16f_metrics --interpretation P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.",
+            "duration_seconds": 0.629,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "scope\": \"P237 bounded frontend smoke: 16 frames from Oct. 12, 2022 Aisle_CW source indices 240-255.\",\n  \"claim_boundary\": \"Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.\",\n  \"inputs\": {\n    \"groundtruth\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/groundtruth.txt\",\n    \"raw_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt\",\n    \"masked_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt\"\n  },\n  \"mask_coverage\": {\n    \"masked_frames\": [\n      0,\n      1,\n      2,\n      3,\n      4,\n      5,\n      6,\n      7,\n      8,\n      9,\n      10,\n      11,\n      12,\n      13,\n      14,\n      15,\n      16,\n      17,\n      18,\n      19,\n      20,\n      21,\n      22,\n      23,\n      24,\n      25,\n      26,\n      27,\n      28,\n      29,\n      30,\n      31,\n      32,\n      33,\n      34,\n      35,\n      36,\n      37,\n      38,\n      39,\n      40,\n      41,\n      42,\n      43,\n      44,\n      45,\n      46,\n      47,\n      48,\n      49,\n      50,\n      51,\n      52,\n      53,\n      54,\n      55,\n      56,\n      57,\n      58,\n      59\n    ],\n    \"masked_frame_count\": 60,\n    \"total_frames\": 60,\n    \"nonzero_frame_coverage_percent\": {\n      \"000000\": 8.616862,\n      \"000001\": 8.945204,\n      \"000002\": 8.68316,\n      \"000003\": 8.135742,\n      \"000004\": 8.485677,\n      \"000005\": 8.41059,\n      \"000006\": 8.654622,\n      \"000007\": 8.789714,\n      \"000008\": 9.314128,\n      \"000009\": 9.300673,\n      \"000010\": 9.668294,\n      \"000011\": 9.970269,\n      \"000012\": 10.751194,\n      \"000013\": 10.485677,\n      \"000014\": 9.220595,\n      \"000015\": 8.759549,\n      \"000016\": 7.626411,\n      \"000017\": 7.884657,\n      \"000018\": 7.701063,\n      \"000019\": 7.563694,\n      \"000020\": 7.196506,\n      \"000021\": 7.352756,\n      \"000022\": 7.53776,\n      \"000023\": 7.694119,\n      \"000024\": 8.07411,\n      \"000025\": 8.139974,\n      \"000026\": 8.469727,\n      \"000027\": 8.769748,\n      \"000028\": 9.41569,\n      \"000029\": 9.725586,\n      \"000030\": 10.138238,\n      \"000031\": 10.296332,\n      \"000032\": 11.263238,\n      \"000033\": 11.702148,\n      \"000034\": 10.0,\n      \"000035\": 10.0,\n      \"000036\": 10.0,\n      \"000037\": 10.0,\n      \"000038\": 10.0,\n      \"000039\": 10.0,\n      \"000040\": 11.720378,\n      \"000041\": 11.567708,\n      \"000042\": 11.147244,\n      \"000043\": 10.79579,\n      \"000044\": 10.027886,\n      \"000045\": 9.767036,\n      \"000046\": 8.5523,\n      \"000047\": 7.483181,\n      \"000048\": 6.10395,\n      \"000049\": 6.115234,\n      \"000050\": 6.5102,\n      \"000051\": 6.308702,\n      \"000052\": 6.772244,\n      \"000053\": 6.498698,\n      \"000054\": 5.869466,\n      \"000055\": 5.634983,\n      \"000056\": 5.95638,\n      \"000057\": 6.058811,\n      \"000058\": 5.943793,\n      \"000059\": 5.902235\n    },\n    \"mean_coverage_percent\": 8.624665,\n    \"policy\": \"P235 soft/boundary-aware frontend attenuation over P225 probability maps; no hard black mask boundary by default.\",\n    \"temporal_propagation_radius\": null,\n    \"temporal_propagation_mode\": null,\n    \"dynamic_mask_dilation_px\": null\n  },\n  \"metrics\": {\n    \"raw RGB\": {\n      \"ape_rmse_m\": 0.023732,\n      \"ape_mean_m\": 0.021752,\n      \"rpe_rmse_m\": 0.105138,\n      \"rpe_mean_m\": 0.103335\n    },\n    \"masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend)\": {\n      \"ape_rmse_m\": 0.023766,\n      \"ape_mean_m\": 0.021766,\n      \"rpe_rmse_m\": 0.105158,\n      \"rpe_mean_m\": 0.103348\n    }\n  },\n  \"delta_masked_minus_raw\": {\n    \"ape_rmse_m\": 3.399999999999931e-05,\n    \"rpe_rmse_m\": 2.0000000000006124e-05\n  },\n  \"interpretation\": \"P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.\"\n}\n",
+            "timed_out": false
+          },
+          "output_dir": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16",
+          "runs": [
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt",
+              "frame_count": 16,
+              "label": "raw",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 16
+            },
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt",
+              "frame_count": 16,
+              "label": "masked",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 16
+            }
+          ],
+          "smoke_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16 --frame-limit 16",
+            "duration_seconds": 9.48,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "{\n  \"artifact\": \"P132 dynamic SLAM backend smoke run\",\n  \"created\": \"2026-05-13T11:51:02+08:00\",\n  \"status\": \"ok\",\n  \"claim_boundary\": \"Bounded DROID-SLAM smoke run only; not yet a full ATE/RPE benchmark or navigation claim.\",\n  \"runtime\": {\n    \"python\": \"/home/rui/miniconda3/envs/tram/bin/python\",\n    \"torch\": \"2.4.0+cu118\",\n    \"cuda_available\": true,\n    \"device\": \"NVIDIA GeForce RTX 3060\",\n    \"droid_root\": \"/home/rui/tram/thirdparty/DROID-SLAM\",\n    \"weights\": \"/home/rui/tram/data/pretrain/droid.pth\"\n  },\n  \"input_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary\",\n  \"output_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16\",\n  \"frame_limit\": 16,\n  \"global_ba\": false,\n  \"runs\": [\n    {\n      \"label\": \"raw\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt\",\n      \"frame_count\": 16,\n      \"trajectory_rows\": 16,\n      \"error\": null\n    },\n    {\n      \"label\": \"masked\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt\",\n      \"frame_count\": 16,\n      \"trajectory_rows\": 16,\n      \"error\": null\n    }\n  ],\n  \"next_step\": \"If both runs are ok, evaluate raw/masked estimates against groundtruth.txt with evo APE/RPE.\"\n}\n",
+            "timed_out": false
+          },
+          "smoke_manifest": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/dynamic_slam_backend_smoke_manifest.json",
+          "smoke_status": "ok",
+          "trajectory_neutral": true
+        },
+        {
+          "frame_limit": 60,
+          "metrics": {
+            "delta_masked_minus_raw": {
+              "ape_rmse_m": 0.0002009999999999998,
+              "rpe_rmse_m": 2.9999999999891225e-06
+            },
+            "masked": {
+              "ape_mean_m": 0.038489,
+              "ape_rmse_m": 0.045901,
+              "rpe_mean_m": 0.105897,
+              "rpe_rmse_m": 0.107664
+            },
+            "metrics_json": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60/p237_aisle_cw_0240_0299_meanfill035_feather5_thr060_cap012_min256_60f_metrics.json",
+            "raw": {
+              "ape_mean_m": 0.038314,
+              "ape_rmse_m": 0.0457,
+              "rpe_mean_m": 0.105896,
+              "rpe_rmse_m": 0.107661
+            }
+          },
+          "metrics_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60 --artifact P237 60-frame soft-boundary multi-window metrics (aisle_cw_0240_0299) --scope P237 bounded frontend smoke: 60 frames from Oct. 12, 2022 Aisle_CW source indices 240-299. --masked-label masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend) --output-prefix p237_aisle_cw_0240_0299_meanfill035_feather5_thr060_cap012_min256_60f_metrics --interpretation P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.",
+            "duration_seconds": 0.644,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": " \"scope\": \"P237 bounded frontend smoke: 60 frames from Oct. 12, 2022 Aisle_CW source indices 240-299.\",\n  \"claim_boundary\": \"Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.\",\n  \"inputs\": {\n    \"groundtruth\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/groundtruth.txt\",\n    \"raw_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60/raw_estimate_tum.txt\",\n    \"masked_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60/masked_estimate_tum.txt\"\n  },\n  \"mask_coverage\": {\n    \"masked_frames\": [\n      0,\n      1,\n      2,\n      3,\n      4,\n      5,\n      6,\n      7,\n      8,\n      9,\n      10,\n      11,\n      12,\n      13,\n      14,\n      15,\n      16,\n      17,\n      18,\n      19,\n      20,\n      21,\n      22,\n      23,\n      24,\n      25,\n      26,\n      27,\n      28,\n      29,\n      30,\n      31,\n      32,\n      33,\n      34,\n      35,\n      36,\n      37,\n      38,\n      39,\n      40,\n      41,\n      42,\n      43,\n      44,\n      45,\n      46,\n      47,\n      48,\n      49,\n      50,\n      51,\n      52,\n      53,\n      54,\n      55,\n      56,\n      57,\n      58,\n      59\n    ],\n    \"masked_frame_count\": 60,\n    \"total_frames\": 60,\n    \"nonzero_frame_coverage_percent\": {\n      \"000000\": 8.616862,\n      \"000001\": 8.945204,\n      \"000002\": 8.68316,\n      \"000003\": 8.135742,\n      \"000004\": 8.485677,\n      \"000005\": 8.41059,\n      \"000006\": 8.654622,\n      \"000007\": 8.789714,\n      \"000008\": 9.314128,\n      \"000009\": 9.300673,\n      \"000010\": 9.668294,\n      \"000011\": 9.970269,\n      \"000012\": 10.751194,\n      \"000013\": 10.485677,\n      \"000014\": 9.220595,\n      \"000015\": 8.759549,\n      \"000016\": 7.626411,\n      \"000017\": 7.884657,\n      \"000018\": 7.701063,\n      \"000019\": 7.563694,\n      \"000020\": 7.196506,\n      \"000021\": 7.352756,\n      \"000022\": 7.53776,\n      \"000023\": 7.694119,\n      \"000024\": 8.07411,\n      \"000025\": 8.139974,\n      \"000026\": 8.469727,\n      \"000027\": 8.769748,\n      \"000028\": 9.41569,\n      \"000029\": 9.725586,\n      \"000030\": 10.138238,\n      \"000031\": 10.296332,\n      \"000032\": 11.263238,\n      \"000033\": 11.702148,\n      \"000034\": 10.0,\n      \"000035\": 10.0,\n      \"000036\": 10.0,\n      \"000037\": 10.0,\n      \"000038\": 10.0,\n      \"000039\": 10.0,\n      \"000040\": 11.720378,\n      \"000041\": 11.567708,\n      \"000042\": 11.147244,\n      \"000043\": 10.79579,\n      \"000044\": 10.027886,\n      \"000045\": 9.767036,\n      \"000046\": 8.5523,\n      \"000047\": 7.483181,\n      \"000048\": 6.10395,\n      \"000049\": 6.115234,\n      \"000050\": 6.5102,\n      \"000051\": 6.308702,\n      \"000052\": 6.772244,\n      \"000053\": 6.498698,\n      \"000054\": 5.869466,\n      \"000055\": 5.634983,\n      \"000056\": 5.95638,\n      \"000057\": 6.058811,\n      \"000058\": 5.943793,\n      \"000059\": 5.902235\n    },\n    \"mean_coverage_percent\": 8.624665,\n    \"policy\": \"P235 soft/boundary-aware frontend attenuation over P225 probability maps; no hard black mask boundary by default.\",\n    \"temporal_propagation_radius\": null,\n    \"temporal_propagation_mode\": null,\n    \"dynamic_mask_dilation_px\": null\n  },\n  \"metrics\": {\n    \"raw RGB\": {\n      \"ape_rmse_m\": 0.0457,\n      \"ape_mean_m\": 0.038314,\n      \"rpe_rmse_m\": 0.107661,\n      \"rpe_mean_m\": 0.105896\n    },\n    \"masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend)\": {\n      \"ape_rmse_m\": 0.045901,\n      \"ape_mean_m\": 0.038489,\n      \"rpe_rmse_m\": 0.107664,\n      \"rpe_mean_m\": 0.105897\n    }\n  },\n  \"delta_masked_minus_raw\": {\n    \"ape_rmse_m\": 0.0002009999999999998,\n    \"rpe_rmse_m\": 2.9999999999891225e-06\n  },\n  \"interpretation\": \"P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.\"\n}\n",
+            "timed_out": false
+          },
+          "output_dir": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60",
+          "runs": [
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60/raw_estimate_tum.txt",
+              "frame_count": 60,
+              "label": "raw",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 60
+            },
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60/masked_estimate_tum.txt",
+              "frame_count": 60,
+              "label": "masked",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 60
+            }
+          ],
+          "smoke_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60 --frame-limit 60",
+            "duration_seconds": 36.57,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "{\n  \"artifact\": \"P132 dynamic SLAM backend smoke run\",\n  \"created\": \"2026-05-13T11:54:10+08:00\",\n  \"status\": \"ok\",\n  \"claim_boundary\": \"Bounded DROID-SLAM smoke run only; not yet a full ATE/RPE benchmark or navigation claim.\",\n  \"runtime\": {\n    \"python\": \"/home/rui/miniconda3/envs/tram/bin/python\",\n    \"torch\": \"2.4.0+cu118\",\n    \"cuda_available\": true,\n    \"device\": \"NVIDIA GeForce RTX 3060\",\n    \"droid_root\": \"/home/rui/tram/thirdparty/DROID-SLAM\",\n    \"weights\": \"/home/rui/tram/data/pretrain/droid.pth\"\n  },\n  \"input_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary\",\n  \"output_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60\",\n  \"frame_limit\": 60,\n  \"global_ba\": false,\n  \"runs\": [\n    {\n      \"label\": \"raw\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60/raw_estimate_tum.txt\",\n      \"frame_count\": 60,\n      \"trajectory_rows\": 60,\n      \"error\": null\n    },\n    {\n      \"label\": \"masked\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60/masked_estimate_tum.txt\",\n      \"frame_count\": 60,\n      \"trajectory_rows\": 60,\n      \"error\": null\n    }\n  ],\n  \"next_step\": \"If both runs are ok, evaluate raw/masked estimates against groundtruth.txt with evo APE/RPE.\"\n}\n",
+            "timed_out": false
+          },
+          "smoke_manifest": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_60/dynamic_slam_backend_smoke_manifest.json",
+          "smoke_status": "ok",
+          "trajectory_neutral": true
+        }
+      ],
+      "end_index": 299,
+      "frame_count": 60,
+      "manifest": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/backend_input_manifest.json",
+      "mask_summary": {
+        "coverage_capped_frames": [
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ],
+        "mean_coverage_percent": 8.624665,
+        "mean_soft_alpha_percent": 3.400262,
+        "nonzero_mask_frames": 60,
+        "total_mask_pixels": 4769095,
+        "total_soft_alpha_pixels": 8951168
+      },
+      "method": "mean_color_feather",
+      "orb_feature_sanity": {
+        "frames": 60,
+        "masked_predicted_mask_region_keypoints": 41,
+        "masked_total_keypoints": 60000,
+        "orb_feature_csv": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/aisle_cw_0240_0299_meanfill035_feather5_thr060_cap012_min256_orb_features.csv",
+        "predicted_mask_region_pixels": 4769095,
+        "predicted_mask_region_proxy": true,
+        "raw_predicted_mask_region_keypoints": 218,
+        "raw_to_masked_predicted_region_keypoint_delta": -177,
+        "raw_to_masked_total_keypoint_delta": 0,
+        "raw_total_keypoints": 60000,
+        "total_keypoints_stable": true
+      },
+      "orb_proxy_down": true,
+      "orb_proxy_not_significant_reverse": true,
+      "p225": {
+        "csv": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/temporal_masked_sequence_p225/evidence/aisle_cw_0240_0299_temporal_masked_sequence_p225.csv",
+        "json": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/temporal_masked_sequence_p225/evidence/aisle_cw_0240_0299_temporal_masked_sequence_p225.json",
+        "markdown": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/temporal_masked_sequence_p225/evidence/aisle_cw_0240_0299_temporal_masked_sequence_p225.md",
+        "mask_model": {
+          "checkpoint": "outputs/temporal_masked_sequence_p225/model/p225_retrained_p218_smallunet.pt",
+          "checkpoint_sha256": "ca55faffb734fba2184ee48a9bb54220fd8ea5a297a73184d3a991ecbdd583c2",
+          "config": {
+            "base_channels": 12,
+            "batch_size": 8,
+            "epochs": 1,
+            "lr": 0.002,
+            "resize_height": 180,
+            "resize_width": 320,
+            "seed": 225,
+            "weight_decay": 0.0001
+          },
+          "mode": "loaded_checkpoint",
+          "selected_threshold": 0.4,
+          "training_metrics": {
+            "test": {
+              "loss": 0.845354,
+              "selected_threshold": {
+                "balanced_accuracy": 0.786671,
+                "dynamic_iou": 0.541541,
+                "f1_dynamic": 0.702597,
+                "fn": 57932,
+                "fp": 376278,
+                "pixel_accuracy": 0.748721,
+                "pixels": 1728000,
+                "positive_pixel_rate": 0.330341,
+                "precision_dynamic": 0.576824,
+                "predicted_positive_rate": 0.514569,
+                "recall_dynamic": 0.898513,
+                "tn": 780892,
+                "tp": 512898
+              }
+            },
+            "train": {
+              "loss": 0.832815,
+              "selected_threshold": {
+                "balanced_accuracy": 0.773972,
+                "dynamic_iou": 0.590541,
+                "f1_dynamic": 0.742567,
+                "fn": 351816,
+                "fp": 1906445,
+                "pixel_accuracy": 0.74868,
+                "pixels": 8985600,
+                "positive_pixel_rate": 0.401619,
+                "precision_dynamic": 0.630779,
+                "predicted_positive_rate": 0.574633,
+                "recall_dynamic": 0.902511,
+                "tn": 3470363,
+                "tp": 3256976
+              }
+            },
+            "val": {
+              "loss": 0.821349,
+              "selected_threshold": {
+                "balanced_accuracy": 0.798122,
+                "dynamic_iou": 0.607783,
+                "f1_dynamic": 0.756051,
+                "fn": 113578,
+                "fp": 547085,
+                "pixel_accuracy": 0.775101,
+                "pixels": 2937600,
+                "positive_pixel_rate": 0.387168,
+                "precision_dynamic": 0.651727,
+                "predicted_positive_rate": 0.53474,
+                "recall_dynamic": 0.900138,
+                "tn": 1253169,
+                "tp": 1023768
+              }
+            }
+          }
+        },
+        "mask_statistics": {
+          "max_predicted_dynamic_pixel_rate": 0.431319,
+          "mean_predicted_dynamic_pixel_rate": 0.344933,
+          "mean_probability": 0.388313,
+          "min_predicted_dynamic_pixel_rate": 0.28342
+        },
+        "package_root": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/temporal_masked_sequence_p225/sequence"
+      },
+      "pack_dir": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary",
+      "parameters": {
+        "attenuation_alpha": 0.35,
+        "dilation_px": 0,
+        "feather_sigma": 5.0,
+        "max_coverage": 0.12,
+        "mean_fill": true,
+        "method": "mean_color_feather",
+        "min_component_area_px": 256,
+        "probability_threshold": 0.6,
+        "target_coverage": 0.1,
+        "variant_id": "meanfill035_feather5_thr060_cap012_min256"
+      },
+      "selection_reason": "same sequence as P225/P228, non-overlapping with 120-179, 480-539, and 840-899",
+      "sequence_family": "same_sequence_new_window",
+      "sequence_label": "Oct. 12, 2022 Aisle_CW",
+      "source_sequence_dir": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW",
+      "start_index": 240,
+      "status": "orb_proxy_down_droid16_neutral_droid60_checked",
+      "variant_id": "meanfill035_feather5_thr060_cap012_min256",
+      "window_id": "aisle_cw_0240_0299"
+    },
+    {
+      "droid_gates": [
+        {
+          "frame_limit": 16,
+          "metrics": {
+            "delta_masked_minus_raw": {
+              "ape_rmse_m": -1.2000000000012001e-05,
+              "rpe_rmse_m": -7.000000000007001e-06
+            },
+            "masked": {
+              "ape_mean_m": 0.291575,
+              "ape_rmse_m": 0.324466,
+              "rpe_mean_m": 0.165713,
+              "rpe_rmse_m": 0.214963
+            },
+            "metrics_json": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/p237_aisle_cw_0660_0719_meanfill035_feather5_thr060_cap012_min256_16f_metrics.json",
+            "raw": {
+              "ape_mean_m": 0.291577,
+              "ape_rmse_m": 0.324478,
+              "rpe_mean_m": 0.165719,
+              "rpe_rmse_m": 0.21497
+            }
+          },
+          "metrics_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16 --artifact P237 16-frame soft-boundary multi-window metrics (aisle_cw_0660_0719) --scope P237 bounded frontend smoke: 16 frames from Oct. 12, 2022 Aisle_CW source indices 660-675. --masked-label masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend) --output-prefix p237_aisle_cw_0660_0719_meanfill035_feather5_thr060_cap012_min256_16f_metrics --interpretation P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.",
+            "duration_seconds": 0.624,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "w_0660_0719)\",\n  \"created\": \"2026-05-13T11:51:54+08:00\",\n  \"scope\": \"P237 bounded frontend smoke: 16 frames from Oct. 12, 2022 Aisle_CW source indices 660-675.\",\n  \"claim_boundary\": \"Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.\",\n  \"inputs\": {\n    \"groundtruth\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/groundtruth.txt\",\n    \"raw_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt\",\n    \"masked_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt\"\n  },\n  \"mask_coverage\": {\n    \"masked_frames\": [\n      0,\n      1,\n      2,\n      3,\n      4,\n      5,\n      6,\n      7,\n      8,\n      9,\n      10,\n      11,\n      12,\n      13,\n      14,\n      15,\n      16,\n      17,\n      18,\n      19,\n      20,\n      21,\n      22,\n      23,\n      24,\n      25,\n      26,\n      27,\n      28,\n      29,\n      30,\n      31,\n      32,\n      33,\n      34,\n      35,\n      36,\n      37,\n      38,\n      39,\n      40,\n      41,\n      42,\n      43,\n      44,\n      45,\n      46,\n      47,\n      48,\n      49,\n      50,\n      51,\n      52,\n      53,\n      54,\n      55,\n      56,\n      57,\n      58,\n      59\n    ],\n    \"masked_frame_count\": 60,\n    \"total_frames\": 60,\n    \"nonzero_frame_coverage_percent\": {\n      \"000000\": 10.0,\n      \"000001\": 10.0,\n      \"000002\": 10.0,\n      \"000003\": 10.0,\n      \"000004\": 10.0,\n      \"000005\": 10.0,\n      \"000006\": 10.0,\n      \"000007\": 10.0,\n      \"000008\": 10.0,\n      \"000009\": 10.0,\n      \"000010\": 10.0,\n      \"000011\": 10.0,\n      \"000012\": 10.0,\n      \"000013\": 10.0,\n      \"000014\": 10.0,\n      \"000015\": 10.0,\n      \"000016\": 10.0,\n      \"000017\": 10.0,\n      \"000018\": 10.0,\n      \"000019\": 10.0,\n      \"000020\": 10.0,\n      \"000021\": 11.589518,\n      \"000022\": 10.698676,\n      \"000023\": 9.235894,\n      \"000024\": 8.926649,\n      \"000025\": 8.096354,\n      \"000026\": 7.371311,\n      \"000027\": 7.057943,\n      \"000028\": 7.102648,\n      \"000029\": 7.64388,\n      \"000030\": 7.870443,\n      \"000031\": 8.042752,\n      \"000032\": 8.121528,\n      \"000033\": 8.282118,\n      \"000034\": 8.260525,\n      \"000035\": 8.353516,\n      \"000036\": 8.722114,\n      \"000037\": 9.174479,\n      \"000038\": 9.435764,\n      \"000039\": 9.08724,\n      \"000040\": 8.589193,\n      \"000041\": 8.119683,\n      \"000042\": 8.041992,\n      \"000043\": 8.46875,\n      \"000044\": 8.678602,\n      \"000045\": 7.895399,\n      \"000046\": 7.766276,\n      \"000047\": 7.563043,\n      \"000048\": 7.444987,\n      \"000049\": 7.100586,\n      \"000050\": 7.076714,\n      \"000051\": 6.854492,\n      \"000052\": 6.949653,\n      \"000053\": 7.288303,\n      \"000054\": 7.500868,\n      \"000055\": 7.895399,\n      \"000056\": 7.662543,\n      \"000057\": 6.252496,\n      \"000058\": 5.955512,\n      \"000059\": 5.81174\n    },\n    \"mean_coverage_percent\": 8.699826,\n    \"policy\": \"P235 soft/boundary-aware frontend attenuation over P225 probability maps; no hard black mask boundary by default.\",\n    \"temporal_propagation_radius\": null,\n    \"temporal_propagation_mode\": null,\n    \"dynamic_mask_dilation_px\": null\n  },\n  \"metrics\": {\n    \"raw RGB\": {\n      \"ape_rmse_m\": 0.324478,\n      \"ape_mean_m\": 0.291577,\n      \"rpe_rmse_m\": 0.21497,\n      \"rpe_mean_m\": 0.165719\n    },\n    \"masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend)\": {\n      \"ape_rmse_m\": 0.324466,\n      \"ape_mean_m\": 0.291575,\n      \"rpe_rmse_m\": 0.214963,\n      \"rpe_mean_m\": 0.165713\n    }\n  },\n  \"delta_masked_minus_raw\": {\n    \"ape_rmse_m\": -1.2000000000012001e-05,\n    \"rpe_rmse_m\": -7.000000000007001e-06\n  },\n  \"interpretation\": \"P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.\"\n}\n",
+            "timed_out": false
+          },
+          "output_dir": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16",
+          "runs": [
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt",
+              "frame_count": 16,
+              "label": "raw",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 16
+            },
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt",
+              "frame_count": 16,
+              "label": "masked",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 16
+            }
+          ],
+          "smoke_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16 --frame-limit 16",
+            "duration_seconds": 9.325,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "{\n  \"artifact\": \"P132 dynamic SLAM backend smoke run\",\n  \"created\": \"2026-05-13T11:51:54+08:00\",\n  \"status\": \"ok\",\n  \"claim_boundary\": \"Bounded DROID-SLAM smoke run only; not yet a full ATE/RPE benchmark or navigation claim.\",\n  \"runtime\": {\n    \"python\": \"/home/rui/miniconda3/envs/tram/bin/python\",\n    \"torch\": \"2.4.0+cu118\",\n    \"cuda_available\": true,\n    \"device\": \"NVIDIA GeForce RTX 3060\",\n    \"droid_root\": \"/home/rui/tram/thirdparty/DROID-SLAM\",\n    \"weights\": \"/home/rui/tram/data/pretrain/droid.pth\"\n  },\n  \"input_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary\",\n  \"output_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16\",\n  \"frame_limit\": 16,\n  \"global_ba\": false,\n  \"runs\": [\n    {\n      \"label\": \"raw\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt\",\n      \"frame_count\": 16,\n      \"trajectory_rows\": 16,\n      \"error\": null\n    },\n    {\n      \"label\": \"masked\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt\",\n      \"frame_count\": 16,\n      \"trajectory_rows\": 16,\n      \"error\": null\n    }\n  ],\n  \"next_step\": \"If both runs are ok, evaluate raw/masked estimates against groundtruth.txt with evo APE/RPE.\"\n}\n",
+            "timed_out": false
+          },
+          "smoke_manifest": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/dynamic_slam_backend_smoke_manifest.json",
+          "smoke_status": "ok",
+          "trajectory_neutral": true
+        }
+      ],
+      "end_index": 719,
+      "frame_count": 60,
+      "manifest": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/backend_input_manifest.json",
+      "mask_summary": {
+        "coverage_capped_frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "mean_coverage_percent": 8.699826,
+        "mean_soft_alpha_percent": 3.441886,
+        "nonzero_mask_frames": 60,
+        "total_mask_pixels": 4810656,
+        "total_soft_alpha_pixels": 8951366
+      },
+      "method": "mean_color_feather",
+      "orb_feature_sanity": {
+        "frames": 60,
+        "masked_predicted_mask_region_keypoints": 0,
+        "masked_total_keypoints": 60000,
+        "orb_feature_csv": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/aisle_cw_0660_0719_meanfill035_feather5_thr060_cap012_min256_orb_features.csv",
+        "predicted_mask_region_pixels": 4810656,
+        "predicted_mask_region_proxy": true,
+        "raw_predicted_mask_region_keypoints": 41,
+        "raw_to_masked_predicted_region_keypoint_delta": -41,
+        "raw_to_masked_total_keypoint_delta": 0,
+        "raw_total_keypoints": 60000,
+        "total_keypoints_stable": true
+      },
+      "orb_proxy_down": true,
+      "orb_proxy_not_significant_reverse": true,
+      "p225": {
+        "csv": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/temporal_masked_sequence_p225/evidence/aisle_cw_0660_0719_temporal_masked_sequence_p225.csv",
+        "json": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/temporal_masked_sequence_p225/evidence/aisle_cw_0660_0719_temporal_masked_sequence_p225.json",
+        "markdown": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/temporal_masked_sequence_p225/evidence/aisle_cw_0660_0719_temporal_masked_sequence_p225.md",
+        "mask_model": {
+          "checkpoint": "outputs/temporal_masked_sequence_p225/model/p225_retrained_p218_smallunet.pt",
+          "checkpoint_sha256": "ca55faffb734fba2184ee48a9bb54220fd8ea5a297a73184d3a991ecbdd583c2",
+          "config": {
+            "base_channels": 12,
+            "batch_size": 8,
+            "epochs": 1,
+            "lr": 0.002,
+            "resize_height": 180,
+            "resize_width": 320,
+            "seed": 225,
+            "weight_decay": 0.0001
+          },
+          "mode": "loaded_checkpoint",
+          "selected_threshold": 0.4,
+          "training_metrics": {
+            "test": {
+              "loss": 0.845354,
+              "selected_threshold": {
+                "balanced_accuracy": 0.786671,
+                "dynamic_iou": 0.541541,
+                "f1_dynamic": 0.702597,
+                "fn": 57932,
+                "fp": 376278,
+                "pixel_accuracy": 0.748721,
+                "pixels": 1728000,
+                "positive_pixel_rate": 0.330341,
+                "precision_dynamic": 0.576824,
+                "predicted_positive_rate": 0.514569,
+                "recall_dynamic": 0.898513,
+                "tn": 780892,
+                "tp": 512898
+              }
+            },
+            "train": {
+              "loss": 0.832815,
+              "selected_threshold": {
+                "balanced_accuracy": 0.773972,
+                "dynamic_iou": 0.590541,
+                "f1_dynamic": 0.742567,
+                "fn": 351816,
+                "fp": 1906445,
+                "pixel_accuracy": 0.74868,
+                "pixels": 8985600,
+                "positive_pixel_rate": 0.401619,
+                "precision_dynamic": 0.630779,
+                "predicted_positive_rate": 0.574633,
+                "recall_dynamic": 0.902511,
+                "tn": 3470363,
+                "tp": 3256976
+              }
+            },
+            "val": {
+              "loss": 0.821349,
+              "selected_threshold": {
+                "balanced_accuracy": 0.798122,
+                "dynamic_iou": 0.607783,
+                "f1_dynamic": 0.756051,
+                "fn": 113578,
+                "fp": 547085,
+                "pixel_accuracy": 0.775101,
+                "pixels": 2937600,
+                "positive_pixel_rate": 0.387168,
+                "precision_dynamic": 0.651727,
+                "predicted_positive_rate": 0.53474,
+                "recall_dynamic": 0.900138,
+                "tn": 1253169,
+                "tp": 1023768
+              }
+            }
+          }
+        },
+        "mask_statistics": {
+          "max_predicted_dynamic_pixel_rate": 0.41724,
+          "mean_predicted_dynamic_pixel_rate": 0.354448,
+          "mean_probability": 0.384469,
+          "min_predicted_dynamic_pixel_rate": 0.323229
+        },
+        "package_root": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/temporal_masked_sequence_p225/sequence"
+      },
+      "pack_dir": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0660_0719/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary",
+      "parameters": {
+        "attenuation_alpha": 0.35,
+        "dilation_px": 0,
+        "feather_sigma": 5.0,
+        "max_coverage": 0.12,
+        "mean_fill": true,
+        "method": "mean_color_feather",
+        "min_component_area_px": 256,
+        "probability_threshold": 0.6,
+        "target_coverage": 0.1,
+        "variant_id": "meanfill035_feather5_thr060_cap012_min256"
+      },
+      "selection_reason": "same sequence as P225/P228, non-overlapping mid-late window",
+      "sequence_family": "same_sequence_new_window",
+      "sequence_label": "Oct. 12, 2022 Aisle_CW",
+      "source_sequence_dir": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW",
+      "start_index": 660,
+      "status": "orb_proxy_down_droid16_neutral",
+      "variant_id": "meanfill035_feather5_thr060_cap012_min256",
+      "window_id": "aisle_cw_0660_0719"
+    },
+    {
+      "droid_gates": [
+        {
+          "frame_limit": 16,
+          "metrics": {
+            "delta_masked_minus_raw": {
+              "ape_rmse_m": -8.999999999998592e-06,
+              "rpe_rmse_m": 0.0
+            },
+            "masked": {
+              "ape_mean_m": 0.022463,
+              "ape_rmse_m": 0.030022,
+              "rpe_mean_m": 0.026353,
+              "rpe_rmse_m": 0.036006
+            },
+            "metrics_json": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/p237_aisle_cw_0960_1019_meanfill035_feather5_thr060_cap012_min256_16f_metrics.json",
+            "raw": {
+              "ape_mean_m": 0.022471,
+              "ape_rmse_m": 0.030031,
+              "rpe_mean_m": 0.026352,
+              "rpe_rmse_m": 0.036006
+            }
+          },
+          "metrics_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16 --artifact P237 16-frame soft-boundary multi-window metrics (aisle_cw_0960_1019) --scope P237 bounded frontend smoke: 16 frames from Oct. 12, 2022 Aisle_CW source indices 960-975. --masked-label masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend) --output-prefix p237_aisle_cw_0960_1019_meanfill035_feather5_thr060_cap012_min256_16f_metrics --interpretation P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.",
+            "duration_seconds": 0.63,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "tifact\": \"P237 16-frame soft-boundary multi-window metrics (aisle_cw_0960_1019)\",\n  \"created\": \"2026-05-13T11:52:43+08:00\",\n  \"scope\": \"P237 bounded frontend smoke: 16 frames from Oct. 12, 2022 Aisle_CW source indices 960-975.\",\n  \"claim_boundary\": \"Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.\",\n  \"inputs\": {\n    \"groundtruth\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/groundtruth.txt\",\n    \"raw_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt\",\n    \"masked_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt\"\n  },\n  \"mask_coverage\": {\n    \"masked_frames\": [\n      0,\n      1,\n      2,\n      3,\n      4,\n      5,\n      6,\n      7,\n      8,\n      9,\n      10,\n      11,\n      12,\n      13,\n      14,\n      15,\n      16,\n      17,\n      18,\n      19,\n      20,\n      21,\n      22,\n      23,\n      24,\n      25,\n      26,\n      27,\n      28,\n      29,\n      30,\n      31,\n      32,\n      33,\n      34,\n      35,\n      36,\n      37,\n      38,\n      39,\n      40,\n      41,\n      42,\n      43,\n      44,\n      45,\n      46,\n      47,\n      48,\n      49,\n      50,\n      51,\n      52,\n      53,\n      54,\n      55,\n      56,\n      57,\n      58,\n      59\n    ],\n    \"masked_frame_count\": 60,\n    \"total_frames\": 60,\n    \"nonzero_frame_coverage_percent\": {\n      \"000000\": 10.0,\n      \"000001\": 10.0,\n      \"000002\": 10.0,\n      \"000003\": 10.0,\n      \"000004\": 10.0,\n      \"000005\": 10.0,\n      \"000006\": 10.0,\n      \"000007\": 10.0,\n      \"000008\": 10.0,\n      \"000009\": 10.0,\n      \"000010\": 10.0,\n      \"000011\": 10.0,\n      \"000012\": 10.0,\n      \"000013\": 10.0,\n      \"000014\": 10.0,\n      \"000015\": 10.0,\n      \"000016\": 10.0,\n      \"000017\": 10.0,\n      \"000018\": 10.0,\n      \"000019\": 10.0,\n      \"000020\": 10.0,\n      \"000021\": 10.0,\n      \"000022\": 10.0,\n      \"000023\": 10.0,\n      \"000024\": 10.0,\n      \"000025\": 10.0,\n      \"000026\": 10.0,\n      \"000027\": 10.0,\n      \"000028\": 10.0,\n      \"000029\": 10.0,\n      \"000030\": 10.0,\n      \"000031\": 10.0,\n      \"000032\": 10.0,\n      \"000033\": 10.0,\n      \"000034\": 10.0,\n      \"000035\": 10.0,\n      \"000036\": 10.0,\n      \"000037\": 9.549696,\n      \"000038\": 9.650499,\n      \"000039\": 9.592231,\n      \"000040\": 9.846246,\n      \"000041\": 9.817491,\n      \"000042\": 9.94043,\n      \"000043\": 9.972439,\n      \"000044\": 10.090603,\n      \"000045\": 10.095486,\n      \"000046\": 10.126411,\n      \"000047\": 10.278537,\n      \"000048\": 10.388238,\n      \"000049\": 10.254774,\n      \"000050\": 10.244466,\n      \"000051\": 10.290473,\n      \"000052\": 10.290365,\n      \"000053\": 10.31326,\n      \"000054\": 10.47819,\n      \"000055\": 10.430339,\n      \"000056\": 10.271701,\n      \"000057\": 10.354601,\n      \"000058\": 10.409722,\n      \"000059\": 10.516493\n    },\n    \"mean_coverage_percent\": 10.053378,\n    \"policy\": \"P235 soft/boundary-aware frontend attenuation over P225 probability maps; no hard black mask boundary by default.\",\n    \"temporal_propagation_radius\": null,\n    \"temporal_propagation_mode\": null,\n    \"dynamic_mask_dilation_px\": null\n  },\n  \"metrics\": {\n    \"raw RGB\": {\n      \"ape_rmse_m\": 0.030031,\n      \"ape_mean_m\": 0.022471,\n      \"rpe_rmse_m\": 0.036006,\n      \"rpe_mean_m\": 0.026352\n    },\n    \"masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend)\": {\n      \"ape_rmse_m\": 0.030022,\n      \"ape_mean_m\": 0.022463,\n      \"rpe_rmse_m\": 0.036006,\n      \"rpe_mean_m\": 0.026353\n    }\n  },\n  \"delta_masked_minus_raw\": {\n    \"ape_rmse_m\": -8.999999999998592e-06,\n    \"rpe_rmse_m\": 0.0\n  },\n  \"interpretation\": \"P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.\"\n}\n",
+            "timed_out": false
+          },
+          "output_dir": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16",
+          "runs": [
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt",
+              "frame_count": 16,
+              "label": "raw",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 16
+            },
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt",
+              "frame_count": 16,
+              "label": "masked",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 16
+            }
+          ],
+          "smoke_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16 --frame-limit 16",
+            "duration_seconds": 5.313,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "{\n  \"artifact\": \"P132 dynamic SLAM backend smoke run\",\n  \"created\": \"2026-05-13T11:52:42+08:00\",\n  \"status\": \"ok\",\n  \"claim_boundary\": \"Bounded DROID-SLAM smoke run only; not yet a full ATE/RPE benchmark or navigation claim.\",\n  \"runtime\": {\n    \"python\": \"/home/rui/miniconda3/envs/tram/bin/python\",\n    \"torch\": \"2.4.0+cu118\",\n    \"cuda_available\": true,\n    \"device\": \"NVIDIA GeForce RTX 3060\",\n    \"droid_root\": \"/home/rui/tram/thirdparty/DROID-SLAM\",\n    \"weights\": \"/home/rui/tram/data/pretrain/droid.pth\"\n  },\n  \"input_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary\",\n  \"output_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16\",\n  \"frame_limit\": 16,\n  \"global_ba\": false,\n  \"runs\": [\n    {\n      \"label\": \"raw\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt\",\n      \"frame_count\": 16,\n      \"trajectory_rows\": 16,\n      \"error\": null\n    },\n    {\n      \"label\": \"masked\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt\",\n      \"frame_count\": 16,\n      \"trajectory_rows\": 16,\n      \"error\": null\n    }\n  ],\n  \"next_step\": \"If both runs are ok, evaluate raw/masked estimates against groundtruth.txt with evo APE/RPE.\"\n}\n",
+            "timed_out": false
+          },
+          "smoke_manifest": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/dynamic_slam_backend_smoke_manifest.json",
+          "smoke_status": "ok",
+          "trajectory_neutral": true
+        }
+      ],
+      "end_index": 1019,
+      "frame_count": 60,
+      "manifest": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/backend_input_manifest.json",
+      "mask_summary": {
+        "coverage_capped_frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36
+        ],
+        "mean_coverage_percent": 10.053378,
+        "mean_soft_alpha_percent": 3.973758,
+        "nonzero_mask_frames": 60,
+        "total_mask_pixels": 5559116,
+        "total_soft_alpha_pixels": 9923809
+      },
+      "method": "mean_color_feather",
+      "orb_feature_sanity": {
+        "frames": 60,
+        "masked_predicted_mask_region_keypoints": 0,
+        "masked_total_keypoints": 60000,
+        "orb_feature_csv": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/aisle_cw_0960_1019_meanfill035_feather5_thr060_cap012_min256_orb_features.csv",
+        "predicted_mask_region_pixels": 5559116,
+        "predicted_mask_region_proxy": true,
+        "raw_predicted_mask_region_keypoints": 27,
+        "raw_to_masked_predicted_region_keypoint_delta": -27,
+        "raw_to_masked_total_keypoint_delta": 0,
+        "raw_total_keypoints": 60000,
+        "total_keypoints_stable": true
+      },
+      "orb_proxy_down": true,
+      "orb_proxy_not_significant_reverse": true,
+      "p225": {
+        "csv": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/temporal_masked_sequence_p225/evidence/aisle_cw_0960_1019_temporal_masked_sequence_p225.csv",
+        "json": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/temporal_masked_sequence_p225/evidence/aisle_cw_0960_1019_temporal_masked_sequence_p225.json",
+        "markdown": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/temporal_masked_sequence_p225/evidence/aisle_cw_0960_1019_temporal_masked_sequence_p225.md",
+        "mask_model": {
+          "checkpoint": "outputs/temporal_masked_sequence_p225/model/p225_retrained_p218_smallunet.pt",
+          "checkpoint_sha256": "ca55faffb734fba2184ee48a9bb54220fd8ea5a297a73184d3a991ecbdd583c2",
+          "config": {
+            "base_channels": 12,
+            "batch_size": 8,
+            "epochs": 1,
+            "lr": 0.002,
+            "resize_height": 180,
+            "resize_width": 320,
+            "seed": 225,
+            "weight_decay": 0.0001
+          },
+          "mode": "loaded_checkpoint",
+          "selected_threshold": 0.4,
+          "training_metrics": {
+            "test": {
+              "loss": 0.845354,
+              "selected_threshold": {
+                "balanced_accuracy": 0.786671,
+                "dynamic_iou": 0.541541,
+                "f1_dynamic": 0.702597,
+                "fn": 57932,
+                "fp": 376278,
+                "pixel_accuracy": 0.748721,
+                "pixels": 1728000,
+                "positive_pixel_rate": 0.330341,
+                "precision_dynamic": 0.576824,
+                "predicted_positive_rate": 0.514569,
+                "recall_dynamic": 0.898513,
+                "tn": 780892,
+                "tp": 512898
+              }
+            },
+            "train": {
+              "loss": 0.832815,
+              "selected_threshold": {
+                "balanced_accuracy": 0.773972,
+                "dynamic_iou": 0.590541,
+                "f1_dynamic": 0.742567,
+                "fn": 351816,
+                "fp": 1906445,
+                "pixel_accuracy": 0.74868,
+                "pixels": 8985600,
+                "positive_pixel_rate": 0.401619,
+                "precision_dynamic": 0.630779,
+                "predicted_positive_rate": 0.574633,
+                "recall_dynamic": 0.902511,
+                "tn": 3470363,
+                "tp": 3256976
+              }
+            },
+            "val": {
+              "loss": 0.821349,
+              "selected_threshold": {
+                "balanced_accuracy": 0.798122,
+                "dynamic_iou": 0.607783,
+                "f1_dynamic": 0.756051,
+                "fn": 113578,
+                "fp": 547085,
+                "pixel_accuracy": 0.775101,
+                "pixels": 2937600,
+                "positive_pixel_rate": 0.387168,
+                "precision_dynamic": 0.651727,
+                "predicted_positive_rate": 0.53474,
+                "recall_dynamic": 0.900138,
+                "tn": 1253169,
+                "tp": 1023768
+              }
+            }
+          }
+        },
+        "mask_statistics": {
+          "max_predicted_dynamic_pixel_rate": 0.442326,
+          "mean_predicted_dynamic_pixel_rate": 0.392195,
+          "mean_probability": 0.399664,
+          "min_predicted_dynamic_pixel_rate": 0.358194
+        },
+        "package_root": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/temporal_masked_sequence_p225/sequence"
+      },
+      "pack_dir": "outputs/soft_boundary_multiwindow_p237/aisle_cw_0960_1019/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary",
+      "parameters": {
+        "attenuation_alpha": 0.35,
+        "dilation_px": 0,
+        "feather_sigma": 5.0,
+        "max_coverage": 0.12,
+        "mean_fill": true,
+        "method": "mean_color_feather",
+        "min_component_area_px": 256,
+        "probability_threshold": 0.6,
+        "target_coverage": 0.1,
+        "variant_id": "meanfill035_feather5_thr060_cap012_min256"
+      },
+      "selection_reason": "same sequence as P225/P228, non-overlapping late window within available frame range",
+      "sequence_family": "same_sequence_new_window",
+      "sequence_label": "Oct. 12, 2022 Aisle_CW",
+      "source_sequence_dir": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CW",
+      "start_index": 960,
+      "status": "orb_proxy_down_droid16_neutral",
+      "variant_id": "meanfill035_feather5_thr060_cap012_min256",
+      "window_id": "aisle_cw_0960_1019"
+    },
+    {
+      "droid_gates": [
+        {
+          "frame_limit": 16,
+          "metrics": {
+            "delta_masked_minus_raw": {
+              "ape_rmse_m": -3.0000000000030003e-06,
+              "rpe_rmse_m": -9.000000000002062e-06
+            },
+            "masked": {
+              "ape_mean_m": 0.037476,
+              "ape_rmse_m": 0.040741,
+              "rpe_mean_m": 0.054112,
+              "rpe_rmse_m": 0.059458
+            },
+            "metrics_json": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/p237_aisle_ccw_0240_0299_meanfill035_feather5_thr060_cap012_min256_16f_metrics.json",
+            "raw": {
+              "ape_mean_m": 0.037476,
+              "ape_rmse_m": 0.040744,
+              "rpe_mean_m": 0.05412,
+              "rpe_rmse_m": 0.059467
+            }
+          },
+          "metrics_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/evaluate_dynamic_slam_metrics.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16 --artifact P237 16-frame soft-boundary multi-window metrics (aisle_ccw_0240_0299) --scope P237 bounded frontend smoke: 16 frames from Oct. 12, 2022 Aisle_CCW source indices 240-255. --masked-label masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend) --output-prefix p237_aisle_ccw_0240_0299_meanfill035_feather5_thr060_cap012_min256_16f_metrics --interpretation P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.",
+            "duration_seconds": 0.61,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "{\n  \"artifact\": \"P237 16-frame soft-boundary multi-window metrics (aisle_ccw_0240_0299)\",\n  \"created\": \"2026-05-13T11:53:33+08:00\",\n  \"scope\": \"P237 bounded frontend smoke: 16 frames from Oct. 12, 2022 Aisle_CCW source indices 240-255.\",\n  \"claim_boundary\": \"Metrics report bounded backend behavior only; they do not by themselves prove navigation benefit or full-map quality improvement.\",\n  \"inputs\": {\n    \"groundtruth\": \"outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/groundtruth.txt\",\n    \"raw_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt\",\n    \"masked_estimate\": \"outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt\"\n  },\n  \"mask_coverage\": {\n    \"masked_frames\": [\n      0,\n      1,\n      2,\n      3,\n      4,\n      5,\n      6,\n      7,\n      8,\n      9,\n      10,\n      11,\n      12,\n      13,\n      14,\n      15,\n      16,\n      17,\n      18,\n      19,\n      20,\n      21,\n      22,\n      23,\n      24,\n      25,\n      26,\n      27,\n      28,\n      29,\n      30,\n      31,\n      32,\n      33,\n      34,\n      35,\n      36,\n      37,\n      38,\n      39,\n      40,\n      41,\n      42,\n      43,\n      44,\n      45,\n      46,\n      47,\n      48,\n      49,\n      50,\n      51,\n      52,\n      53,\n      54,\n      55,\n      56,\n      57,\n      58,\n      59\n    ],\n    \"masked_frame_count\": 60,\n    \"total_frames\": 60,\n    \"nonzero_frame_coverage_percent\": {\n      \"000000\": 10.0,\n      \"000001\": 10.0,\n      \"000002\": 10.0,\n      \"000003\": 10.0,\n      \"000004\": 10.0,\n      \"000005\": 10.0,\n      \"000006\": 10.0,\n      \"000007\": 10.0,\n      \"000008\": 10.0,\n      \"000009\": 10.0,\n      \"000010\": 10.0,\n      \"000011\": 10.0,\n      \"000012\": 10.0,\n      \"000013\": 10.0,\n      \"000014\": 10.0,\n      \"000015\": 10.0,\n      \"000016\": 10.0,\n      \"000017\": 10.0,\n      \"000018\": 10.0,\n      \"000019\": 10.0,\n      \"000020\": 10.0,\n      \"000021\": 10.0,\n      \"000022\": 10.0,\n      \"000023\": 10.0,\n      \"000024\": 10.0,\n      \"000025\": 10.0,\n      \"000026\": 10.0,\n      \"000027\": 10.0,\n      \"000028\": 10.0,\n      \"000029\": 10.0,\n      \"000030\": 10.0,\n      \"000031\": 10.0,\n      \"000032\": 10.0,\n      \"000033\": 10.0,\n      \"000034\": 10.0,\n      \"000035\": 10.0,\n      \"000036\": 10.0,\n      \"000037\": 10.0,\n      \"000038\": 10.0,\n      \"000039\": 10.0,\n      \"000040\": 10.0,\n      \"000041\": 10.0,\n      \"000042\": 10.0,\n      \"000043\": 10.0,\n      \"000044\": 10.0,\n      \"000045\": 10.0,\n      \"000046\": 10.0,\n      \"000047\": 10.0,\n      \"000048\": 10.0,\n      \"000049\": 10.0,\n      \"000050\": 10.0,\n      \"000051\": 10.0,\n      \"000052\": 10.0,\n      \"000053\": 10.0,\n      \"000054\": 10.0,\n      \"000055\": 10.0,\n      \"000056\": 10.0,\n      \"000057\": 10.0,\n      \"000058\": 10.0,\n      \"000059\": 10.0\n    },\n    \"mean_coverage_percent\": 10.0,\n    \"policy\": \"P235 soft/boundary-aware frontend attenuation over P225 probability maps; no hard black mask boundary by default.\",\n    \"temporal_propagation_radius\": null,\n    \"temporal_propagation_mode\": null,\n    \"dynamic_mask_dilation_px\": null\n  },\n  \"metrics\": {\n    \"raw RGB\": {\n      \"ape_rmse_m\": 0.040744,\n      \"ape_mean_m\": 0.037476,\n      \"rpe_rmse_m\": 0.059467,\n      \"rpe_mean_m\": 0.05412\n    },\n    \"masked RGB (P237 meanfill035_feather5_thr060_cap012_min256 soft-boundary frontend)\": {\n      \"ape_rmse_m\": 0.040741,\n      \"ape_mean_m\": 0.037476,\n      \"rpe_rmse_m\": 0.059458,\n      \"rpe_mean_m\": 0.054112\n    }\n  },\n  \"delta_masked_minus_raw\": {\n    \"ape_rmse_m\": -3.0000000000030003e-06,\n    \"rpe_rmse_m\": -9.000000000002062e-06\n  },\n  \"interpretation\": \"P237 bounded soft-boundary multi-window smoke; no full benchmark or navigation claim.\"\n}\n",
+            "timed_out": false
+          },
+          "output_dir": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16",
+          "runs": [
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt",
+              "frame_count": 16,
+              "label": "raw",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 16
+            },
+            {
+              "error": null,
+              "estimate_tum": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt",
+              "frame_count": 16,
+              "label": "masked",
+              "rgb_list": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt",
+              "status": "ok",
+              "trajectory_rows": 16
+            }
+          ],
+          "smoke_command": {
+            "command": "/home/rui/miniconda3/envs/tram/bin/python tools/run_dynamic_slam_backend_smoke.py --input-dir outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary --output-dir outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16 --frame-limit 16",
+            "duration_seconds": 8.246,
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "{\n  \"artifact\": \"P132 dynamic SLAM backend smoke run\",\n  \"created\": \"2026-05-13T11:53:32+08:00\",\n  \"status\": \"ok\",\n  \"claim_boundary\": \"Bounded DROID-SLAM smoke run only; not yet a full ATE/RPE benchmark or navigation claim.\",\n  \"runtime\": {\n    \"python\": \"/home/rui/miniconda3/envs/tram/bin/python\",\n    \"torch\": \"2.4.0+cu118\",\n    \"cuda_available\": true,\n    \"device\": \"NVIDIA GeForce RTX 3060\",\n    \"droid_root\": \"/home/rui/tram/thirdparty/DROID-SLAM\",\n    \"weights\": \"/home/rui/tram/data/pretrain/droid.pth\"\n  },\n  \"input_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary\",\n  \"output_dir\": \"outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16\",\n  \"frame_limit\": 16,\n  \"global_ba\": false,\n  \"runs\": [\n    {\n      \"label\": \"raw\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/raw/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/raw_estimate_tum.txt\",\n      \"frame_count\": 16,\n      \"trajectory_rows\": 16,\n      \"error\": null\n    },\n    {\n      \"label\": \"masked\",\n      \"status\": \"ok\",\n      \"rgb_list\": \"outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/masked/rgb.txt\",\n      \"estimate_tum\": \"outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/masked_estimate_tum.txt\",\n      \"frame_count\": 16,\n      \"trajectory_rows\": 16,\n      \"error\": null\n    }\n  ],\n  \"next_step\": \"If both runs are ok, evaluate raw/masked estimates against groundtruth.txt with evo APE/RPE.\"\n}\n",
+            "timed_out": false
+          },
+          "smoke_manifest": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_smoke_p237_16/dynamic_slam_backend_smoke_manifest.json",
+          "smoke_status": "ok",
+          "trajectory_neutral": true
+        }
+      ],
+      "end_index": 299,
+      "frame_count": 60,
+      "manifest": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary/backend_input_manifest.json",
+      "mask_summary": {
+        "coverage_capped_frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59
+        ],
+        "mean_coverage_percent": 10.0,
+        "mean_soft_alpha_percent": 3.960283,
+        "nonzero_mask_frames": 60,
+        "total_mask_pixels": 5529600,
+        "total_soft_alpha_pixels": 10205742
+      },
+      "method": "mean_color_feather",
+      "orb_feature_sanity": {
+        "frames": 60,
+        "masked_predicted_mask_region_keypoints": 4,
+        "masked_total_keypoints": 60000,
+        "orb_feature_csv": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/aisle_ccw_0240_0299_meanfill035_feather5_thr060_cap012_min256_orb_features.csv",
+        "predicted_mask_region_pixels": 5529600,
+        "predicted_mask_region_proxy": true,
+        "raw_predicted_mask_region_keypoints": 81,
+        "raw_to_masked_predicted_region_keypoint_delta": -77,
+        "raw_to_masked_total_keypoint_delta": 0,
+        "raw_total_keypoints": 60000,
+        "total_keypoints_stable": true
+      },
+      "orb_proxy_down": true,
+      "orb_proxy_not_significant_reverse": true,
+      "p225": {
+        "csv": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/temporal_masked_sequence_p225/evidence/aisle_ccw_0240_0299_temporal_masked_sequence_p225.csv",
+        "json": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/temporal_masked_sequence_p225/evidence/aisle_ccw_0240_0299_temporal_masked_sequence_p225.json",
+        "markdown": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/temporal_masked_sequence_p225/evidence/aisle_ccw_0240_0299_temporal_masked_sequence_p225.md",
+        "mask_model": {
+          "checkpoint": "outputs/temporal_masked_sequence_p225/model/p225_retrained_p218_smallunet.pt",
+          "checkpoint_sha256": "ca55faffb734fba2184ee48a9bb54220fd8ea5a297a73184d3a991ecbdd583c2",
+          "config": {
+            "base_channels": 12,
+            "batch_size": 8,
+            "epochs": 1,
+            "lr": 0.002,
+            "resize_height": 180,
+            "resize_width": 320,
+            "seed": 225,
+            "weight_decay": 0.0001
+          },
+          "mode": "loaded_checkpoint",
+          "selected_threshold": 0.4,
+          "training_metrics": {
+            "test": {
+              "loss": 0.845354,
+              "selected_threshold": {
+                "balanced_accuracy": 0.786671,
+                "dynamic_iou": 0.541541,
+                "f1_dynamic": 0.702597,
+                "fn": 57932,
+                "fp": 376278,
+                "pixel_accuracy": 0.748721,
+                "pixels": 1728000,
+                "positive_pixel_rate": 0.330341,
+                "precision_dynamic": 0.576824,
+                "predicted_positive_rate": 0.514569,
+                "recall_dynamic": 0.898513,
+                "tn": 780892,
+                "tp": 512898
+              }
+            },
+            "train": {
+              "loss": 0.832815,
+              "selected_threshold": {
+                "balanced_accuracy": 0.773972,
+                "dynamic_iou": 0.590541,
+                "f1_dynamic": 0.742567,
+                "fn": 351816,
+                "fp": 1906445,
+                "pixel_accuracy": 0.74868,
+                "pixels": 8985600,
+                "positive_pixel_rate": 0.401619,
+                "precision_dynamic": 0.630779,
+                "predicted_positive_rate": 0.574633,
+                "recall_dynamic": 0.902511,
+                "tn": 3470363,
+                "tp": 3256976
+              }
+            },
+            "val": {
+              "loss": 0.821349,
+              "selected_threshold": {
+                "balanced_accuracy": 0.798122,
+                "dynamic_iou": 0.607783,
+                "f1_dynamic": 0.756051,
+                "fn": 113578,
+                "fp": 547085,
+                "pixel_accuracy": 0.775101,
+                "pixels": 2937600,
+                "positive_pixel_rate": 0.387168,
+                "precision_dynamic": 0.651727,
+                "predicted_positive_rate": 0.53474,
+                "recall_dynamic": 0.900138,
+                "tn": 1253169,
+                "tp": 1023768
+              }
+            }
+          }
+        },
+        "mask_statistics": {
+          "max_predicted_dynamic_pixel_rate": 0.454549,
+          "mean_predicted_dynamic_pixel_rate": 0.419663,
+          "mean_probability": 0.407789,
+          "min_predicted_dynamic_pixel_rate": 0.349635
+        },
+        "package_root": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/temporal_masked_sequence_p225/sequence"
+      },
+      "pack_dir": "outputs/soft_boundary_multiwindow_p237/aisle_ccw_0240_0299/meanfill035_feather5_thr060_cap012_min256/dynamic_slam_backend_input_pack_p235_soft_boundary",
+      "parameters": {
+        "attenuation_alpha": 0.35,
+        "dilation_px": 0,
+        "feather_sigma": 5.0,
+        "max_coverage": 0.12,
+        "mean_fill": true,
+        "method": "mean_color_feather",
+        "min_component_area_px": 256,
+        "probability_threshold": 0.6,
+        "target_coverage": 0.1,
+        "variant_id": "meanfill035_feather5_thr060_cap012_min256"
+      },
+      "selection_reason": "nearby different sequence with image_left, frame_times, traj_gt, and shared Oct. 12 calibration",
+      "sequence_family": "nearby_different_sequence",
+      "sequence_label": "Oct. 12, 2022 Aisle_CCW",
+      "source_sequence_dir": "data/TorWIC_SLAM_Dataset/Oct. 12, 2022/Aisle_CCW",
+      "start_index": 240,
+      "status": "orb_proxy_down_droid16_neutral",
+      "variant_id": "meanfill035_feather5_thr060_cap012_min256",
+      "window_id": "aisle_ccw_0240_0299"
+    }
+  ],
+  "interpretation": "The selected P235 soft-boundary candidate reduced the ORB predicted-region proxy in 4/4 new windows, with DROID 16-frame neutral gates in 4/4 windows. Treat this as expanded bounded frontend-module support only.",
+  "next_step": "Add more sequences and independent dynamic labels before considering any claim-boundary change; keep P195 BLOCKED.",
+  "outputs": {
+    "csv": "paper/evidence/soft_boundary_multiwindow_p237.csv",
+    "json": "paper/evidence/soft_boundary_multiwindow_p237.json",
+    "markdown": "paper/export/soft_boundary_multiwindow_p237.md",
+    "output_root": "outputs/soft_boundary_multiwindow_p237"
+  },
+  "selected_variant": "meanfill035_feather5_thr060_cap012_min256",
+  "source_checkpoint": "outputs/temporal_masked_sequence_p225/model/p225_retrained_p218_smallunet.pt",
+  "status": "expanded_bounded_support",
+  "summary_counts": {
+    "droid_16f_neutral_count": 4,
+    "majority_threshold": 3,
+    "orb_proxy_down_count": 4,
+    "window_count": 4
+  },
+  "training_route": "Reused P225/P218 SmallUNet checkpoint for probability maps; no retraining and no target-window labels were used."
+}
