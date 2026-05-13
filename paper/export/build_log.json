@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-13T11:17:24.426195",
+  "timestamp": "2026-05-13T12:07:05.423165",
   "toolchain": {
     "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]",
     "markdown": "3.10.2",
@@ -9,17 +9,17 @@
     {
       "lang": "en",
       "html": "/home/rui/slam/paper/export/manuscript_en_thick.html",
-      "html_size_kb": 51.9,
+      "html_size_kb": 54.1,
       "pdf": "/home/rui/slam/paper/export/manuscript_en_thick.pdf",
-      "pdf_size_kb": 636.8,
+      "pdf_size_kb": 639.9,
       "pdf_ok": true
     },
     {
       "lang": "zh",
       "html": "/home/rui/slam/paper/export/manuscript_zh_thick.html",
-      "html_size_kb": 34.1,
+      "html_size_kb": 36.0,
       "pdf": "/home/rui/slam/paper/export/manuscript_zh_thick.pdf",
-      "pdf_size_kb": 775.6,
+      "pdf_size_kb": 779.1,
       "pdf_ok": true
     }
   ],

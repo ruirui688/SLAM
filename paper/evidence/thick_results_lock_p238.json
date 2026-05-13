@@ -1,0 +1,136 @@
+{
+  "artifact": "P238 thick manuscript results lock",
+  "created": "2026-05-13T11:58:37+08:00",
+  "status": "locked_for_thick_manuscript_only",
+  "supersedes_for_current_thick_manuscript": "paper/evidence/thick_results_lock_p236.json",
+  "active_manuscripts": [
+    "paper/manuscript_en_thick.md",
+    "paper/manuscript_zh_thick.md"
+  ],
+  "inactive_manuscripts": [
+    "paper/manuscript_en.md",
+    "paper/manuscript_zh.md"
+  ],
+  "claim_boundary": "P217-P237 support a bounded dynamic-mask frontend smoke/story-seed and failure-diagnosis line only. P237 expands the selected P235 soft-boundary/mean-fill feather candidate to four additional short windows, including one nearby Aisle_CCW sequence, but this remains bounded frontend module evidence only. Do not claim a full benchmark, navigation result, independent dynamic-label result, or learned persistent-map admission result. P195 remains BLOCKED.",
+  "locked_results": {
+    "p236_prior_soft_boundary_lock": {
+      "source": "paper/evidence/thick_results_lock_p236.json",
+      "status": "retained as historical lock for P217-P235/P236 integration"
+    },
+    "p237_soft_boundary_multiwindow": {
+      "status": "expanded_bounded_support",
+      "selected_variant": "meanfill035_feather5_thr060_cap012_min256",
+      "training_route": "Reused P225/P218 SmallUNet checkpoint for probability maps; no retraining and no target-window labels were used.",
+      "summary_counts": {
+        "window_count": 4,
+        "orb_proxy_down_count": 4,
+        "droid_16f_neutral_count": 4,
+        "representative_60f_neutral_count": 1
+      },
+      "windows": {
+        "aisle_cw_0240_0299": {
+          "sequence_label": "Oct. 12, 2022 Aisle_CW",
+          "source_indices": [
+            240,
+            299
+          ],
+          "frame_count": 60,
+          "mean_coverage_percent": 8.624665,
+          "mean_soft_alpha_percent": 3.400262,
+          "orb_region_keypoints": [
+            218,
+            41
+          ],
+          "total_keypoint_delta": 0,
+          "droid_16f_delta_masked_minus_raw": {
+            "ape_rmse_m": 0.000034,
+            "rpe_rmse_m": 0.00002,
+            "neutral": true
+          },
+          "droid_60f_delta_masked_minus_raw": {
+            "ape_rmse_m": 0.000201,
+            "rpe_rmse_m": 0.000003,
+            "neutral": true
+          }
+        },
+        "aisle_cw_0660_0719": {
+          "sequence_label": "Oct. 12, 2022 Aisle_CW",
+          "source_indices": [
+            660,
+            719
+          ],
+          "frame_count": 60,
+          "mean_coverage_percent": 8.699826,
+          "mean_soft_alpha_percent": 3.441886,
+          "orb_region_keypoints": [
+            41,
+            0
+          ],
+          "total_keypoint_delta": 0,
+          "droid_16f_delta_masked_minus_raw": {
+            "ape_rmse_m": -0.000012,
+            "rpe_rmse_m": -0.000007,
+            "neutral": true
+          }
+        },
+        "aisle_cw_0960_1019": {
+          "sequence_label": "Oct. 12, 2022 Aisle_CW",
+          "source_indices": [
+            960,
+            1019
+          ],
+          "frame_count": 60,
+          "mean_coverage_percent": 10.053378,
+          "mean_soft_alpha_percent": 3.973758,
+          "orb_region_keypoints": [
+            27,
+            0
+          ],
+          "total_keypoint_delta": 0,
+          "droid_16f_delta_masked_minus_raw": {
+            "ape_rmse_m": -0.000009,
+            "rpe_rmse_m": 0.0,
+            "neutral": true
+          }
+        },
+        "aisle_ccw_0240_0299": {
+          "sequence_label": "Oct. 12, 2022 Aisle_CCW",
+          "source_indices": [
+            240,
+            299
+          ],
+          "frame_count": 60,
+          "mean_coverage_percent": 10.0,
+          "mean_soft_alpha_percent": 3.960283,
+          "orb_region_keypoints": [
+            81,
+            4
+          ],
+          "total_keypoint_delta": 0,
+          "droid_16f_delta_masked_minus_raw": {
+            "ape_rmse_m": -0.000003,
+            "rpe_rmse_m": -0.000009,
+            "neutral": true
+          }
+        }
+      },
+      "source": "paper/evidence/soft_boundary_multiwindow_p237.json"
+    }
+  },
+  "source_hashes_sha256": {
+    "paper/evidence/thick_results_lock_p236.json": "3169d4c0923c729e7f189e50876fc234884caf42dfd63382615965a47f8ab4d3",
+    "paper/evidence/soft_boundary_multiwindow_p237.json": "60d4347aa5b6177ec6c831aee0539049ce01e04064662550e7671dcacf40874f"
+  },
+  "manuscript_consistency": {
+    "english_thick_includes_p237": true,
+    "chinese_thick_includes_p237": true,
+    "brief_manuscripts_edited": false
+  },
+  "residual_risks": [
+    "P237 windows remain short bounded frontend smoke checks.",
+    "Only one nearby different sequence, Aisle_CCW, is included in P237.",
+    "No independent dynamic segmentation labels are introduced.",
+    "No navigation, full-benchmark, or learned map-admission claim is unlocked.",
+    "P195 remains BLOCKED."
+  ]
+}
