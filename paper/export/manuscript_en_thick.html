@@ -39,7 +39,7 @@
 <hr />
 <h2 id="abstract">Abstract</h2>
 <p>Long-term visual SLAM in industrial environments faces two related but distinct sources of dynamic-scene risk. First, semantic maps can be contaminated by objects that are real and repeatedly detected, such as forklifts or carts, but should not become durable static landmarks. Second, dynamic regions can in principle degrade visual odometry if frontend features are drawn from moving or transient objects. This manuscript treats the first problem as the primary contribution and the second as a bounded frontend smoke line. We formulate <strong>session-level map admission control</strong> as an explicit object-maintenance layer between open-vocabulary RGB-D perception and durable semantic map update. The layer converts segmentation outputs into observation, tracklet, map-object, and revision records, then admits objects only when multi-session presence, observation support, label consistency, static dominance, and frame coverage are all satisfied. On the TorWIC industrial dataset from POV-SLAM [6], the object-maintenance evidence ladder retains stable infrastructure across same-day Aisle (203 observations / 11 clusters / 5 retained), cross-day Aisle (240/10/5), cross-month Aisle (297/14/7), and a separate Hallway transfer branch (537/16/9). Forklift-like clusters are consistently rejected as dynamic contamination, with dynamic-like rejection shares from 50.0% to 71.4%.</p>
-<p>We additionally consolidate the later dynamic-mask frontend evidence. A compact UNet trained on a P217 semantic-mask dataset (237 rows, 156/51/30 split, zero frame overlap, positive pixel rate 0.374176) reaches validation IoU/F1 0.671304/0.803329 and test IoU/F1 0.578580/0.733038 (P218), with held-out precision/recall/F1/IoU 0.556007/0.789669/0.604636/0.443210 (P219). Ground-truth dynamic-region ORB keypoints drop from 4795 to 2192 (54.2857% reduction, P220). Later P225-P228 experiments build a 60-frame Oct. 12, 2022 Aisle_CW raw-vs-masked sequence, reproduce a neutral DROID-SLAM baseline, and add a confidence/coverage-gated mask module. The gated module uses threshold 0.50, 1 px dilation, 128 px minimum component area, and max/target coverage 0.22/0.18; it gives mean coverage 14.127053%, raw/masked APE 0.088496/0.084705, raw/masked RPE 0.076145/0.076224, and ORB gated-region keypoints 8969 -&gt; 5073. These results are a viable story seed for frontend masking and an ORB gated-region proxy. They do not support broader trajectory, navigation, independent-label, or learned map-admission conclusions. P195 remains BLOCKED.</p>
+<p>We additionally consolidate the later dynamic-mask frontend evidence. A compact UNet trained on a P217 semantic-mask dataset (237 rows, 156/51/30 split, zero frame overlap, positive pixel rate 0.374176) reaches validation IoU/F1 0.671304/0.803329 and test IoU/F1 0.578580/0.733038 (P218), with held-out precision/recall/F1/IoU 0.556007/0.789669/0.604636/0.443210 (P219). Ground-truth dynamic-region ORB keypoints drop from 4795 to 2192 (54.2857% reduction, P220). P225-P228 build a 60-frame Oct. 12, 2022 Aisle_CW raw-vs-masked sequence and a confidence/coverage-gated hard black mask module. P228 is neutral on the original 480-539 window (raw/masked APE 0.088496/0.084705, RPE 0.076145/0.076224, ORB gated-region keypoints 8969 -&gt; 5073), but P233-P234 show that this hard-boundary gate is mixed across windows and can create boundary ORB features: 120-179 gives 5927 -&gt; 4820 while 840-899 reverses to 601 -&gt; 1901, and a failure sweep finds no stable post-processing-only setting (best 127 -&gt; 1197). P235 therefore tests a soft boundary/mean-fill feather candidate, <code>meanfill035_feather5_thr060_cap012_min256</code>, which removes the 840-899 ORB reversal in bounded smoke (127 -&gt; 0, total keypoint delta 0) with neutral DROID deltas (16-frame dAPE -0.000036/dRPE +0.000007; 60-frame dAPE +0.000158/dRPE -0.000003) and backtests to 480-539 (1382 -&gt; 188) and 120-179 (215 -&gt; 20). These results support a bounded frontend module candidate and a failure diagnosis, not a full benchmark, navigation result, independent-label result, or learned map-admission conclusion. P195 remains BLOCKED.</p>
 <h2 id="index-terms">Index Terms</h2>
 <p>SLAM, semantic segmentation, dynamic object filtering, object-level mapping, map maintenance, industrial robotics, open-vocabulary perception, dynamic masking, long-term autonomy</p>
 <hr />
@@ -54,7 +54,7 @@
 <p>This thick draft is organized around two evidence lines:</p>
 <ol>
 <li><strong>Primary contribution: object-centric map maintenance.</strong> We define observation, tracklet, map-object, and revision records; introduce a transparent trust score; and use boolean admission criteria to retain stable infrastructure while rejecting dynamic contamination.</li>
-<li><strong>Secondary evidence line: bounded dynamic-mask frontend.</strong> We document P217-P228 segmentation and raw-vs-masked SLAM smoke evidence as a constrained frontend module story. It verifies that learned and gated masks can be generated and evaluated, but it does not yet support broad dynamic-SLAM or navigation claims.</li>
+<li><strong>Secondary evidence line: bounded dynamic-mask frontend.</strong> We document P217-P235 segmentation and raw-vs-masked SLAM smoke evidence as a constrained frontend module story. It verifies that learned, gated, and soft-boundary masks can be generated and evaluated, and it now records a hard-boundary failure mode plus a candidate soft-boundary fix. It does not yet support broad dynamic-SLAM or navigation claims.</li>
 </ol>
 <p>The manuscript deliberately avoids claiming lifelong SLAM, dense dynamic reconstruction, independent dynamic segmentation labels, downstream navigation effects, or learned persistent-map admission. The contribution is an auditable bridge from segmentation-assisted open-vocabulary perception to revisioned long-term object-map maintenance, with bounded frontend mask evidence as supporting context.</p>
 <hr />
@@ -64,7 +64,7 @@
 <p>These works establish the feasibility of semantic and object-level mapping. Our focus is narrower and complementary: given object candidates from a perception frontend, determine which candidates deserve durable map slots. The question is not whether the object is detectable; it is whether it is persistent, stable, and semantically admissible.</p>
 <h3 id="iib-dynamic-slam-and-dynamic-object-suppression">II.B. Dynamic SLAM and Dynamic-Object Suppression</h3>
 <p>DynaSLAM [2] and related dynamic-SLAM systems suppress moving objects to protect tracking, mapping, and loop closure. Their typical evaluation target is trajectory or reconstruction quality under dynamic-scene disturbance. This paper uses that literature as motivation but changes the level of decision. We reject dynamic-like objects from the semantic map even when they are correctly detected and geometrically localized.</p>
-<p>The dynamic-mask frontend section also connects to this literature, but conservatively. The P225-P228 DROID-SLAM runs are bounded smoke tests on a 60-frame sequence. They demonstrate executable raw-vs-masked plumbing and a useful ORB feature proxy; they do not establish general trajectory effects.</p>
+<p>The dynamic-mask frontend section also connects to this literature, but conservatively. The P225-P235 DROID-SLAM and ORB runs are bounded smoke tests on short Aisle_CW windows. They demonstrate executable raw-vs-masked plumbing, expose a hard black mask boundary failure mode, and motivate a soft-boundary candidate; they do not establish general trajectory effects.</p>
 <h3 id="iic-long-term-map-maintenance-and-stable-landmark-reuse">II.C. Long-Term Map Maintenance and Stable Landmark Reuse</h3>
 <p>Long-term SLAM requires deciding what to retain, update, forget, or revise [1]. POV-SLAM [6] provides object-aware SLAM benchmarks and the TorWIC industrial data used here. Our maintenance layer uses TorWIC revisits to aggregate session-level evidence and make explicit map-admission decisions. Unlike map pruning based only on memory, geometry, or information gain, the proposed admission layer records why each semantic object is retained or rejected.</p>
 <h3 id="iid-segmentation-assisted-and-open-vocabulary-frontends">II.D. Segmentation-Assisted and Open-Vocabulary Frontends</h3>
@@ -108,7 +108,7 @@
 <h3 id="iva-object-maintenance-path">IV.A. Object-Maintenance Path</h3>
 <p>The object-maintenance path processes open-vocabulary object observations into revisioned map entities. It is responsible for stable infrastructure retention, dynamic contamination rejection, and per-object provenance. It is the primary paper contribution.</p>
 <h3 id="ivb-dynamic-mask-frontend-path">IV.B. Dynamic-Mask Frontend Path</h3>
-<p>The dynamic-mask frontend path trains or applies a dynamic-region mask generator, post-processes the predicted mask, applies masked RGB inputs or feature-region analysis, and reports bounded raw-vs-masked evidence. This path currently supports a cautious story: learned masks can suppress ORB keypoints in predicted dynamic regions while keeping DROID-SLAM trajectory smoke neutral. It does not yet admit learned objects to the persistent map and does not unblock P195, which remains BLOCKED.</p>
+<p>The dynamic-mask frontend path trains or applies a dynamic-region mask generator, post-processes the predicted mask, applies masked RGB inputs or feature-region analysis, and reports bounded raw-vs-masked evidence. This path currently supports a cautious story: learned masks can suppress ORB keypoints in predicted dynamic regions, hard black gating has an observed boundary-feature failure mode, and a soft boundary/mean-fill feather candidate fixes that regression window in bounded smoke while DROID-SLAM trajectory deltas remain neutral. It does not yet admit learned objects to the persistent map and does not unblock P195, which remains BLOCKED.</p>
 <h3 id="ivc-evidence-separation">IV.C. Evidence Separation</h3>
 <p>The two paths should not be merged into one overclaim. Object-maintenance results evaluate map admission. Dynamic-mask results evaluate frontend masking behavior and bounded backend execution. A future system could connect them, but this draft keeps the evidence boundaries explicit.</p>
 <hr />
@@ -285,7 +285,7 @@
 <p>P225 packages a 60-frame learned-mask sequence from the Oct. 12, 2022 Aisle_CW run, source indices 480-539. The original P218 checkpoint was unavailable, so the sequence uses a bounded retrained SmallUNet from the P217 semantic masks. The artifact is trajectory-ready input only. It should not be described as a final model checkpoint recovery or a trajectory claim.</p>
 <h3 id="vic-p227-droid-baseline-reproduction">VI.C. P227 DROID Baseline Reproduction</h3>
 <p>P227 evaluates the P225 learned-mask package with DROID-SLAM [10]. The 60-frame raw/masked APE is 0.088504/0.084529, and raw/masked RPE is 0.076145/0.076226. ORB keypoints in the predicted dynamic region drop from 21030 to 18617. The status is neutral: the trajectory smoke reproduces, but the result is not an improvement claim.</p>
-<h3 id="vid-p228-confidencecoverage-gated-module">VI.D. P228 Confidence/Coverage-Gated Module</h3>
+<h3 id="vid-p228-p235-confidencecoverage-gate-and-soft-boundary-candidate">VI.D. P228-P235 Confidence/Coverage Gate and Soft-Boundary Candidate</h3>
 <p>P228 adds a small post-network gate:</p>
 <table>
 <thead>
@@ -321,7 +321,10 @@
 </tr>
 </tbody>
 </table>
-<p>The 60-frame raw/masked APE is 0.088496/0.084705, and raw/masked RPE is 0.076145/0.076224. ORB keypoints in the gated predicted region drop from 8969 to 5073. Compared with P227, P228 is trajectory-neutral and provides a lower ORB gated-region proxy. This is the current viable story seed for the dynamic-mask frontend.</p>
+<p>The original 480-539 60-frame raw/masked APE is 0.088496/0.084705, and raw/masked RPE is 0.076145/0.076224. ORB keypoints in the gated predicted region drop from 8969 to 5073. Compared with P227, P228 is trajectory-neutral and provides the original story seed for the dynamic-mask frontend.</p>
+<p>P233 extends the same hard black gate to two non-overlapping Aisle_CW windows. The result is mixed rather than supportive across windows: 120-179 remains neutral and reduces gated-region ORB keypoints from 5927 to 4820, while 840-899 is neutral in trajectory but reverses the ORB proxy from 601 to 1901. P234 sweeps threshold, coverage, component area, and dilation on the 840-899 failure window. No tested post-processing-only hard gate produces both an ORB proxy decrease and neutral DROID evidence; even the best proxy variant remains 127 -&gt; 1197. The diagnosis is that hard black mask boundaries can create ORB corners, so coverage/threshold tuning alone is not a stable fix.</p>
+<p>P235 tests a soft boundary/mean-fill feather frontend over the same probability maps. The selected candidate is <code>meanfill035_feather5_thr060_cap012_min256</code>: mean-fill with feather sigma 5, probability threshold 0.60, max/target coverage 0.12/0.10, and minimum component area 256 px. On the first regression window 840-899 it changes ORB predicted-region keypoints from 127 to 0 with total keypoint delta 0. Its DROID deltas remain neutral in bounded gates: 16-frame dAPE -0.000036 and dRPE +0.000007; 60-frame dAPE +0.000158 and dRPE -0.000003. Backtests are also ORB-positive and trajectory-neutral in 16-frame smoke: 480-539 changes 1382 -&gt; 188, and 120-179 changes 215 -&gt; 20.</p>
+<p>The correct interpretation is narrow: hard black confidence/coverage gating has a documented boundary-feature failure mode, and the P235 soft-boundary candidate fixes the observed regression window in bounded smoke. It is not yet a full dynamic-SLAM benchmark, navigation gain, independent-label validation, or learned map-admission result.</p>
 <hr />
 <h2 id="vii-experimental-protocol">VII. Experimental Protocol</h2>
 <h3 id="viia-object-maintenance-protocols">VII.A. Object-Maintenance Protocols</h3>
@@ -396,12 +399,17 @@
 </tr>
 <tr>
 <td>P225-P228</td>
-<td>60-frame Oct. 12, 2022 Aisle_CW learned-mask and gated-mask DROID smoke</td>
-<td>Bounded frontend story seed.</td>
+<td>60-frame Oct. 12, 2022 Aisle_CW learned-mask and hard confidence/coverage-gated DROID smoke</td>
+<td>Original bounded frontend story seed.</td>
+</tr>
+<tr>
+<td>P233-P235</td>
+<td>Multi-window hard-gate validation, failure sweep, and soft-boundary candidate</td>
+<td>Mixed hard-gate evidence plus bounded candidate fix; not a full benchmark.</td>
 </tr>
 </tbody>
 </table>
-<p>P225-P228 are included only as bounded frontend evidence, separate from the object-maintenance contribution.</p>
+<p>P225-P235 are included only as bounded frontend evidence, separate from the object-maintenance contribution.</p>
 <hr />
 <h2 id="viii-results">VIII. Results</h2>
 <h3 id="viiia-primary-aisle-evidence-ladder">VIII.A. Primary Aisle Evidence Ladder</h3>
@@ -563,7 +571,7 @@
 </tbody>
 </table>
 <p>The P155 B1 result is a useful warning: label purity and support alone cannot reject forklifts because forklifts can be consistently detected and supported. Static dominance and session evidence are necessary.</p>
-<h3 id="viiie-dynamic-mask-frontend-results-p217-p228">VIII.E. Dynamic-Mask Frontend Results (P217-P228)</h3>
+<h3 id="viiie-dynamic-mask-frontend-results-p217-p235">VIII.E. Dynamic-Mask Frontend Results (P217-P235)</h3>
 <table>
 <thead>
 <tr>
@@ -604,20 +612,35 @@
 <td>Neutral DROID baseline reproduction.</td>
 </tr>
 <tr>
-<td>P228 gated module</td>
+<td>P228 hard gated module</td>
 <td>APE 0.088496 -&gt; 0.084705; RPE 0.076145 -&gt; 0.076224; ORB gated-region 8969 -&gt; 5073; mean coverage 14.127053%</td>
-<td>Viable frontend story seed; lower gated-region ORB proxy, trajectory-neutral.</td>
+<td>Original story seed; lower gated-region ORB proxy, trajectory-neutral on 480-539.</td>
+</tr>
+<tr>
+<td>P233 multi-window hard gate</td>
+<td>120-179 ORB 5927 -&gt; 4820; 840-899 ORB 601 -&gt; 1901</td>
+<td>Mixed result; do not claim multi-window support for hard black gating.</td>
+</tr>
+<tr>
+<td>P234 hard-gate failure sweep</td>
+<td>840-899 best tested hard/post-processing variant still 127 -&gt; 1197</td>
+<td>No stable post-processing-only hard gate found; boundary keypoint creation is the failure diagnosis.</td>
+</tr>
+<tr>
+<td>P235 soft-boundary candidate</td>
+<td><code>meanfill035_feather5_thr060_cap012_min256</code>; 840-899 ORB 127 -&gt; 0, total delta 0; DROID 16f dAPE -0.000036/dRPE +0.000007; DROID 60f dAPE +0.000158/dRPE -0.000003; backtests 480-539 ORB 1382 -&gt; 188 and 120-179 ORB 215 -&gt; 20</td>
+<td>Candidate soft-boundary frontend fixes the regression window in bounded smoke; no full benchmark or navigation claim.</td>
 </tr>
 </tbody>
 </table>
-<p>The dynamic-mask result should be phrased as follows: P228 keeps a bounded DROID-SLAM trajectory smoke effectively neutral relative to P227 while reducing the ORB gated-region proxy.</p>
+<p>The dynamic-mask result should be phrased as follows: P228 provided the first viable hard-gated story seed, P233-P234 exposed a hard black boundary failure mode, and P235 provides a bounded soft-boundary candidate that removes the observed ORB regression while keeping DROID smoke neutral.</p>
 <hr />
 <h2 id="ix-failure-and-boundary-analysis">IX. Failure and Boundary Analysis</h2>
 <h3 id="ixa-why-earlier-dynamic-slam-runs-were-trajectory-neutral">IX.A. Why Earlier Dynamic-SLAM Runs Were Trajectory-Neutral</h3>
 <p>The P135-P143 diagnostic chain shows that available TorWIC forklift masks are too small in the tested Aisle windows to measurably affect DROID-SLAM trajectory accuracy. In the 64-frame chain, forklift coverage remains below 1.39% per frame, and all raw-vs-masked configurations remain below meaningful trajectory-effect thresholds. DROID-SLAM&rsquo;s internal flow-consistency filtering likely suppresses many small dynamic outliers already.</p>
 <p>This is a negative result, not a pipeline failure. It defines a boundary: trajectory-improvement claims require data where dynamic objects occupy a larger image fraction, plausibly above 5%, or an evaluation target other than short-window APE/RPE.</p>
-<h3 id="ixb-p225-p228-boundary">IX.B. P225-P228 Boundary</h3>
-<p>P225-P228 improve the frontend story but do not erase the boundary:</p>
+<h3 id="ixb-p225-p235-boundary">IX.B. P225-P235 Boundary</h3>
+<p>P225-P235 improve the frontend story but do not erase the boundary:</p>
 <table>
 <thead>
 <tr>
@@ -652,11 +675,11 @@
 </tr>
 <tr>
 <td>ORB predicted/gated-region suppression</td>
-<td>Supported as a proxy.</td>
+<td>Supported as a proxy, with a documented hard-boundary failure mode and a P235 candidate fix.</td>
 </tr>
 </tbody>
 </table>
-<p>The correct claim is a bounded frontend smoke: learned and gated masks can be generated for a fixed industrial sequence, evaluated through DROID-SLAM, and used to suppress ORB features in predicted dynamic regions.</p>
+<p>The correct claim is a bounded frontend smoke: learned, hard-gated, and soft-boundary masks can be generated for short industrial windows, evaluated through DROID-SLAM, and used to diagnose ORB feature behavior in predicted dynamic regions. The hard black gate should not be promoted as multi-window support; the P235 soft-boundary candidate should be treated as a candidate module pending more windows and independent labels.</p>
 <h3 id="ixc-object-maintenance-failure-modes">IX.C. Object-Maintenance Failure Modes</h3>
 <p>The object-maintenance layer is intentionally conservative. False negatives can occur when a stable object appears in only one session or too few frames. Label fragmentation can reject a real object if open-vocabulary labels are inconsistent. Spatial-IoU association may fail under strong viewpoint changes or object relocation. These are acceptable first-draft limitations because rejected candidates remain auditable and can be revisited when more evidence arrives.</p>
 <hr />
@@ -677,14 +700,14 @@
 <li><strong>Rule-based association can fail.</strong> Spatial-IoU and label matching are transparent but may be brittle under major viewpoint shifts, occlusion, and object relocation.</li>
 <li><strong>Open-vocabulary perception remains a dependency.</strong> Grounding DINO [7], SAM2 [8], and OpenCLIP [9] are black-box components whose errors propagate into observation records.</li>
 <li><strong>Dynamic-mask supervision is not independent GT.</strong> P217-P220 use semantic-mask-supervised dynamic labels; these support a frontend route but not independent dynamic segmentation validation.</li>
-<li><strong>P225-P228 are bounded smoke tests.</strong> The 60-frame Oct. 12, 2022 Aisle_CW evidence is a constrained frontend check, and its DROID trajectory metrics are neutral.</li>
+<li><strong>P225-P235 are bounded smoke tests.</strong> The Oct. 12, 2022 Aisle_CW evidence uses short constrained frontend checks. P233-P234 show that hard black gating can fail through boundary keypoint creation, while P235 is only a candidate soft-boundary fix.</li>
 <li><strong>P195 remains BLOCKED.</strong> The current work does not solve learned persistent-map admission.</li>
 <li><strong>Venue formatting is deferred.</strong> Reference punctuation, repository placement, and final citation style should be finalized after target venue selection.</li>
 </ol>
 <hr />
 <h2 id="xii-conclusion">XII. Conclusion</h2>
 <p>This manuscript presents a thick, paper-shaped account of dynamic industrial semantic-segmentation-assisted SLAM centered on object-centric map maintenance. The primary contribution is a session-level admission-control layer that turns open-vocabulary RGB-D observations into auditable map-object decisions. On TorWIC, the evidence ladder retains stable infrastructure across same-day, cross-day, cross-month, and Hallway protocols while consistently rejecting forklift-like dynamic contamination.</p>
-<p>The manuscript also integrates the newer P217-P228 dynamic-mask frontend evidence. Compact learned masks, a 60-frame learned-mask package, DROID-SLAM raw-vs-masked reproduction, and the P228 confidence/coverage gate provide a bounded story seed: ORB counts decrease inside predicted and gated dynamic regions while trajectory smoke remains neutral. This strengthens the paper as a dynamic-scene SLAM manuscript without crossing the evidence boundary into unsupported broad-evaluation, navigation, independent-GT, or learned map-admission claims.</p>
+<p>The manuscript also integrates the newer P217-P235 dynamic-mask frontend evidence. Compact learned masks, a 60-frame learned-mask package, DROID-SLAM raw-vs-masked reproduction, the P228 confidence/coverage gate, the P233-P234 hard-boundary failure diagnosis, and the P235 soft-boundary candidate provide a bounded frontend story: hard black gating can reduce ORB counts on the original window but can also create boundary keypoints on a regression window, while mean-fill feathering removes that observed regression in bounded smoke. This strengthens the paper as a dynamic-scene SLAM manuscript without crossing the evidence boundary into unsupported broad-evaluation, navigation, independent-GT, or learned map-admission claims.</p>
 <p>The resulting claim is conservative but useful: semantic map maintenance should be an explicit, auditable layer between perception and long-term maps, and dynamic-mask frontends can be evaluated as bounded supporting modules until stronger independent labels and larger dynamic-scene evidence are available.</p>
 <hr />
 <h2 id="references">References</h2>
@@ -705,8 +728,8 @@
 <p><strong>Table 2. Admission criteria.</strong> Multi-session presence, minimum support, label consistency, static dominance, and minimum frames.</p>
 <p><strong>Table 3. Rejection taxonomy.</strong> dynamic_contamination 16, single_session_or_low_session_support 13, label_fragmentation 3, low_support 2.</p>
 <p><strong>Table 4. Admission-defense summary.</strong> P154 ablation, P155 baseline comparison, P156 visualization, and P157 per-category retention/rejection.</p>
-<p><strong>Table 5. Dynamic-mask frontend evidence.</strong> P217-P228 dataset, compact model, ORB proxy, learned-mask sequence, DROID baseline, and confidence/coverage gate.</p>
-<p><strong>Table 6. P225-P228 bounded DROID smoke.</strong> P227 learned-mask baseline and P228 confidence/coverage-gated module. Report as neutral trajectory evidence with ORB predicted/gated-region suppression.</p>
+<p><strong>Table 5. Dynamic-mask frontend evidence.</strong> P217-P235 dataset, compact model, ORB proxy, learned-mask sequence, DROID baseline, hard confidence/coverage gate, multi-window failure evidence, and soft-boundary candidate.</p>
+<p><strong>Table 6. P225-P235 bounded DROID smoke.</strong> P227 learned-mask baseline, P228 confidence/coverage-gated module, P233-P234 hard-gate failure evidence, and P235 soft-boundary candidate. Report as neutral trajectory evidence with ORB proxy diagnostics, not a navigation or full-benchmark claim.</p>
 <h2 id="figure-captions">Figure Captions</h2>
 <p><strong>Fig. 1.</strong> Semantic-segmentation-assisted SLAM maintenance pipeline. [File: <code>paper/figures/torwic_paper_result_overview.png</code>]</p>
 <p><strong>Fig. 2.</strong> Primary Aisle evidence ladder: same-day (203/11/5), cross-day (240/10/5), cross-month (297/14/7). [File: <code>paper/figures/torwic_real_session_overlays.png</code>]</p>
@@ -731,6 +754,10 @@
 <li>P227 baseline reproduction: <code>paper/export/p225_baseline_reproduction_p227.md</code>.</li>
 <li>P228 module: <code>paper/export/confidence_gated_mask_module_p228.md</code>.</li>
 <li>P228 story table: <code>paper/export/p228_paper_story_results.md</code>.</li>
+<li>P233 multi-window hard-gate validation: <code>paper/export/gated_mask_multi_window_p233.md</code>.</li>
+<li>P234 hard-gate failure sweep: <code>paper/export/gated_mask_failure_sweep_p234.md</code>.</li>
+<li>P235 soft-boundary candidate: <code>paper/export/soft_boundary_mask_p235.md</code>.</li>
+<li>P236 integration lock: <code>paper/export/thick_results_lock_p236.md</code>.</li>
 <li>Current reorganization summary: <code>paper/export/thick_manuscript_reorganization_p229.md</code>.</li>
 </ul>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>

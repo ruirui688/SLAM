@@ -1,0 +1,161 @@
+{
+  "artifact": "P236 thick manuscript results lock",
+  "created": "2026-05-13T11:13:04+08:00",
+  "status": "locked_for_thick_manuscript_only",
+  "supersedes_for_current_thick_manuscript": "paper/evidence/thick_results_lock_p231.json",
+  "active_manuscripts": [
+    "paper/manuscript_en_thick.md",
+    "paper/manuscript_zh_thick.md"
+  ],
+  "inactive_manuscripts": [
+    "paper/manuscript_en.md",
+    "paper/manuscript_zh.md"
+  ],
+  "claim_boundary": "P217-P235 support a bounded dynamic-mask frontend smoke/story-seed and failure-diagnosis line only. P228 is the original hard-gated 480-539 story seed, P233-P234 show mixed hard-gate behavior and a hard black boundary failure mode, and P235 is a candidate soft-boundary/mean-fill feather frontend that fixes the observed 840-899 ORB regression in bounded smoke. Do not claim a full benchmark, navigation result, independent dynamic-label result, or learned persistent-map admission result. P195 remains BLOCKED.",
+  "locked_results": {
+    "p231_prior_dynamic_mask_lock": {
+      "source": "paper/evidence/thick_results_lock_p231.json",
+      "status": "retained as historical lock for P217-P228 numbers"
+    },
+    "p233_gated_mask_multi_window": {
+      "status": "mixed_or_neutral",
+      "module_parameters": {
+        "probability_threshold": 0.5,
+        "dilation_px": 1,
+        "min_component_area_px": 128,
+        "max_coverage": 0.22,
+        "target_coverage": 0.18
+      },
+      "windows": {
+        "aisle_cw_0120_0179": {
+          "mean_gated_coverage_percent": 18.497106,
+          "raw_gated_ape_rmse_m": [
+            0.021072,
+            0.020831
+          ],
+          "raw_gated_rpe_rmse_m": [
+            0.102477,
+            0.102523
+          ],
+          "orb_region_keypoints": [
+            5927,
+            4820
+          ],
+          "interpretation": "neutral trajectory smoke and ORB proxy decrease"
+        },
+        "aisle_cw_0840_0899": {
+          "mean_gated_coverage_percent": 18.0,
+          "raw_gated_ape_rmse_m": [
+            0.027162,
+            0.027473
+          ],
+          "raw_gated_rpe_rmse_m": [
+            0.101863,
+            0.101896
+          ],
+          "orb_region_keypoints": [
+            601,
+            1901
+          ],
+          "interpretation": "trajectory-neutral but ORB proxy reversal; do not claim multi-window hard-gate support"
+        }
+      },
+      "source": "paper/evidence/gated_mask_multi_window_p233.json"
+    },
+    "p234_gated_mask_failure_sweep": {
+      "status": "no_stable_parameter_found",
+      "window": "aisle_cw_0840_0899",
+      "default_failure_orb_region_keypoints": [
+        601,
+        1901
+      ],
+      "best_proxy_variant": "thr060_cap012_min256_dil0",
+      "best_proxy_orb_region_keypoints": [
+        127,
+        1197
+      ],
+      "best_proxy_droid_16f_delta_masked_minus_raw": {
+        "ape_rmse_m": -0.000057,
+        "rpe_rmse_m": -0.000033
+      },
+      "diagnosis": "scene_low_raw_region_keypoints_and_mask_edge_keypoint_creation; hard black boundaries create ORB corners, and post-processing-only confidence/coverage tuning is not enough",
+      "source": "paper/evidence/gated_mask_failure_sweep_p234.json"
+    },
+    "p235_soft_boundary_candidate": {
+      "status": "candidate_soft_boundary_v1",
+      "selected_variant": "meanfill035_feather5_thr060_cap012_min256",
+      "method": "mean_color_feather",
+      "parameters": {
+        "probability_threshold": 0.6,
+        "max_coverage": 0.12,
+        "target_coverage": 0.1,
+        "min_component_area_px": 256,
+        "feather_sigma": 5,
+        "mean_fill_alpha": 0.35
+      },
+      "regression_window_aisle_cw_0840_0899": {
+        "mean_coverage_percent": 10.0,
+        "mean_soft_alpha_percent": 4.038715,
+        "orb_region_keypoints": [
+          127,
+          0
+        ],
+        "total_keypoint_delta": 0,
+        "droid_16f_delta_masked_minus_raw": {
+          "ape_rmse_m": -0.000036,
+          "rpe_rmse_m": 0.000007
+        },
+        "droid_60f_delta_masked_minus_raw": {
+          "ape_rmse_m": 0.000158,
+          "rpe_rmse_m": -0.000003
+        }
+      },
+      "backtests": {
+        "aisle_cw_0480_0539": {
+          "mean_coverage_percent": 5.469591,
+          "mean_soft_alpha_percent": 2.193039,
+          "orb_region_keypoints": [
+            1382,
+            188
+          ],
+          "total_keypoint_delta": 0,
+          "droid_16f_delta_masked_minus_raw": {
+            "ape_rmse_m": -0.000039,
+            "rpe_rmse_m": -0.00002
+          }
+        },
+        "aisle_cw_0120_0179": {
+          "mean_coverage_percent": 9.843802,
+          "mean_soft_alpha_percent": 3.991233,
+          "orb_region_keypoints": [
+            215,
+            20
+          ],
+          "total_keypoint_delta": 0,
+          "droid_16f_delta_masked_minus_raw": {
+            "ape_rmse_m": -0.000009,
+            "rpe_rmse_m": 0.000006
+          }
+        }
+      },
+      "source": "paper/evidence/soft_boundary_mask_p235.json"
+    }
+  },
+  "source_hashes_sha256": {
+    "paper/evidence/thick_results_lock_p231.json": "2e564f95f1ad9a517aa129feb0ad84d0a531f7af44e5e57328f73afded48b889",
+    "paper/evidence/gated_mask_multi_window_p233.json": "517c46f1b0c347a08e70e8925cfcded14a06d52b397f876f6d6d00bb5d7eaa1a",
+    "paper/evidence/gated_mask_failure_sweep_p234.json": "a78095ce148d866ebff17656c62b5ebf8875591a0abf90e182118c01ebe0f878",
+    "paper/evidence/soft_boundary_mask_p235.json": "c43ba6fe3e450d269b036957f6d536968cca55db3e6285149e946864cd1a8a6b"
+  },
+  "manuscript_consistency": {
+    "english_thick_includes_p233_p234_p235": true,
+    "chinese_thick_includes_p233_p234_p235": true,
+    "brief_manuscripts_edited": false
+  },
+  "residual_risks": [
+    "P235 is only a candidate frontend module based on short bounded windows.",
+    "No independent dynamic segmentation labels are introduced.",
+    "No navigation, full-benchmark, or learned map-admission claim is unlocked.",
+    "P195 remains BLOCKED."
+  ]
+}
