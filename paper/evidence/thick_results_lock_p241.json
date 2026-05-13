@@ -1,0 +1,254 @@
+{
+  "active_manuscripts": [
+    "paper/manuscript_en_thick.md",
+    "paper/manuscript_zh_thick.md"
+  ],
+  "artifact": "P241 thick manuscript results lock",
+  "claim_boundary": "P217-P240 support a bounded dynamic-mask frontend smoke/diagnostic and failure-diagnosis line only. P240 adds mixed self-supervised consistency evidence for the selected P235/P237 soft-boundary candidate: 3/5 windows pass all support flags, while 840-899 and 120-179 do not meet the motion/frame-difference enrichment threshold. P239 prepared an independent-label packet but collected no labels. Do not claim a full benchmark, navigation result, independent dynamic-label validation, or learned persistent-map admission result. P195 remains BLOCKED.",
+  "created": "2026-05-13T13:48:47+08:00",
+  "inactive_manuscripts": [
+    "paper/manuscript_en.md",
+    "paper/manuscript_zh.md"
+  ],
+  "locked_results": {
+    "p238_prior_soft_boundary_lock": {
+      "source": "paper/evidence/thick_results_lock_p238.json",
+      "status": "retained as historical lock for P217-P237/P238 integration"
+    },
+    "p239_independent_label_packet": {
+      "claim_boundary": "P239 prepares an independent dynamic-label review packet only. It does not collect labels, infer labels, validate the soft-boundary module, or unblock P195.",
+      "p195_status_after_p239": "BLOCKED",
+      "packet_summary": {
+        "admission_labels_included": false,
+        "by_sequence_family": {
+          "different_sequence_coverage": 6,
+          "p233_p234_failure_repair_window": 6,
+          "soft_boundary_success_window": 6
+        },
+        "by_window": {
+          "aisle_ccw_0240_0299": 6,
+          "aisle_cw_0240_0299": 6,
+          "aisle_cw_0840_0899": 6
+        },
+        "label_field_policy": "blank until filled by a human or external independent reviewer",
+        "label_fields": [
+          "dynamic_region_present",
+          "boundary_quality",
+          "false_positive_region",
+          "false_negative_region",
+          "independent_label_confidence",
+          "reviewer_id",
+          "reviewed_at_utc",
+          "reviewer_notes"
+        ],
+        "model_context_exported": true,
+        "model_predictions_used_as_ground_truth": false,
+        "total_rows": 18
+      },
+      "source": "paper/evidence/independent_dynamic_label_packet_p239.json",
+      "status": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    "p240_soft_boundary_consistency": {
+      "claim_boundary": "Self-supervised evidence only: not independent human-label validation and does not unblock P195. No full benchmark, navigation, learned-admission, or manuscript-body claim.",
+      "decision": "The selected P235/P237 soft-boundary candidate is mixed in self-supervised checks: 3/5 representative windows pass all support flags. Treat this as diagnostic support only and inspect the failing flags before manuscript integration. P234 hard-mask contrasts on 840-899 show region ORB deltas [1070, 1300] and boundary-band ORB deltas [2912, 5377], preserving the hard-edge failure contrast.",
+      "hard_mask_contrasts": {
+        "p234_hard_best_aisle_cw_0840_0899": {
+          "boundary_band_orb_delta": 2912,
+          "orb_boundary_band_keypoints": [
+            400,
+            3312
+          ],
+          "orb_region_keypoints": [
+            127,
+            1197
+          ],
+          "region_orb_delta": 1070,
+          "variant_id": "thr060_cap012_min256_dil0",
+          "window_id": "aisle_cw_0840_0899"
+        },
+        "p234_hard_default_aisle_cw_0840_0899": {
+          "boundary_band_orb_delta": 5377,
+          "orb_boundary_band_keypoints": [
+            1067,
+            6444
+          ],
+          "orb_region_keypoints": [
+            601,
+            1901
+          ],
+          "region_orb_delta": 1300,
+          "variant_id": "p233_default",
+          "window_id": "aisle_cw_0840_0899"
+        }
+      },
+      "mixed_windows": [
+        "aisle_cw_0840_0899",
+        "aisle_cw_0120_0179"
+      ],
+      "passing_windows": [
+        "aisle_cw_0240_0299",
+        "aisle_ccw_0240_0299",
+        "aisle_cw_0480_0539"
+      ],
+      "selected_variant": "meanfill035_feather5_thr060_cap012_min256",
+      "source": "paper/evidence/soft_boundary_consistency_p240.json",
+      "status": "mixed_self_supervised_support",
+      "summary_counts": {
+        "all_flags_required": true,
+        "hard_mask_contrast_count": 2,
+        "self_supervised_support_count": 3,
+        "window_count": 5
+      },
+      "support_rule": {
+        "boundary_band_orb_not_inflated": "masked-minus-raw ORB keypoint delta in boundary band <= max(30, 5% of raw boundary-band keypoints)",
+        "motion_or_difference_enriched": "mean flow or frame-difference high-cue enrichment >= 1.10",
+        "region_orb_not_inflated": "masked-minus-raw ORB keypoint delta inside predicted region <= 0",
+        "temporal_coherent": "mean adjacent binary mask IoU >= 0.35 or mean adjacent probability soft IoU >= 0.55"
+      },
+      "windows": {
+        "aisle_ccw_0240_0299": {
+          "adjacent_binary_mask_iou_mean": 0.705265,
+          "adjacent_probability_soft_iou_mean": 0.956086,
+          "flow_high_cue_enrichment_mean": 1.346265,
+          "frame_count": 60,
+          "frame_difference_high_cue_enrichment_mean": 0.47417,
+          "orb_boundary_band_keypoints": [
+            227,
+            127
+          ],
+          "orb_region_keypoints": [
+            81,
+            4
+          ],
+          "source_phase": "P237",
+          "support_flags": {
+            "boundary_band_orb_not_inflated": true,
+            "motion_or_difference_enriched": true,
+            "region_orb_not_inflated": true,
+            "temporal_coherent": true
+          },
+          "total_keypoint_delta": 0,
+          "window_support": true
+        },
+        "aisle_cw_0120_0179": {
+          "adjacent_binary_mask_iou_mean": 0.720222,
+          "adjacent_probability_soft_iou_mean": 0.961012,
+          "flow_high_cue_enrichment_mean": 0.39297,
+          "frame_count": 60,
+          "frame_difference_high_cue_enrichment_mean": 0.579201,
+          "orb_boundary_band_keypoints": [
+            1360,
+            773
+          ],
+          "orb_region_keypoints": [
+            215,
+            20
+          ],
+          "source_phase": "P235",
+          "support_flags": {
+            "boundary_band_orb_not_inflated": true,
+            "motion_or_difference_enriched": false,
+            "region_orb_not_inflated": true,
+            "temporal_coherent": true
+          },
+          "total_keypoint_delta": 0,
+          "window_support": false
+        },
+        "aisle_cw_0240_0299": {
+          "adjacent_binary_mask_iou_mean": 0.738492,
+          "adjacent_probability_soft_iou_mean": 0.960717,
+          "flow_high_cue_enrichment_mean": 1.573666,
+          "frame_count": 60,
+          "frame_difference_high_cue_enrichment_mean": 0.461459,
+          "orb_boundary_band_keypoints": [
+            837,
+            497
+          ],
+          "orb_region_keypoints": [
+            218,
+            41
+          ],
+          "source_phase": "P237",
+          "support_flags": {
+            "boundary_band_orb_not_inflated": true,
+            "motion_or_difference_enriched": true,
+            "region_orb_not_inflated": true,
+            "temporal_coherent": true
+          },
+          "total_keypoint_delta": 0,
+          "window_support": true
+        },
+        "aisle_cw_0480_0539": {
+          "adjacent_binary_mask_iou_mean": 0.384953,
+          "adjacent_probability_soft_iou_mean": 0.929166,
+          "flow_high_cue_enrichment_mean": 1.798912,
+          "frame_count": 60,
+          "frame_difference_high_cue_enrichment_mean": 1.802056,
+          "orb_boundary_band_keypoints": [
+            2226,
+            1157
+          ],
+          "orb_region_keypoints": [
+            1382,
+            188
+          ],
+          "source_phase": "P235",
+          "support_flags": {
+            "boundary_band_orb_not_inflated": true,
+            "motion_or_difference_enriched": true,
+            "region_orb_not_inflated": true,
+            "temporal_coherent": true
+          },
+          "total_keypoint_delta": 0,
+          "window_support": true
+        },
+        "aisle_cw_0840_0899": {
+          "adjacent_binary_mask_iou_mean": 0.785045,
+          "adjacent_probability_soft_iou_mean": 0.966183,
+          "flow_high_cue_enrichment_mean": 0.339494,
+          "frame_count": 60,
+          "frame_difference_high_cue_enrichment_mean": 0.256825,
+          "orb_boundary_band_keypoints": [
+            400,
+            169
+          ],
+          "orb_region_keypoints": [
+            127,
+            0
+          ],
+          "source_phase": "P235",
+          "support_flags": {
+            "boundary_band_orb_not_inflated": true,
+            "motion_or_difference_enriched": false,
+            "region_orb_not_inflated": true,
+            "temporal_coherent": true
+          },
+          "total_keypoint_delta": 0,
+          "window_support": false
+        }
+      }
+    }
+  },
+  "manuscript_consistency": {
+    "brief_manuscripts_edited": false,
+    "chinese_thick_includes_p240": true,
+    "english_thick_includes_p240": true,
+    "p240_integrated_as_mixed_diagnostic_support": true
+  },
+  "residual_risks": [
+    "P240 is self-supervised diagnostic evidence only, not independent human-label validation.",
+    "Only 3/5 representative soft-boundary windows pass all P240 support flags.",
+    "The 840-899 and 120-179 windows do not meet the motion/frame-difference enrichment threshold.",
+    "P239 has no collected labels and does not unblock P195.",
+    "No navigation, full-benchmark, or learned map-admission claim is unlocked.",
+    "P195 remains BLOCKED."
+  ],
+  "source_hashes_sha256": {
+    "paper/evidence/independent_dynamic_label_packet_p239.json": "2e2fce44c010e79e784e70401c48cf185fe6be28e804541a5a561986716a1a51",
+    "paper/evidence/soft_boundary_consistency_p240.json": "09df09bd9aaf383decdcd9df517ee6dc5fbfa910fdb9440b35abb67063c8b56e",
+    "paper/evidence/thick_results_lock_p238.json": "88ab4c4c47c032b98e49fd68b6106440bc412f263a6eef79818267dab5012f72",
+    "paper/export/soft_boundary_consistency_p240.md": "df7ac85487f374a71b46018460cfcd4b414d3a5e66c09c852d914073c10f584e"
+  },
+  "status": "locked_for_thick_manuscript_only",
+  "supersedes_for_current_thick_manuscript": "paper/evidence/thick_results_lock_p238.json"
+}

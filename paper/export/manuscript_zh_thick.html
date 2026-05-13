@@ -40,7 +40,7 @@
 <h2 id="_2">摘要</h2>
 <p>工业环境中的长期视觉 SLAM 面临两个相关但不同的动态场景问题。第一，语义地图可能被真实存在、反复检测、但不应进入静态持久地图的物体污染，例如叉车和临时车辆。第二，动态区域中的视觉特征可能影响前端或后端轨迹估计。本文将第一类问题作为主贡献，将第二类问题作为有界前端 smoke 证据。我们提出<strong>会话级地图准入控制</strong>：在开放词汇 RGB-D 感知与持久语义地图之间加入对象维护层，将分割输出整理为 observation、tracklet、map-object 和 revision 记录，再用多会话出现、观测支持、标签一致性、静态占优和帧覆盖等可审计准则决定准入或拒绝。</p>
 <p>在 POV-SLAM/TorWIC 工业数据集 [6] 上，对象维护证据链在 Same-day Aisle（203 个观测 / 11 个簇 / 5 个保留）、Cross-day Aisle（240/10/5）、Cross-month Aisle（297/14/7）和独立 Hallway 迁移分支（537/16/9）中稳定保留基础设施对象，并一致拒绝叉车类动态污染。叉车类拒绝占比为 50.0%-71.4%。</p>
-<p>本文同时整合后续动态掩码前端证据。P217 数据集包含 237 行，156/51/30 划分，零帧重叠，正像素率 0.374176。P218 compact UNet 的验证 IoU/F1 为 0.671304/0.803329，测试 IoU/F1 为 0.578580/0.733038。P219 held-out precision/recall/F1/IoU 为 0.556007/0.789669/0.604636/0.443210。P220 中 GT 动态区域 ORB 关键点从 4795 降到 2192，减少 54.2857%。P225-P228 构建 60 帧 Oct. 12, 2022 Aisle_CW raw-vs-masked 序列和 confidence/coverage-gated hard black mask module。P228 在原始 480-539 窗口上保持中性：raw/masked APE 0.088496/0.084705，RPE 0.076145/0.076224，ORB gated-region 关键点 8969 -&gt; 5073。但 P233-P234 说明 hard-boundary gate 的跨窗口结果是 mixed：120-179 为 5927 -&gt; 4820，而 840-899 反向变成 601 -&gt; 1901；failure sweep 没有找到稳定的 post-processing-only 设置，最佳仍为 127 -&gt; 1197。P235 因此测试 soft boundary/mean-fill feather candidate <code>meanfill035_feather5_thr060_cap012_min256</code>，在有界 smoke 中修复 840-899 回归窗口：ORB 127 -&gt; 0，总关键点 delta 为 0；DROID 16f dAPE -0.000036/dRPE +0.000007，60f dAPE +0.000158/dRPE -0.000003；回测 480-539 为 1382 -&gt; 188，120-179 为 215 -&gt; 20。P237 将该候选扩展到四个额外短窗口，其中包含一个 nearby Aisle_CCW 序列：Aisle_CW 240-299 为 218 -&gt; 41，Aisle_CW 660-719 为 41 -&gt; 0，Aisle_CW 960-1019 为 27 -&gt; 0，Aisle_CCW 240-299 为 81 -&gt; 4；四个窗口 total keypoint delta 均为 0，DROID 16f gate 均中性，代表性 Aisle_CW 240-299 的 60f gate 也中性。这些结果只支持扩展的有界前端模块证据和失败诊断，不支持 full benchmark、navigation、independent-label 或 learned map-admission 结论。P195 仍为 BLOCKED。</p>
+<p>本文同时整合后续动态掩码前端证据。P217 数据集包含 237 行，156/51/30 划分，零帧重叠，正像素率 0.374176。P218 compact UNet 的验证 IoU/F1 为 0.671304/0.803329，测试 IoU/F1 为 0.578580/0.733038。P219 held-out precision/recall/F1/IoU 为 0.556007/0.789669/0.604636/0.443210。P220 中 GT 动态区域 ORB 关键点从 4795 降到 2192，减少 54.2857%。P225-P228 构建 60 帧 Oct. 12, 2022 Aisle_CW raw-vs-masked 序列和 confidence/coverage-gated hard black mask module。P228 在原始 480-539 窗口上保持中性：raw/masked APE 0.088496/0.084705，RPE 0.076145/0.076224，ORB gated-region 关键点 8969 -&gt; 5073。但 P233-P234 说明 hard-boundary gate 的跨窗口结果是 mixed：120-179 为 5927 -&gt; 4820，而 840-899 反向变成 601 -&gt; 1901；failure sweep 没有找到稳定的 post-processing-only 设置，最佳仍为 127 -&gt; 1197。P235 因此测试 soft boundary/mean-fill feather candidate <code>meanfill035_feather5_thr060_cap012_min256</code>，在有界 smoke 中修复 840-899 回归窗口：ORB 127 -&gt; 0，总关键点 delta 为 0；DROID 16f dAPE -0.000036/dRPE +0.000007，60f dAPE +0.000158/dRPE -0.000003；回测 480-539 为 1382 -&gt; 188，120-179 为 215 -&gt; 20。P237 将该候选扩展到四个额外短窗口，其中包含一个 nearby Aisle_CCW 序列：Aisle_CW 240-299 为 218 -&gt; 41，Aisle_CW 660-719 为 41 -&gt; 0，Aisle_CW 960-1019 为 27 -&gt; 0，Aisle_CCW 240-299 为 81 -&gt; 4；四个窗口 total keypoint delta 均为 0，DROID 16f gate 均中性，代表性 Aisle_CW 240-299 的 60f gate 也中性。P240 在五个 60 帧窗口上加入 self-supervised consistency diagnostics，状态为 <code>mixed_self_supervised_support</code>：3/5 窗口通过全部 support flags，而 840-899 和 120-179 虽有 temporal coherence 和 ORB-safe 证据，但未达到 motion/frame-difference enrichment 阈值；P234 hard-mask 对照仍支持 hard-edge failure diagnosis，region ORB deltas 为 [1070, 1300]，boundary-band ORB deltas 为 [2912, 5377]。这些结果只支持有界前端模块证据和失败诊断，不支持 full benchmark、navigation、independent-label 或 learned map-admission 结论。P239 只准备了 independent-label packet，尚未收集标签；P195 仍为 BLOCKED。</p>
 <h2 id="_3">关键词</h2>
 <p>SLAM；语义分割；动态物体过滤；对象级地图；地图维护；工业机器人；开放词汇感知；动态掩码；长期自主</p>
 <hr />
@@ -53,7 +53,7 @@
 <p>本文厚稿按两条证据线组织：</p>
 <ol>
 <li><strong>主贡献：面向对象地图维护。</strong> 定义 observation、tracklet、map-object 和 revision 记录，使用可解释 trust score 和布尔准入准则，保留稳定基础设施并拒绝动态污染。</li>
-<li><strong>辅助证据：有界动态掩码前端。</strong> 整合 P217-P237 的数据集、compact UNet、ORB proxy、60 帧 DROID raw-vs-masked smoke、P228 hard gate、P233-P234 失败诊断和 P235-P237 soft-boundary candidate。该线只支持前端模块故事，不支持完整动态 SLAM 或导航效果声明。</li>
+<li><strong>辅助证据：有界动态掩码前端。</strong> 整合 P217-P240 的数据集、compact UNet、ORB proxy、60 帧 DROID raw-vs-masked smoke、P228 hard gate、P233-P234 失败诊断、P235-P237 soft-boundary candidate 和 P240 mixed self-supervised diagnostics。该线只支持前端模块故事，不支持完整动态 SLAM、导航效果或 independent-label 声明。</li>
 </ol>
 <p>本文不声称解决完整 lifelong SLAM、稠密动态重建、独立动态分割真值、下游导航效果或 learned persistent-map admission。</p>
 <hr />
@@ -103,7 +103,7 @@
 <h3 id="a_1">四.A. 对象维护路径</h3>
 <p>对象维护路径将开放词汇对象观测转换为 revisioned map objects，负责稳定基础设施保留、动态污染拒绝和逐对象 provenance。该路径是本文主贡献。</p>
 <h3 id="b_1">四.B. 动态掩码前端路径</h3>
-<p>动态掩码路径训练或应用动态区域 mask，进行后处理、masked RGB 输入或特征区域分析，并报告有界 raw-vs-masked 证据。当前结论是：learned mask 可以抑制预测动态区域中的 ORB 特征，hard black gate 存在边界特征失败模式，而 soft boundary/mean-fill feather candidate 在有界 smoke 中修复了该回归窗口，并扩展到四个额外短窗口，同时 DROID-SLAM 轨迹 delta 在有界 gate 中保持中性。</p>
+<p>动态掩码路径训练或应用动态区域 mask，进行后处理、masked RGB 输入或特征区域分析，并报告有界 raw-vs-masked 证据。当前结论是：learned mask 可以抑制预测动态区域中的 ORB 特征，hard black gate 存在边界特征失败模式，而 soft boundary/mean-fill feather candidate 在有界 smoke 中修复了该回归窗口，并扩展到四个额外短窗口，同时 DROID-SLAM 轨迹 delta 在有界 gate 中保持中性。P240 增加 mixed self-supervised consistency 证据，但这不是 independent labels。</p>
 <h3 id="c_2">四.C. 证据边界</h3>
 <p>对象维护评估的是地图准入；动态掩码评估的是前端遮挡行为和 bounded backend execution。两条线不能合并成 learned persistent-map admission 结论。</p>
 <hr />
@@ -215,7 +215,7 @@
 <p>P225 构建 Oct. 12, 2022 Aisle_CW source indices 480-539 的 60 帧 raw-vs-learned-mask 序列。由于 P218 checkpoint 不可用，P225 使用从 P217 semantic masks 有界重训的 SmallUNet。该包是 trajectory-ready input only，不是轨迹结论。</p>
 <h3 id="c-p227-droid-baseline">六.C. P227 DROID Baseline</h3>
 <p>P227 在 P225 序列上复现 DROID-SLAM [10] raw-vs-masked baseline：60 帧 APE 0.088504/0.084529，RPE 0.076145/0.076226；ORB predicted-region 关键点 21030 -&gt; 18617。状态为中性，不是改进声明。</p>
-<h3 id="d-p228-p237-confidencecoverage-gate-soft-boundary-candidate">六.D. P228-P237 Confidence/Coverage Gate 与 Soft-Boundary Candidate</h3>
+<h3 id="d-p228-p240-confidencecoverage-gatesoft-boundary-candidate-consistency-diagnostics">六.D. P228-P240 Confidence/Coverage Gate、Soft-Boundary Candidate 与 Consistency Diagnostics</h3>
 <table>
 <thead>
 <tr>
@@ -250,7 +250,8 @@
 <p>P233 将同一 hard black gate 扩展到两个不重叠的 Aisle_CW 窗口，结果是 mixed：120-179 轨迹中性且 ORB gated-region 关键点 5927 -&gt; 4820，但 840-899 虽轨迹近中性，ORB proxy 却从 601 反向增到 1901。P234 在 840-899 failure window 上扫描 threshold、coverage、component area 和 dilation，没有任何 post-processing-only hard gate 同时满足 ORB proxy 下降和 DROID 中性；最佳 proxy variant 仍为 127 -&gt; 1197。诊断是 hard black mask 边界会制造 ORB corners，coverage/threshold 调参本身不是稳定修复。</p>
 <p>P235 在同一概率图上测试 soft boundary/mean-fill feather frontend。选定候选为 <code>meanfill035_feather5_thr060_cap012_min256</code>：mean-fill、feather sigma 5、probability threshold 0.60、max/target coverage 0.12/0.10、minimum component area 256 px。在第一个回归窗口 840-899 上，该候选将 ORB predicted-region 关键点从 127 降到 0，总关键点 delta 为 0。DROID delta 在有界 gate 中保持中性：16-frame dAPE -0.000036、dRPE +0.000007；60-frame dAPE +0.000158、dRPE -0.000003。回测同样是 ORB-positive 且 16-frame trajectory-neutral：480-539 为 1382 -&gt; 188，120-179 为 215 -&gt; 20。</p>
 <p>P237 在不重训、且不使用目标窗口标签的前提下，将同一候选扩展到四个额外短窗口。三个窗口来自 Oct. 12, 2022 Aisle_CW 且不与 120-179、480-539、840-899 重叠，另一个来自 nearby Oct. 12, 2022 Aisle_CCW。候选在四个窗口均降低 ORB predicted-region keypoints：Aisle_CW 240-299 为 218 -&gt; 41，Aisle_CW 660-719 为 41 -&gt; 0，Aisle_CW 960-1019 为 27 -&gt; 0，Aisle_CCW 240-299 为 81 -&gt; 4。四个窗口 total ORB keypoint delta 均为 0。四个 16-frame DROID gates 均为 neutral，代表性 Aisle_CW 240-299 的 60-frame gate 也为 neutral（dAPE +0.000201，dRPE +0.000003）。</p>
-<p>正确解释应保持很窄：hard black confidence/coverage gating 有已记录的 boundary-feature failure mode，P235/P237 soft-boundary candidate 在多个短窗口上获得 expanded bounded support。它不是 full dynamic-SLAM benchmark、navigation gain、independent-label validation 或 learned map-admission result。</p>
+<p>P239 随后准备 independent dynamic-label mini packet 供后续人工审阅，但没有收集标签，也没有验证候选。P240 对同一候选在五个 60 帧窗口上做 self-supervised consistency diagnostics：840-899、Aisle_CW 240-299、Aisle_CCW 240-299、480-539 和 120-179。结果状态是 <code>mixed_self_supervised_support</code>。其中三个窗口通过全部 support flags：<code>aisle_cw_0240_0299</code>、<code>aisle_ccw_0240_0299</code> 和 <code>aisle_cw_0480_0539</code>。840-899 和 120-179 保持 temporal coherence，并且 soft region 和 boundary band 内没有 ORB inflation，但没有达到 motion/frame-difference enrichment 阈值。hard-mask 对照仍支持 P234 hard-edge failure diagnosis：840-899 上 hard variants 的 region ORB deltas 为 [1070, 1300]，boundary-band ORB deltas 为 [2912, 5377]。</p>
+<p>正确解释应保持很窄：hard black confidence/coverage gating 有已记录的 boundary-feature failure mode，P235/P237/P240 soft-boundary candidate 在多个短窗口上获得 expanded but mixed bounded support。P240 是 diagnostic self-supervision，不是 independent human-label validation。它不是 full dynamic-SLAM benchmark、navigation gain、independent-label validation 或 learned map-admission result。</p>
 <hr />
 <h2 id="_10">七、实验协议</h2>
 <h3 id="a_3">七.A. 对象维护协议</h3>
@@ -335,6 +336,11 @@
 <td>P237</td>
 <td>三个新 Aisle_CW 窗口和一个 Aisle_CCW 窗口上的 soft-boundary candidate 验证</td>
 <td>扩展的有界前端模块支持；不改变声明边界。</td>
+</tr>
+<tr>
+<td>P239-P240</td>
+<td>independent-label packet 准备和 self-supervised consistency diagnostics</td>
+<td>P239 没有收集标签；P240 是 mixed diagnostic support，不解锁 P195。</td>
 </tr>
 </tbody>
 </table>
@@ -495,7 +501,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="e-p217-p237">八.E. 动态掩码前端结果（P217-P237）</h3>
+<h3 id="e-p217-p240">八.E. 动态掩码前端结果（P217-P240）</h3>
 <table>
 <thead>
 <tr>
@@ -560,13 +566,18 @@
 <td>新窗口：Aisle_CW 240-299 ORB 218 -&gt; 41，Aisle_CW 660-719 ORB 41 -&gt; 0，Aisle_CW 960-1019 ORB 27 -&gt; 0，Aisle_CCW 240-299 ORB 81 -&gt; 4；均 total delta 0；DROID 16f 4/4 neutral；代表性 60f neutral</td>
 <td>覆盖更多短窗口和一个 nearby sequence 的 expanded bounded frontend-module support；不声明 full benchmark 或 navigation。</td>
 </tr>
+<tr>
+<td>P240 self-supervised consistency</td>
+<td>status <code>mixed_self_supervised_support</code>；3/5 窗口通过全部 support flags；840-899 和 120-179 有 temporal/ORB 支持但未通过 motion/frame-difference enrichment；hard-mask 对照显示 region ORB deltas [1070, 1300] 和 boundary-band deltas [2912, 5377]</td>
+<td>对 failure-driven soft-boundary design 的 mixed diagnostic support；不是 independent labels，不解锁 P195。</td>
+</tr>
 </tbody>
 </table>
 <hr />
 <h2 id="_12">九、失败与边界分析</h2>
 <h3 id="a-slam_1">九.A. 为什么早期动态 SLAM 轨迹中性</h3>
 <p>P135-P143 显示，现有 TorWIC Aisle 窗口中的叉车 mask 面积太小，最大每帧覆盖 1.39%，不足以显著影响 DROID-SLAM APE/RPE。DROID-SLAM 内部 flow consistency 也可能已经抑制了小动态异常。该结果是负结果边界，不是管线失败。</p>
-<h3 id="b-p225-p237">九.B. P225-P237 边界</h3>
+<h3 id="b-p225-p240">九.B. P225-P240 边界</h3>
 <table>
 <thead>
 <tr>
@@ -603,9 +614,13 @@
 <td>ORB predicted/gated-region suppression</td>
 <td>proxy 支持，hard-boundary 失败模式已记录，P235/P237 候选有扩展的有界支持</td>
 </tr>
+<tr>
+<td>Self-supervised soft-boundary consistency</td>
+<td>仅 mixed diagnostic support：3/5 窗口通过全部 flags，840-899 和 120-179 未通过 motion/frame-difference enrichment 阈值</td>
+</tr>
 </tbody>
 </table>
-<p>正确声明是有界前端 smoke：learned、hard-gated 和 soft-boundary masks 可以在短工业窗口上生成，通过 DROID-SLAM 执行，并用于诊断预测动态区域中的 ORB 特征行为。hard black gate 不能升级为 multi-window support；P235/P237 soft-boundary candidate 仍需更广序列覆盖和独立标签。</p>
+<p>正确声明是有界前端 smoke：learned、hard-gated 和 soft-boundary masks 可以在短工业窗口上生成，通过 DROID-SLAM 执行，并用于诊断预测动态区域中的 ORB 特征行为。hard black gate 不能升级为 multi-window support；P235/P237/P240 soft-boundary candidate 仍需更广序列覆盖和独立标签。</p>
 <h3 id="c_4">九.C. 对象维护失败模式</h3>
 <p>稳定对象若只出现一次或帧数太少，可能被保守拒绝。开放词汇标签碎片化可能导致真实对象被拒绝。基于空间 IoU 的关联在强视角变化或对象移动下可能失败。这些失败模式保留在审计记录中，可随新证据重新评估。</p>
 <hr />
@@ -626,14 +641,14 @@
 <li>规则关联可能失败；空间 IoU 和标签匹配在大视角变化、遮挡、对象移动下可能脆弱。</li>
 <li>依赖开放词汇前端；Grounding DINO [7]、SAM2 [8]、OpenCLIP [9] 的错误会进入观测记录。</li>
 <li>动态掩码监督不是独立 GT；P217-P220 使用语义 mask 监督动态标签。</li>
-<li>P225-P237 是有界 smoke；Oct. 12, 2022 Aisle_CW/Aisle_CCW 证据是短窗口受限前端检查。P233-P234 说明 hard black gating 可能因边界关键点失败，P235-P237 仍是候选 soft-boundary 证据而不是宽泛 benchmark。</li>
+<li>P225-P240 是有界 smoke 和 diagnostic tests；Oct. 12, 2022 Aisle_CW/Aisle_CCW 证据是短窗口受限前端检查。P233-P234 说明 hard black gating 可能因边界关键点失败，P235-P240 仍是候选 soft-boundary 证据而不是宽泛 benchmark。P240 是 mixed self-supervised support，不是 independent-label validation。</li>
 <li>P195 仍 BLOCKED；当前工作没有解决 learned persistent-map admission。</li>
 <li>目标期刊格式、引用细节和仓库路径政策仍待定。</li>
 </ol>
 <hr />
 <h2 id="_15">十二、结论</h2>
 <p>本文给出了动态工业语义分割辅助 SLAM 的厚稿整理版。主贡献是会话级对象准入控制层，它将开放词汇 RGB-D 感知结果转换为可审计的 map-object 决策。在 TorWIC 上，该层在 Aisle 和 Hallway 协议中保留稳定基础设施，并一致拒绝叉车类动态污染。</p>
-<p>本文还整合了 P217-P237 动态掩码前端证据。compact learned mask、60 帧 learned-mask package、DROID raw-vs-masked reproduction、P228 confidence/coverage gate、P233-P234 hard-boundary 失败诊断和 P235-P237 soft-boundary candidate 形成一个有界前端故事：hard black gate 在原始窗口能降低 ORB 数量，但在回归窗口会制造边界关键点；mean-fill feathering 在有界 smoke 中移除了该观测回归，并在四个额外短窗口中保持 ORB-positive。该结果增强了论文的动态场景 SLAM 语境，但不越界为宽泛评测、导航、独立 GT 或 learned map-admission 声明。</p>
+<p>本文还整合了 P217-P240 动态掩码前端证据。compact learned mask、60 帧 learned-mask package、DROID raw-vs-masked reproduction、P228 confidence/coverage gate、P233-P234 hard-boundary 失败诊断、P235-P237 soft-boundary candidate 和 P240 mixed self-supervised consistency check 形成一个有界前端故事：hard black gate 在原始窗口能降低 ORB 数量，但在回归窗口会制造边界关键点；mean-fill feathering 在有界 smoke 中移除了该观测回归，并在四个额外短窗口中保持 ORB-positive。P240 只把该设计支撑为 mixed diagnostic module result，不是 independent ground truth。该结果增强了论文的动态场景 SLAM 语境，但不越界为宽泛评测、导航、独立 GT 或 learned map-admission 声明。</p>
 <hr />
 <h2 id="_16">参考文献</h2>
 <p>[1] C. Cadena, L. Carlone, H. Carrillo, Y. Latif, D. Scaramuzza, J. Neira, I. Reid, and J. J. Leonard, &ldquo;Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age,&rdquo; <em>IEEE Trans. Robot.</em>, vol. 32, no. 6, pp. 1309-1332, 2016. DOI: 10.1109/TRO.2016.2624754.</p>
@@ -653,9 +668,9 @@
 <p><strong>表 2. 地图准入准则。</strong> 多会话出现、最小支持、标签一致性、静态占优、最小帧数。</p>
 <p><strong>表 3. 拒绝原因。</strong> dynamic_contamination 16、single_session_or_low_session_support 13、label_fragmentation 3、low_support 2。</p>
 <p><strong>表 4. 准入准则防御。</strong> P154 消融、P155 baseline、P156 可视化、P157 类别保留/拒绝。</p>
-<p><strong>表 5. 动态掩码前端证据。</strong> P217-P237 数据集、模型、ORB proxy、learned-mask sequence、DROID baseline、hard confidence/coverage gate、multi-window failure 证据和扩展 soft-boundary candidate validation。</p>
-<p><strong>表 6. P225-P237 有界 DROID smoke。</strong> P227 learned-mask baseline、P228 confidence/coverage-gated module、P233-P234 hard-gate failure evidence 和 P235-P237 soft-boundary candidate evidence。按轨迹中性和 ORB proxy diagnostics 报告，不作为 navigation 或 full-benchmark claim。</p>
-<p><strong>图 1-16.</strong> 图像路径沿用英文稿：<code>paper/figures/torwic_*</code>。P225-P238 证据见 <code>paper/export/temporal_masked_sequence_p225.md</code>、<code>paper/export/p225_baseline_reproduction_p227.md</code>、<code>paper/export/confidence_gated_mask_module_p228.md</code>、<code>paper/export/p228_paper_story_results.md</code>、<code>paper/export/gated_mask_multi_window_p233.md</code>、<code>paper/export/gated_mask_failure_sweep_p234.md</code>、<code>paper/export/soft_boundary_mask_p235.md</code>、<code>paper/export/soft_boundary_multiwindow_p237.md</code>、<code>paper/export/thick_results_lock_p238.md</code>。</p>
+<p><strong>表 5. 动态掩码前端证据。</strong> P217-P240 数据集、模型、ORB proxy、learned-mask sequence、DROID baseline、hard confidence/coverage gate、multi-window failure 证据、扩展 soft-boundary candidate validation 和 mixed self-supervised consistency diagnostics。</p>
+<p><strong>表 6. P225-P240 有界 DROID smoke 和 diagnostics。</strong> P227 learned-mask baseline、P228 confidence/coverage-gated module、P233-P234 hard-gate failure evidence、P235-P237 soft-boundary candidate evidence 和 P240 self-supervised consistency evidence。按轨迹中性和 ORB proxy diagnostics 报告，不作为 navigation、independent-label 或 full-benchmark claim。</p>
+<p><strong>图 1-16.</strong> 图像路径沿用英文稿：<code>paper/figures/torwic_*</code>。P225-P241 证据见 <code>paper/export/temporal_masked_sequence_p225.md</code>、<code>paper/export/p225_baseline_reproduction_p227.md</code>、<code>paper/export/confidence_gated_mask_module_p228.md</code>、<code>paper/export/p228_paper_story_results.md</code>、<code>paper/export/gated_mask_multi_window_p233.md</code>、<code>paper/export/gated_mask_failure_sweep_p234.md</code>、<code>paper/export/soft_boundary_mask_p235.md</code>、<code>paper/export/soft_boundary_multiwindow_p237.md</code>、<code>paper/export/soft_boundary_consistency_p240.md</code>、<code>paper/export/thick_results_lock_p241.md</code>。</p>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]});"></script>
 </body>
