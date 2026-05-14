@@ -6,7 +6,7 @@
 <title>P248 手机端动态区域标注页面</title>
 <style>
 :root{--bg:#f5f7fa;--panel:#ffffff;--ink:#172033;--muted:#5d6878;--line:#d7dee8;--accent:#2157a6;--accent-soft:#e8f0fe;--danger:#9f1d1d;--ok:#1f7a4d;--shadow:0 1px 3px rgba(15,23,42,.08)}
-*{box-sizing:border-box}html,body{margin:0;min-width:0;overflow-x:hidden}body{font-family:Arial,"Noto Sans SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.45;padding-bottom:calc(76px + env(safe-area-inset-bottom))}button,input,textarea,select{font:inherit}button,select,input[type=text],textarea{border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}button{min-height:44px;padding:10px 14px;cursor:pointer}button.primary{background:var(--accent);border-color:var(--accent);color:#fff}button.selected{background:var(--accent-soft);border-color:var(--accent);color:#123c78;font-weight:700}button.danger{color:var(--danger)}header{position:sticky;top:0;z-index:30;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 12px;box-shadow:var(--shadow)}.header-row{display:flex;align-items:center;justify-content:space-between;gap:10px}h1{font-size:18px;margin:0;line-height:1.2}#progressText{font-size:14px;color:var(--muted);white-space:nowrap}.top-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.page{width:100%;max-width:980px;margin:0 auto;padding:12px}details{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:12px;box-shadow:var(--shadow)}summary{min-height:44px;display:flex;align-items:center;padding:10px 12px;font-weight:700;cursor:pointer}.details-body{padding:0 12px 12px;color:var(--muted)}.details-body ol{margin:6px 0 0 20px;padding:0}.details-body li{margin:6px 0}.notice{color:var(--danger)}.sample-card,.viewer-card,.form-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:12px;padding:12px;box-shadow:var(--shadow)}.sample-controls{display:grid;grid-template-columns:44px 1fr 44px;gap:8px;align-items:center}.sample-controls button{padding:0;font-size:20px}#sampleSelect{width:100%;min-height:44px;padding:8px 10px}#sampleTitle{font-size:17px;margin:0 0 6px;word-break:break-word}.metadata{font-size:13px;color:var(--muted);word-break:break-word}.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.tabs button{padding:8px 6px;font-size:14px}.diagnostics{border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px;margin:8px 0 10px;font-size:13px;color:var(--muted);word-break:break-word}.diagnostics.fail,.asset-fallback{color:var(--danger);border-color:var(--danger);background:#fff5f5;white-space:pre-wrap}.image-card h3{font-size:15px;margin:0 0 8px}.image-frame{background:#111;border-radius:8px;overflow:hidden}#mainImage{width:100%;max-height:52vh;object-fit:contain;display:block;cursor:zoom-in}.hint{font-size:13px;color:var(--muted);margin-top:8px;word-break:break-word}.form-card h2{font-size:16px;margin:0 0 10px}.field{border-top:1px solid var(--line);padding:12px 0}.field:first-of-type{border-top:0;padding-top:0}.field label{display:block;font-weight:700;margin-bottom:8px}.field small{display:block;color:var(--muted);font-weight:400;margin-top:2px}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.choices button{width:100%;text-align:center;min-height:46px;padding:8px 10px}.wide-choices{grid-template-columns:1fr}input[type=text],textarea{width:100%;min-height:44px;padding:10px 12px}textarea{min-height:96px;resize:vertical}.advanced-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.advanced-actions .full{grid-column:1/-1}.import-box{min-height:120px}.bottom-bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.96);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr 1fr 1.2fr;gap:8px;box-shadow:0 -2px 10px rgba(15,23,42,.08)}.bottom-bar button{padding:8px 6px;min-height:48px}dialog{border:0;padding:0;max-width:98vw;max-height:96vh;background:#000;border-radius:8px}dialog img{max-width:98vw;max-height:88vh;display:block}dialog form{text-align:right;background:#111;padding:8px}dialog button{color:#fff;background:#222;border-color:#555}@media(min-width:760px){body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}.page{padding:16px}.top-actions{display:flex;flex-wrap:wrap}.sample-controls{grid-template-columns:120px 1fr 120px}.sample-controls button{font-size:16px}.choices{grid-template-columns:repeat(3,minmax(0,1fr))}#mainImage{max-height:55vh}}@media(max-width:380px){.tabs button{font-size:13px;padding-left:4px;padding-right:4px}.bottom-bar{gap:6px;padding-left:6px;padding-right:6px}.bottom-bar button{font-size:14px}}
+*{box-sizing:border-box}html,body{margin:0;min-width:0;overflow-x:hidden}body{font-family:Arial,"Noto Sans SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.45;padding-bottom:calc(76px + env(safe-area-inset-bottom))}button,input,textarea,select{font:inherit}button,select,input[type=text],textarea{border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}button{min-height:44px;padding:10px 14px;cursor:pointer}button.primary{background:var(--accent);border-color:var(--accent);color:#fff}button.selected{background:var(--accent-soft);border-color:var(--accent);color:#123c78;font-weight:700}button.danger{color:var(--danger)}header{position:sticky;top:0;z-index:30;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 12px;box-shadow:var(--shadow)}.header-row{display:flex;align-items:center;justify-content:space-between;gap:10px}h1{font-size:18px;margin:0;line-height:1.2}#progressText{font-size:14px;color:var(--muted);white-space:nowrap}.top-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.page{width:100%;max-width:980px;margin:0 auto;padding:12px}details{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:12px;box-shadow:var(--shadow)}summary{min-height:44px;display:flex;align-items:center;padding:10px 12px;font-weight:700;cursor:pointer}.details-body{padding:0 12px 12px;color:var(--muted)}.details-body ol{margin:6px 0 0 20px;padding:0}.details-body li{margin:6px 0}.help-guide h2{font-size:16px;margin:14px 0 6px;color:var(--ink)}.help-guide p{margin:6px 0}.help-guide ul{margin:6px 0 0 20px;padding:0}.help-guide dl{margin:6px 0}.help-guide dt{font-weight:700;color:var(--ink);margin-top:10px}.help-guide dd{margin:4px 0 8px 0}.notice{color:var(--danger)}.sample-card,.viewer-card,.form-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:12px;padding:12px;box-shadow:var(--shadow)}.sample-controls{display:grid;grid-template-columns:44px 1fr 44px;gap:8px;align-items:center}.sample-controls button{padding:0;font-size:20px}#sampleSelect{width:100%;min-height:44px;padding:8px 10px}#sampleTitle{font-size:17px;margin:0 0 6px;word-break:break-word}.metadata{font-size:13px;color:var(--muted);word-break:break-word}.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.tabs button{padding:8px 6px;font-size:14px}.diagnostics{border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px;margin:8px 0 10px;font-size:13px;color:var(--muted);word-break:break-word}.diagnostics.fail,.asset-fallback{color:var(--danger);border-color:var(--danger);background:#fff5f5;white-space:pre-wrap}.image-card h3{font-size:15px;margin:0 0 8px}.image-frame{background:#111;border-radius:8px;overflow:hidden}#mainImage{width:100%;max-height:52vh;object-fit:contain;display:block;cursor:zoom-in}.hint{font-size:13px;color:var(--muted);margin-top:8px;word-break:break-word}.form-card h2{font-size:16px;margin:0 0 10px}.field{border-top:1px solid var(--line);padding:12px 0}.field:first-of-type{border-top:0;padding-top:0}.field label{display:block;font-weight:700;margin-bottom:8px}.field small{display:block;color:var(--muted);font-weight:400;margin-top:2px}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.choices button{width:100%;text-align:center;min-height:46px;padding:8px 10px}.wide-choices{grid-template-columns:1fr}input[type=text],textarea{width:100%;min-height:44px;padding:10px 12px}textarea{min-height:96px;resize:vertical}.advanced-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.advanced-actions .full{grid-column:1/-1}.import-box{min-height:120px}.bottom-bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.96);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr 1fr 1.2fr;gap:8px;box-shadow:0 -2px 10px rgba(15,23,42,.08)}.bottom-bar button{padding:8px 6px;min-height:48px}dialog{border:0;padding:0;max-width:98vw;max-height:96vh;background:#000;border-radius:8px}dialog img{max-width:98vw;max-height:88vh;display:block}dialog form{text-align:right;background:#111;padding:8px}dialog button{color:#fff;background:#222;border-color:#555}@media(min-width:760px){body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}.page{padding:16px}.top-actions{display:flex;flex-wrap:wrap}.sample-controls{grid-template-columns:120px 1fr 120px}.sample-controls button{font-size:16px}.choices{grid-template-columns:repeat(3,minmax(0,1fr))}#mainImage{max-height:55vh}}@media(max-width:380px){.tabs button{font-size:13px;padding-left:4px;padding-right:4px}.bottom-bar{gap:6px;padding-left:6px;padding-right:6px}.bottom-bar button{font-size:14px}}
 </style>
 </head>
 <body>
@@ -15,15 +15,64 @@
   <div class="top-actions"><button id="prevBtn">上一条</button><button id="nextBtn">下一条</button></div>
 </header>
 <div class="page">
-  <details>
-    <summary>怎么标注 / 边界说明</summary>
-    <div class="details-body">
+  <details open>
+    <summary>详细标注指南 / 边界说明</summary>
+    <div class="details-body help-guide">
+      <h2>标注目标</h2>
+      <p>本页面用于人工判断每个样本中是否存在需要关注的动态区域或疑似动态区域，并记录模型 overlay 是否有误报、漏报。请只根据当前样本可见内容填写，不要查看 admission labels 或其他会影响独立判断的信息。</p>
+      <p class="notice">P195 仍为 BLOCKED：导出的非空标签必须经过覆盖率、冲突和独立性审计后才能使用。</p>
+
+      <h2>先看什么</h2>
+      <ul>
+        <li><strong>Raw 原图是主要依据。</strong>先用 Raw 判断画面里是否真的有动态或临时物体。</li>
+        <li><strong>Probability / Soft mask / Crop 只是帮助定位。</strong>它们来自模型或裁剪，不是真值，不要因为 overlay 有颜色就直接判定为动态。</li>
+        <li>如果 Raw 看不清、遮挡严重、反光明显或画面模糊，优先选择 uncertain / low，并在 reviewer_notes 写明原因，不要硬猜。</li>
+      </ul>
+
+      <h2>推荐标注流程</h2>
       <ol>
-        <li>先看 Raw 原图；Probability、Soft mask、Crop 只作辅助参考，不是真值。</li>
-        <li>逐个样本判断是否存在动态区域，并填写存在性、类型、边界质量、误检/漏检、置信度和备注。</li>
-        <li>页面会自动保存到本浏览器 localStorage；标完后导出 CSV 或 JSON，发回给审计。</li>
-        <li class="notice">不要查看 admission labels。P195 仍为 BLOCKED；导出标签必须经过覆盖率、冲突和独立性审计后才能使用。</li>
+        <li>先看 Raw 原图，判断是否有明显动态区域或临时物体。</li>
+        <li>切到 Probability 和 Soft mask，看 overlay 标到哪里，只把它当作定位参考。</li>
+        <li>查看 Crop，确认局部区域是否支持你的判断。</li>
+        <li>填写 dynamic_region_present 和 dynamic_region_type。</li>
+        <li>评估 boundary_quality，并判断 false_positive_region / false_negative_region。</li>
+        <li>选择 label_confidence；有任何不确定就在 reviewer_notes 写原因。</li>
+        <li>点“保存”或直接“下一条”；全部完成后点底部“导出 CSV”，把文件发回审计。</li>
       </ol>
+
+      <h2>字段怎么填</h2>
+      <dl>
+        <dt>dynamic_region_present</dt>
+        <dd><strong>yes</strong>：Raw 原图中能看到明确的动态区域、移动物体、临时物体或明显不稳定区域。<br><strong>no</strong>：Raw 原图中看不到动态区域，overlay 只是落在墙、地面、货架等固定结构上。<br><strong>uncertain</strong>：看不清、被遮挡、反光强、模糊、区域太小，无法可靠判断。</dd>
+
+        <dt>dynamic_region_type</dt>
+        <dd><strong>moving_object</strong>：人、车、搬运设备、移动货物等明显会移动或临时出现的对象。<br><strong>static_structure</strong>：墙、地面、柱子、货架、固定设备等静态结构；如果 overlay 主要覆盖这些，通常不是动态目标。<br><strong>reflection</strong>：反光、玻璃/金属高光、镜面造成的疑似区域。<br><strong>shadow</strong>：阴影、光照变化造成的疑似区域。<br><strong>unknown</strong>：能看到异常区域，但无法判断具体类型。<br><strong>not_applicable</strong>：dynamic_region_present 为 no，或确实没有可分类的动态区域。</dd>
+
+        <dt>boundary_quality</dt>
+        <dd><strong>good</strong>：overlay 边界大体贴合目标，少量误差不影响判断。<br><strong>acceptable</strong>：overlay 覆盖到目标的一部分，或边界有偏移但仍能作为参考。<br><strong>poor</strong>：overlay 明显偏离目标、覆盖错误区域，或边界质量很差。<br><strong>not_applicable</strong>：没有动态区域，或没有可评估的 overlay 边界。</dd>
+
+        <dt>false_positive_region</dt>
+        <dd>如果模型标了区域，但 Raw 原图看起来不像动态/目标区域，例如只覆盖墙、地面、固定结构、反光或阴影，选 <strong>yes</strong>。如果没有这种误报，选 <strong>no</strong>；拿不准选 <strong>uncertain</strong>。</dd>
+
+        <dt>false_negative_region</dt>
+        <dd>如果 Raw 原图有明显动态区域，但 Probability/Soft mask 没覆盖或明显漏掉，选 <strong>yes</strong>。如果没有明显漏报，选 <strong>no</strong>；拿不准选 <strong>uncertain</strong>。</dd>
+
+        <dt>label_confidence</dt>
+        <dd><strong>high</strong>：Raw 和辅助图都支持同一判断，很确定。<br><strong>medium</strong>：基本能判断，但存在轻微遮挡、边界偏差或局部不清楚。<br><strong>low</strong>：看不清、反光/模糊严重、目标太小或判断依据不足。</dd>
+
+        <dt>reviewer_notes</dt>
+        <dd>把不确定、遮挡、看不清、疑似反光、疑似阴影、边界偏移、overlay 明显误标/漏标等原因写在这里。写短句即可，例如“反光严重，无法确认是否为动态物体”。</dd>
+      </dl>
+
+      <h2>常见情况</h2>
+      <ul>
+        <li><strong>明显移动/临时物体：</strong>dynamic_region_present 选 yes，dynamic_region_type 选 moving_object，label_confidence 选 high；如果 overlay 贴合，boundary_quality 可选 good。</li>
+        <li><strong>overlay 只覆盖墙/地面/固定结构：</strong>dynamic_region_present 通常选 no，或 type 选 static_structure；false_positive_region 选 yes；boundary_quality 通常选 poor 或 not_applicable。</li>
+        <li><strong>看不清/反光/模糊：</strong>dynamic_region_present 选 uncertain，label_confidence 选 low，并在 reviewer_notes 写“反光强”“画面模糊”“遮挡严重”等原因。</li>
+      </ul>
+
+      <h2>导出后怎么做</h2>
+      <p>页面会自动保存当前浏览器里的填写内容。完成全部样本后，点击底部“导出 CSV”；如果审计方要求 JSON，也可以在“导出 / 导入高级功能”里导出 JSON。把导出的文件发回给审计，不要自行修改字段名或删列。</p>
     </div>
   </details>
   <section class="sample-card">
